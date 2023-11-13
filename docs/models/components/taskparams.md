@@ -1,0 +1,15 @@
+# TaskParams
+
+Parameters of the task
+
+
+## Fields
+
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `Upload`                                                                                  | [*components.TaskSchemasUploadOutput](../../models/components/taskschemasuploadoutput.md) | :heavy_minus_sign:                                                                        | Parameters for the upload task                                                            |
+| `Import`                                                                                  | [*components.UploadOutput1](../../models/components/uploadoutput1.md)                     | :heavy_minus_sign:                                                                        | Parameters for the upload task                                                            |
+| `Export`                                                                                  | [*components.ExportTaskParams](../../models/components/exporttaskparams.md)               | :heavy_minus_sign:                                                                        | Parameters for the export task                                                            |
+| `ExportData`                                                                              | [*components.ExportData](../../models/components/exportdata.md)                           | :heavy_minus_sign:                                                                        | Parameters for the export-data task                                                       |
+| `Transcode`                                                                               | [*components.Transcode](../../models/components/transcode.md)                             | :heavy_minus_sign:                                                                        | Parameters for the transcode task                                                         |
+| `TranscodeFile`                                                                           | [*components.TranscodeFile](../../models/components/transcodefile.md)                     | :heavy_minus_sign:                                                                        | Parameters for the transcode-file task                                                    |

@@ -1,0 +1,11 @@
+# Meta
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `Live`                                                                           | **float64*                                                                       | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `PlaybackPolicy`                                                                 | [*components.PlaybackPolicy](../../models/components/playbackpolicy.md)          | :heavy_minus_sign:                                                               | Whether the playback policy for a asset or stream is public or signed            |
+| `Source`                                                                         | [][components.PlaybackInfoSource](../../models/components/playbackinfosource.md) | :heavy_check_mark:                                                               | N/A                                                                              |
+| `Attestation`                                                                    | [*components.Attestation](../../models/components/attestation.md)                | :heavy_minus_sign:                                                               | N/A                                                                              |
