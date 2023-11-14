@@ -25,8 +25,8 @@ func newTask(sdkConfig sdkConfiguration) *Task {
 	}
 }
 
-// GetTasks - Retrieve Tasks
-func (s *Task) GetTasks(ctx context.Context) (*operations.GetTasksResponse, error) {
+// GetAll - Retrieve Tasks
+func (s *Task) GetAll(ctx context.Context) (*operations.GetTasksResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/task"
 
@@ -83,8 +83,8 @@ func (s *Task) GetTasks(ctx context.Context) (*operations.GetTasksResponse, erro
 	return res, nil
 }
 
-// GetTask - Retrieve a Task
-func (s *Task) GetTask(ctx context.Context, taskID string) (*operations.GetTaskResponse, error) {
+// Get - Retrieve a Task
+func (s *Task) Get(ctx context.Context, taskID string) (*operations.GetTaskResponse, error) {
 	request := operations.GetTaskRequest{
 		TaskID: taskID,
 	}

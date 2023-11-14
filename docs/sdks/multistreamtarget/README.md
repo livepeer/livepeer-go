@@ -3,13 +3,13 @@
 
 ### Available Operations
 
-* [GetMultistreamTargets](#getmultistreamtargets) - Retrieve Multistream Targets
-* [CreateMultistreamTarget](#createmultistreamtarget) - Create a multistream target
-* [DeleteMultistreamTarget](#deletemultistreamtarget) - Delete a multistream target
-* [GetMultistreamTarget](#getmultistreamtarget) - Retrieve a multistream target
-* [UpdateMultistreamTarget](#updatemultistreamtarget) - Update Multistream Target
+* [GetAll](#getall) - Retrieve Multistream Targets
+* [Create](#create) - Create a multistream target
+* [Delete](#delete) - Delete a multistream target
+* [Get](#get) - Retrieve a multistream target
+* [Update](#update) - Update Multistream Target
 
-## GetMultistreamTargets
+## GetAll
 
 Retrieve Multistream Targets
 
@@ -31,7 +31,7 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.MultistreamTarget.GetMultistreamTargets(ctx)
+    res, err := s.MultistreamTarget.GetAll(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -56,7 +56,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## CreateMultistreamTarget
+## Create
 
 Create a multistream target
 
@@ -78,7 +78,7 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.MultistreamTarget.CreateMultistreamTarget(ctx, components.MultistreamTargetInput{
+    res, err := s.MultistreamTarget.Create(ctx, components.MultistreamTargetInput{
         Name: livepeer.String("My Multistream Target"),
         URL: "rtmps://live.my-service.tv/channel/secretKey",
     })
@@ -107,7 +107,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## DeleteMultistreamTarget
+## Delete
 
 Delete a multistream target
 
@@ -132,7 +132,7 @@ func main() {
     var id string = "string"
 
     ctx := context.Background()
-    res, err := s.MultistreamTarget.DeleteMultistreamTarget(ctx, id)
+    res, err := s.MultistreamTarget.Delete(ctx, id)
     if err != nil {
         log.Fatal(err)
     }
@@ -158,7 +158,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## GetMultistreamTarget
+## Get
 
 Retrieve a multistream target
 
@@ -183,7 +183,7 @@ func main() {
     var id string = "string"
 
     ctx := context.Background()
-    res, err := s.MultistreamTarget.GetMultistreamTarget(ctx, id)
+    res, err := s.MultistreamTarget.Get(ctx, id)
     if err != nil {
         log.Fatal(err)
     }
@@ -209,7 +209,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## UpdateMultistreamTarget
+## Update
 
 Update Multistream Target
 
@@ -239,7 +239,7 @@ func main() {
     }
 
     ctx := context.Background()
-    res, err := s.MultistreamTarget.UpdateMultistreamTarget(ctx, id, multistreamTargetPatchPayload)
+    res, err := s.MultistreamTarget.Update(ctx, id, multistreamTargetPatchPayload)
     if err != nil {
         log.Fatal(err)
     }

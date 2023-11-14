@@ -25,8 +25,8 @@ func newMultistreamTarget(sdkConfig sdkConfiguration) *MultistreamTarget {
 	}
 }
 
-// GetMultistreamTargets - Retrieve Multistream Targets
-func (s *MultistreamTarget) GetMultistreamTargets(ctx context.Context) (*operations.GetMultistreamTargetsResponse, error) {
+// GetAll - Retrieve Multistream Targets
+func (s *MultistreamTarget) GetAll(ctx context.Context) (*operations.GetMultistreamTargetsResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/multistream/target"
 
@@ -83,8 +83,8 @@ func (s *MultistreamTarget) GetMultistreamTargets(ctx context.Context) (*operati
 	return res, nil
 }
 
-// CreateMultistreamTarget - Create a multistream target
-func (s *MultistreamTarget) CreateMultistreamTarget(ctx context.Context, request components.MultistreamTargetInput) (*operations.CreateMultistreamTargetResponse, error) {
+// Create a multistream target
+func (s *MultistreamTarget) Create(ctx context.Context, request components.MultistreamTargetInput) (*operations.CreateMultistreamTargetResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/multistream/target"
 
@@ -151,8 +151,8 @@ func (s *MultistreamTarget) CreateMultistreamTarget(ctx context.Context, request
 	return res, nil
 }
 
-// DeleteMultistreamTarget - Delete a multistream target
-func (s *MultistreamTarget) DeleteMultistreamTarget(ctx context.Context, id string) (*operations.DeleteMultistreamTargetResponse, error) {
+// Delete a multistream target
+func (s *MultistreamTarget) Delete(ctx context.Context, id string) (*operations.DeleteMultistreamTargetResponse, error) {
 	request := operations.DeleteMultistreamTargetRequest{
 		ID: id,
 	}
@@ -205,8 +205,8 @@ func (s *MultistreamTarget) DeleteMultistreamTarget(ctx context.Context, id stri
 	return res, nil
 }
 
-// GetMultistreamTarget - Retrieve a multistream target
-func (s *MultistreamTarget) GetMultistreamTarget(ctx context.Context, id string) (*operations.GetMultistreamTargetResponse, error) {
+// Get - Retrieve a multistream target
+func (s *MultistreamTarget) Get(ctx context.Context, id string) (*operations.GetMultistreamTargetResponse, error) {
 	request := operations.GetMultistreamTargetRequest{
 		ID: id,
 	}
@@ -270,8 +270,8 @@ func (s *MultistreamTarget) GetMultistreamTarget(ctx context.Context, id string)
 	return res, nil
 }
 
-// UpdateMultistreamTarget - Update Multistream Target
-func (s *MultistreamTarget) UpdateMultistreamTarget(ctx context.Context, id string, multistreamTargetPatchPayload components.MultistreamTargetPatchPayload) (*operations.UpdateMultistreamTargetResponse, error) {
+// Update Multistream Target
+func (s *MultistreamTarget) Update(ctx context.Context, id string, multistreamTargetPatchPayload components.MultistreamTargetPatchPayload) (*operations.UpdateMultistreamTargetResponse, error) {
 	request := operations.UpdateMultistreamTargetRequest{
 		ID:                            id,
 		MultistreamTargetPatchPayload: multistreamTargetPatchPayload,

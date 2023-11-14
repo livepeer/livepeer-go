@@ -3,10 +3,10 @@
 
 ### Available Operations
 
-* [GetTasks](#gettasks) - Retrieve Tasks
-* [GetTask](#gettask) - Retrieve a Task
+* [GetAll](#getall) - Retrieve Tasks
+* [Get](#get) - Retrieve a Task
 
-## GetTasks
+## GetAll
 
 Retrieve Tasks
 
@@ -28,7 +28,7 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Task.GetTasks(ctx)
+    res, err := s.Task.GetAll(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -53,7 +53,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## GetTask
+## Get
 
 Retrieve a Task
 
@@ -78,7 +78,7 @@ func main() {
     var taskID string = "string"
 
     ctx := context.Background()
-    res, err := s.Task.GetTask(ctx, taskID)
+    res, err := s.Task.Get(ctx, taskID)
     if err != nil {
         log.Fatal(err)
     }

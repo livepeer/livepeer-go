@@ -3,12 +3,12 @@
 
 ### Available Operations
 
-* [GetViewershipsMetrics](#getviewershipsmetrics) - Query viewership metrics
-* [GetCreatorMetrics](#getcreatormetrics) - Query creator viewership metrics
-* [GetPublicTotalViewsMetrics](#getpublictotalviewsmetrics) - Query public total views metrics
-* [GetUsageMetrics](#getusagemetrics) - Query usage metrics
+* [GetViewership](#getviewership) - Query viewership metrics
+* [GetCreatorViewership](#getcreatorviewership) - Query creator viewership metrics
+* [GetPublicTotalViews](#getpublictotalviews) - Query public total views metrics
+* [GetUsage](#getusage) - Query usage metrics
 
-## GetViewershipsMetrics
+## GetViewership
 
 Query viewership metrics
 
@@ -32,15 +32,15 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Metrics.GetViewershipsMetrics(ctx, operations.GetViewershipsMetricsRequest{
+    res, err := s.Metrics.GetViewership(ctx, operations.GetViewershipsMetricsRequest{
         From: operations.CreateFromInteger(
-        599370,
+        980301,
         ),
         To: operations.CreateToInteger(
-        750430,
+        366854,
         ),
         BreakdownBy: []operations.BreakdownBy{
-            operations.BreakdownByCountry,
+            operations.BreakdownByPlaybackID,
         },
     })
     if err != nil {
@@ -68,7 +68,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## GetCreatorMetrics
+## GetCreatorViewership
 
 Query creator viewership metrics
 
@@ -92,15 +92,15 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Metrics.GetCreatorMetrics(ctx, operations.GetCreatorMetricsRequest{
+    res, err := s.Metrics.GetCreatorViewership(ctx, operations.GetCreatorMetricsRequest{
         From: operations.CreateQueryParamFromDateTime(
-        types.MustTimeFromString("2023-01-09T08:08:10.790Z"),
+        types.MustTimeFromString("2021-06-16T23:48:30.007Z"),
         ),
-        To: operations.CreateQueryParamToDateTime(
-        types.MustTimeFromString("2021-02-11T10:47:49.402Z"),
+        To: operations.CreateQueryParamToInteger(
+        702371,
         ),
         BreakdownBy: []operations.QueryParamBreakdownBy{
-            operations.QueryParamBreakdownByContinent,
+            operations.QueryParamBreakdownByDeviceType,
         },
     })
     if err != nil {
@@ -128,7 +128,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## GetPublicTotalViewsMetrics
+## GetPublicTotalViews
 
 Query public total views metrics
 
@@ -153,7 +153,7 @@ func main() {
     var playbackID string = "string"
 
     ctx := context.Background()
-    res, err := s.Metrics.GetPublicTotalViewsMetrics(ctx, playbackID)
+    res, err := s.Metrics.GetPublicTotalViews(ctx, playbackID)
     if err != nil {
         log.Fatal(err)
     }
@@ -179,7 +179,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## GetUsageMetrics
+## GetUsage
 
 Query usage metrics
 
@@ -202,16 +202,16 @@ func main() {
     )
 
 
-    var from *int64 = 169019
+    var from *int64 = 224089
 
-    var to *int64 = 623790
+    var to *int64 = 231125
 
-    var timeStep *operations.GetUsageMetricsQueryParamTimeStep = operations.GetUsageMetricsQueryParamTimeStepHour
+    var timeStep *operations.GetUsageMetricsQueryParamTimeStep = operations.GetUsageMetricsQueryParamTimeStepDay
 
     var creatorID *string = "string"
 
     ctx := context.Background()
-    res, err := s.Metrics.GetUsageMetrics(ctx, from, to, timeStep, creatorID)
+    res, err := s.Metrics.GetUsage(ctx, from, to, timeStep, creatorID)
     if err != nil {
         log.Fatal(err)
     }

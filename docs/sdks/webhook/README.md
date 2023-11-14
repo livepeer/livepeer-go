@@ -3,13 +3,13 @@
 
 ### Available Operations
 
-* [GetWebhooks](#getwebhooks) - Retrieve a Webhook
-* [CreateWebhook](#createwebhook) - Create a webhook
-* [DeleteWebhook](#deletewebhook) - Delete a webhook
-* [GetWebhook](#getwebhook) - Retrieve a webhook
-* [UpdateWebhook](#updatewebhook) - Update a webhook
+* [GetAll](#getall) - Retrieve a Webhook
+* [Create](#create) - Create a webhook
+* [Delete](#delete) - Delete a webhook
+* [Get](#get) - Retrieve a webhook
+* [Update](#update) - Update a webhook
 
-## GetWebhooks
+## GetAll
 
 Retrieve a Webhook
 
@@ -31,7 +31,7 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Webhook.GetWebhooks(ctx)
+    res, err := s.Webhook.GetAll(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -56,7 +56,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## CreateWebhook
+## Create
 
 Create a webhook
 
@@ -78,7 +78,7 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Webhook.CreateWebhook(ctx)
+    res, err := s.Webhook.Create(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -103,7 +103,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## DeleteWebhook
+## Delete
 
 Delete a webhook
 
@@ -128,7 +128,7 @@ func main() {
     var id string = "string"
 
     ctx := context.Background()
-    res, err := s.Webhook.DeleteWebhook(ctx, id)
+    res, err := s.Webhook.Delete(ctx, id)
     if err != nil {
         log.Fatal(err)
     }
@@ -154,7 +154,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## GetWebhook
+## Get
 
 Retrieve a webhook
 
@@ -179,7 +179,7 @@ func main() {
     var id string = "string"
 
     ctx := context.Background()
-    res, err := s.Webhook.GetWebhook(ctx, id)
+    res, err := s.Webhook.Get(ctx, id)
     if err != nil {
         log.Fatal(err)
     }
@@ -205,7 +205,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## UpdateWebhook
+## Update
 
 Update a webhook
 
@@ -230,7 +230,7 @@ func main() {
     var id string = "string"
 
     ctx := context.Background()
-    res, err := s.Webhook.UpdateWebhook(ctx, id)
+    res, err := s.Webhook.Update(ctx, id)
     if err != nil {
         log.Fatal(err)
     }

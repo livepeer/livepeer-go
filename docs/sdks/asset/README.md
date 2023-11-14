@@ -3,14 +3,14 @@
 
 ### Available Operations
 
-* [GetAssets](#getassets) - Retrieve assets
-* [RequestUpload](#requestupload) - Upload an asset
-* [UploadAssetViaURL](#uploadassetviaurl) - Upload asset via URL
-* [DeleteAsset](#deleteasset) - Delete an asset
-* [GetAsset](#getasset) - Retrieves an asset
-* [PatchAssetAssetID](#patchassetassetid) - Update an asset
+* [GetAll](#getall) - Retrieve assets
+* [Create](#create) - Upload an asset
+* [CreateViaURL](#createviaurl) - Upload asset via URL
+* [Delete](#delete) - Delete an asset
+* [Get](#get) - Retrieves an asset
+* [Update](#update) - Update an asset
 
-## GetAssets
+## GetAll
 
 Retrieve assets
 
@@ -32,7 +32,7 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Asset.GetAssets(ctx)
+    res, err := s.Asset.GetAll(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -57,7 +57,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## RequestUpload
+## Create
 
 Upload an asset
 
@@ -79,11 +79,11 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Asset.RequestUpload(ctx, components.NewAssetPayload{
+    res, err := s.Asset.Create(ctx, components.NewAssetPayload{
         Name: "filename.mp4",
         StaticMp4: livepeer.Bool(true),
         PlaybackPolicy: &components.PlaybackPolicy{
-            Type: components.TypeWebhook,
+            Type: components.TypeJwt,
             WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
             WebhookContext: map[string]interface{}{
                 "foo": "string",
@@ -132,7 +132,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## UploadAssetViaURL
+## CreateViaURL
 
 Upload asset via URL
 
@@ -154,11 +154,11 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Asset.UploadAssetViaURL(ctx, components.NewAssetPayload{
+    res, err := s.Asset.CreateViaURL(ctx, components.NewAssetPayload{
         Name: "filename.mp4",
         StaticMp4: livepeer.Bool(true),
         PlaybackPolicy: &components.PlaybackPolicy{
-            Type: components.TypeJwt,
+            Type: components.TypeWebhook,
             WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
             WebhookContext: map[string]interface{}{
                 "foo": "string",
@@ -206,7 +206,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## DeleteAsset
+## Delete
 
 Delete an asset
 
@@ -231,7 +231,7 @@ func main() {
     var assetID string = "string"
 
     ctx := context.Background()
-    res, err := s.Asset.DeleteAsset(ctx, assetID)
+    res, err := s.Asset.Delete(ctx, assetID)
     if err != nil {
         log.Fatal(err)
     }
@@ -257,7 +257,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## GetAsset
+## Get
 
 Retrieves an asset
 
@@ -282,7 +282,7 @@ func main() {
     var assetID string = "string"
 
     ctx := context.Background()
-    res, err := s.Asset.GetAsset(ctx, assetID)
+    res, err := s.Asset.Get(ctx, assetID)
     if err != nil {
         log.Fatal(err)
     }
@@ -308,7 +308,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## PatchAssetAssetID
+## Update
 
 Update an asset
 
@@ -338,25 +338,21 @@ func main() {
         "string",
         ),
         PlaybackPolicy: &components.PlaybackPolicy{
-            Type: components.TypeWebhook,
+            Type: components.TypePublic,
             WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
             WebhookContext: map[string]interface{}{
                 "foo": "string",
             },
         },
         Storage: &components.Storage{
-            Ipfs: components.CreateIpfsOne(
-                    components.One{
-                        Spec: &components.Spec{
-                            NftMetadata: &components.SpecNftMetadata{},
-                        },
-                    },
+            Ipfs: components.CreateIpfsBoolean(
+            false,
             ),
         },
     }
 
     ctx := context.Background()
-    res, err := s.Asset.PatchAssetAssetID(ctx, assetID, assetPatchPayload)
+    res, err := s.Asset.Update(ctx, assetID, assetPatchPayload)
     if err != nil {
         log.Fatal(err)
     }

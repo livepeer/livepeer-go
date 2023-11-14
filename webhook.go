@@ -25,8 +25,8 @@ func newWebhook(sdkConfig sdkConfiguration) *Webhook {
 	}
 }
 
-// GetWebhooks - Retrieve a Webhook
-func (s *Webhook) GetWebhooks(ctx context.Context) (*operations.GetWebhooksResponse, error) {
+// GetAll - Retrieve a Webhook
+func (s *Webhook) GetAll(ctx context.Context) (*operations.GetWebhooksResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/webhook"
 
@@ -83,8 +83,8 @@ func (s *Webhook) GetWebhooks(ctx context.Context) (*operations.GetWebhooksRespo
 	return res, nil
 }
 
-// CreateWebhook - Create a webhook
-func (s *Webhook) CreateWebhook(ctx context.Context) (*operations.CreateWebhookResponse, error) {
+// Create a webhook
+func (s *Webhook) Create(ctx context.Context) (*operations.CreateWebhookResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/webhook"
 
@@ -141,8 +141,8 @@ func (s *Webhook) CreateWebhook(ctx context.Context) (*operations.CreateWebhookR
 	return res, nil
 }
 
-// DeleteWebhook - Delete a webhook
-func (s *Webhook) DeleteWebhook(ctx context.Context, id string) (*operations.DeleteWebhookResponse, error) {
+// Delete a webhook
+func (s *Webhook) Delete(ctx context.Context, id string) (*operations.DeleteWebhookResponse, error) {
 	request := operations.DeleteWebhookRequest{
 		ID: id,
 	}
@@ -206,8 +206,8 @@ func (s *Webhook) DeleteWebhook(ctx context.Context, id string) (*operations.Del
 	return res, nil
 }
 
-// GetWebhook - Retrieve a webhook
-func (s *Webhook) GetWebhook(ctx context.Context, id string) (*operations.GetWebhookResponse, error) {
+// Get - Retrieve a webhook
+func (s *Webhook) Get(ctx context.Context, id string) (*operations.GetWebhookResponse, error) {
 	request := operations.GetWebhookRequest{
 		ID: id,
 	}
@@ -271,8 +271,8 @@ func (s *Webhook) GetWebhook(ctx context.Context, id string) (*operations.GetWeb
 	return res, nil
 }
 
-// UpdateWebhook - Update a webhook
-func (s *Webhook) UpdateWebhook(ctx context.Context, id string) (*operations.UpdateWebhookResponse, error) {
+// Update a webhook
+func (s *Webhook) Update(ctx context.Context, id string) (*operations.UpdateWebhookResponse, error) {
 	request := operations.UpdateWebhookRequest{
 		ID: id,
 	}

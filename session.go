@@ -25,8 +25,8 @@ func newSession(sdkConfig sdkConfiguration) *Session {
 	}
 }
 
-// GetSessions - Retrieve sessions
-func (s *Session) GetSessions(ctx context.Context) (*operations.GetSessionsResponse, error) {
+// GetAll - Retrieve sessions
+func (s *Session) GetAll(ctx context.Context) (*operations.GetSessionsResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/session"
 
@@ -83,8 +83,8 @@ func (s *Session) GetSessions(ctx context.Context) (*operations.GetSessionsRespo
 	return res, nil
 }
 
-// GetSession - Retrieve a session
-func (s *Session) GetSession(ctx context.Context, id string) (*operations.GetSessionResponse, error) {
+// Get - Retrieve a session
+func (s *Session) Get(ctx context.Context, id string) (*operations.GetSessionResponse, error) {
 	request := operations.GetSessionRequest{
 		ID: id,
 	}
@@ -148,8 +148,8 @@ func (s *Session) GetSession(ctx context.Context, id string) (*operations.GetSes
 	return res, nil
 }
 
-// GetRecordedSessions - Retrieve Recorded Sessions
-func (s *Session) GetRecordedSessions(ctx context.Context, parentID string, record *int64) (*operations.GetRecordedSessionsResponse, error) {
+// GetRecorded - Retrieve Recorded Sessions
+func (s *Session) GetRecorded(ctx context.Context, parentID string, record *int64) (*operations.GetRecordedSessionsResponse, error) {
 	request := operations.GetRecordedSessionsRequest{
 		ParentID: parentID,
 		Record:   record,
@@ -201,6 +201,71 @@ func (s *Session) GetRecordedSessions(ctx context.Context, parentID string, reco
 		switch {
 		case utils.MatchContentType(contentType, `application/json`):
 			var out []components.Session
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			res.Data = out
+		default:
+			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		fallthrough
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		return nil, sdkerrors.NewSDKError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+}
+
+// GetAllClips - Retrieve clips of a session
+func (s *Session) GetAllClips(ctx context.Context, id string) (*operations.GetSessionIDClipsResponse, error) {
+	request := operations.GetSessionIDClipsRequest{
+		ID: id,
+	}
+
+	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	url, err := utils.GenerateURL(ctx, baseURL, "/session/{id}/clips", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("user-agent", s.sdkConfiguration.UserAgent)
+
+	client := s.sdkConfiguration.SecurityClient
+
+	httpRes, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error sending request: %w", err)
+	}
+	if httpRes == nil {
+		return nil, fmt.Errorf("error sending request: no response")
+	}
+
+	contentType := httpRes.Header.Get("Content-Type")
+
+	res := &operations.GetSessionIDClipsResponse{
+		StatusCode:  httpRes.StatusCode,
+		ContentType: contentType,
+		RawResponse: httpRes,
+	}
+
+	rawBody, err := io.ReadAll(httpRes.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response body: %w", err)
+	}
+	httpRes.Body.Close()
+	httpRes.Body = io.NopCloser(bytes.NewBuffer(rawBody))
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(contentType, `application/json`):
+			var out []components.Asset
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
