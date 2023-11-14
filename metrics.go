@@ -25,8 +25,8 @@ func newMetrics(sdkConfig sdkConfiguration) *Metrics {
 	}
 }
 
-// GetViewershipsMetrics - Query viewership metrics
-func (s *Metrics) GetViewershipsMetrics(ctx context.Context, request operations.GetViewershipsMetricsRequest) (*operations.GetViewershipsMetricsResponse, error) {
+// GetViewership - Query viewership metrics
+func (s *Metrics) GetViewership(ctx context.Context, request operations.GetViewershipsMetricsRequest) (*operations.GetViewershipsMetricsResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/data/views/query"
 
@@ -87,8 +87,8 @@ func (s *Metrics) GetViewershipsMetrics(ctx context.Context, request operations.
 	return res, nil
 }
 
-// GetCreatorMetrics - Query creator viewership metrics
-func (s *Metrics) GetCreatorMetrics(ctx context.Context, request operations.GetCreatorMetricsRequest) (*operations.GetCreatorMetricsResponse, error) {
+// GetCreatorViewership - Query creator viewership metrics
+func (s *Metrics) GetCreatorViewership(ctx context.Context, request operations.GetCreatorMetricsRequest) (*operations.GetCreatorMetricsResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/data/views/query/creator"
 
@@ -149,8 +149,8 @@ func (s *Metrics) GetCreatorMetrics(ctx context.Context, request operations.GetC
 	return res, nil
 }
 
-// GetPublicTotalViewsMetrics - Query public total views metrics
-func (s *Metrics) GetPublicTotalViewsMetrics(ctx context.Context, playbackID string) (*operations.GetPublicTotalViewsMetricsResponse, error) {
+// GetPublicTotalViews - Query public total views metrics
+func (s *Metrics) GetPublicTotalViews(ctx context.Context, playbackID string) (*operations.GetPublicTotalViewsMetricsResponse, error) {
 	request := operations.GetPublicTotalViewsMetricsRequest{
 		PlaybackID: playbackID,
 	}
@@ -214,8 +214,8 @@ func (s *Metrics) GetPublicTotalViewsMetrics(ctx context.Context, playbackID str
 	return res, nil
 }
 
-// GetUsageMetrics - Query usage metrics
-func (s *Metrics) GetUsageMetrics(ctx context.Context, from *int64, to *int64, timeStep *operations.GetUsageMetricsQueryParamTimeStep, creatorID *string) (*operations.GetUsageMetricsResponse, error) {
+// GetUsage - Query usage metrics
+func (s *Metrics) GetUsage(ctx context.Context, from *int64, to *int64, timeStep *operations.GetUsageMetricsQueryParamTimeStep, creatorID *string) (*operations.GetUsageMetricsResponse, error) {
 	request := operations.GetUsageMetricsRequest{
 		From:      from,
 		To:        to,

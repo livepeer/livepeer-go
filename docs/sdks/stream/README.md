@@ -3,13 +3,15 @@
 
 ### Available Operations
 
-* [GetStreams](#getstreams) - Retrieve streams
-* [CreateStream](#createstream) - Create a stream
-* [DeleteStream](#deletestream) - Delete a stream
-* [GetStream](#getstream) - Retrieve a stream
-* [UpdateStream](#updatestream) - Update a stream
+* [GetAll](#getall) - Retrieve streams
+* [Create](#create) - Create a stream
+* [Delete](#delete) - Delete a stream
+* [Get](#get) - Retrieve a stream
+* [Update](#update) - Update a stream
+* [CreateClip](#createclip) - Create a clip
+* [GetAllClips](#getallclips) - Retrieve clips of a livestream
 
-## GetStreams
+## GetAll
 
 Retrieve streams
 
@@ -34,7 +36,7 @@ func main() {
     var streamsonly *string = "string"
 
     ctx := context.Background()
-    res, err := s.Stream.GetStreams(ctx, streamsonly)
+    res, err := s.Stream.GetAll(ctx, streamsonly)
     if err != nil {
         log.Fatal(err)
     }
@@ -60,7 +62,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## CreateStream
+## Create
 
 Create a stream
 
@@ -82,7 +84,7 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Stream.CreateStream(ctx, components.NewStreamPayload{
+    res, err := s.Stream.Create(ctx, components.NewStreamPayload{
         Name: "test_stream",
         CreatorID: components.CreateInputCreatorIDCreatorID(
                 components.CreateCreatorIDCreatorID1(
@@ -93,7 +95,7 @@ func main() {
                 ),
         ),
         PlaybackPolicy: &components.PlaybackPolicy{
-            Type: components.TypePublic,
+            Type: components.TypeJwt,
             WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
             WebhookContext: map[string]interface{}{
                 "foo": "string",
@@ -149,7 +151,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## DeleteStream
+## Delete
 
 Delete a stream
 
@@ -174,7 +176,7 @@ func main() {
     var id string = "string"
 
     ctx := context.Background()
-    res, err := s.Stream.DeleteStream(ctx, id)
+    res, err := s.Stream.Delete(ctx, id)
     if err != nil {
         log.Fatal(err)
     }
@@ -200,7 +202,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## GetStream
+## Get
 
 Retrieve a stream
 
@@ -225,7 +227,7 @@ func main() {
     var id string = "string"
 
     ctx := context.Background()
-    res, err := s.Stream.GetStream(ctx, id)
+    res, err := s.Stream.Get(ctx, id)
     if err != nil {
         log.Fatal(err)
     }
@@ -251,7 +253,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## UpdateStream
+## Update
 
 Update a stream
 
@@ -276,13 +278,8 @@ func main() {
     var id string = "string"
 
     streamPatchPayload := components.StreamPatchPayload{
-        CreatorID: components.CreateInputCreatorIDCreatorID(
-                components.CreateCreatorIDCreatorID1(
-                            components.CreatorID1{
-                                Type: components.CreatorIDTypeUnverified,
-                                Value: "string",
-                            },
-                ),
+        CreatorID: components.CreateInputCreatorIDStr(
+        "string",
         ),
         Record: livepeer.Bool(false),
         Multistream: &components.Multistream{
@@ -305,7 +302,7 @@ func main() {
     }
 
     ctx := context.Background()
-    res, err := s.Stream.UpdateStream(ctx, id, streamPatchPayload)
+    res, err := s.Stream.Update(ctx, id, streamPatchPayload)
     if err != nil {
         log.Fatal(err)
     }
@@ -328,6 +325,109 @@ func main() {
 ### Response
 
 **[*operations.UpdateStreamResponse](../../models/operations/updatestreamresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 400-600            | */*                |
+
+## CreateClip
+
+Create a clip from a livestream
+
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"log"
+	"livepeer"
+	"livepeer/models/components"
+)
+
+func main() {
+    s := livepeer.New(
+        livepeer.WithSecurity(""),
+    )
+
+    ctx := context.Background()
+    res, err := s.Stream.CreateClip(ctx, components.ClipPayload{
+        PlaybackID: "string",
+        StartTime: 9418.72,
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    if res.Data != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                        | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |
+| `request`                                                        | [components.ClipPayload](../../models/components/clippayload.md) | :heavy_check_mark:                                               | The request object to use for the request.                       |
+
+
+### Response
+
+**[*operations.PostClipResponse](../../models/operations/postclipresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 400-600            | */*                |
+
+## GetAllClips
+
+Retrieve clips of a livestream
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"log"
+	"livepeer"
+	"livepeer/models/components"
+)
+
+func main() {
+    s := livepeer.New(
+        livepeer.WithSecurity(""),
+    )
+
+
+    var id string = "string"
+
+    ctx := context.Background()
+    res, err := s.Stream.GetAllClips(ctx, id)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    if res.Data != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                              | Type                                                   | Required                                               | Description                                            |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `ctx`                                                  | [context.Context](https://pkg.go.dev/context#Context)  | :heavy_check_mark:                                     | The context to use for the request.                    |
+| `id`                                                   | *string*                                               | :heavy_check_mark:                                     | ID of the parent stream or playbackId of parent stream |
+
+
+### Response
+
+**[*operations.GetStreamIDClipsResponse](../../models/operations/getstreamidclipsresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |

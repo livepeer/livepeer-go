@@ -25,8 +25,8 @@ func newStream(sdkConfig sdkConfiguration) *Stream {
 	}
 }
 
-// GetStreams - Retrieve streams
-func (s *Stream) GetStreams(ctx context.Context, streamsonly *string) (*operations.GetStreamsResponse, error) {
+// GetAll - Retrieve streams
+func (s *Stream) GetAll(ctx context.Context, streamsonly *string) (*operations.GetStreamsResponse, error) {
 	request := operations.GetStreamsRequest{
 		Streamsonly: streamsonly,
 	}
@@ -91,8 +91,8 @@ func (s *Stream) GetStreams(ctx context.Context, streamsonly *string) (*operatio
 	return res, nil
 }
 
-// CreateStream - Create a stream
-func (s *Stream) CreateStream(ctx context.Context, request components.NewStreamPayload) (*operations.CreateStreamResponse, error) {
+// Create a stream
+func (s *Stream) Create(ctx context.Context, request components.NewStreamPayload) (*operations.CreateStreamResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/stream"
 
@@ -159,8 +159,8 @@ func (s *Stream) CreateStream(ctx context.Context, request components.NewStreamP
 	return res, nil
 }
 
-// DeleteStream - Delete a stream
-func (s *Stream) DeleteStream(ctx context.Context, id string) (*operations.DeleteStreamResponse, error) {
+// Delete a stream
+func (s *Stream) Delete(ctx context.Context, id string) (*operations.DeleteStreamResponse, error) {
 	request := operations.DeleteStreamRequest{
 		ID: id,
 	}
@@ -213,8 +213,8 @@ func (s *Stream) DeleteStream(ctx context.Context, id string) (*operations.Delet
 	return res, nil
 }
 
-// GetStream - Retrieve a stream
-func (s *Stream) GetStream(ctx context.Context, id string) (*operations.GetStreamResponse, error) {
+// Get - Retrieve a stream
+func (s *Stream) Get(ctx context.Context, id string) (*operations.GetStreamResponse, error) {
 	request := operations.GetStreamRequest{
 		ID: id,
 	}
@@ -278,8 +278,8 @@ func (s *Stream) GetStream(ctx context.Context, id string) (*operations.GetStrea
 	return res, nil
 }
 
-// UpdateStream - Update a stream
-func (s *Stream) UpdateStream(ctx context.Context, id string, streamPatchPayload components.StreamPatchPayload) (*operations.UpdateStreamResponse, error) {
+// Update a stream
+func (s *Stream) Update(ctx context.Context, id string, streamPatchPayload components.StreamPatchPayload) (*operations.UpdateStreamResponse, error) {
 	request := operations.UpdateStreamRequest{
 		ID:                 id,
 		StreamPatchPayload: streamPatchPayload,
@@ -334,6 +334,140 @@ func (s *Stream) UpdateStream(ctx context.Context, id string, streamPatchPayload
 	httpRes.Body = io.NopCloser(bytes.NewBuffer(rawBody))
 	switch {
 	case httpRes.StatusCode == 204:
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		fallthrough
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		return nil, sdkerrors.NewSDKError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+}
+
+// CreateClip - Create a clip
+// Create a clip from a livestream
+func (s *Stream) CreateClip(ctx context.Context, request components.ClipPayload) (*operations.PostClipResponse, error) {
+	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	url := strings.TrimSuffix(baseURL, "/") + "/clip"
+
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, fmt.Errorf("error serializing request body: %w", err)
+	}
+	if bodyReader == nil {
+		return nil, fmt.Errorf("request body is required")
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "POST", url, bodyReader)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("user-agent", s.sdkConfiguration.UserAgent)
+
+	req.Header.Set("Content-Type", reqContentType)
+
+	client := s.sdkConfiguration.SecurityClient
+
+	httpRes, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error sending request: %w", err)
+	}
+	if httpRes == nil {
+		return nil, fmt.Errorf("error sending request: no response")
+	}
+
+	contentType := httpRes.Header.Get("Content-Type")
+
+	res := &operations.PostClipResponse{
+		StatusCode:  httpRes.StatusCode,
+		ContentType: contentType,
+		RawResponse: httpRes,
+	}
+
+	rawBody, err := io.ReadAll(httpRes.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response body: %w", err)
+	}
+	httpRes.Body.Close()
+	httpRes.Body = io.NopCloser(bytes.NewBuffer(rawBody))
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(contentType, `application/json`):
+			var out operations.PostClipData
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			res.Data = &out
+		default:
+			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		fallthrough
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		return nil, sdkerrors.NewSDKError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+}
+
+// GetAllClips - Retrieve clips of a livestream
+func (s *Stream) GetAllClips(ctx context.Context, id string) (*operations.GetStreamIDClipsResponse, error) {
+	request := operations.GetStreamIDClipsRequest{
+		ID: id,
+	}
+
+	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	url, err := utils.GenerateURL(ctx, baseURL, "/stream/{id}/clips", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("user-agent", s.sdkConfiguration.UserAgent)
+
+	client := s.sdkConfiguration.SecurityClient
+
+	httpRes, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error sending request: %w", err)
+	}
+	if httpRes == nil {
+		return nil, fmt.Errorf("error sending request: no response")
+	}
+
+	contentType := httpRes.Header.Get("Content-Type")
+
+	res := &operations.GetStreamIDClipsResponse{
+		StatusCode:  httpRes.StatusCode,
+		ContentType: contentType,
+		RawResponse: httpRes,
+	}
+
+	rawBody, err := io.ReadAll(httpRes.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response body: %w", err)
+	}
+	httpRes.Body.Close()
+	httpRes.Body = io.NopCloser(bytes.NewBuffer(rawBody))
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(contentType, `application/json`):
+			var out []components.Asset
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			res.Data = out
+		default:
+			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		fallthrough
 	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:

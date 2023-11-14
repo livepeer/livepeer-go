@@ -24,8 +24,8 @@ func newPlayback(sdkConfig sdkConfiguration) *Playback {
 	}
 }
 
-// GetPlaybackInfo - Retrieve Playback Info
-func (s *Playback) GetPlaybackInfo(ctx context.Context, id string) (*operations.GetPlaybackInfoResponse, error) {
+// Get - Retrieve Playback Info
+func (s *Playback) Get(ctx context.Context, id string) (*operations.GetPlaybackInfoResponse, error) {
 	request := operations.GetPlaybackInfoRequest{
 		ID: id,
 	}

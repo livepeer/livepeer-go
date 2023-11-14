@@ -25,8 +25,8 @@ func newTranscode(sdkConfig sdkConfiguration) *Transcode {
 	}
 }
 
-// Transcode a video
-func (s *Transcode) Transcode(ctx context.Context, request components.TaskInput) (*operations.TranscodeResponse, error) {
+// Create - Transcode a video
+func (s *Transcode) Create(ctx context.Context, request components.TaskInput) (*operations.TranscodeResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/transcode"
 

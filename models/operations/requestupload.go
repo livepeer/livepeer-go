@@ -7,11 +7,11 @@ import (
 	"net/http"
 )
 
-type RequestUploadTask struct {
+type Task struct {
 	ID *string `json:"id,omitempty"`
 }
 
-func (o *RequestUploadTask) GetID() *string {
+func (o *Task) GetID() *string {
 	if o == nil {
 		return nil
 	}
@@ -20,10 +20,10 @@ func (o *RequestUploadTask) GetID() *string {
 
 // RequestUploadData - Success
 type RequestUploadData struct {
-	URL         string            `json:"url"`
-	TusEndpoint string            `json:"tusEndpoint"`
-	Asset       components.Asset  `json:"asset"`
-	Task        RequestUploadTask `json:"task"`
+	URL         string           `json:"url"`
+	TusEndpoint string           `json:"tusEndpoint"`
+	Asset       components.Asset `json:"asset"`
+	Task        Task             `json:"task"`
 }
 
 func (o *RequestUploadData) GetURL() string {
@@ -47,9 +47,9 @@ func (o *RequestUploadData) GetAsset() components.Asset {
 	return o.Asset
 }
 
-func (o *RequestUploadData) GetTask() RequestUploadTask {
+func (o *RequestUploadData) GetTask() Task {
 	if o == nil {
-		return RequestUploadTask{}
+		return Task{}
 	}
 	return o.Task
 }

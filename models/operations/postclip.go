@@ -7,11 +7,11 @@ import (
 	"net/http"
 )
 
-type Task struct {
+type PostClipTask struct {
 	ID *string `json:"id,omitempty"`
 }
 
-func (o *Task) GetID() *string {
+func (o *PostClipTask) GetID() *string {
 	if o == nil {
 		return nil
 	}
@@ -21,7 +21,7 @@ func (o *Task) GetID() *string {
 // PostClipData - Success
 type PostClipData struct {
 	Asset components.Asset `json:"asset"`
-	Task  Task             `json:"task"`
+	Task  PostClipTask     `json:"task"`
 }
 
 func (o *PostClipData) GetAsset() components.Asset {
@@ -31,9 +31,9 @@ func (o *PostClipData) GetAsset() components.Asset {
 	return o.Asset
 }
 
-func (o *PostClipData) GetTask() Task {
+func (o *PostClipData) GetTask() PostClipTask {
 	if o == nil {
-		return Task{}
+		return PostClipTask{}
 	}
 	return o.Task
 }

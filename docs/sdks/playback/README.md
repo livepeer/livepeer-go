@@ -3,9 +3,9 @@
 
 ### Available Operations
 
-* [GetPlaybackInfo](#getplaybackinfo) - Retrieve Playback Info
+* [Get](#get) - Retrieve Playback Info
 
-## GetPlaybackInfo
+## Get
 
 Retrieve Playback Info
 
@@ -30,7 +30,7 @@ func main() {
     var id string = "string"
 
     ctx := context.Background()
-    res, err := s.Playback.GetPlaybackInfo(ctx, id)
+    res, err := s.Playback.Get(ctx, id)
     if err != nil {
         log.Fatal(err)
     }

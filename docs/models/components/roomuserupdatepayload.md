@@ -1,9 +1,0 @@
-# RoomUserUpdatePayload
-
-
-## Fields
-
-| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                | Example                                                                                    |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `CanPublish`                                                                               | **bool*                                                                                    | :heavy_minus_sign:                                                                         | Whether a user is allowed to publish audio/video tracks (i.e. their microphone and webcam) | true                                                                                       |
-| `Metadata`                                                                                 | **string*                                                                                  | :heavy_minus_sign:                                                                         | User defined payload to store for the participant                                          | host user                                                                                  |

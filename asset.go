@@ -25,8 +25,8 @@ func newAsset(sdkConfig sdkConfiguration) *Asset {
 	}
 }
 
-// GetAssets - Retrieve assets
-func (s *Asset) GetAssets(ctx context.Context) (*operations.GetAssetsResponse, error) {
+// GetAll - Retrieve assets
+func (s *Asset) GetAll(ctx context.Context) (*operations.GetAssetsResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/asset"
 
@@ -83,8 +83,8 @@ func (s *Asset) GetAssets(ctx context.Context) (*operations.GetAssetsResponse, e
 	return res, nil
 }
 
-// RequestUpload - Upload an asset
-func (s *Asset) RequestUpload(ctx context.Context, request components.NewAssetPayload) (*operations.RequestUploadResponse, error) {
+// Create - Upload an asset
+func (s *Asset) Create(ctx context.Context, request components.NewAssetPayload) (*operations.RequestUploadResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/asset/request-upload"
 
@@ -151,8 +151,8 @@ func (s *Asset) RequestUpload(ctx context.Context, request components.NewAssetPa
 	return res, nil
 }
 
-// UploadAssetViaURL - Upload asset via URL
-func (s *Asset) UploadAssetViaURL(ctx context.Context, request components.NewAssetPayload) (*operations.UploadAssetViaURLResponse, error) {
+// CreateViaURL - Upload asset via URL
+func (s *Asset) CreateViaURL(ctx context.Context, request components.NewAssetPayload) (*operations.UploadAssetViaURLResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/asset/upload/url"
 
@@ -219,8 +219,8 @@ func (s *Asset) UploadAssetViaURL(ctx context.Context, request components.NewAss
 	return res, nil
 }
 
-// DeleteAsset - Delete an asset
-func (s *Asset) DeleteAsset(ctx context.Context, assetID string) (*operations.DeleteAssetResponse, error) {
+// Delete an asset
+func (s *Asset) Delete(ctx context.Context, assetID string) (*operations.DeleteAssetResponse, error) {
 	request := operations.DeleteAssetRequest{
 		AssetID: assetID,
 	}
@@ -273,8 +273,8 @@ func (s *Asset) DeleteAsset(ctx context.Context, assetID string) (*operations.De
 	return res, nil
 }
 
-// GetAsset - Retrieves an asset
-func (s *Asset) GetAsset(ctx context.Context, assetID string) (*operations.GetAssetResponse, error) {
+// Get - Retrieves an asset
+func (s *Asset) Get(ctx context.Context, assetID string) (*operations.GetAssetResponse, error) {
 	request := operations.GetAssetRequest{
 		AssetID: assetID,
 	}
@@ -338,8 +338,8 @@ func (s *Asset) GetAsset(ctx context.Context, assetID string) (*operations.GetAs
 	return res, nil
 }
 
-// PatchAssetAssetID - Update an asset
-func (s *Asset) PatchAssetAssetID(ctx context.Context, assetID string, assetPatchPayload components.AssetPatchPayload) (*operations.PatchAssetAssetIDResponse, error) {
+// Update an asset
+func (s *Asset) Update(ctx context.Context, assetID string, assetPatchPayload components.AssetPatchPayload) (*operations.PatchAssetAssetIDResponse, error) {
 	request := operations.PatchAssetAssetIDRequest{
 		AssetID:           assetID,
 		AssetPatchPayload: assetPatchPayload,

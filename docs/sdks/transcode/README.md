@@ -3,9 +3,9 @@
 
 ### Available Operations
 
-* [Transcode](#transcode) - Transcode a video
+* [Create](#create) - Transcode a video
 
-## Transcode
+## Create
 
 Transcode a video
 
@@ -27,7 +27,7 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Transcode.Transcode(ctx, components.TaskInput{
+    res, err := s.Transcode.Create(ctx, components.TaskInput{
         InputAssetID: livepeer.String("09F8B46C-61A0-4254-9875-F71F4C605BC7"),
         OutputAssetID: livepeer.String("09F8B46C-61A0-4254-9875-F71F4C605BC7"),
         Params: &components.Params{
@@ -107,8 +107,13 @@ func main() {
                         Encoder: components.EncoderH264.ToPointer(),
                     },
                 },
-                CreatorID: components.CreateInputCreatorIDStr(
-                "string",
+                CreatorID: components.CreateInputCreatorIDCreatorID(
+                        components.CreateCreatorIDCreatorID1(
+                                    components.CreatorID1{
+                                        Type: components.CreatorIDTypeUnverified,
+                                        Value: "string",
+                                    },
+                        ),
                 ),
             },
         },
@@ -130,7 +135,7 @@ func main() {
                     Source: components.CreateSourceAsset1(
                             components.Asset1{
                                 Type: components.AssetSchemasTypeURL,
-                                URL: "http://thorough-supermarket.net",
+                                URL: "https://impartial-dump.com",
                                 Encryption: &components.Encryption{
                                     EncryptedKey: "string",
                                 },
@@ -170,7 +175,7 @@ func main() {
                     Type: components.AssetTypeVideo.ToPointer(),
                     PlaybackID: livepeer.String("eaw4nk06ts2d0mzb"),
                     PlaybackPolicy: &components.PlaybackPolicy{
-                        Type: components.TypeJwt,
+                        Type: components.TypeWebhook,
                         WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
                         WebhookContext: map[string]interface{}{
                             "foo": "string",
@@ -179,7 +184,7 @@ func main() {
                     Source: components.CreateSourceAsset1(
                             components.Asset1{
                                 Type: components.AssetSchemasTypeURL,
-                                URL: "http://doting-decongestant.biz",
+                                URL: "http://yummy-shift.info",
                                 Encryption: &components.Encryption{
                                     EncryptedKey: "string",
                                 },
@@ -230,7 +235,7 @@ func main() {
                         Type: components.AssetTypeVideo.ToPointer(),
                         PlaybackID: livepeer.String("eaw4nk06ts2d0mzb"),
                         PlaybackPolicy: &components.PlaybackPolicy{
-                            Type: components.TypeJwt,
+                            Type: components.TypeWebhook,
                             WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
                             WebhookContext: map[string]interface{}{
                                 "foo": "string",
@@ -239,7 +244,7 @@ func main() {
                         Source: components.CreateSourceAsset1(
                                 components.Asset1{
                                     Type: components.AssetSchemasTypeURL,
-                                    URL: "https://spotted-emergent.name",
+                                    URL: "https://abandoned-incident.biz",
                                     Encryption: &components.Encryption{
                                         EncryptedKey: "string",
                                     },

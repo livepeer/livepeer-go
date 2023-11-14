@@ -3,11 +3,12 @@
 
 ### Available Operations
 
-* [GetSessions](#getsessions) - Retrieve sessions
-* [GetSession](#getsession) - Retrieve a session
-* [GetRecordedSessions](#getrecordedsessions) - Retrieve Recorded Sessions
+* [GetAll](#getall) - Retrieve sessions
+* [Get](#get) - Retrieve a session
+* [GetRecorded](#getrecorded) - Retrieve Recorded Sessions
+* [GetAllClips](#getallclips) - Retrieve clips of a session
 
-## GetSessions
+## GetAll
 
 Retrieve sessions
 
@@ -29,7 +30,7 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Session.GetSessions(ctx)
+    res, err := s.Session.GetAll(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -54,7 +55,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## GetSession
+## Get
 
 Retrieve a session
 
@@ -79,7 +80,7 @@ func main() {
     var id string = "string"
 
     ctx := context.Background()
-    res, err := s.Session.GetSession(ctx, id)
+    res, err := s.Session.Get(ctx, id)
     if err != nil {
         log.Fatal(err)
     }
@@ -105,7 +106,7 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
-## GetRecordedSessions
+## GetRecorded
 
 Retrieve Recorded Sessions
 
@@ -132,7 +133,7 @@ func main() {
     var record *int64 = 1
 
     ctx := context.Background()
-    res, err := s.Session.GetRecordedSessions(ctx, parentID, record)
+    res, err := s.Session.GetRecorded(ctx, parentID, record)
     if err != nil {
         log.Fatal(err)
     }
@@ -155,6 +156,57 @@ func main() {
 ### Response
 
 **[*operations.GetRecordedSessionsResponse](../../models/operations/getrecordedsessionsresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 400-600            | */*                |
+
+## GetAllClips
+
+Retrieve clips of a session
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"log"
+	"livepeer"
+	"livepeer/models/components"
+)
+
+func main() {
+    s := livepeer.New(
+        livepeer.WithSecurity(""),
+    )
+
+
+    var id string = "string"
+
+    ctx := context.Background()
+    res, err := s.Session.GetAllClips(ctx, id)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    if res.Data != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the parent session                              |
+
+
+### Response
+
+**[*operations.GetSessionIDClipsResponse](../../models/operations/getsessionidclipsresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
