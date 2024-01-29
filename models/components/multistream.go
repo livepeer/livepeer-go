@@ -2,96 +2,14 @@
 
 package components
 
-import (
-	"livepeer/internal/utils"
-)
-
-// MultistreamSpec - Inline multistream target object. Will automatically
-// create the target resource to be used by the created stream.
-type MultistreamSpec struct {
-	Name *string `json:"name,omitempty"`
-	// Livepeer-compatible multistream target URL (RTMP(S) or SRT)
-	URL string `json:"url"`
-}
-
-func (o *MultistreamSpec) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *MultistreamSpec) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-type Targets struct {
-	// Name of the transcoding profile that should be sent. Use
-	// "source" for pushing the source stream data
-	//
-	Profile string `json:"profile"`
-	// If true, the stream audio will be muted, and only silent
-	// video will be pushed to the target.
-	//
-	VideoOnly *bool `default:"false" json:"videoOnly"`
-	// ID of the multistream target object where to push this stream
-	ID *string `json:"id,omitempty"`
-	// Inline multistream target object. Will automatically
-	// create the target resource to be used by the created stream.
-	//
-	Spec *MultistreamSpec `json:"spec,omitempty"`
-}
-
-func (t Targets) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *Targets) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *Targets) GetProfile() string {
-	if o == nil {
-		return ""
-	}
-	return o.Profile
-}
-
-func (o *Targets) GetVideoOnly() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.VideoOnly
-}
-
-func (o *Targets) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *Targets) GetSpec() *MultistreamSpec {
-	if o == nil {
-		return nil
-	}
-	return o.Spec
-}
-
 type Multistream struct {
 	// References to targets where this stream will be simultaneously
 	// streamed to
 	//
-	Targets []Targets `json:"targets,omitempty"`
+	Targets []Target `json:"targets,omitempty"`
 }
 
-func (o *Multistream) GetTargets() []Targets {
+func (o *Multistream) GetTargets() []Target {
 	if o == nil {
 		return nil
 	}

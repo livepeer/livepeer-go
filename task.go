@@ -70,7 +70,7 @@ func (s *Task) GetAll(ctx context.Context) (*operations.GetTasksResponse, error)
 				return nil, err
 			}
 
-			res.Data = out
+			res.Classes = out
 		default:
 			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
 		}

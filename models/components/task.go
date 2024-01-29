@@ -13,10 +13,8 @@ type TaskType string
 
 const (
 	TaskTypeUpload        TaskType = "upload"
-	TaskTypeImport        TaskType = "import"
 	TaskTypeExport        TaskType = "export"
 	TaskTypeExportData    TaskType = "export-data"
-	TaskTypeTranscode     TaskType = "transcode"
 	TaskTypeTranscodeFile TaskType = "transcode-file"
 	TaskTypeClip          TaskType = "clip"
 )
@@ -33,13 +31,9 @@ func (e *TaskType) UnmarshalJSON(data []byte) error {
 	switch v {
 	case "upload":
 		fallthrough
-	case "import":
-		fallthrough
 	case "export":
 		fallthrough
 	case "export-data":
-		fallthrough
-	case "transcode":
 		fallthrough
 	case "transcode-file":
 		fallthrough
@@ -51,36 +45,34 @@ func (e *TaskType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// TaskSchemasUploadOutput - Parameters for the upload task
-type TaskSchemasUploadOutput struct {
+// Upload - Parameters for the upload task
+type Upload struct {
 	// URL of the asset to "upload"
-	URL        *string           `json:"url,omitempty"`
-	Encryption *EncryptionOutput `json:"encryption,omitempty"`
-	// ID of the original recorded session to avoid re-transcoding
-	// of the same content. Only used for import task.
-	//
-	RecordedSessionID *string `json:"recordedSessionId,omitempty"`
+	URL        *string     `json:"url,omitempty"`
+	Encryption *Encryption `json:"encryption,omitempty"`
+	// Decides if the output video should include C2PA signature
+	C2pa *bool `json:"c2pa,omitempty"`
 }
 
-func (o *TaskSchemasUploadOutput) GetURL() *string {
+func (o *Upload) GetURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.URL
 }
 
-func (o *TaskSchemasUploadOutput) GetEncryption() *EncryptionOutput {
+func (o *Upload) GetEncryption() *Encryption {
 	if o == nil {
 		return nil
 	}
 	return o.Encryption
 }
 
-func (o *TaskSchemasUploadOutput) GetRecordedSessionID() *string {
+func (o *Upload) GetC2pa() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.RecordedSessionID
+	return o.C2pa
 }
 
 // Content - File content to store into IPFS
@@ -126,28 +118,15 @@ func (o *ExportData) GetID() *string {
 	return o.ID
 }
 
-// Transcode - Parameters for the transcode task
-type Transcode struct {
-	// LMPS ffmpeg profile
-	Profile *FfmpegProfile `json:"profile,omitempty"`
-}
-
-func (o *Transcode) GetProfile() *FfmpegProfile {
-	if o == nil {
-		return nil
-	}
-	return o.Profile
-}
-
-// Input video file to transcode
-type Input struct {
+// TaskInput - Input video file to transcode
+type TaskInput struct {
 	// URL of a video to transcode, accepts object-store format
 	// "s3+https"
 	//
 	URL *string `json:"url,omitempty"`
 }
 
-func (o *Input) GetURL() *string {
+func (o *TaskInput) GetURL() *string {
 	if o == nil {
 		return nil
 	}
@@ -169,48 +148,48 @@ func (o *TaskStorage) GetURL() *string {
 	return o.URL
 }
 
-// Hls - HLS output format
-type Hls struct {
+// TaskHls - HLS output format
+type TaskHls struct {
 	// Path for the HLS output
 	Path *string `json:"path,omitempty"`
 }
 
-func (o *Hls) GetPath() *string {
+func (o *TaskHls) GetPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Path
 }
 
-// Mp4 - MP4 output format
-type Mp4 struct {
+// TaskMp4 - MP4 output format
+type TaskMp4 struct {
 	// Path for the MP4 output
 	Path *string `json:"path,omitempty"`
 }
 
-func (o *Mp4) GetPath() *string {
+func (o *TaskMp4) GetPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Path
 }
 
-// Outputs - Output formats
-type Outputs struct {
+// TaskOutputs - Output formats
+type TaskOutputs struct {
 	// HLS output format
-	Hls *Hls `json:"hls,omitempty"`
+	Hls *TaskHls `json:"hls,omitempty"`
 	// MP4 output format
-	Mp4 *Mp4 `json:"mp4,omitempty"`
+	Mp4 *TaskMp4 `json:"mp4,omitempty"`
 }
 
-func (o *Outputs) GetHls() *Hls {
+func (o *TaskOutputs) GetHls() *TaskHls {
 	if o == nil {
 		return nil
 	}
 	return o.Hls
 }
 
-func (o *Outputs) GetMp4() *Mp4 {
+func (o *TaskOutputs) GetMp4() *TaskMp4 {
 	if o == nil {
 		return nil
 	}
@@ -220,20 +199,22 @@ func (o *Outputs) GetMp4() *Mp4 {
 // TranscodeFile - Parameters for the transcode-file task
 type TranscodeFile struct {
 	// Input video file to transcode
-	Input *Input `json:"input,omitempty"`
+	Input *TaskInput `json:"input,omitempty"`
 	// Storage for the output files
 	Storage *TaskStorage `json:"storage,omitempty"`
 	// Output formats
-	Outputs  *Outputs        `json:"outputs,omitempty"`
-	Profiles []FfmpegProfile `json:"profiles,omitempty"`
+	Outputs  *TaskOutputs       `json:"outputs,omitempty"`
+	Profiles []TranscodeProfile `json:"profiles,omitempty"`
 	// How many seconds the duration of each output segment should
 	// be
 	//
 	TargetSegmentSizeSecs *float64        `json:"targetSegmentSizeSecs,omitempty"`
 	CreatorID             *InputCreatorID `json:"creatorId,omitempty"`
+	// Decides if the output video should include C2PA signature
+	C2pa *bool `json:"c2pa,omitempty"`
 }
 
-func (o *TranscodeFile) GetInput() *Input {
+func (o *TranscodeFile) GetInput() *TaskInput {
 	if o == nil {
 		return nil
 	}
@@ -247,14 +228,14 @@ func (o *TranscodeFile) GetStorage() *TaskStorage {
 	return o.Storage
 }
 
-func (o *TranscodeFile) GetOutputs() *Outputs {
+func (o *TranscodeFile) GetOutputs() *TaskOutputs {
 	if o == nil {
 		return nil
 	}
 	return o.Outputs
 }
 
-func (o *TranscodeFile) GetProfiles() []FfmpegProfile {
+func (o *TranscodeFile) GetProfiles() []TranscodeProfile {
 	if o == nil {
 		return nil
 	}
@@ -275,62 +256,11 @@ func (o *TranscodeFile) GetCreatorID() *InputCreatorID {
 	return o.CreatorID
 }
 
-// TaskParams - Parameters of the task
-type TaskParams struct {
-	// Parameters for the upload task
-	Upload *TaskSchemasUploadOutput `json:"upload,omitempty"`
-	// Parameters for the upload task
-	Import *UploadOutput1 `json:"import,omitempty"`
-	// Parameters for the export task
-	Export *ExportTaskParams `json:"export,omitempty"`
-	// Parameters for the export-data task
-	ExportData *ExportData `json:"exportData,omitempty"`
-	// Parameters for the transcode task
-	Transcode *Transcode `json:"transcode,omitempty"`
-	// Parameters for the transcode-file task
-	TranscodeFile *TranscodeFile `json:"transcode-file,omitempty"`
-}
-
-func (o *TaskParams) GetUpload() *TaskSchemasUploadOutput {
+func (o *TranscodeFile) GetC2pa() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.Upload
-}
-
-func (o *TaskParams) GetImport() *UploadOutput1 {
-	if o == nil {
-		return nil
-	}
-	return o.Import
-}
-
-func (o *TaskParams) GetExport() *ExportTaskParams {
-	if o == nil {
-		return nil
-	}
-	return o.Export
-}
-
-func (o *TaskParams) GetExportData() *ExportData {
-	if o == nil {
-		return nil
-	}
-	return o.ExportData
-}
-
-func (o *TaskParams) GetTranscode() *Transcode {
-	if o == nil {
-		return nil
-	}
-	return o.Transcode
-}
-
-func (o *TaskParams) GetTranscodeFile() *TranscodeFile {
-	if o == nil {
-		return nil
-	}
-	return o.TranscodeFile
+	return o.C2pa
 }
 
 // ClipStrategy - Strategy to use for clipping the asset. If not specified, the default strategy that Catalyst is configured for will be used. This field only available for admin users, and is only used for E2E testing.
@@ -452,6 +382,54 @@ func (o *Clip) GetInputID() *string {
 	return o.InputID
 }
 
+// Params - Parameters of the task
+type Params struct {
+	// Parameters for the upload task
+	Upload *Upload `json:"upload,omitempty"`
+	// Parameters for the export task
+	Export *ExportTaskParams `json:"export,omitempty"`
+	// Parameters for the export-data task
+	ExportData *ExportData `json:"exportData,omitempty"`
+	// Parameters for the transcode-file task
+	TranscodeFile *TranscodeFile `json:"transcode-file,omitempty"`
+	Clip          *Clip          `json:"clip,omitempty"`
+}
+
+func (o *Params) GetUpload() *Upload {
+	if o == nil {
+		return nil
+	}
+	return o.Upload
+}
+
+func (o *Params) GetExport() *ExportTaskParams {
+	if o == nil {
+		return nil
+	}
+	return o.Export
+}
+
+func (o *Params) GetExportData() *ExportData {
+	if o == nil {
+		return nil
+	}
+	return o.ExportData
+}
+
+func (o *Params) GetTranscodeFile() *TranscodeFile {
+	if o == nil {
+		return nil
+	}
+	return o.TranscodeFile
+}
+
+func (o *Params) GetClip() *Clip {
+	if o == nil {
+		return nil
+	}
+	return o.Clip
+}
+
 // TaskPhase - Phase of the task
 type TaskPhase string
 
@@ -541,31 +519,31 @@ func (o *TaskStatus) GetRetries() *float64 {
 	return o.Retries
 }
 
-// TaskUploadOutput - Output of the upload task
-type TaskUploadOutput struct {
+// TaskUpload - Output of the upload task
+type TaskUpload struct {
 	AssetSpec            *Asset                 `json:"assetSpec,omitempty"`
 	AdditionalProperties map[string]interface{} `additionalProperties:"true" json:"-"`
 }
 
-func (t TaskUploadOutput) MarshalJSON() ([]byte, error) {
+func (t TaskUpload) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(t, "", false)
 }
 
-func (t *TaskUploadOutput) UnmarshalJSON(data []byte) error {
+func (t *TaskUpload) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *TaskUploadOutput) GetAssetSpec() *Asset {
+func (o *TaskUpload) GetAssetSpec() *Asset {
 	if o == nil {
 		return nil
 	}
 	return o.AssetSpec
 }
 
-func (o *TaskUploadOutput) GetAdditionalProperties() map[string]interface{} {
+func (o *TaskUpload) GetAdditionalProperties() map[string]interface{} {
 	if o == nil {
 		return nil
 	}
@@ -655,100 +633,33 @@ func (o *TaskSchemasIpfs) GetCid() string {
 	return o.Cid
 }
 
-// TaskSchemasExportData - Output of the export data task
-type TaskSchemasExportData struct {
+// TaskExportData - Output of the export data task
+type TaskExportData struct {
 	Ipfs *TaskSchemasIpfs `json:"ipfs,omitempty"`
 }
 
-func (o *TaskSchemasExportData) GetIpfs() *TaskSchemasIpfs {
+func (o *TaskExportData) GetIpfs() *TaskSchemasIpfs {
 	if o == nil {
 		return nil
 	}
 	return o.Ipfs
 }
 
-type TaskAsset struct {
-	VideoFilePath        *string                `json:"videoFilePath,omitempty"`
-	MetadataFilePath     *string                `json:"metadataFilePath,omitempty"`
-	AssetSpec            *Asset                 `json:"assetSpec,omitempty"`
-	AdditionalProperties map[string]interface{} `additionalProperties:"true" json:"-"`
-}
-
-func (t TaskAsset) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *TaskAsset) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *TaskAsset) GetVideoFilePath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.VideoFilePath
-}
-
-func (o *TaskAsset) GetMetadataFilePath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.MetadataFilePath
-}
-
-func (o *TaskAsset) GetAssetSpec() *Asset {
-	if o == nil {
-		return nil
-	}
-	return o.AssetSpec
-}
-
-func (o *TaskAsset) GetAdditionalProperties() map[string]interface{} {
-	if o == nil {
-		return nil
-	}
-	return o.AdditionalProperties
-}
-
-type TaskTranscode struct {
-	Asset *TaskAsset `json:"asset,omitempty"`
-}
-
-func (o *TaskTranscode) GetAsset() *TaskAsset {
-	if o == nil {
-		return nil
-	}
-	return o.Asset
-}
-
 // Output of the task
 type Output struct {
 	// Output of the upload task
-	Upload *TaskUploadOutput `json:"upload,omitempty"`
-	// Output of the upload task
-	Import *UploadOutput `json:"import,omitempty"`
+	Upload *TaskUpload `json:"upload,omitempty"`
 	// Output of the export task
 	Export *Export `json:"export,omitempty"`
 	// Output of the export data task
-	ExportData *TaskSchemasExportData `json:"exportData,omitempty"`
-	Transcode  *TaskTranscode         `json:"transcode,omitempty"`
+	ExportData *TaskExportData `json:"exportData,omitempty"`
 }
 
-func (o *Output) GetUpload() *TaskUploadOutput {
+func (o *Output) GetUpload() *TaskUpload {
 	if o == nil {
 		return nil
 	}
 	return o.Upload
-}
-
-func (o *Output) GetImport() *UploadOutput {
-	if o == nil {
-		return nil
-	}
-	return o.Import
 }
 
 func (o *Output) GetExport() *Export {
@@ -758,18 +669,11 @@ func (o *Output) GetExport() *Export {
 	return o.Export
 }
 
-func (o *Output) GetExportData() *TaskSchemasExportData {
+func (o *Output) GetExportData() *TaskExportData {
 	if o == nil {
 		return nil
 	}
 	return o.ExportData
-}
-
-func (o *Output) GetTranscode() *TaskTranscode {
-	if o == nil {
-		return nil
-	}
-	return o.Transcode
 }
 
 type Task struct {
@@ -787,9 +691,10 @@ type Task struct {
 	InputAssetID *string `json:"inputAssetId,omitempty"`
 	// ID of the output asset
 	OutputAssetID *string `json:"outputAssetId,omitempty"`
+	// ID of the requester hash(IP + SALT + PlaybackId)
+	RequesterID *string `json:"requesterId,omitempty"`
 	// Parameters of the task
-	Params *TaskParams `json:"params,omitempty"`
-	Clip   *Clip       `json:"clip,omitempty"`
+	Params *Params `json:"params,omitempty"`
 	// Status of the task
 	Status *TaskStatus `json:"status,omitempty"`
 	// Output of the task
@@ -838,18 +743,18 @@ func (o *Task) GetOutputAssetID() *string {
 	return o.OutputAssetID
 }
 
-func (o *Task) GetParams() *TaskParams {
+func (o *Task) GetRequesterID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequesterID
+}
+
+func (o *Task) GetParams() *Params {
 	if o == nil {
 		return nil
 	}
 	return o.Params
-}
-
-func (o *Task) GetClip() *Clip {
-	if o == nil {
-		return nil
-	}
-	return o.Clip
 }
 
 func (o *Task) GetStatus() *TaskStatus {
@@ -860,376 +765,6 @@ func (o *Task) GetStatus() *TaskStatus {
 }
 
 func (o *Task) GetOutput() *Output {
-	if o == nil {
-		return nil
-	}
-	return o.Output
-}
-
-// TaskUpload - Parameters for the upload task
-type TaskUpload struct {
-	// URL of the asset to "upload"
-	URL        *string     `json:"url,omitempty"`
-	Encryption *Encryption `json:"encryption,omitempty"`
-	// ID of the original recorded session to avoid re-transcoding
-	// of the same content. Only used for import task.
-	//
-	RecordedSessionID *string `json:"recordedSessionId,omitempty"`
-}
-
-func (o *TaskUpload) GetURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.URL
-}
-
-func (o *TaskUpload) GetEncryption() *Encryption {
-	if o == nil {
-		return nil
-	}
-	return o.Encryption
-}
-
-func (o *TaskUpload) GetRecordedSessionID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.RecordedSessionID
-}
-
-// TaskExportData - Parameters for the export-data task
-type TaskExportData struct {
-	// File content to store into IPFS
-	Content Content            `json:"content"`
-	Ipfs    *IpfsExportParams1 `json:"ipfs,omitempty"`
-	// Optional type of content
-	Type *string `json:"type,omitempty"`
-	// Optional ID of the content
-	ID *string `json:"id,omitempty"`
-}
-
-func (o *TaskExportData) GetContent() Content {
-	if o == nil {
-		return Content{}
-	}
-	return o.Content
-}
-
-func (o *TaskExportData) GetIpfs() *IpfsExportParams1 {
-	if o == nil {
-		return nil
-	}
-	return o.Ipfs
-}
-
-func (o *TaskExportData) GetType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Type
-}
-
-func (o *TaskExportData) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-// Params - Parameters of the task
-type Params struct {
-	// Parameters for the upload task
-	Upload *TaskUpload `json:"upload,omitempty"`
-	// Parameters for the upload task
-	Import *Upload `json:"import,omitempty"`
-	// Parameters for the export task
-	Export *ExportTaskParams1 `json:"export,omitempty"`
-	// Parameters for the export-data task
-	ExportData *TaskExportData `json:"exportData,omitempty"`
-	// Parameters for the transcode task
-	Transcode *Transcode `json:"transcode,omitempty"`
-	// Parameters for the transcode-file task
-	TranscodeFile *TranscodeFile `json:"transcode-file,omitempty"`
-}
-
-func (o *Params) GetUpload() *TaskUpload {
-	if o == nil {
-		return nil
-	}
-	return o.Upload
-}
-
-func (o *Params) GetImport() *Upload {
-	if o == nil {
-		return nil
-	}
-	return o.Import
-}
-
-func (o *Params) GetExport() *ExportTaskParams1 {
-	if o == nil {
-		return nil
-	}
-	return o.Export
-}
-
-func (o *Params) GetExportData() *TaskExportData {
-	if o == nil {
-		return nil
-	}
-	return o.ExportData
-}
-
-func (o *Params) GetTranscode() *Transcode {
-	if o == nil {
-		return nil
-	}
-	return o.Transcode
-}
-
-func (o *Params) GetTranscodeFile() *TranscodeFile {
-	if o == nil {
-		return nil
-	}
-	return o.TranscodeFile
-}
-
-// TaskUploadInput - Output of the upload task
-type TaskUploadInput struct {
-	VideoFilePath        *string                `json:"videoFilePath,omitempty"`
-	MetadataFilePath     *string                `json:"metadataFilePath,omitempty"`
-	AssetSpec            *AssetInput            `json:"assetSpec,omitempty"`
-	AdditionalProperties map[string]interface{} `additionalProperties:"true" json:"-"`
-}
-
-func (t TaskUploadInput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *TaskUploadInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *TaskUploadInput) GetVideoFilePath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.VideoFilePath
-}
-
-func (o *TaskUploadInput) GetMetadataFilePath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.MetadataFilePath
-}
-
-func (o *TaskUploadInput) GetAssetSpec() *AssetInput {
-	if o == nil {
-		return nil
-	}
-	return o.AssetSpec
-}
-
-func (o *TaskUploadInput) GetAdditionalProperties() map[string]interface{} {
-	if o == nil {
-		return nil
-	}
-	return o.AdditionalProperties
-}
-
-type TaskIpfsInput struct {
-	// IPFS CID of the exported video file
-	VideoFileCid string `json:"videoFileCid"`
-	// IPFS CID of the default metadata exported for the video
-	NftMetadataCid *string `json:"nftMetadataCid,omitempty"`
-}
-
-func (o *TaskIpfsInput) GetVideoFileCid() string {
-	if o == nil {
-		return ""
-	}
-	return o.VideoFileCid
-}
-
-func (o *TaskIpfsInput) GetNftMetadataCid() *string {
-	if o == nil {
-		return nil
-	}
-	return o.NftMetadataCid
-}
-
-// TaskExport - Output of the export task
-type TaskExport struct {
-	Ipfs *TaskIpfsInput `json:"ipfs,omitempty"`
-}
-
-func (o *TaskExport) GetIpfs() *TaskIpfsInput {
-	if o == nil {
-		return nil
-	}
-	return o.Ipfs
-}
-
-type TaskAssetInput struct {
-	VideoFilePath        *string                `json:"videoFilePath,omitempty"`
-	MetadataFilePath     *string                `json:"metadataFilePath,omitempty"`
-	AssetSpec            *AssetInput            `json:"assetSpec,omitempty"`
-	AdditionalProperties map[string]interface{} `additionalProperties:"true" json:"-"`
-}
-
-func (t TaskAssetInput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *TaskAssetInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *TaskAssetInput) GetVideoFilePath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.VideoFilePath
-}
-
-func (o *TaskAssetInput) GetMetadataFilePath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.MetadataFilePath
-}
-
-func (o *TaskAssetInput) GetAssetSpec() *AssetInput {
-	if o == nil {
-		return nil
-	}
-	return o.AssetSpec
-}
-
-func (o *TaskAssetInput) GetAdditionalProperties() map[string]interface{} {
-	if o == nil {
-		return nil
-	}
-	return o.AdditionalProperties
-}
-
-type TaskTranscodeInput struct {
-	Asset *TaskAssetInput `json:"asset,omitempty"`
-}
-
-func (o *TaskTranscodeInput) GetAsset() *TaskAssetInput {
-	if o == nil {
-		return nil
-	}
-	return o.Asset
-}
-
-// TaskOutput - Output of the task
-type TaskOutput struct {
-	// Output of the upload task
-	Upload *TaskUploadInput `json:"upload,omitempty"`
-	// Output of the upload task
-	Import *UploadInput `json:"import,omitempty"`
-	// Output of the export task
-	Export *TaskExport `json:"export,omitempty"`
-	// Output of the export data task
-	ExportData *TaskSchemasExportData `json:"exportData,omitempty"`
-	Transcode  *TaskTranscodeInput    `json:"transcode,omitempty"`
-}
-
-func (o *TaskOutput) GetUpload() *TaskUploadInput {
-	if o == nil {
-		return nil
-	}
-	return o.Upload
-}
-
-func (o *TaskOutput) GetImport() *UploadInput {
-	if o == nil {
-		return nil
-	}
-	return o.Import
-}
-
-func (o *TaskOutput) GetExport() *TaskExport {
-	if o == nil {
-		return nil
-	}
-	return o.Export
-}
-
-func (o *TaskOutput) GetExportData() *TaskSchemasExportData {
-	if o == nil {
-		return nil
-	}
-	return o.ExportData
-}
-
-func (o *TaskOutput) GetTranscode() *TaskTranscodeInput {
-	if o == nil {
-		return nil
-	}
-	return o.Transcode
-}
-
-type TaskInput struct {
-	// Type of the task
-	Type *TaskType `json:"type,omitempty"`
-	// ID of the input asset
-	InputAssetID *string `json:"inputAssetId,omitempty"`
-	// ID of the output asset
-	OutputAssetID *string `json:"outputAssetId,omitempty"`
-	// Parameters of the task
-	Params *Params `json:"params,omitempty"`
-	Clip   *Clip   `json:"clip,omitempty"`
-	// Output of the task
-	Output *TaskOutput `json:"output,omitempty"`
-}
-
-func (o *TaskInput) GetType() *TaskType {
-	if o == nil {
-		return nil
-	}
-	return o.Type
-}
-
-func (o *TaskInput) GetInputAssetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.InputAssetID
-}
-
-func (o *TaskInput) GetOutputAssetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.OutputAssetID
-}
-
-func (o *TaskInput) GetParams() *Params {
-	if o == nil {
-		return nil
-	}
-	return o.Params
-}
-
-func (o *TaskInput) GetClip() *Clip {
-	if o == nil {
-		return nil
-	}
-	return o.Clip
-}
-
-func (o *TaskInput) GetOutput() *TaskOutput {
 	if o == nil {
 		return nil
 	}

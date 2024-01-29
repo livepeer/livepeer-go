@@ -8,7 +8,7 @@
 * [CreateViaURL](#createviaurl) - Upload asset via URL
 * [Delete](#delete) - Delete an asset
 * [Get](#get) - Retrieves an asset
-* [Update](#update) - Update an asset
+* [Update](#update) - Patch an asset
 
 ## GetAll
 
@@ -37,7 +37,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Classes != nil {
         // handle response
     }
 }
@@ -59,7 +59,78 @@ func main() {
 
 ## Create
 
-Upload an asset
+To upload an asset, your first need to request for a direct upload URL
+and only then actually upload the contents of the asset.
+\
+\
+Once you created a upload link, you have 2 options, resumable or direct
+upload. For a more reliable experience, you should use resumable uploads
+which will work better for users with unreliable or slow network
+connections. If you want a simpler implementation though, you should
+just use a direct upload.
+
+
+## Direct Upload
+For a direct upload, make a PUT request to the URL received in the url
+field of the response above, with the raw video file as the request
+body. response above:
+
+
+## Resumable Upload
+Livepeer supports resumable uploads via Tus. This section provides a
+simple example of how to use tus-js-client to upload a video file.
+\
+\
+From the previous section, we generated a URL to upload a video file to
+Livepeer on POST /api/asset/request-upload. You should use the
+tusEndpoint field of the response to upload the video file and track the
+progress:
+
+``` 
+# This assumes there is an `input` element of `type="file"` with id
+`fileInput` in the HTML
+
+
+const input = document.getElementById('fileInput');
+
+const file = input.files[0];
+
+const upload = new tus.Upload(file, {
+  endpoint: tusEndpoint, // URL from `tusEndpoint` field in the
+`/request-upload` response
+  metadata: {
+    filename,
+    filetype: 'video/mp4',
+  },
+  uploadSize: file.size,
+  onError(err) {
+    console.error('Error uploading file:', err);
+  },
+  onProgress(bytesUploaded, bytesTotal) {
+    const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2);
+    console.log('Uploaded ' + percentage + '%');
+  },
+  onSuccess() {
+    console.log('Upload finished:', upload.url);
+  },
+});
+
+const previousUploads = await upload.findPreviousUploads();
+
+if (previousUploads.length > 0) {
+  upload.resumeFromPreviousUpload(previousUploads[0]);
+}
+
+upload.start();
+
+```
+
+> Note: If you are using tus from node.js, you need to add a custom URL
+storage to enable resuming from previous uploads. On the browser, this
+is enabled by default using local storage. In node.js, add urlStorage:
+new tus.FileUrlStorage("path/to/tmp/file"), to the UploadFile object
+definition above.
+
 
 ### Example Usage
 
@@ -84,9 +155,8 @@ func main() {
         StaticMp4: livepeer.Bool(true),
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypeJwt,
-            WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
             WebhookContext: map[string]interface{}{
-                "foo": "string",
+                "key": "string",
             },
         },
         CreatorID: components.CreateInputCreatorIDCreatorID(
@@ -111,7 +181,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Object != nil {
         // handle response
     }
 }
@@ -159,9 +229,8 @@ func main() {
         StaticMp4: livepeer.Bool(true),
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypeWebhook,
-            WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
             WebhookContext: map[string]interface{}{
-                "foo": "string",
+                "key": "string",
             },
         },
         CreatorID: components.CreateInputCreatorIDStr(
@@ -171,7 +240,7 @@ func main() {
             Ipfs: components.CreateNewAssetPayloadIpfsNewAssetPayload1(
                     components.NewAssetPayload1{
                         Spec: &components.Spec{
-                            NftMetadata: &components.SpecNftMetadata{},
+                            NftMetadata: &components.NftMetadata{},
                         },
                     },
             ),
@@ -185,7 +254,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Object != nil {
         // handle response
     }
 }
@@ -310,7 +379,7 @@ func main() {
 
 ## Update
 
-Update an asset
+Patch an asset
 
 ### Example Usage
 
@@ -339,9 +408,8 @@ func main() {
         ),
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypePublic,
-            WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
             WebhookContext: map[string]interface{}{
-                "foo": "string",
+                "key": "string",
             },
         },
         Storage: &components.Storage{
@@ -374,7 +442,7 @@ func main() {
 
 ### Response
 
-**[*operations.PatchAssetAssetIDResponse](../../models/operations/patchassetassetidresponse.md), error**
+**[*operations.UpdateAssetResponse](../../models/operations/updateassetresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |

@@ -7,4 +7,4 @@ HLS output format
 
 | Field                   | Type                    | Required                | Description             | Example                 |
 | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- |
-| `Path`                  | **string*               | :heavy_minus_sign:      | Path for the HLS output | /samplevideo/hls        |
+| `Path`                  | *string*                | :heavy_check_mark:      | Path for the HLS output | /samplevideo/hls        |

@@ -61,13 +61,13 @@ func (o *Custom) GetHeaders() map[string]string {
 	return o.Headers
 }
 
-// ExportTaskParamsSchemas1 - Parameters for the export task
-type ExportTaskParamsSchemas1 struct {
+// ExportTaskParams1 - Parameters for the export task
+type ExportTaskParams1 struct {
 	// custom URL parameters for the export task
 	Custom Custom `json:"custom"`
 }
 
-func (o *ExportTaskParamsSchemas1) GetCustom() Custom {
+func (o *ExportTaskParams1) GetCustom() Custom {
 	if o == nil {
 		return Custom{}
 	}
@@ -77,23 +77,23 @@ func (o *ExportTaskParamsSchemas1) GetCustom() Custom {
 type ExportTaskParamsType string
 
 const (
-	ExportTaskParamsTypeExportTaskParamsSchemas1 ExportTaskParamsType = "export-task-params_Schemas_1"
-	ExportTaskParamsTypeExportTaskParams2        ExportTaskParamsType = "export-task-params_2"
+	ExportTaskParamsTypeExportTaskParams1 ExportTaskParamsType = "export-task-params_1"
+	ExportTaskParamsTypeExportTaskParams2 ExportTaskParamsType = "export-task-params_2"
 )
 
 type ExportTaskParams struct {
-	ExportTaskParamsSchemas1 *ExportTaskParamsSchemas1
-	ExportTaskParams2        *ExportTaskParams2
+	ExportTaskParams1 *ExportTaskParams1
+	ExportTaskParams2 *ExportTaskParams2
 
 	Type ExportTaskParamsType
 }
 
-func CreateExportTaskParamsExportTaskParamsSchemas1(exportTaskParamsSchemas1 ExportTaskParamsSchemas1) ExportTaskParams {
-	typ := ExportTaskParamsTypeExportTaskParamsSchemas1
+func CreateExportTaskParamsExportTaskParams1(exportTaskParams1 ExportTaskParams1) ExportTaskParams {
+	typ := ExportTaskParamsTypeExportTaskParams1
 
 	return ExportTaskParams{
-		ExportTaskParamsSchemas1: &exportTaskParamsSchemas1,
-		Type:                     typ,
+		ExportTaskParams1: &exportTaskParams1,
+		Type:              typ,
 	}
 }
 
@@ -108,10 +108,10 @@ func CreateExportTaskParamsExportTaskParams2(exportTaskParams2 ExportTaskParams2
 
 func (u *ExportTaskParams) UnmarshalJSON(data []byte) error {
 
-	exportTaskParamsSchemas1 := ExportTaskParamsSchemas1{}
-	if err := utils.UnmarshalJSON(data, &exportTaskParamsSchemas1, "", true, true); err == nil {
-		u.ExportTaskParamsSchemas1 = &exportTaskParamsSchemas1
-		u.Type = ExportTaskParamsTypeExportTaskParamsSchemas1
+	exportTaskParams1 := ExportTaskParams1{}
+	if err := utils.UnmarshalJSON(data, &exportTaskParams1, "", true, true); err == nil {
+		u.ExportTaskParams1 = &exportTaskParams1
+		u.Type = ExportTaskParamsTypeExportTaskParams1
 		return nil
 	}
 
@@ -126,87 +126,12 @@ func (u *ExportTaskParams) UnmarshalJSON(data []byte) error {
 }
 
 func (u ExportTaskParams) MarshalJSON() ([]byte, error) {
-	if u.ExportTaskParamsSchemas1 != nil {
-		return utils.MarshalJSON(u.ExportTaskParamsSchemas1, "", true)
+	if u.ExportTaskParams1 != nil {
+		return utils.MarshalJSON(u.ExportTaskParams1, "", true)
 	}
 
 	if u.ExportTaskParams2 != nil {
 		return utils.MarshalJSON(u.ExportTaskParams2, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type: all fields are null")
-}
-
-// ExportTaskParamsSchemas2 - Parameters for the export task
-type ExportTaskParamsSchemas2 struct {
-	Ipfs IpfsExportParams1 `json:"ipfs"`
-}
-
-func (o *ExportTaskParamsSchemas2) GetIpfs() IpfsExportParams1 {
-	if o == nil {
-		return IpfsExportParams1{}
-	}
-	return o.Ipfs
-}
-
-type ExportTaskParams1Type string
-
-const (
-	ExportTaskParams1TypeExportTaskParamsSchemas1 ExportTaskParams1Type = "export-task-params_Schemas_1"
-	ExportTaskParams1TypeExportTaskParamsSchemas2 ExportTaskParams1Type = "export-task-params_Schemas_2"
-)
-
-type ExportTaskParams1 struct {
-	ExportTaskParamsSchemas1 *ExportTaskParamsSchemas1
-	ExportTaskParamsSchemas2 *ExportTaskParamsSchemas2
-
-	Type ExportTaskParams1Type
-}
-
-func CreateExportTaskParams1ExportTaskParamsSchemas1(exportTaskParamsSchemas1 ExportTaskParamsSchemas1) ExportTaskParams1 {
-	typ := ExportTaskParams1TypeExportTaskParamsSchemas1
-
-	return ExportTaskParams1{
-		ExportTaskParamsSchemas1: &exportTaskParamsSchemas1,
-		Type:                     typ,
-	}
-}
-
-func CreateExportTaskParams1ExportTaskParamsSchemas2(exportTaskParamsSchemas2 ExportTaskParamsSchemas2) ExportTaskParams1 {
-	typ := ExportTaskParams1TypeExportTaskParamsSchemas2
-
-	return ExportTaskParams1{
-		ExportTaskParamsSchemas2: &exportTaskParamsSchemas2,
-		Type:                     typ,
-	}
-}
-
-func (u *ExportTaskParams1) UnmarshalJSON(data []byte) error {
-
-	exportTaskParamsSchemas1 := ExportTaskParamsSchemas1{}
-	if err := utils.UnmarshalJSON(data, &exportTaskParamsSchemas1, "", true, true); err == nil {
-		u.ExportTaskParamsSchemas1 = &exportTaskParamsSchemas1
-		u.Type = ExportTaskParams1TypeExportTaskParamsSchemas1
-		return nil
-	}
-
-	exportTaskParamsSchemas2 := ExportTaskParamsSchemas2{}
-	if err := utils.UnmarshalJSON(data, &exportTaskParamsSchemas2, "", true, true); err == nil {
-		u.ExportTaskParamsSchemas2 = &exportTaskParamsSchemas2
-		u.Type = ExportTaskParams1TypeExportTaskParamsSchemas2
-		return nil
-	}
-
-	return errors.New("could not unmarshal into supported union types")
-}
-
-func (u ExportTaskParams1) MarshalJSON() ([]byte, error) {
-	if u.ExportTaskParamsSchemas1 != nil {
-		return utils.MarshalJSON(u.ExportTaskParamsSchemas1, "", true)
-	}
-
-	if u.ExportTaskParamsSchemas2 != nil {
-		return utils.MarshalJSON(u.ExportTaskParamsSchemas2, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type: all fields are null")

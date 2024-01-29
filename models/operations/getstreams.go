@@ -8,7 +8,6 @@ import (
 )
 
 type GetStreamsRequest struct {
-	// Filter the API response and retrieve a specific subset of stream objects based on certain criteria
 	Streamsonly *string `queryParam:"style=form,explode=true,name=streamsonly"`
 }
 
@@ -27,7 +26,7 @@ type GetStreamsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data []components.Stream
+	Classes []components.Stream
 }
 
 func (o *GetStreamsResponse) GetContentType() string {
@@ -51,9 +50,9 @@ func (o *GetStreamsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetStreamsResponse) GetData() []components.Stream {
+func (o *GetStreamsResponse) GetClasses() []components.Stream {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Classes
 }

@@ -26,6 +26,7 @@ func newMetrics(sdkConfig sdkConfiguration) *Metrics {
 }
 
 // GetViewership - Query viewership metrics
+// Requires a private (non-CORS) API key to be used.
 func (s *Metrics) GetViewership(ctx context.Context, request operations.GetViewershipsMetricsRequest) (*operations.GetViewershipsMetricsResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/data/views/query"
@@ -74,7 +75,7 @@ func (s *Metrics) GetViewership(ctx context.Context, request operations.GetViewe
 				return nil, err
 			}
 
-			res.Data = out
+			res.Classes = out
 		default:
 			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
 		}
@@ -88,6 +89,7 @@ func (s *Metrics) GetViewership(ctx context.Context, request operations.GetViewe
 }
 
 // GetCreatorViewership - Query creator viewership metrics
+// Requires a proof of ownership to be sent in the request, which for now is just the assetId or streamId parameters (1 of those must be in the query-string).
 func (s *Metrics) GetCreatorViewership(ctx context.Context, request operations.GetCreatorMetricsRequest) (*operations.GetCreatorMetricsResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/data/views/query/creator"
@@ -136,7 +138,7 @@ func (s *Metrics) GetCreatorViewership(ctx context.Context, request operations.G
 				return nil, err
 			}
 
-			res.Data = out
+			res.Classes = out
 		default:
 			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
 		}
@@ -150,6 +152,9 @@ func (s *Metrics) GetCreatorViewership(ctx context.Context, request operations.G
 }
 
 // GetPublicTotalViews - Query public total views metrics
+// Allows querying for the public metrics for viewership about a video.
+// This can be called from the frontend with a CORS key, or even
+// unauthenticated.
 func (s *Metrics) GetPublicTotalViews(ctx context.Context, playbackID string) (*operations.GetPublicTotalViewsMetricsResponse, error) {
 	request := operations.GetPublicTotalViewsMetricsRequest{
 		PlaybackID: playbackID,
@@ -196,12 +201,12 @@ func (s *Metrics) GetPublicTotalViews(ctx context.Context, playbackID string) (*
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(contentType, `application/json`):
-			var out operations.GetPublicTotalViewsMetricsData
+			var out operations.GetPublicTotalViewsMetricsResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Data = &out
+			res.Object = &out
 		default:
 			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
 		}

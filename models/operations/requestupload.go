@@ -18,36 +18,36 @@ func (o *Task) GetID() *string {
 	return o.ID
 }
 
-// RequestUploadData - Success
-type RequestUploadData struct {
+// RequestUploadResponseBody - Success
+type RequestUploadResponseBody struct {
 	URL         string           `json:"url"`
 	TusEndpoint string           `json:"tusEndpoint"`
 	Asset       components.Asset `json:"asset"`
 	Task        Task             `json:"task"`
 }
 
-func (o *RequestUploadData) GetURL() string {
+func (o *RequestUploadResponseBody) GetURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.URL
 }
 
-func (o *RequestUploadData) GetTusEndpoint() string {
+func (o *RequestUploadResponseBody) GetTusEndpoint() string {
 	if o == nil {
 		return ""
 	}
 	return o.TusEndpoint
 }
 
-func (o *RequestUploadData) GetAsset() components.Asset {
+func (o *RequestUploadResponseBody) GetAsset() components.Asset {
 	if o == nil {
 		return components.Asset{}
 	}
 	return o.Asset
 }
 
-func (o *RequestUploadData) GetTask() Task {
+func (o *RequestUploadResponseBody) GetTask() Task {
 	if o == nil {
 		return Task{}
 	}
@@ -62,7 +62,7 @@ type RequestUploadResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data *RequestUploadData
+	Object *RequestUploadResponseBody
 }
 
 func (o *RequestUploadResponse) GetContentType() string {
@@ -86,9 +86,9 @@ func (o *RequestUploadResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *RequestUploadResponse) GetData() *RequestUploadData {
+func (o *RequestUploadResponse) GetObject() *RequestUploadResponseBody {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Object
 }

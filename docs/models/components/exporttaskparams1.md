@@ -1,17 +1,10 @@
 # ExportTaskParams1
 
+Parameters for the export task
 
-## Supported Types
 
-### ExportTaskParamsSchemas1
+## Fields
 
-```go
-exportTaskParams1 := components.CreateExportTaskParams1ExportTaskParamsSchemas1(components.ExportTaskParamsSchemas1{/* values here */})
-```
-
-### ExportTaskParamsSchemas2
-
-```go
-exportTaskParams1 := components.CreateExportTaskParams1ExportTaskParamsSchemas2(components.ExportTaskParamsSchemas2{/* values here */})
-```
-
+| Field                                                  | Type                                                   | Required                                               | Description                                            |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `Custom`                                               | [components.Custom](../../models/components/custom.md) | :heavy_check_mark:                                     | custom URL parameters for the export task              |

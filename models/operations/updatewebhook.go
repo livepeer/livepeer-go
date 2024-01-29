@@ -8,7 +8,6 @@ import (
 )
 
 type UpdateWebhookRequest struct {
-	// ID of the webhook
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 

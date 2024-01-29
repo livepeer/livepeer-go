@@ -15,7 +15,7 @@ type GetTasksResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data []components.Task
+	Classes []components.Task
 }
 
 func (o *GetTasksResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *GetTasksResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetTasksResponse) GetData() []components.Task {
+func (o *GetTasksResponse) GetClasses() []components.Task {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Classes
 }

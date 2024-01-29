@@ -70,7 +70,7 @@ func (s *Webhook) GetAll(ctx context.Context) (*operations.GetWebhooksResponse, 
 				return nil, err
 			}
 
-			res.Data = out
+			res.Classes = out
 		default:
 			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
 		}
@@ -84,6 +84,7 @@ func (s *Webhook) GetAll(ctx context.Context) (*operations.GetWebhooksResponse, 
 }
 
 // Create a webhook
+// To create a new webhook, you need to make an API call with the events you want to listen for and the URL that will be called when those events occur.
 func (s *Webhook) Create(ctx context.Context) (*operations.CreateWebhookResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/webhook"

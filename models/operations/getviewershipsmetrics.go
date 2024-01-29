@@ -326,7 +326,7 @@ type GetViewershipsMetricsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// A list of Metric objects
-	Data []components.ViewershipMetric
+	Classes []components.ViewershipMetric
 }
 
 func (o *GetViewershipsMetricsResponse) GetContentType() string {
@@ -350,9 +350,9 @@ func (o *GetViewershipsMetricsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetViewershipsMetricsResponse) GetData() []components.ViewershipMetric {
+func (o *GetViewershipsMetricsResponse) GetClasses() []components.ViewershipMetric {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Classes
 }

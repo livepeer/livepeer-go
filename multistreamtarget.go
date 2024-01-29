@@ -70,7 +70,7 @@ func (s *MultistreamTarget) GetAll(ctx context.Context) (*operations.GetMultistr
 				return nil, err
 			}
 
-			res.Data = out
+			res.Classes = out
 		default:
 			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
 		}
@@ -152,6 +152,8 @@ func (s *MultistreamTarget) Create(ctx context.Context, request components.Multi
 }
 
 // Delete a multistream target
+// Make sure to remove any references to the target on existing
+// streams before actually deleting it from the API.
 func (s *MultistreamTarget) Delete(ctx context.Context, id string) (*operations.DeleteMultistreamTargetResponse, error) {
 	request := operations.DeleteMultistreamTargetRequest{
 		ID: id,

@@ -7,131 +7,104 @@ import (
 	"livepeer/internal/utils"
 )
 
-// IpfsExportParams2Output - Custom credentials for the Piñata service. Must have either
+// IpfsExportParams2 - Custom credentials for the Piñata service. Must have either
 // a JWT or an API key and an API secret.
-type IpfsExportParams2Output struct {
+type IpfsExportParams2 struct {
 	// Will be added to the pinata_api_key header.
 	APIKey string `json:"apiKey"`
 }
 
-func (o *IpfsExportParams2Output) GetAPIKey() string {
+func (o *IpfsExportParams2) GetAPIKey() string {
 	if o == nil {
 		return ""
 	}
 	return o.APIKey
 }
 
-// IpfsExportParams1Output - Custom credentials for the Piñata service. Must have either
+// IpfsExportParams1 - Custom credentials for the Piñata service. Must have either
 // a JWT or an API key and an API secret.
-type IpfsExportParams1Output struct {
+type IpfsExportParams1 struct {
 }
 
-type IpfsExportParamsPinataType string
+type PinataType string
 
 const (
-	IpfsExportParamsPinataTypeIpfsExportParams1Output IpfsExportParamsPinataType = "ipfs-export-params_1_output"
-	IpfsExportParamsPinataTypeIpfsExportParams2Output IpfsExportParamsPinataType = "ipfs-export-params_2_output"
+	PinataTypeIpfsExportParams1 PinataType = "ipfs-export-params_1"
+	PinataTypeIpfsExportParams2 PinataType = "ipfs-export-params_2"
 )
 
-type IpfsExportParamsPinata struct {
-	IpfsExportParams1Output *IpfsExportParams1Output
-	IpfsExportParams2Output *IpfsExportParams2Output
+type Pinata struct {
+	IpfsExportParams1 *IpfsExportParams1
+	IpfsExportParams2 *IpfsExportParams2
 
-	Type IpfsExportParamsPinataType
+	Type PinataType
 }
 
-func CreateIpfsExportParamsPinataIpfsExportParams1Output(ipfsExportParams1Output IpfsExportParams1Output) IpfsExportParamsPinata {
-	typ := IpfsExportParamsPinataTypeIpfsExportParams1Output
+func CreatePinataIpfsExportParams1(ipfsExportParams1 IpfsExportParams1) Pinata {
+	typ := PinataTypeIpfsExportParams1
 
-	return IpfsExportParamsPinata{
-		IpfsExportParams1Output: &ipfsExportParams1Output,
-		Type:                    typ,
+	return Pinata{
+		IpfsExportParams1: &ipfsExportParams1,
+		Type:              typ,
 	}
 }
 
-func CreateIpfsExportParamsPinataIpfsExportParams2Output(ipfsExportParams2Output IpfsExportParams2Output) IpfsExportParamsPinata {
-	typ := IpfsExportParamsPinataTypeIpfsExportParams2Output
+func CreatePinataIpfsExportParams2(ipfsExportParams2 IpfsExportParams2) Pinata {
+	typ := PinataTypeIpfsExportParams2
 
-	return IpfsExportParamsPinata{
-		IpfsExportParams2Output: &ipfsExportParams2Output,
-		Type:                    typ,
+	return Pinata{
+		IpfsExportParams2: &ipfsExportParams2,
+		Type:              typ,
 	}
 }
 
-func (u *IpfsExportParamsPinata) UnmarshalJSON(data []byte) error {
+func (u *Pinata) UnmarshalJSON(data []byte) error {
 
-	ipfsExportParams1Output := IpfsExportParams1Output{}
-	if err := utils.UnmarshalJSON(data, &ipfsExportParams1Output, "", true, true); err == nil {
-		u.IpfsExportParams1Output = &ipfsExportParams1Output
-		u.Type = IpfsExportParamsPinataTypeIpfsExportParams1Output
+	ipfsExportParams1 := IpfsExportParams1{}
+	if err := utils.UnmarshalJSON(data, &ipfsExportParams1, "", true, true); err == nil {
+		u.IpfsExportParams1 = &ipfsExportParams1
+		u.Type = PinataTypeIpfsExportParams1
 		return nil
 	}
 
-	ipfsExportParams2Output := IpfsExportParams2Output{}
-	if err := utils.UnmarshalJSON(data, &ipfsExportParams2Output, "", true, true); err == nil {
-		u.IpfsExportParams2Output = &ipfsExportParams2Output
-		u.Type = IpfsExportParamsPinataTypeIpfsExportParams2Output
+	ipfsExportParams2 := IpfsExportParams2{}
+	if err := utils.UnmarshalJSON(data, &ipfsExportParams2, "", true, true); err == nil {
+		u.IpfsExportParams2 = &ipfsExportParams2
+		u.Type = PinataTypeIpfsExportParams2
 		return nil
 	}
 
 	return errors.New("could not unmarshal into supported union types")
 }
 
-func (u IpfsExportParamsPinata) MarshalJSON() ([]byte, error) {
-	if u.IpfsExportParams1Output != nil {
-		return utils.MarshalJSON(u.IpfsExportParams1Output, "", true)
+func (u Pinata) MarshalJSON() ([]byte, error) {
+	if u.IpfsExportParams1 != nil {
+		return utils.MarshalJSON(u.IpfsExportParams1, "", true)
 	}
 
-	if u.IpfsExportParams2Output != nil {
-		return utils.MarshalJSON(u.IpfsExportParams2Output, "", true)
+	if u.IpfsExportParams2 != nil {
+		return utils.MarshalJSON(u.IpfsExportParams2, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type: all fields are null")
 }
 
 type IpfsExportParams struct {
-	// Name of the NFT metadata template to export. 'player'
-	// will embed the Livepeer Player on the NFT while 'file'
-	// will reference only the immutable MP4 files.
-	//
-	NftMetadataTemplate *NftMetadataTemplate `default:"file" json:"nftMetadataTemplate"`
-	// Additional data to add to the NFT metadata exported to
-	// IPFS. Will be deep merged with the default metadata
-	// exported.
-	//
-	NftMetadata *NftMetadata `json:"nftMetadata,omitempty"`
+	DollarRef interface{} `json:"$ref,omitempty"`
 	// Custom credentials for the Piñata service. Must have either
 	// a JWT or an API key and an API secret.
 	//
-	Pinata *IpfsExportParamsPinata `json:"pinata,omitempty"`
+	Pinata *Pinata `json:"pinata,omitempty"`
 }
 
-func (i IpfsExportParams) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *IpfsExportParams) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *IpfsExportParams) GetNftMetadataTemplate() *NftMetadataTemplate {
+func (o *IpfsExportParams) GetDollarRef() interface{} {
 	if o == nil {
 		return nil
 	}
-	return o.NftMetadataTemplate
+	return o.DollarRef
 }
 
-func (o *IpfsExportParams) GetNftMetadata() *NftMetadata {
-	if o == nil {
-		return nil
-	}
-	return o.NftMetadata
-}
-
-func (o *IpfsExportParams) GetPinata() *IpfsExportParamsPinata {
+func (o *IpfsExportParams) GetPinata() *Pinata {
 	if o == nil {
 		return nil
 	}

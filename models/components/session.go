@@ -60,9 +60,9 @@ type Session struct {
 	// the stream, if any.
 	//
 	Issues []string `json:"issues,omitempty"`
-	// Timestamp (in milliseconds) at which the stream object was created
+	// Timestamp (in milliseconds) at which stream object was created
 	CreatedAt *float64 `json:"createdAt,omitempty"`
-	// Points to the parent stream object
+	// Points to parent stream object
 	ParentID *string `json:"parentId,omitempty"`
 	// Should this stream be recorded? Uses default settings. For more
 	// customization, create and configure an object store.
@@ -74,7 +74,7 @@ type Session struct {
 	RecordingURL *string `json:"recordingUrl,omitempty"`
 	// URL for the stream session recording packaged in an mp4.
 	Mp4URL *string `json:"mp4Url,omitempty"`
-	// Used to form the playback URL
+	// Used to form playback URL
 	PlaybackID *string         `json:"playbackId,omitempty"`
 	Profiles   []FfmpegProfile `json:"profiles,omitempty"`
 }

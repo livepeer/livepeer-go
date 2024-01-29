@@ -1,10 +1,17 @@
 # Input
 
-Input video file to transcode
 
+## Supported Types
 
-## Fields
+### TranscodePayload1
 
-| Field                                                                | Type                                                                 | Required                                                             | Description                                                          | Example                                                              |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `URL`                                                                | **string*                                                            | :heavy_minus_sign:                                                   | URL of a video to transcode, accepts object-store format<br/>"s3+https"<br/> | https://cdn.livepeer.com/ABC123/filename.mp4                         |
+```go
+input := components.CreateInputTranscodePayload1(components.TranscodePayload1{/* values here */})
+```
+
+### TranscodePayload2
+
+```go
+input := components.CreateInputTranscodePayload2(components.TranscodePayload2{/* values here */})
+```
+

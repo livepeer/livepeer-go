@@ -8,8 +8,11 @@
 * [Delete](#delete) - Delete a stream
 * [Get](#get) - Retrieve a stream
 * [Update](#update) - Update a stream
+* [Terminate](#terminate) - Terminates a live stream
 * [CreateClip](#createclip) - Create a clip
 * [GetAllClips](#getallclips) - Retrieve clips of a livestream
+* [CreateMultistreamTarget](#createmultistreamtarget) - Add a multistream target
+* [DeleteMultistreamTarget](#deletemultistreamtarget) - Remove a multistream target
 
 ## GetAll
 
@@ -41,7 +44,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Classes != nil {
         // handle response
     }
 }
@@ -49,10 +52,10 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | :heavy_check_mark:                                                                                 | The context to use for the request.                                                                |
-| `streamsonly`                                                                                      | **string*                                                                                          | :heavy_minus_sign:                                                                                 | Filter the API response and retrieve a specific subset of stream objects based on certain criteria |
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
+| `streamsonly`                                         | **string*                                             | :heavy_minus_sign:                                    | N/A                                                   |
 
 
 ### Response
@@ -64,7 +67,20 @@ func main() {
 
 ## Create
 
-Create a stream
+The only parameter you are required to set is the name of your stream,
+but we also highly recommend that you define transcoding profiles
+parameter that suits your specific broadcasting configuration.
+\
+\
+If you do not define transcoding rendition profiles when creating the
+stream, a default set of profiles will be used. These profiles include
+240p,  360p, 480p and 720p.
+\
+\
+The playback policy is set to public by default for new streams. It can
+also be added upon the creation of a new stream by adding
+`"playbackPolicy": {"type": "jwt"}`
+
 
 ### Example Usage
 
@@ -96,30 +112,25 @@ func main() {
         ),
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypeJwt,
-            WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
             WebhookContext: map[string]interface{}{
-                "foo": "string",
+                "key": "string",
             },
         },
         Profiles: []components.FfmpegProfile{
             components.FfmpegProfile{
-                Width: 1280,
+                Width: 638424,
                 Name: "720p",
-                Height: 720,
-                Bitrate: 4000,
-                Fps: 30,
-                FpsDen: livepeer.Int64(1),
-                Gop: livepeer.String("60"),
-                Profile: components.ProfileH264High.ToPointer(),
-                Encoder: components.EncoderH264.ToPointer(),
+                Height: 859213,
+                Bitrate: 417458,
+                Fps: 288408,
             },
         },
         Record: livepeer.Bool(false),
         Multistream: &components.Multistream{
-            Targets: []components.Targets{
-                components.Targets{
+            Targets: []components.Target{
+                components.Target{
                     Profile: "720p",
-                    Spec: &components.MultistreamSpec{
+                    Spec: &components.TargetSpec{
                         URL: "rtmps://live.my-service.tv/channel/secretKey",
                     },
                 },
@@ -130,7 +141,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Classes != nil {
         // handle response
     }
 }
@@ -153,7 +164,12 @@ func main() {
 
 ## Delete
 
-Delete a stream
+
+This will also suspend any active stream sessions, so make sure to wait
+until the stream has finished. To explicitly interrupt an active
+session, consider instead updating the suspended field in the stream
+using the PATCH stream API.
+
 
 ### Example Usage
 
@@ -283,10 +299,10 @@ func main() {
         ),
         Record: livepeer.Bool(false),
         Multistream: &components.Multistream{
-            Targets: []components.Targets{
-                components.Targets{
+            Targets: []components.Target{
+                components.Target{
                     Profile: "720p",
-                    Spec: &components.MultistreamSpec{
+                    Spec: &components.TargetSpec{
                         URL: "rtmps://live.my-service.tv/channel/secretKey",
                     },
                 },
@@ -294,9 +310,17 @@ func main() {
         },
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypePublic,
-            WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
             WebhookContext: map[string]interface{}{
-                "foo": "string",
+                "key": "string",
+            },
+        },
+        Profiles: []components.FfmpegProfile{
+            components.FfmpegProfile{
+                Width: 597129,
+                Name: "720p",
+                Height: 15652,
+                Bitrate: 344620,
+                Fps: 708455,
             },
         },
     }
@@ -329,10 +353,68 @@ func main() {
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |
 
+## Terminate
+
+`DELETE /stream/{id}/terminate` can be used to terminate an ongoing
+session on a live stream. Unlike suspending the stream, it allows the
+streamer to restart streaming even immediately, but it will force
+terminate the current session and stop the recording.
+\
+\
+A 204 No Content status response indicates the stream was successfully
+terminated.
+
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"log"
+	"livepeer"
+	"livepeer/models/components"
+)
+
+func main() {
+    s := livepeer.New(
+        livepeer.WithSecurity(""),
+    )
+
+
+    var id string = "string"
+
+    ctx := context.Background()
+    res, err := s.Stream.Terminate(ctx, id)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    if res.StatusCode == http.StatusOK {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the stream                                      |
+
+
+### Response
+
+**[*operations.TerminateStreamResponse](../../models/operations/terminatestreamresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 400-600            | */*                |
+
 ## CreateClip
 
-Create a clip from a livestream
-
+Create a clip
 
 ### Example Usage
 
@@ -360,7 +442,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Object != nil {
         // handle response
     }
 }
@@ -411,7 +493,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Classes != nil {
         // handle response
     }
 }
@@ -428,6 +510,119 @@ func main() {
 ### Response
 
 **[*operations.GetStreamIDClipsResponse](../../models/operations/getstreamidclipsresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 400-600            | */*                |
+
+## CreateMultistreamTarget
+
+Add a multistream target
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"log"
+	"livepeer"
+	"livepeer/models/components"
+)
+
+func main() {
+    s := livepeer.New(
+        livepeer.WithSecurity(""),
+    )
+
+
+    var id string = "string"
+
+    targetAddPayload := components.TargetAddPayload{
+        Profile: "720p",
+        Spec: &components.TargetAddPayloadSpec{
+            URL: "rtmps://live.my-service.tv/channel/secretKey",
+        },
+    }
+
+    ctx := context.Background()
+    res, err := s.Stream.CreateMultistreamTarget(ctx, id, targetAddPayload)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    if res.StatusCode == http.StatusOK {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
+| `id`                                                                       | *string*                                                                   | :heavy_check_mark:                                                         | ID of the parent stream                                                    |
+| `targetAddPayload`                                                         | [components.TargetAddPayload](../../models/components/targetaddpayload.md) | :heavy_check_mark:                                                         | N/A                                                                        |
+
+
+### Response
+
+**[*operations.AddMultistreamTargetResponse](../../models/operations/addmultistreamtargetresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 400-600            | */*                |
+
+## DeleteMultistreamTarget
+
+Remove a multistream target
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"log"
+	"livepeer"
+	"livepeer/models/components"
+)
+
+func main() {
+    s := livepeer.New(
+        livepeer.WithSecurity(""),
+    )
+
+
+    var id string = "string"
+
+    var targetID string = "string"
+
+    ctx := context.Background()
+    res, err := s.Stream.DeleteMultistreamTarget(ctx, id, targetID)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    if res.StatusCode == http.StatusOK {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the parent stream                               |
+| `targetID`                                            | *string*                                              | :heavy_check_mark:                                    | ID of the multistream target                          |
+
+
+### Response
+
+**[*operations.RemoveMultistreamTargetResponse](../../models/operations/removemultistreamtargetresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |

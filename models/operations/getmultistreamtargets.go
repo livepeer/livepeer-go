@@ -15,7 +15,7 @@ type GetMultistreamTargetsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data []components.MultistreamTarget
+	Classes []components.MultistreamTarget
 }
 
 func (o *GetMultistreamTargetsResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *GetMultistreamTargetsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetMultistreamTargetsResponse) GetData() []components.MultistreamTarget {
+func (o *GetMultistreamTargetsResponse) GetClasses() []components.MultistreamTarget {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Classes
 }

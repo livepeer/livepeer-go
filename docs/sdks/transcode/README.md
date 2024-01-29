@@ -7,7 +7,128 @@
 
 ## Create
 
-Transcode a video
+`POST /transcode` transcodes a video file and uploads the results to the
+specified storage service. 
+\
+\
+Transcoding is asynchronous so you will need to check the status of the
+task in order to determine when transcoding is complete. The `id` field
+in the response is the unique ID for the transcoding `Task`. The task
+status can be queried using the [GET tasks
+endpoint](https://docs.livepeer.org/reference/api/get-tasks):
+\
+\
+When `status.phase` is `completed`,  transcoding will be complete and
+the results will be stored in the storage service and the specified
+output location.
+\
+\
+The results will be available under `params.outputs.hls.path` and
+`params.outputs.mp4.path` in the specified storage service.
+## Input
+\
+This endpoint currently supports the following inputs:
+- HTTP
+- S3 API Compatible Service
+\
+\
+**HTTP**
+\
+A public HTTP URL can be used to read a video file.
+```json
+{
+    "url": "https://www.example.com/video.mp4"
+}
+```
+| Name | Type   | Description                          |
+| ---- | ------ | ------------------------------------ |
+| url  | string | A public HTTP URL for the video file. |
+
+Note: For IPFS HTTP gateway URLs, the API currently only supports “path
+style” URLs and does not support “subdomain style” URLs. The API will
+support both styles of URLs in a future update.
+\
+\
+**S3 API Compatible Service**
+\
+\
+S3 credentials can be used to authenticate with a S3 API compatible
+service to read a video file.
+
+```json
+{
+    "type": "s3",
+    "endpoint": "https://gateway.storjshare.io",
+    "credentials": {
+        "accessKeyId": "$ACCESS_KEY_ID",
+        "secretAccessKey": "$SECRET_ACCESS_KEY"
+    },
+    "bucket": "inbucket",
+    "path": "/video/source.mp4"
+}
+```
+
+
+## Storage
+\
+This endpoint currently supports the following storage services:
+- S3 API Compatible Service
+- Web3 Storage
+\
+\
+**S3 API Compatible Service**
+```json
+{
+  "type": "s3",
+    "endpoint": "https://gateway.storjshare.io",
+    "credentials": {
+        "accessKeyId": "$ACCESS_KEY_ID",
+        "secretAccessKey": "$SECRET_ACCESS_KEY"
+    },
+    "bucket": "mybucket"
+}
+```
+
+**Web3 Storage**
+
+```json
+{
+  "type": "web3.storage",
+    "credentials": {
+        "proof": "$UCAN_DELEGATION_PROOF",
+    }
+}
+```
+
+
+
+## Outputs
+\
+This endpoint currently supports the following output types:
+- HLS
+- MP4
+
+**HLS**
+
+```json
+{
+  "hls": {
+        "path": "/samplevideo/hls"
+    }
+}
+```
+
+
+**MP4**
+
+```json
+{
+  "mp4": {
+        "path": "/samplevideo/mp4"
+    }
+}
+```
+
 
 ### Example Usage
 
@@ -27,260 +148,43 @@ func main() {
     )
 
     ctx := context.Background()
-    res, err := s.Transcode.Create(ctx, components.TaskInput{
-        InputAssetID: livepeer.String("09F8B46C-61A0-4254-9875-F71F4C605BC7"),
-        OutputAssetID: livepeer.String("09F8B46C-61A0-4254-9875-F71F4C605BC7"),
-        Params: &components.Params{
-            Upload: &components.TaskUpload{
-                URL: livepeer.String("https://cdn.livepeer.com/ABC123/filename.mp4"),
-                Encryption: &components.Encryption{
-                    EncryptedKey: "string",
+    res, err := s.Transcode.Create(ctx, components.TranscodePayload{
+        Input: components.CreateInputTranscodePayload1(
+                components.TranscodePayload1{
+                    URL: "https://s3.amazonaws.com/bucket/file.mp4",
                 },
-                RecordedSessionID: livepeer.String("78df0075-b5f3-4683-a618-1086faca35dc"),
-            },
-            Import: &components.Upload{
-                URL: livepeer.String("https://cdn.livepeer.com/ABC123/filename.mp4"),
-                Encryption: &components.Encryption{
-                    EncryptedKey: "string",
-                },
-                RecordedSessionID: livepeer.String("78df0075-b5f3-4683-a618-1086faca35dc"),
-            },
-            Export: components.CreateExportTaskParams1ExportTaskParamsSchemas1(
-                    components.ExportTaskParamsSchemas1{
-                        Custom: components.Custom{
-                            URL: "https://s3.amazonaws.com/my-bucket/path/filename.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=LLMMB",
-                            Headers: map[string]string{
-                                "key": "string",
-                            },
-                        },
-                    },
-            ),
-            ExportData: &components.TaskExportData{
-                Content: components.Content{},
-                Ipfs: &components.IpfsExportParams1{
-                    NftMetadata: &components.NftMetadata{},
-                    Pinata: components.CreatePinataIpfsExportParamsSchemas1(
-                            components.IpfsExportParamsSchemas1{
-                                Jwt: "string",
-                            },
-                    ),
-                },
-            },
-            Transcode: &components.Transcode{
-                Profile: &components.FfmpegProfile{
-                    Width: 1280,
-                    Name: "720p",
-                    Height: 720,
-                    Bitrate: 4000,
-                    Fps: 30,
-                    FpsDen: livepeer.Int64(1),
-                    Gop: livepeer.String("60"),
-                    Profile: components.ProfileH264High.ToPointer(),
-                    Encoder: components.EncoderH264.ToPointer(),
-                },
-            },
-            TranscodeFile: &components.TranscodeFile{
-                Input: &components.Input{
-                    URL: livepeer.String("https://cdn.livepeer.com/ABC123/filename.mp4"),
-                },
-                Storage: &components.TaskStorage{
-                    URL: livepeer.String("s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"),
-                },
-                Outputs: &components.Outputs{
-                    Hls: &components.Hls{
-                        Path: livepeer.String("/samplevideo/hls"),
-                    },
-                    Mp4: &components.Mp4{
-                        Path: livepeer.String("/samplevideo/mp4"),
+        ),
+        Storage: components.CreateTranscodePayloadStorageTranscodePayloadSchemas1(
+                components.TranscodePayloadSchemas1{
+                    Type: components.TranscodePayloadSchemasTypeS3,
+                    Endpoint: "https://gateway.storjshare.io",
+                    Bucket: "outputbucket",
+                    Credentials: components.TranscodePayloadCredentials{
+                        AccessKeyID: "AKIAIOSFODNN7EXAMPLE",
+                        SecretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
                     },
                 },
-                Profiles: []components.FfmpegProfile{
-                    components.FfmpegProfile{
-                        Width: 1280,
-                        Name: "720p",
-                        Height: 720,
-                        Bitrate: 4000,
-                        Fps: 30,
-                        FpsDen: livepeer.Int64(1),
-                        Gop: livepeer.String("60"),
-                        Profile: components.ProfileH264High.ToPointer(),
-                        Encoder: components.EncoderH264.ToPointer(),
-                    },
-                },
-                CreatorID: components.CreateInputCreatorIDCreatorID(
-                        components.CreateCreatorIDCreatorID1(
-                                    components.CreatorID1{
-                                        Type: components.CreatorIDTypeUnverified,
-                                        Value: "string",
-                                    },
-                        ),
-                ),
+        ),
+        Outputs: components.Outputs{
+            Hls: &components.Hls{
+                Path: "/samplevideo/hls",
+            },
+            Mp4: &components.Mp4{
+                Path: "/samplevideo/mp4",
+            },
+            Fmp4: &components.Fmp4{
+                Path: "/samplevideo/fmp4",
             },
         },
-        Clip: &components.Clip{
-            ClipStrategy: &components.ClipStrategy{},
-        },
-        Output: &components.TaskOutput{
-            Upload: &components.TaskUploadInput{
-                AssetSpec: &components.AssetInput{
-                    Type: components.AssetTypeVideo.ToPointer(),
-                    PlaybackID: livepeer.String("eaw4nk06ts2d0mzb"),
-                    PlaybackPolicy: &components.PlaybackPolicy{
-                        Type: components.TypeJwt,
-                        WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
-                        WebhookContext: map[string]interface{}{
-                            "foo": "string",
-                        },
-                    },
-                    Source: components.CreateSourceAsset1(
-                            components.Asset1{
-                                Type: components.AssetSchemasTypeURL,
-                                URL: "https://impartial-dump.com",
-                                Encryption: &components.Encryption{
-                                    EncryptedKey: "string",
-                                },
-                            },
-                    ),
-                    CreatorID: components.CreateCreatorIDCreatorID1(
-                            components.CreatorID1{
-                                Type: components.CreatorIDTypeUnverified,
-                                Value: "string",
-                            },
-                    ),
-                    Storage: &components.AssetStorageInput{
-                        Ipfs: &components.AssetIpfsInput{
-                            Spec: &components.AssetSpec{
-                                NftMetadata: &components.AssetNftMetadata{},
-                            },
-                            Cid: livepeer.String("bafybeihoqtemwitqajy6d654tmghqqvxmzgblddj2egst6yilplr5num6u"),
-                            NftMetadata: &components.IpfsFileInfoInput{
-                                Cid: "bafybeihoqtemwitqajy6d654tmghqqvxmzgblddj2egst6yilplr5num6u",
-                            },
-                        },
-                    },
-                    Name: "filename.mp4",
-                    Hash: []components.Hash{
-                        components.Hash{
-                            Hash: livepeer.String("9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57"),
-                            Algorithm: livepeer.String("sha256"),
-                        },
-                    },
-                },
-                AdditionalProperties: map[string]interface{}{
-                    "key": "string",
-                },
-            },
-            Import: &components.UploadInput{
-                AssetSpec: &components.AssetInput{
-                    Type: components.AssetTypeVideo.ToPointer(),
-                    PlaybackID: livepeer.String("eaw4nk06ts2d0mzb"),
-                    PlaybackPolicy: &components.PlaybackPolicy{
-                        Type: components.TypeWebhook,
-                        WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
-                        WebhookContext: map[string]interface{}{
-                            "foo": "string",
-                        },
-                    },
-                    Source: components.CreateSourceAsset1(
-                            components.Asset1{
-                                Type: components.AssetSchemasTypeURL,
-                                URL: "http://yummy-shift.info",
-                                Encryption: &components.Encryption{
-                                    EncryptedKey: "string",
-                                },
-                            },
-                    ),
-                    CreatorID: components.CreateCreatorIDCreatorID1(
-                            components.CreatorID1{
-                                Type: components.CreatorIDTypeUnverified,
-                                Value: "string",
-                            },
-                    ),
-                    Storage: &components.AssetStorageInput{
-                        Ipfs: &components.AssetIpfsInput{
-                            Spec: &components.AssetSpec{
-                                NftMetadata: &components.AssetNftMetadata{},
-                            },
-                            Cid: livepeer.String("bafybeihoqtemwitqajy6d654tmghqqvxmzgblddj2egst6yilplr5num6u"),
-                            NftMetadata: &components.IpfsFileInfoInput{
-                                Cid: "bafybeihoqtemwitqajy6d654tmghqqvxmzgblddj2egst6yilplr5num6u",
-                            },
-                        },
-                    },
-                    Name: "filename.mp4",
-                    Hash: []components.Hash{
-                        components.Hash{
-                            Hash: livepeer.String("9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57"),
-                            Algorithm: livepeer.String("sha256"),
-                        },
-                    },
-                },
-                AdditionalProperties: map[string]interface{}{
-                    "key": "string",
-                },
-            },
-            Export: &components.TaskExport{
-                Ipfs: &components.TaskIpfsInput{
-                    VideoFileCid: "string",
-                },
-            },
-            ExportData: &components.TaskSchemasExportData{
-                Ipfs: &components.TaskSchemasIpfs{
-                    Cid: "string",
-                },
-            },
-            Transcode: &components.TaskTranscodeInput{
-                Asset: &components.TaskAssetInput{
-                    AssetSpec: &components.AssetInput{
-                        Type: components.AssetTypeVideo.ToPointer(),
-                        PlaybackID: livepeer.String("eaw4nk06ts2d0mzb"),
-                        PlaybackPolicy: &components.PlaybackPolicy{
-                            Type: components.TypeWebhook,
-                            WebhookID: livepeer.String("3e02c844-d364-4d48-b401-24b2773b5d6c"),
-                            WebhookContext: map[string]interface{}{
-                                "foo": "string",
-                            },
-                        },
-                        Source: components.CreateSourceAsset1(
-                                components.Asset1{
-                                    Type: components.AssetSchemasTypeURL,
-                                    URL: "https://abandoned-incident.biz",
-                                    Encryption: &components.Encryption{
-                                        EncryptedKey: "string",
-                                    },
-                                },
-                        ),
-                        CreatorID: components.CreateCreatorIDCreatorID1(
-                                components.CreatorID1{
-                                    Type: components.CreatorIDTypeUnverified,
-                                    Value: "string",
-                                },
-                        ),
-                        Storage: &components.AssetStorageInput{
-                            Ipfs: &components.AssetIpfsInput{
-                                Spec: &components.AssetSpec{
-                                    NftMetadata: &components.AssetNftMetadata{},
-                                },
-                                Cid: livepeer.String("bafybeihoqtemwitqajy6d654tmghqqvxmzgblddj2egst6yilplr5num6u"),
-                                NftMetadata: &components.IpfsFileInfoInput{
-                                    Cid: "bafybeihoqtemwitqajy6d654tmghqqvxmzgblddj2egst6yilplr5num6u",
-                                },
-                            },
-                        },
-                        Name: "filename.mp4",
-                        Hash: []components.Hash{
-                            components.Hash{
-                                Hash: livepeer.String("9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57"),
-                                Algorithm: livepeer.String("sha256"),
-                            },
-                        },
-                    },
-                    AdditionalProperties: map[string]interface{}{
-                        "key": "string",
-                    },
-                },
+        Profiles: []components.TranscodeProfile{
+            components.TranscodeProfile{
+                Name: livepeer.String("720p"),
+                Bitrate: 638424,
             },
         },
+        CreatorID: components.CreateInputCreatorIDStr(
+        "string",
+        ),
     })
     if err != nil {
         log.Fatal(err)
@@ -294,10 +198,10 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `ctx`                                                        | [context.Context](https://pkg.go.dev/context#Context)        | :heavy_check_mark:                                           | The context to use for the request.                          |
-| `request`                                                    | [components.TaskInput](../../models/components/taskinput.md) | :heavy_check_mark:                                           | The request object to use for the request.                   |
+| Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
+| `request`                                                                  | [components.TranscodePayload](../../models/components/transcodepayload.md) | :heavy_check_mark:                                                         | The request object to use for the request.                                 |
 
 
 ### Response

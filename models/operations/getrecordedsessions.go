@@ -38,7 +38,7 @@ type GetRecordedSessionsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data []components.Session
+	Classes []components.Session
 }
 
 func (o *GetRecordedSessionsResponse) GetContentType() string {
@@ -62,9 +62,9 @@ func (o *GetRecordedSessionsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetRecordedSessionsResponse) GetData() []components.Session {
+func (o *GetRecordedSessionsResponse) GetClasses() []components.Session {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Classes
 }

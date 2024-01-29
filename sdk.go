@@ -3,11 +3,16 @@
 package livepeer
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"livepeer/internal/utils"
 	"livepeer/models/components"
+	"livepeer/models/operations"
+	"livepeer/models/sdkerrors"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -69,9 +74,9 @@ type SDK struct {
 	MultistreamTarget *MultistreamTarget
 	Webhook           *Webhook
 	Asset             *Asset
-	Metrics           *Metrics
 	Session           *Session
-	AccessControl     *AccessControl
+	Metrics           *Metrics
+	SigningKey        *SigningKey
 	Task              *Task
 	Transcode         *Transcode
 	Playback          *Playback
@@ -145,8 +150,8 @@ func New(opts ...SDKOption) *SDK {
 			Language:          "go",
 			OpenAPIDocVersion: "1.0.0",
 			SDKVersion:        "0.0.1",
-			GenVersion:        "2.188.1",
-			UserAgent:         "speakeasy-sdk/go 0.0.1 2.188.1 1.0.0 livepeer",
+			GenVersion:        "2.188.3",
+			UserAgent:         "speakeasy-sdk/go 0.0.1 2.188.3 1.0.0 livepeer",
 		},
 	}
 	for _, opt := range opts {
@@ -173,11 +178,11 @@ func New(opts ...SDKOption) *SDK {
 
 	sdk.Asset = newAsset(sdk.sdkConfiguration)
 
-	sdk.Metrics = newMetrics(sdk.sdkConfiguration)
-
 	sdk.Session = newSession(sdk.sdkConfiguration)
 
-	sdk.AccessControl = newAccessControl(sdk.sdkConfiguration)
+	sdk.Metrics = newMetrics(sdk.sdkConfiguration)
+
+	sdk.SigningKey = newSigningKey(sdk.sdkConfiguration)
 
 	sdk.Task = newTask(sdk.sdkConfiguration)
 
@@ -186,4 +191,62 @@ func New(opts ...SDKOption) *SDK {
 	sdk.Playback = newPlayback(sdk.sdkConfiguration)
 
 	return sdk
+}
+
+// GetAll - Retrieves signing keys
+func (s *SDK) GetAll(ctx context.Context) (*operations.GetSigningKeysResponse, error) {
+	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	url := strings.TrimSuffix(baseURL, "/") + "/access-control/signing-key"
+
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("user-agent", s.sdkConfiguration.UserAgent)
+
+	client := s.sdkConfiguration.SecurityClient
+
+	httpRes, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error sending request: %w", err)
+	}
+	if httpRes == nil {
+		return nil, fmt.Errorf("error sending request: no response")
+	}
+
+	contentType := httpRes.Header.Get("Content-Type")
+
+	res := &operations.GetSigningKeysResponse{
+		StatusCode:  httpRes.StatusCode,
+		ContentType: contentType,
+		RawResponse: httpRes,
+	}
+
+	rawBody, err := io.ReadAll(httpRes.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response body: %w", err)
+	}
+	httpRes.Body.Close()
+	httpRes.Body = io.NopCloser(bytes.NewBuffer(rawBody))
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(contentType, `application/json`):
+			var out []components.SigningKey
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			res.Classes = out
+		default:
+			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		fallthrough
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		return nil, sdkerrors.NewSDKError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
 }

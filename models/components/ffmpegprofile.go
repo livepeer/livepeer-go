@@ -75,12 +75,15 @@ func (e *Encoder) UnmarshalJSON(data []byte) error {
 
 // FfmpegProfile - LMPS ffmpeg profile
 type FfmpegProfile struct {
-	Width   int64    `json:"width"`
-	Name    string   `json:"name"`
-	Height  int64    `json:"height"`
-	Bitrate int64    `json:"bitrate"`
-	Fps     int64    `json:"fps"`
-	FpsDen  *int64   `json:"fpsDen,omitempty"`
+	Width   int64  `json:"width"`
+	Name    string `json:"name"`
+	Height  int64  `json:"height"`
+	Bitrate int64  `json:"bitrate"`
+	Fps     int64  `json:"fps"`
+	FpsDen  *int64 `json:"fpsDen,omitempty"`
+	// Restricts the size of the output video using the constant quality feature. Increasing this value will result in a lower quality video. Note that this parameter might not work if the transcoder lacks support for it.
+	//
+	Quality *int64   `json:"quality,omitempty"`
 	Gop     *string  `json:"gop,omitempty"`
 	Profile *Profile `json:"profile,omitempty"`
 	Encoder *Encoder `json:"encoder,omitempty"`
@@ -126,6 +129,13 @@ func (o *FfmpegProfile) GetFpsDen() *int64 {
 		return nil
 	}
 	return o.FpsDen
+}
+
+func (o *FfmpegProfile) GetQuality() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.Quality
 }
 
 func (o *FfmpegProfile) GetGop() *string {

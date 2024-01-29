@@ -123,10 +123,14 @@ type NewAssetPayload struct {
 	CreatorID      *InputCreatorID         `json:"creatorId,omitempty"`
 	Storage        *NewAssetPayloadStorage `json:"storage,omitempty"`
 	// URL where the asset contents can be retrieved. Only allowed (and
-	// also required) in the upload asset via URL endpoint.
+	// also required) in the upload asset via URL endpoint. For an IPFS
+	// source, this should be similar to: `ipfs://{CID}`. For an Arweave
+	// source: `ar://{CID}`.
 	//
 	URL        *string                    `json:"url,omitempty"`
 	Encryption *NewAssetPayloadEncryption `json:"encryption,omitempty"`
+	// Decides if the output video should include C2PA signature
+	C2pa *bool `json:"c2pa,omitempty"`
 }
 
 func (o *NewAssetPayload) GetName() string {
@@ -176,4 +180,11 @@ func (o *NewAssetPayload) GetEncryption() *NewAssetPayloadEncryption {
 		return nil
 	}
 	return o.Encryption
+}
+
+func (o *NewAssetPayload) GetC2pa() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.C2pa
 }

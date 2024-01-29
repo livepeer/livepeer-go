@@ -64,23 +64,68 @@ func (e *AssetSchemasSource3Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type Asset3 struct {
+type Three struct {
 	Type       AssetSchemasSource3Type `json:"type"`
-	Encryption *EncryptionOutput       `json:"encryption,omitempty"`
+	Encryption *Encryption             `json:"encryption,omitempty"`
+	// ID of the asset or stream from which this asset was created
+	SourceID *string `json:"sourceId,omitempty"`
+	// ID of the session from which this asset was created
+	SessionID *string `json:"sessionId,omitempty"`
+	// Playback ID of the asset or stream from which this asset was created
+	PlaybackID *string `json:"playbackId,omitempty"`
+	// ID of the requester from which this asset was created
+	RequesterID *string `json:"requesterId,omitempty"`
+	// ID of the asset from which this asset was created
+	AssetID *string `json:"assetId,omitempty"`
 }
 
-func (o *Asset3) GetType() AssetSchemasSource3Type {
+func (o *Three) GetType() AssetSchemasSource3Type {
 	if o == nil {
 		return AssetSchemasSource3Type("")
 	}
 	return o.Type
 }
 
-func (o *Asset3) GetEncryption() *EncryptionOutput {
+func (o *Three) GetEncryption() *Encryption {
 	if o == nil {
 		return nil
 	}
 	return o.Encryption
+}
+
+func (o *Three) GetSourceID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceID
+}
+
+func (o *Three) GetSessionID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SessionID
+}
+
+func (o *Three) GetPlaybackID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PlaybackID
+}
+
+func (o *Three) GetRequesterID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequesterID
+}
+
+func (o *Three) GetAssetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssetID
 }
 
 type AssetSchemasSourceType string
@@ -151,123 +196,123 @@ func (e *AssetSchemasType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type Asset1Output struct {
+type Asset1 struct {
 	Type AssetSchemasType `json:"type"`
 	// URL from which the asset was uploaded
 	URL string `json:"url"`
 	// Gateway URL from asset if parsed from provided URL on upload.
-	GatewayURL *string           `json:"gatewayUrl,omitempty"`
-	Encryption *EncryptionOutput `json:"encryption,omitempty"`
+	GatewayURL *string     `json:"gatewayUrl,omitempty"`
+	Encryption *Encryption `json:"encryption,omitempty"`
 }
 
-func (o *Asset1Output) GetType() AssetSchemasType {
+func (o *Asset1) GetType() AssetSchemasType {
 	if o == nil {
 		return AssetSchemasType("")
 	}
 	return o.Type
 }
 
-func (o *Asset1Output) GetURL() string {
+func (o *Asset1) GetURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.URL
 }
 
-func (o *Asset1Output) GetGatewayURL() *string {
+func (o *Asset1) GetGatewayURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.GatewayURL
 }
 
-func (o *Asset1Output) GetEncryption() *EncryptionOutput {
+func (o *Asset1) GetEncryption() *Encryption {
 	if o == nil {
 		return nil
 	}
 	return o.Encryption
 }
 
-type AssetSourceType string
+type SourceType string
 
 const (
-	AssetSourceTypeAsset1Output AssetSourceType = "asset_1_output"
-	AssetSourceTypeTwo          AssetSourceType = "2"
-	AssetSourceTypeAsset3       AssetSourceType = "asset_3"
+	SourceTypeAsset1 SourceType = "asset_1"
+	SourceTypeTwo    SourceType = "2"
+	SourceTypeThree  SourceType = "3"
 )
 
-type AssetSource struct {
-	Asset1Output *Asset1Output
-	Two          *Two
-	Asset3       *Asset3
+type Source struct {
+	Asset1 *Asset1
+	Two    *Two
+	Three  *Three
 
-	Type AssetSourceType
+	Type SourceType
 }
 
-func CreateAssetSourceAsset1Output(asset1Output Asset1Output) AssetSource {
-	typ := AssetSourceTypeAsset1Output
+func CreateSourceAsset1(asset1 Asset1) Source {
+	typ := SourceTypeAsset1
 
-	return AssetSource{
-		Asset1Output: &asset1Output,
-		Type:         typ,
+	return Source{
+		Asset1: &asset1,
+		Type:   typ,
 	}
 }
 
-func CreateAssetSourceTwo(two Two) AssetSource {
-	typ := AssetSourceTypeTwo
+func CreateSourceTwo(two Two) Source {
+	typ := SourceTypeTwo
 
-	return AssetSource{
+	return Source{
 		Two:  &two,
 		Type: typ,
 	}
 }
 
-func CreateAssetSourceAsset3(asset3 Asset3) AssetSource {
-	typ := AssetSourceTypeAsset3
+func CreateSourceThree(three Three) Source {
+	typ := SourceTypeThree
 
-	return AssetSource{
-		Asset3: &asset3,
-		Type:   typ,
+	return Source{
+		Three: &three,
+		Type:  typ,
 	}
 }
 
-func (u *AssetSource) UnmarshalJSON(data []byte) error {
+func (u *Source) UnmarshalJSON(data []byte) error {
 
 	two := Two{}
 	if err := utils.UnmarshalJSON(data, &two, "", true, true); err == nil {
 		u.Two = &two
-		u.Type = AssetSourceTypeTwo
+		u.Type = SourceTypeTwo
 		return nil
 	}
 
-	asset3 := Asset3{}
-	if err := utils.UnmarshalJSON(data, &asset3, "", true, true); err == nil {
-		u.Asset3 = &asset3
-		u.Type = AssetSourceTypeAsset3
+	asset1 := Asset1{}
+	if err := utils.UnmarshalJSON(data, &asset1, "", true, true); err == nil {
+		u.Asset1 = &asset1
+		u.Type = SourceTypeAsset1
 		return nil
 	}
 
-	asset1Output := Asset1Output{}
-	if err := utils.UnmarshalJSON(data, &asset1Output, "", true, true); err == nil {
-		u.Asset1Output = &asset1Output
-		u.Type = AssetSourceTypeAsset1Output
+	three := Three{}
+	if err := utils.UnmarshalJSON(data, &three, "", true, true); err == nil {
+		u.Three = &three
+		u.Type = SourceTypeThree
 		return nil
 	}
 
 	return errors.New("could not unmarshal into supported union types")
 }
 
-func (u AssetSource) MarshalJSON() ([]byte, error) {
-	if u.Asset1Output != nil {
-		return utils.MarshalJSON(u.Asset1Output, "", true)
+func (u Source) MarshalJSON() ([]byte, error) {
+	if u.Asset1 != nil {
+		return utils.MarshalJSON(u.Asset1, "", true)
 	}
 
 	if u.Two != nil {
 		return utils.MarshalJSON(u.Two, "", true)
 	}
 
-	if u.Asset3 != nil {
-		return utils.MarshalJSON(u.Asset3, "", true)
+	if u.Three != nil {
+		return utils.MarshalJSON(u.Three, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type: all fields are null")
@@ -348,13 +393,8 @@ func (o *AssetSpec) GetNftMetadata() *AssetNftMetadata {
 }
 
 type AssetIpfs struct {
-	Spec *AssetSpec `json:"spec,omitempty"`
-	// CID of the file on IPFS
-	Cid *string `json:"cid,omitempty"`
-	// URL with IPFS scheme for the file
-	URL *string `json:"url,omitempty"`
-	// URL to access file via HTTP through an IPFS gateway
-	GatewayURL  *string       `json:"gatewayUrl,omitempty"`
+	Spec        *AssetSpec    `json:"spec,omitempty"`
+	DollarRef   interface{}   `json:"$ref,omitempty"`
 	NftMetadata *IpfsFileInfo `json:"nftMetadata,omitempty"`
 	// Timestamp (in milliseconds) at which IPFS export task was
 	// updated
@@ -369,25 +409,11 @@ func (o *AssetIpfs) GetSpec() *AssetSpec {
 	return o.Spec
 }
 
-func (o *AssetIpfs) GetCid() *string {
+func (o *AssetIpfs) GetDollarRef() interface{} {
 	if o == nil {
 		return nil
 	}
-	return o.Cid
-}
-
-func (o *AssetIpfs) GetURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.URL
-}
-
-func (o *AssetIpfs) GetGatewayURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.GatewayURL
+	return o.DollarRef
 }
 
 func (o *AssetIpfs) GetNftMetadata() *IpfsFileInfo {
@@ -716,7 +742,7 @@ type Asset struct {
 	DownloadURL *string `json:"downloadUrl,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
-	Source         AssetSource     `json:"source"`
+	Source         Source          `json:"source"`
 	CreatorID      *CreatorID      `json:"creatorId,omitempty"`
 	Storage        *AssetStorage   `json:"storage,omitempty"`
 	// Status of the asset
@@ -777,9 +803,9 @@ func (o *Asset) GetPlaybackPolicy() *PlaybackPolicy {
 	return o.PlaybackPolicy
 }
 
-func (o *Asset) GetSource() AssetSource {
+func (o *Asset) GetSource() Source {
 	if o == nil {
-		return AssetSource{}
+		return Source{}
 	}
 	return o.Source
 }
@@ -838,267 +864,4 @@ func (o *Asset) GetVideoSpec() *VideoSpec {
 		return nil
 	}
 	return o.VideoSpec
-}
-
-type Three struct {
-	Type       AssetSchemasSource3Type `json:"type"`
-	Encryption *Encryption             `json:"encryption,omitempty"`
-}
-
-func (o *Three) GetType() AssetSchemasSource3Type {
-	if o == nil {
-		return AssetSchemasSource3Type("")
-	}
-	return o.Type
-}
-
-func (o *Three) GetEncryption() *Encryption {
-	if o == nil {
-		return nil
-	}
-	return o.Encryption
-}
-
-type Asset1 struct {
-	Type AssetSchemasType `json:"type"`
-	// URL from which the asset was uploaded
-	URL string `json:"url"`
-	// Gateway URL from asset if parsed from provided URL on upload.
-	GatewayURL *string     `json:"gatewayUrl,omitempty"`
-	Encryption *Encryption `json:"encryption,omitempty"`
-}
-
-func (o *Asset1) GetType() AssetSchemasType {
-	if o == nil {
-		return AssetSchemasType("")
-	}
-	return o.Type
-}
-
-func (o *Asset1) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-func (o *Asset1) GetGatewayURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.GatewayURL
-}
-
-func (o *Asset1) GetEncryption() *Encryption {
-	if o == nil {
-		return nil
-	}
-	return o.Encryption
-}
-
-type SourceType string
-
-const (
-	SourceTypeAsset1 SourceType = "asset_1"
-	SourceTypeTwo    SourceType = "2"
-	SourceTypeThree  SourceType = "3"
-)
-
-type Source struct {
-	Asset1 *Asset1
-	Two    *Two
-	Three  *Three
-
-	Type SourceType
-}
-
-func CreateSourceAsset1(asset1 Asset1) Source {
-	typ := SourceTypeAsset1
-
-	return Source{
-		Asset1: &asset1,
-		Type:   typ,
-	}
-}
-
-func CreateSourceTwo(two Two) Source {
-	typ := SourceTypeTwo
-
-	return Source{
-		Two:  &two,
-		Type: typ,
-	}
-}
-
-func CreateSourceThree(three Three) Source {
-	typ := SourceTypeThree
-
-	return Source{
-		Three: &three,
-		Type:  typ,
-	}
-}
-
-func (u *Source) UnmarshalJSON(data []byte) error {
-
-	two := Two{}
-	if err := utils.UnmarshalJSON(data, &two, "", true, true); err == nil {
-		u.Two = &two
-		u.Type = SourceTypeTwo
-		return nil
-	}
-
-	three := Three{}
-	if err := utils.UnmarshalJSON(data, &three, "", true, true); err == nil {
-		u.Three = &three
-		u.Type = SourceTypeThree
-		return nil
-	}
-
-	asset1 := Asset1{}
-	if err := utils.UnmarshalJSON(data, &asset1, "", true, true); err == nil {
-		u.Asset1 = &asset1
-		u.Type = SourceTypeAsset1
-		return nil
-	}
-
-	return errors.New("could not unmarshal into supported union types")
-}
-
-func (u Source) MarshalJSON() ([]byte, error) {
-	if u.Asset1 != nil {
-		return utils.MarshalJSON(u.Asset1, "", true)
-	}
-
-	if u.Two != nil {
-		return utils.MarshalJSON(u.Two, "", true)
-	}
-
-	if u.Three != nil {
-		return utils.MarshalJSON(u.Three, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type: all fields are null")
-}
-
-type AssetIpfsInput struct {
-	Spec *AssetSpec `json:"spec,omitempty"`
-	// CID of the file on IPFS
-	Cid         *string            `json:"cid,omitempty"`
-	NftMetadata *IpfsFileInfoInput `json:"nftMetadata,omitempty"`
-}
-
-func (o *AssetIpfsInput) GetSpec() *AssetSpec {
-	if o == nil {
-		return nil
-	}
-	return o.Spec
-}
-
-func (o *AssetIpfsInput) GetCid() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Cid
-}
-
-func (o *AssetIpfsInput) GetNftMetadata() *IpfsFileInfoInput {
-	if o == nil {
-		return nil
-	}
-	return o.NftMetadata
-}
-
-type AssetStorageInput struct {
-	Ipfs *AssetIpfsInput `json:"ipfs,omitempty"`
-}
-
-func (o *AssetStorageInput) GetIpfs() *AssetIpfsInput {
-	if o == nil {
-		return nil
-	}
-	return o.Ipfs
-}
-
-type AssetInput struct {
-	// Type of the asset.
-	Type *AssetType `json:"type,omitempty"`
-	// Used to form playback URL and storage folder
-	PlaybackID *string `json:"playbackId,omitempty"`
-	// Whether to generate MP4s for the asset.
-	StaticMp4 *bool `json:"staticMp4,omitempty"`
-	// Whether the playback policy for a asset or stream is public or signed
-	PlaybackPolicy *PlaybackPolicy    `json:"playbackPolicy,omitempty"`
-	Source         Source             `json:"source"`
-	CreatorID      *CreatorID         `json:"creatorId,omitempty"`
-	Storage        *AssetStorageInput `json:"storage,omitempty"`
-	// Name of the asset. This is not necessarily the filename, can be a
-	// custom name or title
-	//
-	Name string `json:"name"`
-	// Hash of the asset
-	Hash []Hash `json:"hash,omitempty"`
-}
-
-func (o *AssetInput) GetType() *AssetType {
-	if o == nil {
-		return nil
-	}
-	return o.Type
-}
-
-func (o *AssetInput) GetPlaybackID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PlaybackID
-}
-
-func (o *AssetInput) GetStaticMp4() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.StaticMp4
-}
-
-func (o *AssetInput) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
-		return nil
-	}
-	return o.PlaybackPolicy
-}
-
-func (o *AssetInput) GetSource() Source {
-	if o == nil {
-		return Source{}
-	}
-	return o.Source
-}
-
-func (o *AssetInput) GetCreatorID() *CreatorID {
-	if o == nil {
-		return nil
-	}
-	return o.CreatorID
-}
-
-func (o *AssetInput) GetStorage() *AssetStorageInput {
-	if o == nil {
-		return nil
-	}
-	return o.Storage
-}
-
-func (o *AssetInput) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *AssetInput) GetHash() []Hash {
-	if o == nil {
-		return nil
-	}
-	return o.Hash
 }

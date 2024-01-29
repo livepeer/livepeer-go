@@ -15,7 +15,7 @@ type GetAssetsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data []components.Asset
+	Classes []components.Asset
 }
 
 func (o *GetAssetsResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *GetAssetsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetAssetsResponse) GetData() []components.Asset {
+func (o *GetAssetsResponse) GetClasses() []components.Asset {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Classes
 }

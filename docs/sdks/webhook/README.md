@@ -36,7 +36,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Classes != nil {
         // handle response
     }
 }
@@ -58,7 +58,8 @@ func main() {
 
 ## Create
 
-Create a webhook
+To create a new webhook, you need to make an API call with the events you want to listen for and the URL that will be called when those events occur.
+
 
 ### Example Usage
 
@@ -144,7 +145,7 @@ func main() {
 | Parameter                                             | Type                                                  | Required                                              | Description                                           |
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the webhook                                     |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
 
 ### Response
@@ -195,7 +196,7 @@ func main() {
 | Parameter                                             | Type                                                  | Required                                              | Description                                           |
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the webhook                                     |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
 
 ### Response
@@ -246,7 +247,7 @@ func main() {
 | Parameter                                             | Type                                                  | Required                                              | Description                                           |
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the webhook                                     |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
 
 ### Response

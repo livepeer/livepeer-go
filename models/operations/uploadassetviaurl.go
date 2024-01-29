@@ -18,20 +18,20 @@ func (o *UploadAssetViaURLTask) GetID() *string {
 	return o.ID
 }
 
-// UploadAssetViaURLData - Success
-type UploadAssetViaURLData struct {
+// UploadAssetViaURLResponseBody - Success
+type UploadAssetViaURLResponseBody struct {
 	Asset components.Asset      `json:"asset"`
 	Task  UploadAssetViaURLTask `json:"task"`
 }
 
-func (o *UploadAssetViaURLData) GetAsset() components.Asset {
+func (o *UploadAssetViaURLResponseBody) GetAsset() components.Asset {
 	if o == nil {
 		return components.Asset{}
 	}
 	return o.Asset
 }
 
-func (o *UploadAssetViaURLData) GetTask() UploadAssetViaURLTask {
+func (o *UploadAssetViaURLResponseBody) GetTask() UploadAssetViaURLTask {
 	if o == nil {
 		return UploadAssetViaURLTask{}
 	}
@@ -46,7 +46,7 @@ type UploadAssetViaURLResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data *UploadAssetViaURLData
+	Object *UploadAssetViaURLResponseBody
 }
 
 func (o *UploadAssetViaURLResponse) GetContentType() string {
@@ -70,9 +70,9 @@ func (o *UploadAssetViaURLResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UploadAssetViaURLResponse) GetData() *UploadAssetViaURLData {
+func (o *UploadAssetViaURLResponse) GetObject() *UploadAssetViaURLResponseBody {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Object
 }

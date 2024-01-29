@@ -21,9 +21,9 @@ func (o *GetPublicTotalViewsMetricsRequest) GetPlaybackID() string {
 	return o.PlaybackID
 }
 
-// GetPublicTotalViewsMetricsData - A simplified metric object about aggregate viewership of an
+// GetPublicTotalViewsMetricsResponseBody - A simplified metric object about aggregate viewership of an
 // asset. Either playbackId or dStorageUrl will be set.
-type GetPublicTotalViewsMetricsData struct {
+type GetPublicTotalViewsMetricsResponseBody struct {
 	// The playback ID associated with the metric
 	PlaybackID *string `json:"playbackId,omitempty"`
 	// The URL of the distributed storage used for the asset
@@ -34,28 +34,28 @@ type GetPublicTotalViewsMetricsData struct {
 	PlaytimeMins float64 `json:"playtimeMins"`
 }
 
-func (o *GetPublicTotalViewsMetricsData) GetPlaybackID() *string {
+func (o *GetPublicTotalViewsMetricsResponseBody) GetPlaybackID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PlaybackID
 }
 
-func (o *GetPublicTotalViewsMetricsData) GetDStorageURL() *string {
+func (o *GetPublicTotalViewsMetricsResponseBody) GetDStorageURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DStorageURL
 }
 
-func (o *GetPublicTotalViewsMetricsData) GetViewCount() int64 {
+func (o *GetPublicTotalViewsMetricsResponseBody) GetViewCount() int64 {
 	if o == nil {
 		return 0
 	}
 	return o.ViewCount
 }
 
-func (o *GetPublicTotalViewsMetricsData) GetPlaytimeMins() float64 {
+func (o *GetPublicTotalViewsMetricsResponseBody) GetPlaytimeMins() float64 {
 	if o == nil {
 		return 0.0
 	}
@@ -70,7 +70,7 @@ type GetPublicTotalViewsMetricsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// A single Metric object with the viewCount and playtimeMins metrics.
-	Data *GetPublicTotalViewsMetricsData
+	Object *GetPublicTotalViewsMetricsResponseBody
 }
 
 func (o *GetPublicTotalViewsMetricsResponse) GetContentType() string {
@@ -94,9 +94,9 @@ func (o *GetPublicTotalViewsMetricsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetPublicTotalViewsMetricsResponse) GetData() *GetPublicTotalViewsMetricsData {
+func (o *GetPublicTotalViewsMetricsResponse) GetObject() *GetPublicTotalViewsMetricsResponseBody {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Object
 }

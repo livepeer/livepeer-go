@@ -10,7 +10,8 @@
 
 ## GetViewership
 
-Query viewership metrics
+Requires a private (non-CORS) API key to be used.
+
 
 ### Example Usage
 
@@ -47,7 +48,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Classes != nil {
         // handle response
     }
 }
@@ -70,7 +71,8 @@ func main() {
 
 ## GetCreatorViewership
 
-Query creator viewership metrics
+Requires a proof of ownership to be sent in the request, which for now is just the assetId or streamId parameters (1 of those must be in the query-string).
+
 
 ### Example Usage
 
@@ -94,7 +96,7 @@ func main() {
     ctx := context.Background()
     res, err := s.Metrics.GetCreatorViewership(ctx, operations.GetCreatorMetricsRequest{
         From: operations.CreateQueryParamFromDateTime(
-        types.MustTimeFromString("2021-06-16T23:48:30.007Z"),
+        types.MustTimeFromString("2022-06-17T03:28:06.363Z"),
         ),
         To: operations.CreateQueryParamToInteger(
         702371,
@@ -107,7 +109,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Classes != nil {
         // handle response
     }
 }
@@ -130,7 +132,10 @@ func main() {
 
 ## GetPublicTotalViews
 
-Query public total views metrics
+Allows querying for the public metrics for viewership about a video.
+This can be called from the frontend with a CORS key, or even
+unauthenticated.
+
 
 ### Example Usage
 
@@ -158,7 +163,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Object != nil {
         // handle response
     }
 }

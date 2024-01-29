@@ -18,20 +18,20 @@ func (o *PostClipTask) GetID() *string {
 	return o.ID
 }
 
-// PostClipData - Success
-type PostClipData struct {
+// PostClipResponseBody - Success
+type PostClipResponseBody struct {
 	Asset components.Asset `json:"asset"`
 	Task  PostClipTask     `json:"task"`
 }
 
-func (o *PostClipData) GetAsset() components.Asset {
+func (o *PostClipResponseBody) GetAsset() components.Asset {
 	if o == nil {
 		return components.Asset{}
 	}
 	return o.Asset
 }
 
-func (o *PostClipData) GetTask() PostClipTask {
+func (o *PostClipResponseBody) GetTask() PostClipTask {
 	if o == nil {
 		return PostClipTask{}
 	}
@@ -46,7 +46,7 @@ type PostClipResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data *PostClipData
+	Object *PostClipResponseBody
 }
 
 func (o *PostClipResponse) GetContentType() string {
@@ -70,9 +70,9 @@ func (o *PostClipResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *PostClipResponse) GetData() *PostClipData {
+func (o *PostClipResponse) GetObject() *PostClipResponseBody {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Object
 }

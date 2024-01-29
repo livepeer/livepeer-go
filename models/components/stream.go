@@ -2,63 +2,14 @@
 
 package components
 
-import (
-	"livepeer/internal/utils"
-)
-
-type StreamTargets struct {
-	// Name of the transcoding profile that should be sent. Use
-	// "source" for pushing the source stream data
-	//
-	Profile string `json:"profile"`
-	// If true, the stream audio will be muted, and only silent
-	// video will be pushed to the target.
-	//
-	VideoOnly *bool `default:"false" json:"videoOnly"`
-	// ID of the multistream target object where to push this stream
-	ID *string `json:"id,omitempty"`
-}
-
-func (s StreamTargets) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StreamTargets) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *StreamTargets) GetProfile() string {
-	if o == nil {
-		return ""
-	}
-	return o.Profile
-}
-
-func (o *StreamTargets) GetVideoOnly() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.VideoOnly
-}
-
-func (o *StreamTargets) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
 type StreamMultistream struct {
 	// References to targets where this stream will be simultaneously
 	// streamed to
 	//
-	Targets []StreamTargets `json:"targets,omitempty"`
+	Targets []TargetOutput `json:"targets,omitempty"`
 }
 
-func (o *StreamMultistream) GetTargets() []StreamTargets {
+func (o *StreamMultistream) GetTargets() []TargetOutput {
 	if o == nil {
 		return nil
 	}
@@ -92,11 +43,11 @@ type Stream struct {
 	Issues []string `json:"issues,omitempty"`
 	// Name of the token used to create this object
 	CreatedByTokenName *string `json:"createdByTokenName,omitempty"`
-	// Timestamp (in milliseconds) at which the stream object was created
+	// Timestamp (in milliseconds) at which stream object was created
 	CreatedAt *float64 `json:"createdAt,omitempty"`
-	// Points to the parent stream object
+	// Points to parent stream object
 	ParentID *string `json:"parentId,omitempty"`
-	// Used to form the RTMP ingest URL
+	// Used to form RTMP ingest URL
 	StreamKey *string `json:"streamKey,omitempty"`
 	// Used to form playback URL
 	PlaybackID *string `json:"playbackId,omitempty"`

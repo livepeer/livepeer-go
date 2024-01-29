@@ -15,7 +15,7 @@ type CreateSigningKeyResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	SigningKeyResponsePayload *components.SigningKeyResponsePayload
+	SigningKey *components.SigningKey
 }
 
 func (o *CreateSigningKeyResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateSigningKeyResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateSigningKeyResponse) GetSigningKeyResponsePayload() *components.SigningKeyResponsePayload {
+func (o *CreateSigningKeyResponse) GetSigningKey() *components.SigningKey {
 	if o == nil {
 		return nil
 	}
-	return o.SigningKeyResponsePayload
+	return o.SigningKey
 }

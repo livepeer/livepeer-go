@@ -37,12 +37,15 @@ func (e *PlaybackInfoType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// Hrn - Human Readable Name
 type Hrn string
 
 const (
-	HrnHlsTs      Hrn = "HLS (TS)"
-	HrnMp4        Hrn = "MP4"
-	HrnWebRtcH264 Hrn = "WebRTC (H264)"
+	HrnHlsTs         Hrn = "HLS (TS)"
+	HrnMp4           Hrn = "MP4"
+	HrnWebRtcH264    Hrn = "WebRTC (H264)"
+	HrnThumbnailJpeg Hrn = "Thumbnail (JPEG)"
+	HrnThumbnails    Hrn = "Thumbnails"
 )
 
 func (e Hrn) ToPointer() *Hrn {
@@ -60,6 +63,10 @@ func (e *Hrn) UnmarshalJSON(data []byte) error {
 	case "MP4":
 		fallthrough
 	case "WebRTC (H264)":
+		fallthrough
+	case "Thumbnail (JPEG)":
+		fallthrough
+	case "Thumbnails":
 		*e = Hrn(v)
 		return nil
 	default:
@@ -73,6 +80,8 @@ const (
 	PlaybackInfoSchemasTypeHtml5ApplicationVndAppleMpegurl PlaybackInfoSchemasType = "html5/application/vnd.apple.mpegurl"
 	PlaybackInfoSchemasTypeHtml5VideoMp4                   PlaybackInfoSchemasType = "html5/video/mp4"
 	PlaybackInfoSchemasTypeHtml5VideoH264                  PlaybackInfoSchemasType = "html5/video/h264"
+	PlaybackInfoSchemasTypeImageJpeg                       PlaybackInfoSchemasType = "image/jpeg"
+	PlaybackInfoSchemasTypeTextVtt                         PlaybackInfoSchemasType = "text/vtt"
 )
 
 func (e PlaybackInfoSchemasType) ToPointer() *PlaybackInfoSchemasType {
@@ -90,6 +99,10 @@ func (e *PlaybackInfoSchemasType) UnmarshalJSON(data []byte) error {
 	case "html5/video/mp4":
 		fallthrough
 	case "html5/video/h264":
+		fallthrough
+	case "image/jpeg":
+		fallthrough
+	case "text/vtt":
 		*e = PlaybackInfoSchemasType(v)
 		return nil
 	default:
@@ -98,6 +111,7 @@ func (e *PlaybackInfoSchemasType) UnmarshalJSON(data []byte) error {
 }
 
 type PlaybackInfoSource struct {
+	// Human Readable Name
 	Hrn     Hrn                     `json:"hrn"`
 	Type    PlaybackInfoSchemasType `json:"type"`
 	URL     string                  `json:"url"`
@@ -156,11 +170,95 @@ func (o *PlaybackInfoSource) GetBitrate() *float64 {
 	return o.Bitrate
 }
 
+type PlaybackInfoHrn string
+
+const (
+	PlaybackInfoHrnHlsTs PlaybackInfoHrn = "HLS (TS)"
+)
+
+func (e PlaybackInfoHrn) ToPointer() *PlaybackInfoHrn {
+	return &e
+}
+
+func (e *PlaybackInfoHrn) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "HLS (TS)":
+		*e = PlaybackInfoHrn(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PlaybackInfoHrn: %v", v)
+	}
+}
+
+type PlaybackInfoSchemasMetaType string
+
+const (
+	PlaybackInfoSchemasMetaTypeHtml5ApplicationVndAppleMpegurl PlaybackInfoSchemasMetaType = "html5/application/vnd.apple.mpegurl"
+)
+
+func (e PlaybackInfoSchemasMetaType) ToPointer() *PlaybackInfoSchemasMetaType {
+	return &e
+}
+
+func (e *PlaybackInfoSchemasMetaType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "html5/application/vnd.apple.mpegurl":
+		*e = PlaybackInfoSchemasMetaType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PlaybackInfoSchemasMetaType: %v", v)
+	}
+}
+
+type DvrPlayback struct {
+	Hrn   *PlaybackInfoHrn             `json:"hrn,omitempty"`
+	Type  *PlaybackInfoSchemasMetaType `json:"type,omitempty"`
+	URL   *string                      `json:"url,omitempty"`
+	Error *string                      `json:"error,omitempty"`
+}
+
+func (o *DvrPlayback) GetHrn() *PlaybackInfoHrn {
+	if o == nil {
+		return nil
+	}
+	return o.Hrn
+}
+
+func (o *DvrPlayback) GetType() *PlaybackInfoSchemasMetaType {
+	if o == nil {
+		return nil
+	}
+	return o.Type
+}
+
+func (o *DvrPlayback) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *DvrPlayback) GetError() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Error
+}
+
 type Meta struct {
 	Live *float64 `json:"live,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy      `json:"playbackPolicy,omitempty"`
 	Source         []PlaybackInfoSource `json:"source"`
+	DvrPlayback    []DvrPlayback        `json:"dvrPlayback,omitempty"`
 	Attestation    *Attestation         `json:"attestation,omitempty"`
 }
 
@@ -183,6 +281,13 @@ func (o *Meta) GetSource() []PlaybackInfoSource {
 		return []PlaybackInfoSource{}
 	}
 	return o.Source
+}
+
+func (o *Meta) GetDvrPlayback() []DvrPlayback {
+	if o == nil {
+		return nil
+	}
+	return o.DvrPlayback
 }
 
 func (o *Meta) GetAttestation() *Attestation {

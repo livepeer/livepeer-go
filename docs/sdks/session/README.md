@@ -3,10 +3,61 @@
 
 ### Available Operations
 
+* [GetAllClips](#getallclips) - Retrieve clips of a session
 * [GetAll](#getall) - Retrieve sessions
 * [Get](#get) - Retrieve a session
 * [GetRecorded](#getrecorded) - Retrieve Recorded Sessions
-* [GetAllClips](#getallclips) - Retrieve clips of a session
+
+## GetAllClips
+
+Retrieve clips of a session
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"log"
+	"livepeer"
+	"livepeer/models/components"
+)
+
+func main() {
+    s := livepeer.New(
+        livepeer.WithSecurity(""),
+    )
+
+
+    var id string = "string"
+
+    ctx := context.Background()
+    res, err := s.Session.GetAllClips(ctx, id)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    if res.Classes != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the parent session                              |
+
+
+### Response
+
+**[*operations.GetSessionIDClipsResponse](../../models/operations/getsessionidclipsresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 400-600            | */*                |
 
 ## GetAll
 
@@ -35,7 +86,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Classes != nil {
         // handle response
     }
 }
@@ -138,7 +189,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Classes != nil {
         // handle response
     }
 }
@@ -156,57 +207,6 @@ func main() {
 ### Response
 
 **[*operations.GetRecordedSessionsResponse](../../models/operations/getrecordedsessionsresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 400-600            | */*                |
-
-## GetAllClips
-
-Retrieve clips of a session
-
-### Example Usage
-
-```go
-package main
-
-import(
-	"context"
-	"log"
-	"livepeer"
-	"livepeer/models/components"
-)
-
-func main() {
-    s := livepeer.New(
-        livepeer.WithSecurity(""),
-    )
-
-
-    var id string = "string"
-
-    ctx := context.Background()
-    res, err := s.Session.GetAllClips(ctx, id)
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    if res.Data != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the parent session                              |
-
-
-### Response
-
-**[*operations.GetSessionIDClipsResponse](../../models/operations/getsessionidclipsresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 400-600            | */*                |

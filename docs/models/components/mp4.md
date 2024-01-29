@@ -7,4 +7,4 @@ MP4 output format
 
 | Field                   | Type                    | Required                | Description             | Example                 |
 | ----------------------- | ----------------------- | ----------------------- | ----------------------- | ----------------------- |
-| `Path`                  | **string*               | :heavy_minus_sign:      | Path for the MP4 output | /samplevideo/mp4        |
+| `Path`                  | *string*                | :heavy_check_mark:      | Path for the MP4 output | /samplevideo/mp4        |

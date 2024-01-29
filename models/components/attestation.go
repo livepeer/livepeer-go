@@ -183,36 +183,17 @@ func (e *SignatureType) UnmarshalJSON(data []byte) error {
 }
 
 type AttestationIpfs struct {
-	// CID of the file on IPFS
-	Cid *string `json:"cid,omitempty"`
-	// URL with IPFS scheme for the file
-	URL *string `json:"url,omitempty"`
-	// URL to access file via HTTP through an IPFS gateway
-	GatewayURL *string `json:"gatewayUrl,omitempty"`
+	DollarRef interface{} `json:"$ref,omitempty"`
 	// Timestamp (in milliseconds) at which IPFS export task was updated
 	//
 	UpdatedAt *float64 `json:"updatedAt,omitempty"`
 }
 
-func (o *AttestationIpfs) GetCid() *string {
+func (o *AttestationIpfs) GetDollarRef() interface{} {
 	if o == nil {
 		return nil
 	}
-	return o.Cid
-}
-
-func (o *AttestationIpfs) GetURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.URL
-}
-
-func (o *AttestationIpfs) GetGatewayURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.GatewayURL
+	return o.DollarRef
 }
 
 func (o *AttestationIpfs) GetUpdatedAt() *float64 {

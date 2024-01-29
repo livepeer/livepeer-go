@@ -36,7 +36,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.Data != nil {
+    if res.Classes != nil {
         // handle response
     }
 }
@@ -79,7 +79,6 @@ func main() {
 
     ctx := context.Background()
     res, err := s.MultistreamTarget.Create(ctx, components.MultistreamTargetInput{
-        Name: livepeer.String("My Multistream Target"),
         URL: "rtmps://live.my-service.tv/channel/secretKey",
     })
     if err != nil {
@@ -109,7 +108,9 @@ func main() {
 
 ## Delete
 
-Delete a multistream target
+Make sure to remove any references to the target on existing
+streams before actually deleting it from the API.
+
 
 ### Example Usage
 
@@ -234,7 +235,6 @@ func main() {
     var id string = "string"
 
     multistreamTargetPatchPayload := components.MultistreamTargetPatchPayload{
-        Name: livepeer.String("My Multistream Target"),
         URL: "rtmps://live.my-service.tv/channel/secretKey",
     }
 

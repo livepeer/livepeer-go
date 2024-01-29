@@ -15,7 +15,7 @@ type GetWebhooksResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data []components.Webhook
+	Classes []components.Webhook
 }
 
 func (o *GetWebhooksResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *GetWebhooksResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetWebhooksResponse) GetData() []components.Webhook {
+func (o *GetWebhooksResponse) GetClasses() []components.Webhook {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Classes
 }

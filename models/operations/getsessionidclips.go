@@ -27,7 +27,7 @@ type GetSessionIDClipsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data []components.Asset
+	Classes []components.Asset
 }
 
 func (o *GetSessionIDClipsResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *GetSessionIDClipsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetSessionIDClipsResponse) GetData() []components.Asset {
+func (o *GetSessionIDClipsResponse) GetClasses() []components.Asset {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Classes
 }

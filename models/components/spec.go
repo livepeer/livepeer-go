@@ -8,21 +8,21 @@ import (
 	"livepeer/internal/utils"
 )
 
-// SpecNftMetadataTemplate - Name of the NFT metadata template to export. 'player'
+// NftMetadataTemplate - Name of the NFT metadata template to export. 'player'
 // will embed the Livepeer Player on the NFT while 'file'
 // will reference only the immutable MP4 files.
-type SpecNftMetadataTemplate string
+type NftMetadataTemplate string
 
 const (
-	SpecNftMetadataTemplateFile   SpecNftMetadataTemplate = "file"
-	SpecNftMetadataTemplatePlayer SpecNftMetadataTemplate = "player"
+	NftMetadataTemplateFile   NftMetadataTemplate = "file"
+	NftMetadataTemplatePlayer NftMetadataTemplate = "player"
 )
 
-func (e SpecNftMetadataTemplate) ToPointer() *SpecNftMetadataTemplate {
+func (e NftMetadataTemplate) ToPointer() *NftMetadataTemplate {
 	return &e
 }
 
-func (e *SpecNftMetadataTemplate) UnmarshalJSON(data []byte) error {
+func (e *NftMetadataTemplate) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -31,17 +31,17 @@ func (e *SpecNftMetadataTemplate) UnmarshalJSON(data []byte) error {
 	case "file":
 		fallthrough
 	case "player":
-		*e = SpecNftMetadataTemplate(v)
+		*e = NftMetadataTemplate(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for SpecNftMetadataTemplate: %v", v)
+		return fmt.Errorf("invalid value for NftMetadataTemplate: %v", v)
 	}
 }
 
-// SpecNftMetadata - Additional data to add to the NFT metadata exported to
+// NftMetadata - Additional data to add to the NFT metadata exported to
 // IPFS. Will be deep merged with the default metadata
 // exported.
-type SpecNftMetadata struct {
+type NftMetadata struct {
 }
 
 type Spec struct {
@@ -49,12 +49,12 @@ type Spec struct {
 	// will embed the Livepeer Player on the NFT while 'file'
 	// will reference only the immutable MP4 files.
 	//
-	NftMetadataTemplate *SpecNftMetadataTemplate `default:"file" json:"nftMetadataTemplate"`
+	NftMetadataTemplate *NftMetadataTemplate `default:"file" json:"nftMetadataTemplate"`
 	// Additional data to add to the NFT metadata exported to
 	// IPFS. Will be deep merged with the default metadata
 	// exported.
 	//
-	NftMetadata *SpecNftMetadata `json:"nftMetadata,omitempty"`
+	NftMetadata *NftMetadata `json:"nftMetadata,omitempty"`
 }
 
 func (s Spec) MarshalJSON() ([]byte, error) {
@@ -68,14 +68,14 @@ func (s *Spec) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *Spec) GetNftMetadataTemplate() *SpecNftMetadataTemplate {
+func (o *Spec) GetNftMetadataTemplate() *NftMetadataTemplate {
 	if o == nil {
 		return nil
 	}
 	return o.NftMetadataTemplate
 }
 
-func (o *Spec) GetNftMetadata() *SpecNftMetadata {
+func (o *Spec) GetNftMetadata() *NftMetadata {
 	if o == nil {
 		return nil
 	}

@@ -13,6 +13,7 @@ type StreamPatchPayload struct {
 	Multistream *Multistream `json:"multistream,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
+	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
 }
 
 func (o *StreamPatchPayload) GetCreatorID() *InputCreatorID {
@@ -48,4 +49,11 @@ func (o *StreamPatchPayload) GetPlaybackPolicy() *PlaybackPolicy {
 		return nil
 	}
 	return o.PlaybackPolicy
+}
+
+func (o *StreamPatchPayload) GetProfiles() []FfmpegProfile {
+	if o == nil {
+		return nil
+	}
+	return o.Profiles
 }

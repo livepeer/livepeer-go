@@ -9,7 +9,9 @@ type MultistreamTarget struct {
 	// even if it is configured in a stream object.
 	//
 	Disabled *bool `json:"disabled,omitempty"`
-	// Timestamp (in milliseconds) at which multistream target object was created
+	// Timestamp (in milliseconds) at which multistream target object was
+	// created
+	//
 	CreatedAt *float64 `json:"createdAt,omitempty"`
 }
 

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### IpfsExportParamsSchemas1
+### IpfsExportParams1
 
 ```go
-pinata := components.CreatePinataIpfsExportParamsSchemas1(components.IpfsExportParamsSchemas1{/* values here */})
+pinata := components.CreatePinataIpfsExportParams1(components.IpfsExportParams1{/* values here */})
 ```
 
 ### IpfsExportParams2

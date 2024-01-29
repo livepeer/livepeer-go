@@ -70,7 +70,7 @@ func (s *Asset) GetAll(ctx context.Context) (*operations.GetAssetsResponse, erro
 				return nil, err
 			}
 
-			res.Data = out
+			res.Classes = out
 		default:
 			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
 		}
@@ -84,6 +84,76 @@ func (s *Asset) GetAll(ctx context.Context) (*operations.GetAssetsResponse, erro
 }
 
 // Create - Upload an asset
+// To upload an asset, your first need to request for a direct upload URL
+// and only then actually upload the contents of the asset.
+// \
+// \
+// Once you created a upload link, you have 2 options, resumable or direct
+// upload. For a more reliable experience, you should use resumable uploads
+// which will work better for users with unreliable or slow network
+// connections. If you want a simpler implementation though, you should
+// just use a direct upload.
+//
+// ## Direct Upload
+// For a direct upload, make a PUT request to the URL received in the url
+// field of the response above, with the raw video file as the request
+// body. response above:
+//
+// ## Resumable Upload
+// Livepeer supports resumable uploads via Tus. This section provides a
+// simple example of how to use tus-js-client to upload a video file.
+// \
+// \
+// From the previous section, we generated a URL to upload a video file to
+// Livepeer on POST /api/asset/request-upload. You should use the
+// tusEndpoint field of the response to upload the video file and track the
+// progress:
+//
+// ```
+// # This assumes there is an `input` element of `type="file"` with id
+// `fileInput` in the HTML
+//
+// const input = document.getElementById('fileInput');
+//
+// const file = input.files[0];
+//
+//	const upload = new tus.Upload(file, {
+//	  endpoint: tusEndpoint, // URL from `tusEndpoint` field in the
+//
+// `/request-upload` response
+//
+//	  metadata: {
+//	    filename,
+//	    filetype: 'video/mp4',
+//	  },
+//	  uploadSize: file.size,
+//	  onError(err) {
+//	    console.error('Error uploading file:', err);
+//	  },
+//	  onProgress(bytesUploaded, bytesTotal) {
+//	    const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2);
+//	    console.log('Uploaded ' + percentage + '%');
+//	  },
+//	  onSuccess() {
+//	    console.log('Upload finished:', upload.url);
+//	  },
+//	});
+//
+// const previousUploads = await upload.findPreviousUploads();
+//
+//	if (previousUploads.length > 0) {
+//	  upload.resumeFromPreviousUpload(previousUploads[0]);
+//	}
+//
+// upload.start();
+//
+// ```
+//
+// > Note: If you are using tus from node.js, you need to add a custom URL
+// storage to enable resuming from previous uploads. On the browser, this
+// is enabled by default using local storage. In node.js, add urlStorage:
+// new tus.FileUrlStorage("path/to/tmp/file"), to the UploadFile object
+// definition above.
 func (s *Asset) Create(ctx context.Context, request components.NewAssetPayload) (*operations.RequestUploadResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/asset/request-upload"
@@ -133,12 +203,12 @@ func (s *Asset) Create(ctx context.Context, request components.NewAssetPayload) 
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(contentType, `application/json`):
-			var out operations.RequestUploadData
+			var out operations.RequestUploadResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Data = &out
+			res.Object = &out
 		default:
 			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
 		}
@@ -201,12 +271,12 @@ func (s *Asset) CreateViaURL(ctx context.Context, request components.NewAssetPay
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(contentType, `application/json`):
-			var out operations.UploadAssetViaURLData
+			var out operations.UploadAssetViaURLResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Data = &out
+			res.Object = &out
 		default:
 			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
 		}
@@ -338,9 +408,9 @@ func (s *Asset) Get(ctx context.Context, assetID string) (*operations.GetAssetRe
 	return res, nil
 }
 
-// Update an asset
-func (s *Asset) Update(ctx context.Context, assetID string, assetPatchPayload components.AssetPatchPayload) (*operations.PatchAssetAssetIDResponse, error) {
-	request := operations.PatchAssetAssetIDRequest{
+// Update - Patch an asset
+func (s *Asset) Update(ctx context.Context, assetID string, assetPatchPayload components.AssetPatchPayload) (*operations.UpdateAssetResponse, error) {
+	request := operations.UpdateAssetRequest{
 		AssetID:           assetID,
 		AssetPatchPayload: assetPatchPayload,
 	}
@@ -380,7 +450,7 @@ func (s *Asset) Update(ctx context.Context, assetID string, assetPatchPayload co
 
 	contentType := httpRes.Header.Get("Content-Type")
 
-	res := &operations.PatchAssetAssetIDResponse{
+	res := &operations.UpdateAssetResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
 		RawResponse: httpRes,

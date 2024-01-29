@@ -15,7 +15,7 @@ type CreateStreamResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	Data []components.Stream
+	Classes []components.Stream
 }
 
 func (o *CreateStreamResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateStreamResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateStreamResponse) GetData() []components.Stream {
+func (o *CreateStreamResponse) GetClasses() []components.Stream {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.Classes
 }
