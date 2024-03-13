@@ -1,4 +1,4 @@
-module github.com/livepeer/go-livepeer
+module github.com/livepeer/livepeer-go
 
 go 1.14
 
