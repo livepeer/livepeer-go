@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### TranscodePayload1
+### Input1
 
 ```go
-input := components.CreateInputTranscodePayload1(components.TranscodePayload1{/* values here */})
+input := components.CreateInputInput1(components.Input1{/* values here */})
 ```
 
-### TranscodePayload2
+### Input2
 
 ```go
-input := components.CreateInputTranscodePayload2(components.TranscodePayload2{/* values here */})
+input := components.CreateInputInput2(components.Input2{/* values here */})
 ```
 

@@ -1,7 +1,5 @@
 # ExportTaskParams2
 
-Parameters for the export task
-
 
 ## Fields
 

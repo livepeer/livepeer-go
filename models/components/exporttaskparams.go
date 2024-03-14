@@ -4,10 +4,9 @@ package components
 
 import (
 	"errors"
-	"livepeer/internal/utils"
+	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
-// ExportTaskParams2 - Parameters for the export task
 type ExportTaskParams2 struct {
 	Ipfs IpfsExportParams `json:"ipfs"`
 }
@@ -61,7 +60,6 @@ func (o *Custom) GetHeaders() map[string]string {
 	return o.Headers
 }
 
-// ExportTaskParams1 - Parameters for the export task
 type ExportTaskParams1 struct {
 	// custom URL parameters for the export task
 	Custom Custom `json:"custom"`
@@ -81,6 +79,7 @@ const (
 	ExportTaskParamsTypeExportTaskParams2 ExportTaskParamsType = "export-task-params_2"
 )
 
+// ExportTaskParams - Parameters for the export task
 type ExportTaskParams struct {
 	ExportTaskParams1 *ExportTaskParams1
 	ExportTaskParams2 *ExportTaskParams2

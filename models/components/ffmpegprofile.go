@@ -43,10 +43,10 @@ func (e *Profile) UnmarshalJSON(data []byte) error {
 type Encoder string
 
 const (
-	EncoderH264 Encoder = "h264"
-	EncoderHevc Encoder = "hevc"
-	EncoderVp8  Encoder = "vp8"
-	EncoderVp9  Encoder = "vp9"
+	EncoderH264 Encoder = "H.264"
+	EncoderHevc Encoder = "HEVC"
+	EncoderVp8  Encoder = "VP8"
+	EncoderVp9  Encoder = "VP9"
 )
 
 func (e Encoder) ToPointer() *Encoder {
@@ -59,13 +59,13 @@ func (e *Encoder) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
-	case "h264":
+	case "H.264":
 		fallthrough
-	case "hevc":
+	case "HEVC":
 		fallthrough
-	case "vp8":
+	case "VP8":
 		fallthrough
-	case "vp9":
+	case "VP9":
 		*e = Encoder(v)
 		return nil
 	default:

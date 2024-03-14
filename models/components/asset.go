@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"livepeer/internal/utils"
+	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
 // AssetType - Type of the asset.
@@ -37,18 +37,18 @@ func (e *AssetType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AssetSchemasSource3Type string
+type AssetSource3Type string
 
 const (
-	AssetSchemasSource3TypeDirectUpload AssetSchemasSource3Type = "directUpload"
-	AssetSchemasSource3TypeClip         AssetSchemasSource3Type = "clip"
+	AssetSource3TypeDirectUpload AssetSource3Type = "directUpload"
+	AssetSource3TypeClip         AssetSource3Type = "clip"
 )
 
-func (e AssetSchemasSource3Type) ToPointer() *AssetSchemasSource3Type {
+func (e AssetSource3Type) ToPointer() *AssetSource3Type {
 	return &e
 }
 
-func (e *AssetSchemasSource3Type) UnmarshalJSON(data []byte) error {
+func (e *AssetSource3Type) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -57,110 +57,110 @@ func (e *AssetSchemasSource3Type) UnmarshalJSON(data []byte) error {
 	case "directUpload":
 		fallthrough
 	case "clip":
-		*e = AssetSchemasSource3Type(v)
+		*e = AssetSource3Type(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for AssetSchemasSource3Type: %v", v)
+		return fmt.Errorf("invalid value for AssetSource3Type: %v", v)
 	}
 }
 
-type Three struct {
-	Type       AssetSchemasSource3Type `json:"type"`
-	Encryption *Encryption             `json:"encryption,omitempty"`
-	// ID of the asset or stream from which this asset was created
+type Source3 struct {
+	Type       AssetSource3Type `json:"type"`
+	Encryption *Encryption      `json:"encryption,omitempty"`
+	// ID of the asset or stream from which this asset was created.
 	SourceID *string `json:"sourceId,omitempty"`
-	// ID of the session from which this asset was created
+	// ID of the session from which this asset was created.
 	SessionID *string `json:"sessionId,omitempty"`
-	// Playback ID of the asset or stream from which this asset was created
+	// Playback ID of the asset or stream from which this asset was created.
 	PlaybackID *string `json:"playbackId,omitempty"`
-	// ID of the requester from which this asset was created
+	// ID of the requester from which this asset was created.
 	RequesterID *string `json:"requesterId,omitempty"`
-	// ID of the asset from which this asset was created
+	// ID of the asset from which this asset was created.
 	AssetID *string `json:"assetId,omitempty"`
 }
 
-func (o *Three) GetType() AssetSchemasSource3Type {
+func (o *Source3) GetType() AssetSource3Type {
 	if o == nil {
-		return AssetSchemasSource3Type("")
+		return AssetSource3Type("")
 	}
 	return o.Type
 }
 
-func (o *Three) GetEncryption() *Encryption {
+func (o *Source3) GetEncryption() *Encryption {
 	if o == nil {
 		return nil
 	}
 	return o.Encryption
 }
 
-func (o *Three) GetSourceID() *string {
+func (o *Source3) GetSourceID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SourceID
 }
 
-func (o *Three) GetSessionID() *string {
+func (o *Source3) GetSessionID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SessionID
 }
 
-func (o *Three) GetPlaybackID() *string {
+func (o *Source3) GetPlaybackID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PlaybackID
 }
 
-func (o *Three) GetRequesterID() *string {
+func (o *Source3) GetRequesterID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.RequesterID
 }
 
-func (o *Three) GetAssetID() *string {
+func (o *Source3) GetAssetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AssetID
 }
 
-type AssetSchemasSourceType string
+type AssetSourceType string
 
 const (
-	AssetSchemasSourceTypeRecording AssetSchemasSourceType = "recording"
+	AssetSourceTypeRecording AssetSourceType = "recording"
 )
 
-func (e AssetSchemasSourceType) ToPointer() *AssetSchemasSourceType {
+func (e AssetSourceType) ToPointer() *AssetSourceType {
 	return &e
 }
 
-func (e *AssetSchemasSourceType) UnmarshalJSON(data []byte) error {
+func (e *AssetSourceType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "recording":
-		*e = AssetSchemasSourceType(v)
+		*e = AssetSourceType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for AssetSchemasSourceType: %v", v)
+		return fmt.Errorf("invalid value for AssetSourceType: %v", v)
 	}
 }
 
 type Two struct {
-	Type AssetSchemasSourceType `json:"type"`
+	Type AssetSourceType `json:"type"`
 	// ID of the session from which this asset was created
 	SessionID string `json:"sessionId"`
 }
 
-func (o *Two) GetType() AssetSchemasSourceType {
+func (o *Two) GetType() AssetSourceType {
 	if o == nil {
-		return AssetSchemasSourceType("")
+		return AssetSourceType("")
 	}
 	return o.Type
 }
@@ -172,94 +172,94 @@ func (o *Two) GetSessionID() string {
 	return o.SessionID
 }
 
-type AssetSchemasType string
+type SourceType string
 
 const (
-	AssetSchemasTypeURL AssetSchemasType = "url"
+	SourceTypeURL SourceType = "url"
 )
 
-func (e AssetSchemasType) ToPointer() *AssetSchemasType {
+func (e SourceType) ToPointer() *SourceType {
 	return &e
 }
 
-func (e *AssetSchemasType) UnmarshalJSON(data []byte) error {
+func (e *SourceType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "url":
-		*e = AssetSchemasType(v)
+		*e = SourceType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for AssetSchemasType: %v", v)
+		return fmt.Errorf("invalid value for SourceType: %v", v)
 	}
 }
 
-type Asset1 struct {
-	Type AssetSchemasType `json:"type"`
-	// URL from which the asset was uploaded
+type Source1 struct {
+	Type SourceType `json:"type"`
+	// URL from which the asset was uploaded.
 	URL string `json:"url"`
 	// Gateway URL from asset if parsed from provided URL on upload.
 	GatewayURL *string     `json:"gatewayUrl,omitempty"`
 	Encryption *Encryption `json:"encryption,omitempty"`
 }
 
-func (o *Asset1) GetType() AssetSchemasType {
+func (o *Source1) GetType() SourceType {
 	if o == nil {
-		return AssetSchemasType("")
+		return SourceType("")
 	}
 	return o.Type
 }
 
-func (o *Asset1) GetURL() string {
+func (o *Source1) GetURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.URL
 }
 
-func (o *Asset1) GetGatewayURL() *string {
+func (o *Source1) GetGatewayURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.GatewayURL
 }
 
-func (o *Asset1) GetEncryption() *Encryption {
+func (o *Source1) GetEncryption() *Encryption {
 	if o == nil {
 		return nil
 	}
 	return o.Encryption
 }
 
-type SourceType string
+type SourceUnionType string
 
 const (
-	SourceTypeAsset1 SourceType = "asset_1"
-	SourceTypeTwo    SourceType = "2"
-	SourceTypeThree  SourceType = "3"
+	SourceUnionTypeSource1 SourceUnionType = "source_1"
+	SourceUnionTypeTwo     SourceUnionType = "2"
+	SourceUnionTypeSource3 SourceUnionType = "source_3"
 )
 
 type Source struct {
-	Asset1 *Asset1
-	Two    *Two
-	Three  *Three
+	Source1 *Source1
+	Two     *Two
+	Source3 *Source3
 
-	Type SourceType
+	Type SourceUnionType
 }
 
-func CreateSourceAsset1(asset1 Asset1) Source {
-	typ := SourceTypeAsset1
+func CreateSourceSource1(source1 Source1) Source {
+	typ := SourceUnionTypeSource1
 
 	return Source{
-		Asset1: &asset1,
-		Type:   typ,
+		Source1: &source1,
+		Type:    typ,
 	}
 }
 
 func CreateSourceTwo(two Two) Source {
-	typ := SourceTypeTwo
+	typ := SourceUnionTypeTwo
 
 	return Source{
 		Two:  &two,
@@ -267,12 +267,12 @@ func CreateSourceTwo(two Two) Source {
 	}
 }
 
-func CreateSourceThree(three Three) Source {
-	typ := SourceTypeThree
+func CreateSourceSource3(source3 Source3) Source {
+	typ := SourceUnionTypeSource3
 
 	return Source{
-		Three: &three,
-		Type:  typ,
+		Source3: &source3,
+		Type:    typ,
 	}
 }
 
@@ -281,21 +281,21 @@ func (u *Source) UnmarshalJSON(data []byte) error {
 	two := Two{}
 	if err := utils.UnmarshalJSON(data, &two, "", true, true); err == nil {
 		u.Two = &two
-		u.Type = SourceTypeTwo
+		u.Type = SourceUnionTypeTwo
 		return nil
 	}
 
-	asset1 := Asset1{}
-	if err := utils.UnmarshalJSON(data, &asset1, "", true, true); err == nil {
-		u.Asset1 = &asset1
-		u.Type = SourceTypeAsset1
+	source1 := Source1{}
+	if err := utils.UnmarshalJSON(data, &source1, "", true, true); err == nil {
+		u.Source1 = &source1
+		u.Type = SourceUnionTypeSource1
 		return nil
 	}
 
-	three := Three{}
-	if err := utils.UnmarshalJSON(data, &three, "", true, true); err == nil {
-		u.Three = &three
-		u.Type = SourceTypeThree
+	source3 := Source3{}
+	if err := utils.UnmarshalJSON(data, &source3, "", true, true); err == nil {
+		u.Source3 = &source3
+		u.Type = SourceUnionTypeSource3
 		return nil
 	}
 
@@ -303,16 +303,16 @@ func (u *Source) UnmarshalJSON(data []byte) error {
 }
 
 func (u Source) MarshalJSON() ([]byte, error) {
-	if u.Asset1 != nil {
-		return utils.MarshalJSON(u.Asset1, "", true)
+	if u.Source1 != nil {
+		return utils.MarshalJSON(u.Source1, "", true)
 	}
 
 	if u.Two != nil {
 		return utils.MarshalJSON(u.Two, "", true)
 	}
 
-	if u.Three != nil {
-		return utils.MarshalJSON(u.Three, "", true)
+	if u.Source3 != nil {
+		return utils.MarshalJSON(u.Source3, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type: all fields are null")
@@ -547,19 +547,19 @@ func (o *Hash) GetAlgorithm() *string {
 	return o.Algorithm
 }
 
-// AssetSchemasVideoSpecType - type of track
-type AssetSchemasVideoSpecType string
+// AssetVideoSpecType - type of track
+type AssetVideoSpecType string
 
 const (
-	AssetSchemasVideoSpecTypeVideo AssetSchemasVideoSpecType = "video"
-	AssetSchemasVideoSpecTypeAudio AssetSchemasVideoSpecType = "audio"
+	AssetVideoSpecTypeVideo AssetVideoSpecType = "video"
+	AssetVideoSpecTypeAudio AssetVideoSpecType = "audio"
 )
 
-func (e AssetSchemasVideoSpecType) ToPointer() *AssetSchemasVideoSpecType {
+func (e AssetVideoSpecType) ToPointer() *AssetVideoSpecType {
 	return &e
 }
 
-func (e *AssetSchemasVideoSpecType) UnmarshalJSON(data []byte) error {
+func (e *AssetVideoSpecType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -568,16 +568,16 @@ func (e *AssetSchemasVideoSpecType) UnmarshalJSON(data []byte) error {
 	case "video":
 		fallthrough
 	case "audio":
-		*e = AssetSchemasVideoSpecType(v)
+		*e = AssetVideoSpecType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for AssetSchemasVideoSpecType: %v", v)
+		return fmt.Errorf("invalid value for AssetVideoSpecType: %v", v)
 	}
 }
 
 type Tracks struct {
 	// type of track
-	Type AssetSchemasVideoSpecType `json:"type"`
+	Type AssetVideoSpecType `json:"type"`
 	// Codec of the track
 	Codec string `json:"codec"`
 	// Start time of the track in seconds
@@ -604,9 +604,9 @@ type Tracks struct {
 	BitDepth *float64 `json:"bitDepth,omitempty"`
 }
 
-func (o *Tracks) GetType() AssetSchemasVideoSpecType {
+func (o *Tracks) GetType() AssetVideoSpecType {
 	if o == nil {
-		return AssetSchemasVideoSpecType("")
+		return AssetVideoSpecType("")
 	}
 	return o.Type
 }
@@ -734,11 +734,11 @@ type Asset struct {
 	ID string `json:"id"`
 	// Type of the asset.
 	Type *AssetType `json:"type,omitempty"`
-	// Used to form playback URL and storage folder
+	// The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
 	PlaybackID *string `json:"playbackId,omitempty"`
-	// URL for HLS playback
+	// URL for HLS playback. **It is recommended to not use this URL**, and instead use playback IDs with the Playback Info endpoint to retrieve the playback URLs - this URL format is subject to change (e.g. https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8).
 	PlaybackURL *string `json:"playbackUrl,omitempty"`
-	// URL to manually download the asset if desired
+	// The URL to directly download the asset, e.g. `https://livepeercdn.com/asset/eawrrk06ts2d0mzb/video`. It is not recommended to use this for playback.
 	DownloadURL *string `json:"downloadUrl,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
@@ -747,12 +747,14 @@ type Asset struct {
 	Storage        *AssetStorage   `json:"storage,omitempty"`
 	// Status of the asset
 	Status *AssetStatus `json:"status,omitempty"`
-	// Name of the asset. This is not necessarily the filename, can be a
-	// custom name or title
+	// The name of the asset. This is not necessarily the filename - it can be a
+	// custom name or title.
 	//
 	Name string `json:"name"`
 	// Timestamp (in milliseconds) at which asset was created
 	CreatedAt *float64 `json:"createdAt,omitempty"`
+	// Name of the token used to create this object
+	CreatedByTokenName *string `json:"createdByTokenName,omitempty"`
 	// Size of the asset in bytes
 	Size *float64 `json:"size,omitempty"`
 	// Hash of the asset
@@ -843,6 +845,13 @@ func (o *Asset) GetCreatedAt() *float64 {
 		return nil
 	}
 	return o.CreatedAt
+}
+
+func (o *Asset) GetCreatedByTokenName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CreatedByTokenName
 }
 
 func (o *Asset) GetSize() *float64 {

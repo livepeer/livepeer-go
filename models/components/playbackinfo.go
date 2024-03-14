@@ -44,6 +44,7 @@ const (
 	HrnHlsTs         Hrn = "HLS (TS)"
 	HrnMp4           Hrn = "MP4"
 	HrnWebRtcH264    Hrn = "WebRTC (H264)"
+	HrnFlvH264       Hrn = "FLV (H264)"
 	HrnThumbnailJpeg Hrn = "Thumbnail (JPEG)"
 	HrnThumbnails    Hrn = "Thumbnails"
 )
@@ -64,6 +65,8 @@ func (e *Hrn) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "WebRTC (H264)":
 		fallthrough
+	case "FLV (H264)":
+		fallthrough
 	case "Thumbnail (JPEG)":
 		fallthrough
 	case "Thumbnails":
@@ -74,21 +77,22 @@ func (e *Hrn) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PlaybackInfoSchemasType string
+type PlaybackInfoMetaType string
 
 const (
-	PlaybackInfoSchemasTypeHtml5ApplicationVndAppleMpegurl PlaybackInfoSchemasType = "html5/application/vnd.apple.mpegurl"
-	PlaybackInfoSchemasTypeHtml5VideoMp4                   PlaybackInfoSchemasType = "html5/video/mp4"
-	PlaybackInfoSchemasTypeHtml5VideoH264                  PlaybackInfoSchemasType = "html5/video/h264"
-	PlaybackInfoSchemasTypeImageJpeg                       PlaybackInfoSchemasType = "image/jpeg"
-	PlaybackInfoSchemasTypeTextVtt                         PlaybackInfoSchemasType = "text/vtt"
+	PlaybackInfoMetaTypeHtml5ApplicationVndAppleMpegurl PlaybackInfoMetaType = "html5/application/vnd.apple.mpegurl"
+	PlaybackInfoMetaTypeHtml5VideoMp4                   PlaybackInfoMetaType = "html5/video/mp4"
+	PlaybackInfoMetaTypeHtml5VideoH264                  PlaybackInfoMetaType = "html5/video/h264"
+	PlaybackInfoMetaTypeVideoXFlv                       PlaybackInfoMetaType = "video/x-flv"
+	PlaybackInfoMetaTypeImageJpeg                       PlaybackInfoMetaType = "image/jpeg"
+	PlaybackInfoMetaTypeTextVtt                         PlaybackInfoMetaType = "text/vtt"
 )
 
-func (e PlaybackInfoSchemasType) ToPointer() *PlaybackInfoSchemasType {
+func (e PlaybackInfoMetaType) ToPointer() *PlaybackInfoMetaType {
 	return &e
 }
 
-func (e *PlaybackInfoSchemasType) UnmarshalJSON(data []byte) error {
+func (e *PlaybackInfoMetaType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -100,25 +104,27 @@ func (e *PlaybackInfoSchemasType) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "html5/video/h264":
 		fallthrough
+	case "video/x-flv":
+		fallthrough
 	case "image/jpeg":
 		fallthrough
 	case "text/vtt":
-		*e = PlaybackInfoSchemasType(v)
+		*e = PlaybackInfoMetaType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for PlaybackInfoSchemasType: %v", v)
+		return fmt.Errorf("invalid value for PlaybackInfoMetaType: %v", v)
 	}
 }
 
 type PlaybackInfoSource struct {
 	// Human Readable Name
-	Hrn     Hrn                     `json:"hrn"`
-	Type    PlaybackInfoSchemasType `json:"type"`
-	URL     string                  `json:"url"`
-	Size    *float64                `json:"size,omitempty"`
-	Width   *float64                `json:"width,omitempty"`
-	Height  *float64                `json:"height,omitempty"`
-	Bitrate *float64                `json:"bitrate,omitempty"`
+	Hrn     Hrn                  `json:"hrn"`
+	Type    PlaybackInfoMetaType `json:"type"`
+	URL     string               `json:"url"`
+	Size    *float64             `json:"size,omitempty"`
+	Width   *float64             `json:"width,omitempty"`
+	Height  *float64             `json:"height,omitempty"`
+	Bitrate *float64             `json:"bitrate,omitempty"`
 }
 
 func (o *PlaybackInfoSource) GetHrn() Hrn {
@@ -128,9 +134,9 @@ func (o *PlaybackInfoSource) GetHrn() Hrn {
 	return o.Hrn
 }
 
-func (o *PlaybackInfoSource) GetType() PlaybackInfoSchemasType {
+func (o *PlaybackInfoSource) GetType() PlaybackInfoMetaType {
 	if o == nil {
-		return PlaybackInfoSchemasType("")
+		return PlaybackInfoMetaType("")
 	}
 	return o.Type
 }
@@ -194,35 +200,35 @@ func (e *PlaybackInfoHrn) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PlaybackInfoSchemasMetaType string
+type PlaybackInfoMetaDvrPlaybackType string
 
 const (
-	PlaybackInfoSchemasMetaTypeHtml5ApplicationVndAppleMpegurl PlaybackInfoSchemasMetaType = "html5/application/vnd.apple.mpegurl"
+	PlaybackInfoMetaDvrPlaybackTypeHtml5ApplicationVndAppleMpegurl PlaybackInfoMetaDvrPlaybackType = "html5/application/vnd.apple.mpegurl"
 )
 
-func (e PlaybackInfoSchemasMetaType) ToPointer() *PlaybackInfoSchemasMetaType {
+func (e PlaybackInfoMetaDvrPlaybackType) ToPointer() *PlaybackInfoMetaDvrPlaybackType {
 	return &e
 }
 
-func (e *PlaybackInfoSchemasMetaType) UnmarshalJSON(data []byte) error {
+func (e *PlaybackInfoMetaDvrPlaybackType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "html5/application/vnd.apple.mpegurl":
-		*e = PlaybackInfoSchemasMetaType(v)
+		*e = PlaybackInfoMetaDvrPlaybackType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for PlaybackInfoSchemasMetaType: %v", v)
+		return fmt.Errorf("invalid value for PlaybackInfoMetaDvrPlaybackType: %v", v)
 	}
 }
 
 type DvrPlayback struct {
-	Hrn   *PlaybackInfoHrn             `json:"hrn,omitempty"`
-	Type  *PlaybackInfoSchemasMetaType `json:"type,omitempty"`
-	URL   *string                      `json:"url,omitempty"`
-	Error *string                      `json:"error,omitempty"`
+	Hrn   *PlaybackInfoHrn                 `json:"hrn,omitempty"`
+	Type  *PlaybackInfoMetaDvrPlaybackType `json:"type,omitempty"`
+	URL   *string                          `json:"url,omitempty"`
+	Error *string                          `json:"error,omitempty"`
 }
 
 func (o *DvrPlayback) GetHrn() *PlaybackInfoHrn {
@@ -232,7 +238,7 @@ func (o *DvrPlayback) GetHrn() *PlaybackInfoHrn {
 	return o.Hrn
 }
 
-func (o *DvrPlayback) GetType() *PlaybackInfoSchemasMetaType {
+func (o *DvrPlayback) GetType() *PlaybackInfoMetaDvrPlaybackType {
 	if o == nil {
 		return nil
 	}

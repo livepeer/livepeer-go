@@ -5,11 +5,11 @@ package components
 // ViewershipMetric - An individual metric about viewership of an asset. Necessarily, at least
 // 1 of playbackId and dStorageUrl will be present, depending on the query.
 type ViewershipMetric struct {
-	// The playback ID associated with the metric
+	// The playback ID associated with the metric.
 	PlaybackID *string `json:"playbackId,omitempty"`
-	// The ID of the creator associated with the metric
+	// The ID of the creator associated with the metric.
 	CreatorID *string `json:"creatorId,omitempty"`
-	// The ID of the viewer associated with the metric
+	// The ID of the viewer associated with the metric.
 	ViewerID *string `json:"viewerId,omitempty"`
 	// The URL of the distributed storage used for the asset
 	DStorageURL *string `json:"dStorageUrl,omitempty"`
@@ -18,42 +18,42 @@ type ViewershipMetric struct {
 	// beginning of the time step period.
 	//
 	Timestamp *float64 `json:"timestamp,omitempty"`
-	// The device used by the viewer
+	// The device used by the viewer.
 	Device *string `json:"device,omitempty"`
-	// The type of the device used by the viewer
+	// The type of the device used by the viewer.
 	DeviceType *string `json:"deviceType,omitempty"`
-	// The CPU used by the viewer's device
+	// The CPU used by the viewer's device.
 	CPU *string `json:"cpu,omitempty"`
-	// The operating system used by the viewer
+	// The operating system used by the viewer.
 	Os *string `json:"os,omitempty"`
-	// The browser used by the viewer
+	// The browser used by the viewer.
 	Browser *string `json:"browser,omitempty"`
-	// The browser engine used by the viewer's browser
+	// The browser engine used by the viewer's browser.
 	BrowserEngine *string `json:"browserEngine,omitempty"`
-	// The continent where the viewer is located
+	// The continent where the viewer is located.
 	Continent *string `json:"continent,omitempty"`
-	// The country where the viewer is located
+	// The country where the viewer is located.
 	Country *string `json:"country,omitempty"`
 	// The subdivision (e.g., state or province) where the viewer is
-	// located
+	// located.
 	//
 	Subdivision *string `json:"subdivision,omitempty"`
-	// The timezone where the viewer is located
+	// The timezone where the viewer is located.
 	Timezone *string `json:"timezone,omitempty"`
 	// Geographic encoding of the viewers location. Accurate to 3 digits.
 	Geohas *string `json:"geohas,omitempty"`
-	// The number of views for the asset
+	// The number of views for the asset.
 	ViewCount int64 `json:"viewCount"`
-	// The total playtime in minutes for the asset
+	// The total playtime in minutes for the asset.
 	PlaytimeMins float64 `json:"playtimeMins"`
-	// The time-to-first-frame (TTFF) in milliseconds
+	// The time-to-first-frame (TTFF) in milliseconds.
 	TtffMs *float64 `json:"ttffMs,omitempty"`
-	// The rebuffering ratio for the asset
+	// The rebuffering ratio for the asset.
 	RebufferRatio *float64 `json:"rebufferRatio,omitempty"`
-	// The error rate for the asset
+	// The error rate for the asset.
 	ErrorRate *float64 `json:"errorRate,omitempty"`
 	// The percentage of sessions that existed before the asset started
-	// playing
+	// playing.
 	//
 	ExitsBeforeStart *float64 `json:"exitsBeforeStart,omitempty"`
 }

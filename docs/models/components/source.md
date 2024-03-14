@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### Asset1
+### Source1
 
 ```go
-source := components.CreateSourceAsset1(components.Asset1{/* values here */})
+source := components.CreateSourceSource1(components.Source1{/* values here */})
 ```
 
 ### Two
@@ -15,9 +15,9 @@ source := components.CreateSourceAsset1(components.Asset1{/* values here */})
 source := components.CreateSourceTwo(components.Two{/* values here */})
 ```
 
-### Three
+### Source3
 
 ```go
-source := components.CreateSourceThree(components.Three{/* values here */})
+source := components.CreateSourceSource3(components.Source3{/* values here */})
 ```
 

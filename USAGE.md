@@ -1,29 +1,31 @@
-<!-- Start SDK Example Usage -->
+<!-- Start SDK Example Usage [usage] -->
 ```go
 package main
 
 import (
 	"context"
-	"livepeer"
-	"livepeer/models/components"
+	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
-	s := livepeer.New(
-		livepeer.WithSecurity(""),
+	s := livepeergo.New(
+		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
 
 	ctx := context.Background()
-	res, err := s.GetAll(ctx)
+	res, err := s.PostStream(ctx, components.NewStreamPayload{
+		Name:   "test_stream",
+		Record: livepeergo.Bool(false),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	if res.Classes != nil {
+	if res.Stream != nil {
 		// handle response
 	}
 }
 
 ```
-<!-- End SDK Example Usage -->
+<!-- End SDK Example Usage [usage] -->

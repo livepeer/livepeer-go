@@ -3,7 +3,7 @@
 package components
 
 import (
-	"livepeer/internal/utils"
+	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
 // TargetSpec - Inline multistream target object. Will automatically

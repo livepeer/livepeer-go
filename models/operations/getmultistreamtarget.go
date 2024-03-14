@@ -3,57 +3,35 @@
 package operations
 
 import (
-	"livepeer/models/components"
-	"net/http"
+	"github.com/livepeer/livepeer-go/models/components"
+	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
-type GetMultistreamTargetRequest struct {
-	// ID of the multistream target
-	ID string `pathParam:"style=simple,explode=false,name=id"`
-}
-
-func (o *GetMultistreamTargetRequest) GetID() string {
-	if o == nil {
-		return ""
-	}
-	return o.ID
-}
-
 type GetMultistreamTargetResponse struct {
-	// HTTP response content type for this operation
-	ContentType string
-	// HTTP response status code for this operation
-	StatusCode int
-	// Raw HTTP response; suitable for custom response parsing
-	RawResponse *http.Response
+	HTTPMeta components.HTTPMetadata
 	// Success
-	MultistreamTarget *components.MultistreamTarget
+	MultistreamTargets []components.MultistreamTarget
+	// Error
+	Error *sdkerrors.Error
 }
 
-func (o *GetMultistreamTargetResponse) GetContentType() string {
+func (o *GetMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
 	if o == nil {
-		return ""
+		return components.HTTPMetadata{}
 	}
-	return o.ContentType
+	return o.HTTPMeta
 }
 
-func (o *GetMultistreamTargetResponse) GetStatusCode() int {
-	if o == nil {
-		return 0
-	}
-	return o.StatusCode
-}
-
-func (o *GetMultistreamTargetResponse) GetRawResponse() *http.Response {
+func (o *GetMultistreamTargetResponse) GetMultistreamTargets() []components.MultistreamTarget {
 	if o == nil {
 		return nil
 	}
-	return o.RawResponse
+	return o.MultistreamTargets
 }
 
-func (o *GetMultistreamTargetResponse) GetMultistreamTarget() *components.MultistreamTarget {
+func (o *GetMultistreamTargetResponse) GetError() *sdkerrors.Error {
 	if o == nil {
 		return nil
 	}
-	return o.MultistreamTarget
+	return o.Error
 }

@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-// RecordingStatus - Status of the recording process of this stream session.
+// RecordingStatus - The status of the recording process of this stream session.
 type RecordingStatus string
 
 const (
@@ -64,17 +64,17 @@ type Session struct {
 	CreatedAt *float64 `json:"createdAt,omitempty"`
 	// Points to parent stream object
 	ParentID *string `json:"parentId,omitempty"`
-	// Should this stream be recorded? Uses default settings. For more
+	// Whether the stream should be recorded. Uses default settings. For more
 	// customization, create and configure an object store.
 	//
 	Record *bool `json:"record,omitempty"`
-	// Status of the recording process of this stream session.
+	// The status of the recording process of this stream session.
 	RecordingStatus *RecordingStatus `json:"recordingStatus,omitempty"`
 	// URL for accessing the recording of this stream session.
 	RecordingURL *string `json:"recordingUrl,omitempty"`
-	// URL for the stream session recording packaged in an mp4.
+	// The URL for the stream session recording packaged in an MP4.
 	Mp4URL *string `json:"mp4Url,omitempty"`
-	// Used to form playback URL
+	// The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
 	PlaybackID *string         `json:"playbackId,omitempty"`
 	Profiles   []FfmpegProfile `json:"profiles,omitempty"`
 }

@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### TranscodePayloadSchemas1
+### Storage1
 
 ```go
-transcodePayloadStorage := components.CreateTranscodePayloadStorageTranscodePayloadSchemas1(components.TranscodePayloadSchemas1{/* values here */})
+transcodePayloadStorage := components.CreateTranscodePayloadStorageStorage1(components.Storage1{/* values here */})
 ```
 
-### TranscodePayloadSchemas2
+### Storage2
 
 ```go
-transcodePayloadStorage := components.CreateTranscodePayloadStorageTranscodePayloadSchemas2(components.TranscodePayloadSchemas2{/* values here */})
+transcodePayloadStorage := components.CreateTranscodePayloadStorageStorage2(components.Storage2{/* values here */})
 ```
 

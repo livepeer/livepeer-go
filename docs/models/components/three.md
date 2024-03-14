@@ -1,14 +1,17 @@
 # Three
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
-| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `Type`                                                                                   | [components.AssetSchemasSource3Type](../../models/components/assetschemassource3type.md) | :heavy_check_mark:                                                                       | N/A                                                                                      |
-| `Encryption`                                                                             | [*components.Encryption](../../models/components/encryption.md)                          | :heavy_minus_sign:                                                                       | N/A                                                                                      |
-| `SourceID`                                                                               | **string*                                                                                | :heavy_minus_sign:                                                                       | ID of the asset or stream from which this asset was created                              |
-| `SessionID`                                                                              | **string*                                                                                | :heavy_minus_sign:                                                                       | ID of the session from which this asset was created                                      |
-| `PlaybackID`                                                                             | **string*                                                                                | :heavy_minus_sign:                                                                       | Playback ID of the asset or stream from which this asset was created                     |
-| `RequesterID`                                                                            | **string*                                                                                | :heavy_minus_sign:                                                                       | ID of the requester from which this asset was created                                    |
-| `AssetID`                                                                                | **string*                                                                                | :heavy_minus_sign:                                                                       | ID of the asset from which this asset was created                                        |
+### 
+
+```go
+three := components.CreateThreeStr(string{/* values here */})
+```
+
+### 
+
+```go
+three := components.CreateThreeNumber(float64{/* values here */})
+```
+

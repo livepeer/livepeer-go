@@ -3,7 +3,11 @@
 package components
 
 type NewStreamPayload struct {
-	Name      string          `json:"name"`
+	Name string `json:"name"`
+	// Configuration for a stream that should be actively pulled from an
+	// external source, rather than pushed to Livepeer. If specified, the
+	// stream will not have a streamKey.
+	Pull      *Pull           `json:"pull,omitempty"`
 	CreatorID *InputCreatorID `json:"creatorId,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
@@ -13,6 +17,8 @@ type NewStreamPayload struct {
 	//
 	Record      *bool        `json:"record,omitempty"`
 	Multistream *Multistream `json:"multistream,omitempty"`
+	// User input tags associated with the stream
+	UserTags map[string]UserTags `json:"userTags,omitempty"`
 }
 
 func (o *NewStreamPayload) GetName() string {
@@ -20,6 +26,13 @@ func (o *NewStreamPayload) GetName() string {
 		return ""
 	}
 	return o.Name
+}
+
+func (o *NewStreamPayload) GetPull() *Pull {
+	if o == nil {
+		return nil
+	}
+	return o.Pull
 }
 
 func (o *NewStreamPayload) GetCreatorID() *InputCreatorID {
@@ -55,4 +68,11 @@ func (o *NewStreamPayload) GetMultistream() *Multistream {
 		return nil
 	}
 	return o.Multistream
+}
+
+func (o *NewStreamPayload) GetUserTags() map[string]UserTags {
+	if o == nil {
+		return nil
+	}
+	return o.UserTags
 }

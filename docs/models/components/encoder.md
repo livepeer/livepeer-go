@@ -5,7 +5,7 @@
 
 | Name          | Value         |
 | ------------- | ------------- |
-| `EncoderH264` | h264          |
-| `EncoderHevc` | hevc          |
-| `EncoderVp8`  | vp8           |
-| `EncoderVp9`  | vp9           |
+| `EncoderH264` | H.264         |
+| `EncoderHevc` | HEVC          |
+| `EncoderVp8`  | VP8           |
+| `EncoderVp9`  | VP9           |
