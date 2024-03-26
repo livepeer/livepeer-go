@@ -1,12 +1,9 @@
 # Livepeer SDK
 
-
 ## Overview
 
 Livepeer API Reference: Welcome to the Livepeer API reference docs. Here you will find all the
-endpoints exposed on the standard Livepeer API, learn how to use them and
-what they return.
-
+endpoints exposed on the standard Livepeer API, learn how to use them and what they return.
 
 ### Available Operations
 
@@ -83,28 +80,27 @@ The playback policy is set to public by default for new streams. It can
 also be added upon the creation of a new stream by adding
 `"playbackPolicy": {"type": "jwt"}`
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
     res, err := s.PostStream(ctx, components.NewStreamPayload{
         Name: "test_stream",
-        Record: livepeergo.Bool(false),
+        Record: livepeer.Bool(false),
     })
     if err != nil {
         log.Fatal(err)
@@ -121,7 +117,6 @@ func main() {
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
 | `request`                                                                  | [components.NewStreamPayload](../../models/components/newstreampayload.md) | :heavy_check_mark:                                                         | The request object to use for the request.                                 |
-
 
 ### Response
 
@@ -140,19 +135,19 @@ Retrieve streams
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
-    var streamsonly *string = livepeergo.String("<value>")
+    var streamsonly *string = livepeer.String("<value>")
 
     ctx := context.Background()
     res, err := s.GetStream(ctx, streamsonly)
@@ -172,7 +167,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `streamsonly`                                         | **string*                                             | :heavy_minus_sign:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.GetStreamResponse](../../models/operations/getstreamresponse.md), error**
@@ -190,15 +184,15 @@ Retrieve a stream
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -222,7 +216,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the stream                                      |
 
-
 ### Response
 
 **[*operations.GetStreamIDResponse](../../models/operations/getstreamidresponse.md), error**
@@ -240,22 +233,22 @@ Update a stream
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
     var id string = "<value>"
 
     streamPatchPayload := components.StreamPatchPayload{
-        Record: livepeergo.Bool(false),
+        Record: livepeer.Bool(false),
     }
 
     ctx := context.Background()
@@ -277,7 +270,6 @@ func main() {
 | `id`                                                                           | *string*                                                                       | :heavy_check_mark:                                                             | ID of the stream                                                               |
 | `streamPatchPayload`                                                           | [components.StreamPatchPayload](../../models/components/streampatchpayload.md) | :heavy_check_mark:                                                             | N/A                                                                            |
 
-
 ### Response
 
 **[*operations.PatchStreamIDResponse](../../models/operations/patchstreamidresponse.md), error**
@@ -287,12 +279,10 @@ func main() {
 
 ## DeleteStreamID
 
-
 This will also suspend any active stream sessions, so make sure to wait
 until the stream has finished. To explicitly interrupt an active
 session, consider instead updating the suspended field in the stream
 using the PATCH stream API.
-
 
 ### Example Usage
 
@@ -300,15 +290,15 @@ using the PATCH stream API.
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -332,7 +322,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the stream                                      |
 
-
 ### Response
 
 **[*operations.DeleteStreamIDResponse](../../models/operations/deletestreamidresponse.md), error**
@@ -351,22 +340,21 @@ terminate the current session and stop the recording.
 A 204 No Content status response indicates the stream was successfully
 terminated.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -390,7 +378,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the stream                                      |
 
-
 ### Response
 
 **[*operations.DeleteStreamIDTerminateResponse](../../models/operations/deletestreamidterminateresponse.md), error**
@@ -408,22 +395,21 @@ it will also start recording.
 A 204 No Content status response indicates the stream was successfully
 started.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -447,7 +433,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the stream                                      |
 
-
 ### Response
 
 **[*operations.PostStreamIDStartPullResponse](../../models/operations/poststreamidstartpullresponse.md), error**
@@ -465,15 +450,15 @@ Retrieve Multistream Targets
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -493,7 +478,6 @@ func main() {
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 
-
 ### Response
 
 **[*operations.GetMultistreamTargetResponse](../../models/operations/getmultistreamtargetresponse.md), error**
@@ -511,15 +495,15 @@ Create a multistream target
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -542,7 +526,6 @@ func main() {
 | `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
 | `request`                                                                              | [components.MultistreamTargetInput](../../models/components/multistreamtargetinput.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
 
-
 ### Response
 
 **[*operations.PostMultistreamTargetResponse](../../models/operations/postmultistreamtargetresponse.md), error**
@@ -560,15 +543,15 @@ Retrieve a multistream target
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -592,7 +575,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the multistream target                          |
 
-
 ### Response
 
 **[*operations.GetMultistreamTargetIDResponse](../../models/operations/getmultistreamtargetidresponse.md), error**
@@ -610,15 +592,15 @@ Update Multistream Target
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -647,7 +629,6 @@ func main() {
 | `id`                                                                                                 | *string*                                                                                             | :heavy_check_mark:                                                                                   | ID of the multistream target                                                                         |
 | `multistreamTargetPatchPayload`                                                                      | [components.MultistreamTargetPatchPayload](../../models/components/multistreamtargetpatchpayload.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
 
-
 ### Response
 
 **[*operations.PatchMultistreamTargetIDResponse](../../models/operations/patchmultistreamtargetidresponse.md), error**
@@ -660,22 +641,21 @@ func main() {
 Make sure to remove any references to the target on existing
 streams before actually deleting it from the API.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -699,7 +679,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the multistream target                          |
 
-
 ### Response
 
 **[*operations.DeleteMultistreamTargetIDResponse](../../models/operations/deletemultistreamtargetidresponse.md), error**
@@ -717,15 +696,15 @@ Retrieve a Webhook
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -745,7 +724,6 @@ func main() {
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 
-
 ### Response
 
 **[*operations.GetWebhookResponse](../../models/operations/getwebhookresponse.md), error**
@@ -757,22 +735,21 @@ func main() {
 
 To create a new webhook, you need to make an API call with the events you want to listen for and the URL that will be called when those events occur.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -792,7 +769,6 @@ func main() {
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 
-
 ### Response
 
 **[*operations.PostWebhookResponse](../../models/operations/postwebhookresponse.md), error**
@@ -810,15 +786,15 @@ Retrieve a webhook
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -842,7 +818,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.GetWebhookIDResponse](../../models/operations/getwebhookidresponse.md), error**
@@ -860,15 +835,15 @@ Update a webhook
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -892,7 +867,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.PutWebhookIDResponse](../../models/operations/putwebhookidresponse.md), error**
@@ -910,15 +884,15 @@ Delete a webhook
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -942,7 +916,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.DeleteWebhookIDResponse](../../models/operations/deletewebhookidresponse.md), error**
@@ -960,15 +933,15 @@ Retrieve webhook logs
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -992,7 +965,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.GetWebhookIDLogResponse](../../models/operations/getwebhookidlogresponse.md), error**
@@ -1010,15 +982,15 @@ Retrieve a webhook log
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1045,7 +1017,6 @@ func main() {
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 | `logID`                                               | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.GetWebhookIDLogLogIDResponse](../../models/operations/getwebhookidloglogidresponse.md), error**
@@ -1059,22 +1030,21 @@ Use this API to resend the same webhook request. This is useful when
 developing and debugging, allowing you to easily repeat the same webhook
 to check or fix the behaviour in your handler.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1101,7 +1071,6 @@ func main() {
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 | `logID`                                               | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.PostWebhookIDLogLogIDResendResponse](../../models/operations/postwebhookidloglogidresendresponse.md), error**
@@ -1119,15 +1088,15 @@ Retrieve assets
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -1146,7 +1115,6 @@ func main() {
 | Parameter                                             | Type                                                  | Required                                              | Description                                           |
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-
 
 ### Response
 
@@ -1167,14 +1135,14 @@ which will work better for users with unreliable or slow network
 connections. If you want a simpler implementation though, you should
 just use a direct upload.
 
-
 ## Direct Upload
+
 For a direct upload, make a PUT request to the URL received in the url
 field of the response above, with the raw video file as the request
 body. response above:
 
-
 ## Resumable Upload
+
 Livepeer supports resumable uploads via Tus. This section provides a
 simple example of how to use tus-js-client to upload a video file.
 \
@@ -1229,28 +1197,27 @@ is enabled by default using local storage. In node.js, add urlStorage:
 new tus.FileUrlStorage("path/to/tmp/file"), to the UploadFile object
 definition above.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
     res, err := s.PostAssetRequestUpload(ctx, components.NewAssetPayload{
         Name: "filename.mp4",
-        StaticMp4: livepeergo.Bool(true),
+        StaticMp4: livepeer.Bool(true),
     })
     if err != nil {
         log.Fatal(err)
@@ -1267,7 +1234,6 @@ func main() {
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
 | `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
 | `request`                                                                | [components.NewAssetPayload](../../models/components/newassetpayload.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
-
 
 ### Response
 
@@ -1286,21 +1252,21 @@ Upload asset via URL
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
     res, err := s.PostAssetUploadURL(ctx, components.NewAssetPayload{
         Name: "filename.mp4",
-        StaticMp4: livepeergo.Bool(true),
+        StaticMp4: livepeer.Bool(true),
     })
     if err != nil {
         log.Fatal(err)
@@ -1317,7 +1283,6 @@ func main() {
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
 | `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
 | `request`                                                                | [components.NewAssetPayload](../../models/components/newassetpayload.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
-
 
 ### Response
 
@@ -1336,15 +1301,15 @@ Retrieves an asset
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1368,7 +1333,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `assetID`                                             | *string*                                              | :heavy_check_mark:                                    | ID of the asset                                       |
 
-
 ### Response
 
 **[*operations.GetAssetAssetIDResponse](../../models/operations/getassetassetidresponse.md), error**
@@ -1386,22 +1350,22 @@ Patch an asset
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
     var assetID string = "<value>"
 
     assetPatchPayload := components.AssetPatchPayload{
-        Name: livepeergo.String("filename.mp4"),
+        Name: livepeer.String("filename.mp4"),
     }
 
     ctx := context.Background()
@@ -1423,7 +1387,6 @@ func main() {
 | `assetID`                                                                    | *string*                                                                     | :heavy_check_mark:                                                           | ID of the asset                                                              |
 | `assetPatchPayload`                                                          | [components.AssetPatchPayload](../../models/components/assetpatchpayload.md) | :heavy_check_mark:                                                           | N/A                                                                          |
 
-
 ### Response
 
 **[*operations.PatchAssetAssetIDResponse](../../models/operations/patchassetassetidresponse.md), error**
@@ -1441,15 +1404,15 @@ Delete an asset
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1473,7 +1436,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `assetID`                                             | *string*                                              | :heavy_check_mark:                                    | ID of the asset                                       |
 
-
 ### Response
 
 **[*operations.DeleteAssetAssetIDResponse](../../models/operations/deleteassetassetidresponse.md), error**
@@ -1491,15 +1453,15 @@ Create a clip
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -1523,7 +1485,6 @@ func main() {
 | `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |
 | `request`                                                        | [components.ClipPayload](../../models/components/clippayload.md) | :heavy_check_mark:                                               | The request object to use for the request.                       |
 
-
 ### Response
 
 **[*operations.PostClipResponse](../../models/operations/postclipresponse.md), error**
@@ -1541,15 +1502,15 @@ Retrieve clips of a livestream
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1573,7 +1534,6 @@ func main() {
 | `ctx`                                                  | [context.Context](https://pkg.go.dev/context#Context)  | :heavy_check_mark:                                     | The context to use for the request.                    |
 | `id`                                                   | *string*                                               | :heavy_check_mark:                                     | ID of the parent stream or playbackId of parent stream |
 
-
 ### Response
 
 **[*operations.GetStreamIDClipsResponse](../../models/operations/getstreamidclipsresponse.md), error**
@@ -1591,15 +1551,15 @@ Add a multistream target
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1628,7 +1588,6 @@ func main() {
 | `id`                                                                       | *string*                                                                   | :heavy_check_mark:                                                         | ID of the parent stream                                                    |
 | `targetAddPayload`                                                         | [components.TargetAddPayload](../../models/components/targetaddpayload.md) | :heavy_check_mark:                                                         | N/A                                                                        |
 
-
 ### Response
 
 **[*operations.PostStreamIDCreateMultistreamTargetResponse](../../models/operations/poststreamidcreatemultistreamtargetresponse.md), error**
@@ -1646,15 +1605,15 @@ Remove a multistream target
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1681,7 +1640,6 @@ func main() {
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the parent stream                               |
 | `targetID`                                            | *string*                                              | :heavy_check_mark:                                    | ID of the multistream target                          |
 
-
 ### Response
 
 **[*operations.DeleteStreamIDMultistreamTargetIDResponse](../../models/operations/deletestreamidmultistreamtargetidresponse.md), error**
@@ -1699,15 +1657,15 @@ Retrieve clips of a session
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1731,7 +1689,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the parent session                              |
 
-
 ### Response
 
 **[*operations.GetSessionIDClipsResponse](../../models/operations/getsessionidclipsresponse.md), error**
@@ -1743,22 +1700,21 @@ func main() {
 
 Create a multiparticipant livestreaming room.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -1778,7 +1734,6 @@ func main() {
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 
-
 ### Response
 
 **[*operations.PostRoomResponse](../../models/operations/postroomresponse.md), error**
@@ -1796,15 +1751,15 @@ Retrieve a room
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1828,7 +1783,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.GetRoomIDResponse](../../models/operations/getroomidresponse.md), error**
@@ -1846,15 +1800,15 @@ Delete a room
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1878,7 +1832,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.DeleteRoomIDResponse](../../models/operations/deleteroomidresponse.md), error**
@@ -1891,22 +1844,21 @@ func main() {
 Create a livestream for your room.
 This allows you to leverage livestreaming features like recording and HLS output.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1935,7 +1887,6 @@ func main() {
 | `id`                                                                         | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
 | `roomEgressPayload`                                                          | [components.RoomEgressPayload](../../models/components/roomegresspayload.md) | :heavy_check_mark:                                                           | N/A                                                                          |
 
-
 ### Response
 
 **[*operations.PostRoomIDEgressResponse](../../models/operations/postroomidegressresponse.md), error**
@@ -1953,15 +1904,15 @@ Stop room RTMP egress
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -1985,7 +1936,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.DeleteRoomIDEgressResponse](../../models/operations/deleteroomidegressresponse.md), error**
@@ -1999,22 +1949,21 @@ Call this endpoint to add a user to a room, specifying a display name at a minim
 The response will contain a joining URL for Livepeer's default meeting app.
 Alternatively the joining token can be used with a custom app.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -2022,8 +1971,8 @@ func main() {
 
     roomUserPayload := components.RoomUserPayload{
         Name: "name",
-        CanPublish: livepeergo.Bool(true),
-        CanPublishData: livepeergo.Bool(true),
+        CanPublish: livepeer.Bool(true),
+        CanPublishData: livepeer.Bool(true),
     }
 
     ctx := context.Background()
@@ -2045,7 +1994,6 @@ func main() {
 | `id`                                                                     | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `roomUserPayload`                                                        | [components.RoomUserPayload](../../models/components/roomuserpayload.md) | :heavy_check_mark:                                                       | N/A                                                                      |
 
-
 ### Response
 
 **[*operations.PostRoomIDUserResponse](../../models/operations/postroomiduserresponse.md), error**
@@ -2063,15 +2011,15 @@ Get user details
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -2098,7 +2046,6 @@ func main() {
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 | `userID`                                              | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.GetRoomIDUserUserIDResponse](../../models/operations/getroomiduseruseridresponse.md), error**
@@ -2116,15 +2063,15 @@ Update properties for a user.
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -2133,8 +2080,8 @@ func main() {
     var userID string = "<value>"
 
     roomUserUpdatePayload := components.RoomUserUpdatePayload{
-        CanPublish: livepeergo.Bool(true),
-        CanPublishData: livepeergo.Bool(true),
+        CanPublish: livepeer.Bool(true),
+        CanPublishData: livepeer.Bool(true),
     }
 
     ctx := context.Background()
@@ -2157,7 +2104,6 @@ func main() {
 | `userID`                                                                             | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
 | `roomUserUpdatePayload`                                                              | [components.RoomUserUpdatePayload](../../models/components/roomuserupdatepayload.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |
 
-
 ### Response
 
 **[*operations.PutRoomIDUserUserIDResponse](../../models/operations/putroomiduseruseridresponse.md), error**
@@ -2175,15 +2121,15 @@ Remove a user from the room
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -2210,7 +2156,6 @@ func main() {
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 | `userID`                                              | *string*                                              | :heavy_check_mark:                                    | N/A                                                   |
 
-
 ### Response
 
 **[*operations.DeleteRoomIDUserUserIDResponse](../../models/operations/deleteroomiduseruseridresponse.md), error**
@@ -2222,23 +2167,22 @@ func main() {
 
 Requires a private (non-CORS) API key to be used.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"github.com/livepeer/livepeer-go/models/operations"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "github.com/livepeer/livepeer-go/models/operations"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -2259,7 +2203,6 @@ func main() {
 | `ctx`                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                      | :heavy_check_mark:                                                                         | The context to use for the request.                                                        |
 | `request`                                                                                  | [operations.GetDataViewsQueryRequest](../../models/operations/getdataviewsqueryrequest.md) | :heavy_check_mark:                                                                         | The request object to use for the request.                                                 |
 
-
 ### Response
 
 **[*operations.GetDataViewsQueryResponse](../../models/operations/getdataviewsqueryresponse.md), error**
@@ -2271,23 +2214,22 @@ func main() {
 
 Requires a proof of ownership to be sent in the request, which for now is just the assetId or streamId parameters (1 of those must be in the query-string).
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"github.com/livepeer/livepeer-go/models/operations"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "github.com/livepeer/livepeer-go/models/operations"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -2308,7 +2250,6 @@ func main() {
 | `ctx`                                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                                    | :heavy_check_mark:                                                                                       | The context to use for the request.                                                                      |
 | `request`                                                                                                | [operations.GetDataViewsQueryCreatorRequest](../../models/operations/getdataviewsquerycreatorrequest.md) | :heavy_check_mark:                                                                                       | The request object to use for the request.                                                               |
 
-
 ### Response
 
 **[*operations.GetDataViewsQueryCreatorResponse](../../models/operations/getdataviewsquerycreatorresponse.md), error**
@@ -2322,22 +2263,21 @@ Allows querying for the public metrics for viewership about a video.
 This can be called from the frontend with a CORS key, or even
 unauthenticated.
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -2361,7 +2301,6 @@ func main() {
 | `ctx`                                                                                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                                                                                 | :heavy_check_mark:                                                                                                                                    | The context to use for the request.                                                                                                                   |
 | `playbackID`                                                                                                                                          | *string*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The playback ID to filter the query results. This can be a canonical<br/>playback ID from Livepeer assets or streams, or dStorage identifiers<br/>for assets<br/> |
 
-
 ### Response
 
 **[*operations.GetDataViewsQueryTotalPlaybackIDResponse](../../models/operations/getdataviewsquerytotalplaybackidresponse.md), error**
@@ -2379,26 +2318,26 @@ Query usage metrics
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/operations"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "github.com/livepeer/livepeer-go/models/operations"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
-    var from *int64 = livepeergo.Int64(511615)
+    var from *int64 = livepeer.Int64(511615)
 
-    var to *int64 = livepeergo.Int64(267511)
+    var to *int64 = livepeer.Int64(267511)
 
     var timeStep *operations.GetDataUsageQueryQueryParamTimeStep = operations.GetDataUsageQueryQueryParamTimeStepDay.ToPointer()
 
-    var creatorID *string = livepeergo.String("<value>")
+    var creatorID *string = livepeer.String("<value>")
 
     ctx := context.Background()
     res, err := s.GetDataUsageQuery(ctx, from, to, timeStep, creatorID)
@@ -2421,7 +2360,6 @@ func main() {
 | `timeStep`                                                                                                        | [*operations.GetDataUsageQueryQueryParamTimeStep](../../models/operations/getdatausagequeryqueryparamtimestep.md) | :heavy_minus_sign:                                                                                                | The time step to aggregate viewership metrics by<br/>                                                             |
 | `creatorID`                                                                                                       | **string*                                                                                                         | :heavy_minus_sign:                                                                                                | The creator ID to filter the query results<br/>                                                                   |
 
-
 ### Response
 
 **[*operations.GetDataUsageQueryResponse](../../models/operations/getdatausagequeryresponse.md), error**
@@ -2439,15 +2377,15 @@ Retrieve sessions
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -2467,7 +2405,6 @@ func main() {
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 
-
 ### Response
 
 **[*operations.GetSessionResponse](../../models/operations/getsessionresponse.md), error**
@@ -2485,15 +2422,15 @@ Retrieve a session
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -2517,7 +2454,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the session                                     |
 
-
 ### Response
 
 **[*operations.GetSessionIDResponse](../../models/operations/getsessionidresponse.md), error**
@@ -2535,21 +2471,21 @@ Retrieve Recorded Sessions
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
     var parentID string = "<value>"
 
-    var record *int64 = livepeergo.Int64(1)
+    var record *int64 = livepeer.Int64(1)
 
     ctx := context.Background()
     res, err := s.GetStreamParentIDSessions(ctx, parentID, record)
@@ -2570,7 +2506,6 @@ func main() {
 | `parentID`                                                             | *string*                                                               | :heavy_check_mark:                                                     | ID of the parent stream                                                |                                                                        |
 | `record`                                                               | **int64*                                                               | :heavy_minus_sign:                                                     | Flag indicating if the response should only include recorded<br/>sessions<br/> | 1                                                                      |
 
-
 ### Response
 
 **[*operations.GetStreamParentIDSessionsResponse](../../models/operations/getstreamparentidsessionsresponse.md), error**
@@ -2580,10 +2515,8 @@ func main() {
 
 ## PostAccessControlSigningKey
 
-
 The publicKey is a representation of the public key, encoded as base 64 and is passed as a string, and  the privateKey is displayed only on creation. This is the only moment where the client can save the private key, otherwise it will be lost. Remember to decode your string when signing JWTs.
 Up to 10 signing keys can be generated, after that you must delete at least one signing key to create a new one.
-
 
 ### Example Usage
 
@@ -2591,15 +2524,15 @@ Up to 10 signing keys can be generated, after that you must delete at least one 
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -2619,7 +2552,6 @@ func main() {
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 
-
 ### Response
 
 **[*operations.PostAccessControlSigningKeyResponse](../../models/operations/postaccesscontrolsigningkeyresponse.md), error**
@@ -2637,15 +2569,15 @@ Retrieves signing keys
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -2665,7 +2597,6 @@ func main() {
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 
-
 ### Response
 
 **[*operations.GetAccessControlSigningKeyResponse](../../models/operations/getaccesscontrolsigningkeyresponse.md), error**
@@ -2683,15 +2614,15 @@ Delete Signing Key
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -2715,7 +2646,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `keyID`                                               | *string*                                              | :heavy_check_mark:                                    | ID of the signing key                                 |
 
-
 ### Response
 
 **[*operations.DeleteAccessControlSigningKeyKeyIDResponse](../../models/operations/deleteaccesscontrolsigningkeykeyidresponse.md), error**
@@ -2733,15 +2663,15 @@ Retrieves a signing key
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -2765,7 +2695,6 @@ func main() {
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `keyID`                                               | *string*                                              | :heavy_check_mark:                                    | ID of the signing key                                 |
 
-
 ### Response
 
 **[*operations.GetAccessControlSigningKeyKeyIDResponse](../../models/operations/getaccesscontrolsigningkeykeyidresponse.md), error**
@@ -2783,16 +2712,16 @@ Update a signing key
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/operations"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "github.com/livepeer/livepeer-go/models/operations"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -2819,7 +2748,6 @@ func main() {
 | `keyID`                                                                                                                            | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | ID of the signing key                                                                                                              |
 | `requestBody`                                                                                                                      | [operations.PatchAccessControlSigningKeyKeyIDRequestBody](../../models/operations/patchaccesscontrolsigningkeykeyidrequestbody.md) | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
 
-
 ### Response
 
 **[*operations.PatchAccessControlSigningKeyKeyIDResponse](../../models/operations/patchaccesscontrolsigningkeykeyidresponse.md), error**
@@ -2837,15 +2765,15 @@ Retrieve Tasks
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -2865,7 +2793,6 @@ func main() {
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 
-
 ### Response
 
 **[*operations.GetTaskResponse](../../models/operations/gettaskresponse.md), error**
@@ -2883,15 +2810,15 @@ Retrieve a Task
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -2914,7 +2841,6 @@ func main() {
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 | `taskID`                                              | *string*                                              | :heavy_check_mark:                                    | ID of the task                                        |
-
 
 ### Response
 
@@ -2943,21 +2869,26 @@ output location.
 \
 The results will be available under `params.outputs.hls.path` and
 `params.outputs.mp4.path` in the specified storage service.
+
 ## Input
+
 \
 This endpoint currently supports the following inputs:
-- HTTP
-- S3 API Compatible Service
+
+* HTTP
+* S3 API Compatible Service
 \
 \
 **HTTP**
 \
 A public HTTP URL can be used to read a video file.
+
 ```json
 {
     "url": "https://www.example.com/video.mp4"
 }
 ```
+
 | Name | Type   | Description                          |
 | ---- | ------ | ------------------------------------ |
 | url  | string | A public HTTP URL for the video file. |
@@ -2986,15 +2917,17 @@ service to read a video file.
 }
 ```
 
-
 ## Storage
+
 \
 This endpoint currently supports the following storage services:
-- S3 API Compatible Service
-- Web3 Storage
+
+* S3 API Compatible Service
+* Web3 Storage
 \
 \
 **S3 API Compatible Service**
+
 ```json
 {
   "type": "s3",
@@ -3018,13 +2951,13 @@ This endpoint currently supports the following storage services:
 }
 ```
 
-
-
 ## Outputs
+
 \
 This endpoint currently supports the following output types:
-- HLS
-- MP4
+
+* HLS
+* MP4
 
 **HLS**
 
@@ -3036,7 +2969,6 @@ This endpoint currently supports the following output types:
 }
 ```
 
-
 **MP4**
 
 ```json
@@ -3047,22 +2979,21 @@ This endpoint currently supports the following output types:
 }
 ```
 
-
 ### Example Usage
 
 ```go
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
     ctx := context.Background()
@@ -3101,7 +3032,6 @@ func main() {
 | `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
 | `request`                                                                  | [components.TranscodePayload](../../models/components/transcodepayload.md) | :heavy_check_mark:                                                         | The request object to use for the request.                                 |
 
-
 ### Response
 
 **[*operations.PostTranscodeResponse](../../models/operations/posttranscoderesponse.md), error**
@@ -3119,15 +3049,15 @@ Retrieve Playback Info
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
+ "github.com/livepeer/livepeer-go/models/components"
+ livepeer "github.com/livepeer/livepeer-go"
+ "context"
+ "log"
 )
 
 func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    s := livepeer.New(
+        livepeer.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
 
@@ -3150,7 +3080,6 @@ func main() {
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | `ctx`                                                                  | [context.Context](https://pkg.go.dev/context#Context)                  | :heavy_check_mark:                                                     | The context to use for the request.                                    |
 | `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The playback ID from the asset or livestream, e.g. `eaw4nk06ts2d0mzb`. |
-
 
 ### Response
 
