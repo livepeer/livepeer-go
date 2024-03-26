@@ -4,73 +4,71 @@ package components
 
 import (
 	"errors"
-	"livepeer/internal/utils"
+	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
-// IpfsExportParams2 - Custom credentials for the Piñata service. Must have either
-// a JWT or an API key and an API secret.
-type IpfsExportParams2 struct {
+type Pinata2 struct {
 	// Will be added to the pinata_api_key header.
 	APIKey string `json:"apiKey"`
 }
 
-func (o *IpfsExportParams2) GetAPIKey() string {
+func (o *Pinata2) GetAPIKey() string {
 	if o == nil {
 		return ""
 	}
 	return o.APIKey
 }
 
-// IpfsExportParams1 - Custom credentials for the Piñata service. Must have either
-// a JWT or an API key and an API secret.
-type IpfsExportParams1 struct {
+type Pinata1 struct {
 }
 
 type PinataType string
 
 const (
-	PinataTypeIpfsExportParams1 PinataType = "ipfs-export-params_1"
-	PinataTypeIpfsExportParams2 PinataType = "ipfs-export-params_2"
+	PinataTypePinata1 PinataType = "pinata_1"
+	PinataTypePinata2 PinataType = "pinata_2"
 )
 
+// Pinata - Custom credentials for the Piñata service. Must have either
+// a JWT or an API key and an API secret.
 type Pinata struct {
-	IpfsExportParams1 *IpfsExportParams1
-	IpfsExportParams2 *IpfsExportParams2
+	Pinata1 *Pinata1
+	Pinata2 *Pinata2
 
 	Type PinataType
 }
 
-func CreatePinataIpfsExportParams1(ipfsExportParams1 IpfsExportParams1) Pinata {
-	typ := PinataTypeIpfsExportParams1
+func CreatePinataPinata1(pinata1 Pinata1) Pinata {
+	typ := PinataTypePinata1
 
 	return Pinata{
-		IpfsExportParams1: &ipfsExportParams1,
-		Type:              typ,
+		Pinata1: &pinata1,
+		Type:    typ,
 	}
 }
 
-func CreatePinataIpfsExportParams2(ipfsExportParams2 IpfsExportParams2) Pinata {
-	typ := PinataTypeIpfsExportParams2
+func CreatePinataPinata2(pinata2 Pinata2) Pinata {
+	typ := PinataTypePinata2
 
 	return Pinata{
-		IpfsExportParams2: &ipfsExportParams2,
-		Type:              typ,
+		Pinata2: &pinata2,
+		Type:    typ,
 	}
 }
 
 func (u *Pinata) UnmarshalJSON(data []byte) error {
 
-	ipfsExportParams1 := IpfsExportParams1{}
-	if err := utils.UnmarshalJSON(data, &ipfsExportParams1, "", true, true); err == nil {
-		u.IpfsExportParams1 = &ipfsExportParams1
-		u.Type = PinataTypeIpfsExportParams1
+	pinata1 := Pinata1{}
+	if err := utils.UnmarshalJSON(data, &pinata1, "", true, true); err == nil {
+		u.Pinata1 = &pinata1
+		u.Type = PinataTypePinata1
 		return nil
 	}
 
-	ipfsExportParams2 := IpfsExportParams2{}
-	if err := utils.UnmarshalJSON(data, &ipfsExportParams2, "", true, true); err == nil {
-		u.IpfsExportParams2 = &ipfsExportParams2
-		u.Type = PinataTypeIpfsExportParams2
+	pinata2 := Pinata2{}
+	if err := utils.UnmarshalJSON(data, &pinata2, "", true, true); err == nil {
+		u.Pinata2 = &pinata2
+		u.Type = PinataTypePinata2
 		return nil
 	}
 
@@ -78,12 +76,12 @@ func (u *Pinata) UnmarshalJSON(data []byte) error {
 }
 
 func (u Pinata) MarshalJSON() ([]byte, error) {
-	if u.IpfsExportParams1 != nil {
-		return utils.MarshalJSON(u.IpfsExportParams1, "", true)
+	if u.Pinata1 != nil {
+		return utils.MarshalJSON(u.Pinata1, "", true)
 	}
 
-	if u.IpfsExportParams2 != nil {
-		return utils.MarshalJSON(u.IpfsExportParams2, "", true)
+	if u.Pinata2 != nil {
+		return utils.MarshalJSON(u.Pinata2, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type: all fields are null")

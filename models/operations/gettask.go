@@ -3,57 +3,35 @@
 package operations
 
 import (
-	"livepeer/models/components"
-	"net/http"
+	"github.com/livepeer/livepeer-go/models/components"
+	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
-type GetTaskRequest struct {
-	// ID of the task
-	TaskID string `pathParam:"style=simple,explode=false,name=taskId"`
-}
-
-func (o *GetTaskRequest) GetTaskID() string {
-	if o == nil {
-		return ""
-	}
-	return o.TaskID
-}
-
 type GetTaskResponse struct {
-	// HTTP response content type for this operation
-	ContentType string
-	// HTTP response status code for this operation
-	StatusCode int
-	// Raw HTTP response; suitable for custom response parsing
-	RawResponse *http.Response
+	HTTPMeta components.HTTPMetadata
 	// Success
-	Task *components.Task
+	Tasks []components.Task
+	// Error
+	Error *sdkerrors.Error
 }
 
-func (o *GetTaskResponse) GetContentType() string {
+func (o *GetTaskResponse) GetHTTPMeta() components.HTTPMetadata {
 	if o == nil {
-		return ""
+		return components.HTTPMetadata{}
 	}
-	return o.ContentType
+	return o.HTTPMeta
 }
 
-func (o *GetTaskResponse) GetStatusCode() int {
-	if o == nil {
-		return 0
-	}
-	return o.StatusCode
-}
-
-func (o *GetTaskResponse) GetRawResponse() *http.Response {
+func (o *GetTaskResponse) GetTasks() []components.Task {
 	if o == nil {
 		return nil
 	}
-	return o.RawResponse
+	return o.Tasks
 }
 
-func (o *GetTaskResponse) GetTask() *components.Task {
+func (o *GetTaskResponse) GetError() *sdkerrors.Error {
 	if o == nil {
 		return nil
 	}
-	return o.Task
+	return o.Error
 }

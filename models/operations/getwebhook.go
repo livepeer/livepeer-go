@@ -3,56 +3,35 @@
 package operations
 
 import (
-	"livepeer/models/components"
-	"net/http"
+	"github.com/livepeer/livepeer-go/models/components"
+	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
-type GetWebhookRequest struct {
-	ID string `pathParam:"style=simple,explode=false,name=id"`
-}
-
-func (o *GetWebhookRequest) GetID() string {
-	if o == nil {
-		return ""
-	}
-	return o.ID
-}
-
 type GetWebhookResponse struct {
-	// HTTP response content type for this operation
-	ContentType string
-	// HTTP response status code for this operation
-	StatusCode int
-	// Raw HTTP response; suitable for custom response parsing
-	RawResponse *http.Response
+	HTTPMeta components.HTTPMetadata
 	// Success
-	Webhook *components.Webhook
+	Webhooks []components.Webhook
+	// Error
+	Error *sdkerrors.Error
 }
 
-func (o *GetWebhookResponse) GetContentType() string {
+func (o *GetWebhookResponse) GetHTTPMeta() components.HTTPMetadata {
 	if o == nil {
-		return ""
+		return components.HTTPMetadata{}
 	}
-	return o.ContentType
+	return o.HTTPMeta
 }
 
-func (o *GetWebhookResponse) GetStatusCode() int {
-	if o == nil {
-		return 0
-	}
-	return o.StatusCode
-}
-
-func (o *GetWebhookResponse) GetRawResponse() *http.Response {
+func (o *GetWebhookResponse) GetWebhooks() []components.Webhook {
 	if o == nil {
 		return nil
 	}
-	return o.RawResponse
+	return o.Webhooks
 }
 
-func (o *GetWebhookResponse) GetWebhook() *components.Webhook {
+func (o *GetWebhookResponse) GetError() *sdkerrors.Error {
 	if o == nil {
 		return nil
 	}
-	return o.Webhook
+	return o.Error
 }

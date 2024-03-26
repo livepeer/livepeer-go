@@ -5,7 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"livepeer/internal/utils"
+	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
 // TaskType - Type of the task
@@ -51,7 +51,10 @@ type Upload struct {
 	URL        *string     `json:"url,omitempty"`
 	Encryption *Encryption `json:"encryption,omitempty"`
 	// Decides if the output video should include C2PA signature
-	C2pa *bool `json:"c2pa,omitempty"`
+	C2pa     *bool              `json:"c2pa,omitempty"`
+	Profiles []TranscodeProfile `json:"profiles,omitempty"`
+	// How many seconds the duration of each output segment should be
+	TargetSegmentSizeSecs *float64 `json:"targetSegmentSizeSecs,omitempty"`
 }
 
 func (o *Upload) GetURL() *string {
@@ -75,12 +78,26 @@ func (o *Upload) GetC2pa() *bool {
 	return o.C2pa
 }
 
+func (o *Upload) GetProfiles() []TranscodeProfile {
+	if o == nil {
+		return nil
+	}
+	return o.Profiles
+}
+
+func (o *Upload) GetTargetSegmentSizeSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TargetSegmentSizeSecs
+}
+
 // Content - File content to store into IPFS
 type Content struct {
 }
 
-// ExportData - Parameters for the export-data task
-type ExportData struct {
+// TaskExportData - Parameters for the export-data task
+type TaskExportData struct {
 	// File content to store into IPFS
 	Content Content           `json:"content"`
 	Ipfs    *IpfsExportParams `json:"ipfs,omitempty"`
@@ -90,28 +107,28 @@ type ExportData struct {
 	ID *string `json:"id,omitempty"`
 }
 
-func (o *ExportData) GetContent() Content {
+func (o *TaskExportData) GetContent() Content {
 	if o == nil {
 		return Content{}
 	}
 	return o.Content
 }
 
-func (o *ExportData) GetIpfs() *IpfsExportParams {
+func (o *TaskExportData) GetIpfs() *IpfsExportParams {
 	if o == nil {
 		return nil
 	}
 	return o.Ipfs
 }
 
-func (o *ExportData) GetType() *string {
+func (o *TaskExportData) GetType() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Type
 }
 
-func (o *ExportData) GetID() *string {
+func (o *TaskExportData) GetID() *string {
 	if o == nil {
 		return nil
 	}
@@ -265,11 +282,11 @@ func (o *TranscodeFile) GetC2pa() *bool {
 
 // ClipStrategy - Strategy to use for clipping the asset. If not specified, the default strategy that Catalyst is configured for will be used. This field only available for admin users, and is only used for E2E testing.
 type ClipStrategy struct {
-	// Start time of the clip in milliseconds
+	// The start timestamp of the clip in Unix milliseconds. _See the ClipTrigger in the UI Kit for an example of how this is calculated (for HLS, it uses `Program Date-Time` tags, and for WebRTC, it uses the latency from server to client at stream startup)._
 	StartTime *float64 `json:"startTime,omitempty"`
-	// End time of the clip in milliseconds
+	// The end timestamp of the clip in Unix milliseconds. _See the ClipTrigger in the UI Kit for an example of how this is calculated (for HLS, it uses `Program Date-Time` tags, and for WebRTC, it uses the latency from server to client at stream startup)._
 	EndTime *float64 `json:"endTime,omitempty"`
-	// Playback ID of the stream or asset to clip
+	// The playback ID of the stream or stream recording to clip. Asset playback IDs are not supported yet.
 	PlaybackID *string `json:"playbackId,omitempty"`
 }
 
@@ -389,7 +406,7 @@ type Params struct {
 	// Parameters for the export task
 	Export *ExportTaskParams `json:"export,omitempty"`
 	// Parameters for the export-data task
-	ExportData *ExportData `json:"exportData,omitempty"`
+	ExportData *TaskExportData `json:"exportData,omitempty"`
 	// Parameters for the transcode-file task
 	TranscodeFile *TranscodeFile `json:"transcode-file,omitempty"`
 	Clip          *Clip          `json:"clip,omitempty"`
@@ -409,7 +426,7 @@ func (o *Params) GetExport() *ExportTaskParams {
 	return o.Export
 }
 
-func (o *Params) GetExportData() *ExportData {
+func (o *Params) GetExportData() *TaskExportData {
 	if o == nil {
 		return nil
 	}
@@ -621,24 +638,24 @@ func (o *Export) GetIpfs() *TaskIpfs {
 	return o.Ipfs
 }
 
-type TaskSchemasIpfs struct {
+type TaskOutputIpfs struct {
 	// IPFS CID of the exported data
 	Cid string `json:"cid"`
 }
 
-func (o *TaskSchemasIpfs) GetCid() string {
+func (o *TaskOutputIpfs) GetCid() string {
 	if o == nil {
 		return ""
 	}
 	return o.Cid
 }
 
-// TaskExportData - Output of the export data task
-type TaskExportData struct {
-	Ipfs *TaskSchemasIpfs `json:"ipfs,omitempty"`
+// ExportData - Output of the export data task
+type ExportData struct {
+	Ipfs *TaskOutputIpfs `json:"ipfs,omitempty"`
 }
 
-func (o *TaskExportData) GetIpfs() *TaskSchemasIpfs {
+func (o *ExportData) GetIpfs() *TaskOutputIpfs {
 	if o == nil {
 		return nil
 	}
@@ -652,7 +669,7 @@ type Output struct {
 	// Output of the export task
 	Export *Export `json:"export,omitempty"`
 	// Output of the export data task
-	ExportData *TaskExportData `json:"exportData,omitempty"`
+	ExportData *ExportData `json:"exportData,omitempty"`
 }
 
 func (o *Output) GetUpload() *TaskUpload {
@@ -669,7 +686,7 @@ func (o *Output) GetExport() *Export {
 	return o.Export
 }
 
-func (o *Output) GetExportData() *TaskExportData {
+func (o *Output) GetExportData() *ExportData {
 	if o == nil {
 		return nil
 	}

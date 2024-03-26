@@ -4,12 +4,9 @@ package components
 
 import (
 	"errors"
-	"livepeer/internal/utils"
+	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
-// One - Set to true to make default export to IPFS. To customize the
-// pinned files, specify an object with a spec field. False or null
-// means to unpin from IPFS, but it's unsupported right now.
 type One struct {
 	Spec *Spec `json:"spec,omitempty"`
 }
@@ -28,6 +25,9 @@ const (
 	IpfsTypeBoolean IpfsType = "boolean"
 )
 
+// Ipfs - Set to true to make default export to IPFS. To customize the
+// pinned files, specify an object with a spec field. False or null
+// means to unpin from IPFS, but it's unsupported right now.
 type Ipfs struct {
 	One     *One
 	Boolean *bool

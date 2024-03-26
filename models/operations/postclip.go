@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"livepeer/models/components"
-	"net/http"
+	"github.com/livepeer/livepeer-go/models/components"
+	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type PostClipTask struct {
@@ -39,35 +39,18 @@ func (o *PostClipResponseBody) GetTask() PostClipTask {
 }
 
 type PostClipResponse struct {
-	// HTTP response content type for this operation
-	ContentType string
-	// HTTP response status code for this operation
-	StatusCode int
-	// Raw HTTP response; suitable for custom response parsing
-	RawResponse *http.Response
+	HTTPMeta components.HTTPMetadata
 	// Success
 	Object *PostClipResponseBody
+	// Error
+	Error *sdkerrors.Error
 }
 
-func (o *PostClipResponse) GetContentType() string {
+func (o *PostClipResponse) GetHTTPMeta() components.HTTPMetadata {
 	if o == nil {
-		return ""
+		return components.HTTPMetadata{}
 	}
-	return o.ContentType
-}
-
-func (o *PostClipResponse) GetStatusCode() int {
-	if o == nil {
-		return 0
-	}
-	return o.StatusCode
-}
-
-func (o *PostClipResponse) GetRawResponse() *http.Response {
-	if o == nil {
-		return nil
-	}
-	return o.RawResponse
+	return o.HTTPMeta
 }
 
 func (o *PostClipResponse) GetObject() *PostClipResponseBody {
@@ -75,4 +58,11 @@ func (o *PostClipResponse) GetObject() *PostClipResponseBody {
 		return nil
 	}
 	return o.Object
+}
+
+func (o *PostClipResponse) GetError() *sdkerrors.Error {
+	if o == nil {
+		return nil
+	}
+	return o.Error
 }

@@ -3,57 +3,35 @@
 package operations
 
 import (
-	"livepeer/models/components"
-	"net/http"
+	"github.com/livepeer/livepeer-go/models/components"
+	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
-type GetSessionRequest struct {
-	// ID of the session
-	ID string `pathParam:"style=simple,explode=false,name=id"`
-}
-
-func (o *GetSessionRequest) GetID() string {
-	if o == nil {
-		return ""
-	}
-	return o.ID
-}
-
 type GetSessionResponse struct {
-	// HTTP response content type for this operation
-	ContentType string
-	// HTTP response status code for this operation
-	StatusCode int
-	// Raw HTTP response; suitable for custom response parsing
-	RawResponse *http.Response
+	HTTPMeta components.HTTPMetadata
 	// Success
-	Session *components.Session
+	Sessions []components.Session
+	// Error
+	Error *sdkerrors.Error
 }
 
-func (o *GetSessionResponse) GetContentType() string {
+func (o *GetSessionResponse) GetHTTPMeta() components.HTTPMetadata {
 	if o == nil {
-		return ""
+		return components.HTTPMetadata{}
 	}
-	return o.ContentType
+	return o.HTTPMeta
 }
 
-func (o *GetSessionResponse) GetStatusCode() int {
-	if o == nil {
-		return 0
-	}
-	return o.StatusCode
-}
-
-func (o *GetSessionResponse) GetRawResponse() *http.Response {
+func (o *GetSessionResponse) GetSessions() []components.Session {
 	if o == nil {
 		return nil
 	}
-	return o.RawResponse
+	return o.Sessions
 }
 
-func (o *GetSessionResponse) GetSession() *components.Session {
+func (o *GetSessionResponse) GetError() *sdkerrors.Error {
 	if o == nil {
 		return nil
 	}
-	return o.Session
+	return o.Error
 }

@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"livepeer/internal/utils"
+	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
 type CreatorIDType string

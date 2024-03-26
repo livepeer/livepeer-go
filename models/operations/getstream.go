@@ -3,57 +3,46 @@
 package operations
 
 import (
-	"livepeer/models/components"
-	"net/http"
+	"github.com/livepeer/livepeer-go/models/components"
+	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetStreamRequest struct {
-	// ID of the stream
-	ID string `pathParam:"style=simple,explode=false,name=id"`
+	Streamsonly *string `queryParam:"style=form,explode=true,name=streamsonly"`
 }
 
-func (o *GetStreamRequest) GetID() string {
+func (o *GetStreamRequest) GetStreamsonly() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
-	return o.ID
+	return o.Streamsonly
 }
 
 type GetStreamResponse struct {
-	// HTTP response content type for this operation
-	ContentType string
-	// HTTP response status code for this operation
-	StatusCode int
-	// Raw HTTP response; suitable for custom response parsing
-	RawResponse *http.Response
+	HTTPMeta components.HTTPMetadata
 	// Success
-	Stream *components.Stream
+	Streams []components.Stream
+	// Error
+	Error *sdkerrors.Error
 }
 
-func (o *GetStreamResponse) GetContentType() string {
+func (o *GetStreamResponse) GetHTTPMeta() components.HTTPMetadata {
 	if o == nil {
-		return ""
+		return components.HTTPMetadata{}
 	}
-	return o.ContentType
+	return o.HTTPMeta
 }
 
-func (o *GetStreamResponse) GetStatusCode() int {
-	if o == nil {
-		return 0
-	}
-	return o.StatusCode
-}
-
-func (o *GetStreamResponse) GetRawResponse() *http.Response {
+func (o *GetStreamResponse) GetStreams() []components.Stream {
 	if o == nil {
 		return nil
 	}
-	return o.RawResponse
+	return o.Streams
 }
 
-func (o *GetStreamResponse) GetStream() *components.Stream {
+func (o *GetStreamResponse) GetError() *sdkerrors.Error {
 	if o == nil {
 		return nil
 	}
-	return o.Stream
+	return o.Error
 }

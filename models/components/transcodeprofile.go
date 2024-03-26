@@ -43,10 +43,10 @@ func (e *TranscodeProfileProfile) UnmarshalJSON(data []byte) error {
 type TranscodeProfileEncoder string
 
 const (
-	TranscodeProfileEncoderH264 TranscodeProfileEncoder = "h264"
-	TranscodeProfileEncoderHevc TranscodeProfileEncoder = "hevc"
-	TranscodeProfileEncoderVp8  TranscodeProfileEncoder = "vp8"
-	TranscodeProfileEncoderVp9  TranscodeProfileEncoder = "vp9"
+	TranscodeProfileEncoderH264 TranscodeProfileEncoder = "H.264"
+	TranscodeProfileEncoderHevc TranscodeProfileEncoder = "HEVC"
+	TranscodeProfileEncoderVp8  TranscodeProfileEncoder = "VP8"
+	TranscodeProfileEncoderVp9  TranscodeProfileEncoder = "VP9"
 )
 
 func (e TranscodeProfileEncoder) ToPointer() *TranscodeProfileEncoder {
@@ -59,13 +59,13 @@ func (e *TranscodeProfileEncoder) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
-	case "h264":
+	case "H.264":
 		fallthrough
-	case "hevc":
+	case "HEVC":
 		fallthrough
-	case "vp8":
+	case "VP8":
 		fallthrough
-	case "vp9":
+	case "VP9":
 		*e = TranscodeProfileEncoder(v)
 		return nil
 	default:

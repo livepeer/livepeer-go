@@ -3,57 +3,35 @@
 package operations
 
 import (
-	"livepeer/models/components"
-	"net/http"
+	"github.com/livepeer/livepeer-go/models/components"
+	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
-type GetAssetRequest struct {
-	// ID of the asset
-	AssetID string `pathParam:"style=simple,explode=false,name=assetId"`
-}
-
-func (o *GetAssetRequest) GetAssetID() string {
-	if o == nil {
-		return ""
-	}
-	return o.AssetID
-}
-
 type GetAssetResponse struct {
-	// HTTP response content type for this operation
-	ContentType string
-	// HTTP response status code for this operation
-	StatusCode int
-	// Raw HTTP response; suitable for custom response parsing
-	RawResponse *http.Response
+	HTTPMeta components.HTTPMetadata
 	// Success
-	Asset *components.Asset
+	Assets []components.Asset
+	// Error
+	Error *sdkerrors.Error
 }
 
-func (o *GetAssetResponse) GetContentType() string {
+func (o *GetAssetResponse) GetHTTPMeta() components.HTTPMetadata {
 	if o == nil {
-		return ""
+		return components.HTTPMetadata{}
 	}
-	return o.ContentType
+	return o.HTTPMeta
 }
 
-func (o *GetAssetResponse) GetStatusCode() int {
-	if o == nil {
-		return 0
-	}
-	return o.StatusCode
-}
-
-func (o *GetAssetResponse) GetRawResponse() *http.Response {
+func (o *GetAssetResponse) GetAssets() []components.Asset {
 	if o == nil {
 		return nil
 	}
-	return o.RawResponse
+	return o.Assets
 }
 
-func (o *GetAssetResponse) GetAsset() *components.Asset {
+func (o *GetAssetResponse) GetError() *sdkerrors.Error {
 	if o == nil {
 		return nil
 	}
-	return o.Asset
+	return o.Error
 }

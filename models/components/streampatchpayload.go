@@ -14,6 +14,8 @@ type StreamPatchPayload struct {
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
 	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
+	// User input tags associated with the stream
+	UserTags map[string]UserTags `json:"userTags,omitempty"`
 }
 
 func (o *StreamPatchPayload) GetCreatorID() *InputCreatorID {
@@ -56,4 +58,11 @@ func (o *StreamPatchPayload) GetProfiles() []FfmpegProfile {
 		return nil
 	}
 	return o.Profiles
+}
+
+func (o *StreamPatchPayload) GetUserTags() map[string]UserTags {
+	if o == nil {
+		return nil
+	}
+	return o.UserTags
 }

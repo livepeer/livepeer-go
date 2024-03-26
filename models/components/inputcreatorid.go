@@ -4,7 +4,7 @@ package components
 
 import (
 	"errors"
-	"livepeer/internal/utils"
+	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
 type InputCreatorIDType string

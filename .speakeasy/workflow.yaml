@@ -1,0 +1,9 @@
+workflowVersion: 1.0.0
+sources:
+    openapi:
+        inputs:
+            - location: https://raw.githubusercontent.com/livepeer/studio/master/packages/api/src/schema/api-schema.yaml
+targets:
+    first-target:
+        target: go
+        source: openapi

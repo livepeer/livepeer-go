@@ -6,32 +6,32 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"livepeer/internal/utils"
+	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
-// TranscodePayloadType - Type of service. This is optional and defaults to `url` if
+// InputType - Type of service. This is optional and defaults to `url` if
 // ŚURL field is provided.
-type TranscodePayloadType string
+type InputType string
 
 const (
-	TranscodePayloadTypeS3 TranscodePayloadType = "s3"
+	InputTypeS3 InputType = "s3"
 )
 
-func (e TranscodePayloadType) ToPointer() *TranscodePayloadType {
+func (e InputType) ToPointer() *InputType {
 	return &e
 }
 
-func (e *TranscodePayloadType) UnmarshalJSON(data []byte) error {
+func (e *InputType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "s3":
-		*e = TranscodePayloadType(v)
+		*e = InputType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TranscodePayloadType: %v", v)
+		return fmt.Errorf("invalid value for InputType: %v", v)
 	}
 }
 
@@ -57,12 +57,12 @@ func (o *Credentials) GetSecretAccessKey() string {
 	return o.SecretAccessKey
 }
 
-// TranscodePayload2 - S3-like storage input video
-type TranscodePayload2 struct {
+// Input2 - S3-like storage input video
+type Input2 struct {
 	// Type of service. This is optional and defaults to `url` if
 	// ŚURL field is provided.
 	//
-	Type TranscodePayloadType `json:"type"`
+	Type InputType `json:"type"`
 	// Service endpoint URL (AWS S3 endpoint list: https://docs.aws.amazon.com/general/latest/gr/s3.html, GCP S3 endpoint: https://storage.googleapis.com, Storj: https://gateway.storjshare.io)
 	Endpoint string `json:"endpoint"`
 	// Bucket with input file
@@ -73,99 +73,99 @@ type TranscodePayload2 struct {
 	Credentials Credentials `json:"credentials"`
 }
 
-func (o *TranscodePayload2) GetType() TranscodePayloadType {
+func (o *Input2) GetType() InputType {
 	if o == nil {
-		return TranscodePayloadType("")
+		return InputType("")
 	}
 	return o.Type
 }
 
-func (o *TranscodePayload2) GetEndpoint() string {
+func (o *Input2) GetEndpoint() string {
 	if o == nil {
 		return ""
 	}
 	return o.Endpoint
 }
 
-func (o *TranscodePayload2) GetBucket() string {
+func (o *Input2) GetBucket() string {
 	if o == nil {
 		return ""
 	}
 	return o.Bucket
 }
 
-func (o *TranscodePayload2) GetPath() string {
+func (o *Input2) GetPath() string {
 	if o == nil {
 		return ""
 	}
 	return o.Path
 }
 
-func (o *TranscodePayload2) GetCredentials() Credentials {
+func (o *Input2) GetCredentials() Credentials {
 	if o == nil {
 		return Credentials{}
 	}
 	return o.Credentials
 }
 
-// TranscodePayload1 - URL input video
-type TranscodePayload1 struct {
+// Input1 - URL input video
+type Input1 struct {
 	// URL of the video to transcode
 	URL string `json:"url"`
 }
 
-func (o *TranscodePayload1) GetURL() string {
+func (o *Input1) GetURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.URL
 }
 
-type InputType string
+type InputUnionType string
 
 const (
-	InputTypeTranscodePayload1 InputType = "transcode-payload_1"
-	InputTypeTranscodePayload2 InputType = "transcode-payload_2"
+	InputUnionTypeInput1 InputUnionType = "input_1"
+	InputUnionTypeInput2 InputUnionType = "input_2"
 )
 
 type Input struct {
-	TranscodePayload1 *TranscodePayload1
-	TranscodePayload2 *TranscodePayload2
+	Input1 *Input1
+	Input2 *Input2
 
-	Type InputType
+	Type InputUnionType
 }
 
-func CreateInputTranscodePayload1(transcodePayload1 TranscodePayload1) Input {
-	typ := InputTypeTranscodePayload1
+func CreateInputInput1(input1 Input1) Input {
+	typ := InputUnionTypeInput1
 
 	return Input{
-		TranscodePayload1: &transcodePayload1,
-		Type:              typ,
+		Input1: &input1,
+		Type:   typ,
 	}
 }
 
-func CreateInputTranscodePayload2(transcodePayload2 TranscodePayload2) Input {
-	typ := InputTypeTranscodePayload2
+func CreateInputInput2(input2 Input2) Input {
+	typ := InputUnionTypeInput2
 
 	return Input{
-		TranscodePayload2: &transcodePayload2,
-		Type:              typ,
+		Input2: &input2,
+		Type:   typ,
 	}
 }
 
 func (u *Input) UnmarshalJSON(data []byte) error {
 
-	transcodePayload1 := TranscodePayload1{}
-	if err := utils.UnmarshalJSON(data, &transcodePayload1, "", true, true); err == nil {
-		u.TranscodePayload1 = &transcodePayload1
-		u.Type = InputTypeTranscodePayload1
+	input1 := Input1{}
+	if err := utils.UnmarshalJSON(data, &input1, "", true, true); err == nil {
+		u.Input1 = &input1
+		u.Type = InputUnionTypeInput1
 		return nil
 	}
 
-	transcodePayload2 := TranscodePayload2{}
-	if err := utils.UnmarshalJSON(data, &transcodePayload2, "", true, true); err == nil {
-		u.TranscodePayload2 = &transcodePayload2
-		u.Type = InputTypeTranscodePayload2
+	input2 := Input2{}
+	if err := utils.UnmarshalJSON(data, &input2, "", true, true); err == nil {
+		u.Input2 = &input2
+		u.Type = InputUnionTypeInput2
 		return nil
 	}
 
@@ -173,212 +173,212 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 }
 
 func (u Input) MarshalJSON() ([]byte, error) {
-	if u.TranscodePayload1 != nil {
-		return utils.MarshalJSON(u.TranscodePayload1, "", true)
+	if u.Input1 != nil {
+		return utils.MarshalJSON(u.Input1, "", true)
 	}
 
-	if u.TranscodePayload2 != nil {
-		return utils.MarshalJSON(u.TranscodePayload2, "", true)
+	if u.Input2 != nil {
+		return utils.MarshalJSON(u.Input2, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type: all fields are null")
 }
 
-// TranscodePayloadSchemasStorageType - Type of service used for output files
-type TranscodePayloadSchemasStorageType string
+// TranscodePayloadStorageType - Type of service used for output files
+type TranscodePayloadStorageType string
 
 const (
-	TranscodePayloadSchemasStorageTypeWeb3Storage TranscodePayloadSchemasStorageType = "web3.storage"
+	TranscodePayloadStorageTypeWeb3Storage TranscodePayloadStorageType = "web3.storage"
 )
 
-func (e TranscodePayloadSchemasStorageType) ToPointer() *TranscodePayloadSchemasStorageType {
+func (e TranscodePayloadStorageType) ToPointer() *TranscodePayloadStorageType {
 	return &e
 }
 
-func (e *TranscodePayloadSchemasStorageType) UnmarshalJSON(data []byte) error {
+func (e *TranscodePayloadStorageType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "web3.storage":
-		*e = TranscodePayloadSchemasStorageType(v)
+		*e = TranscodePayloadStorageType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TranscodePayloadSchemasStorageType: %v", v)
+		return fmt.Errorf("invalid value for TranscodePayloadStorageType: %v", v)
 	}
 }
 
-// TranscodePayloadSchemasCredentials - Delegation proof for Livepeer to be able to upload to
+// TranscodePayloadStorageCredentials - Delegation proof for Livepeer to be able to upload to
 // web3.storage
-type TranscodePayloadSchemasCredentials struct {
+type TranscodePayloadStorageCredentials struct {
 	// Base64 encoded UCAN delegation proof
 	Proof string `json:"proof"`
 }
 
-func (o *TranscodePayloadSchemasCredentials) GetProof() string {
+func (o *TranscodePayloadStorageCredentials) GetProof() string {
 	if o == nil {
 		return ""
 	}
 	return o.Proof
 }
 
-// TranscodePayloadSchemas2 - Storage for the output files
-type TranscodePayloadSchemas2 struct {
+// Storage2 - Storage for the output files
+type Storage2 struct {
 	// Type of service used for output files
-	Type TranscodePayloadSchemasStorageType `json:"type"`
+	Type TranscodePayloadStorageType `json:"type"`
 	// Delegation proof for Livepeer to be able to upload to
 	// web3.storage
 	//
-	Credentials TranscodePayloadSchemasCredentials `json:"credentials"`
+	Credentials TranscodePayloadStorageCredentials `json:"credentials"`
 }
 
-func (o *TranscodePayloadSchemas2) GetType() TranscodePayloadSchemasStorageType {
+func (o *Storage2) GetType() TranscodePayloadStorageType {
 	if o == nil {
-		return TranscodePayloadSchemasStorageType("")
+		return TranscodePayloadStorageType("")
 	}
 	return o.Type
 }
 
-func (o *TranscodePayloadSchemas2) GetCredentials() TranscodePayloadSchemasCredentials {
+func (o *Storage2) GetCredentials() TranscodePayloadStorageCredentials {
 	if o == nil {
-		return TranscodePayloadSchemasCredentials{}
+		return TranscodePayloadStorageCredentials{}
 	}
 	return o.Credentials
 }
 
-// TranscodePayloadSchemasType - Type of service used for output files
-type TranscodePayloadSchemasType string
+// StorageType - Type of service used for output files
+type StorageType string
 
 const (
-	TranscodePayloadSchemasTypeS3 TranscodePayloadSchemasType = "s3"
+	StorageTypeS3 StorageType = "s3"
 )
 
-func (e TranscodePayloadSchemasType) ToPointer() *TranscodePayloadSchemasType {
+func (e StorageType) ToPointer() *StorageType {
 	return &e
 }
 
-func (e *TranscodePayloadSchemasType) UnmarshalJSON(data []byte) error {
+func (e *StorageType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "s3":
-		*e = TranscodePayloadSchemasType(v)
+		*e = StorageType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TranscodePayloadSchemasType: %v", v)
+		return fmt.Errorf("invalid value for StorageType: %v", v)
 	}
 }
 
-// TranscodePayloadCredentials - Credentials for the output video storage
-type TranscodePayloadCredentials struct {
+// StorageCredentials - Credentials for the output video storage
+type StorageCredentials struct {
 	// Access Key ID
 	AccessKeyID string `json:"accessKeyId"`
 	// Secret Access Key
 	SecretAccessKey string `json:"secretAccessKey"`
 }
 
-func (o *TranscodePayloadCredentials) GetAccessKeyID() string {
+func (o *StorageCredentials) GetAccessKeyID() string {
 	if o == nil {
 		return ""
 	}
 	return o.AccessKeyID
 }
 
-func (o *TranscodePayloadCredentials) GetSecretAccessKey() string {
+func (o *StorageCredentials) GetSecretAccessKey() string {
 	if o == nil {
 		return ""
 	}
 	return o.SecretAccessKey
 }
 
-// TranscodePayloadSchemas1 - Storage for the output files
-type TranscodePayloadSchemas1 struct {
+// Storage1 - Storage for the output files
+type Storage1 struct {
 	// Type of service used for output files
-	Type TranscodePayloadSchemasType `json:"type"`
+	Type StorageType `json:"type"`
 	// Service endpoint URL (AWS S3 endpoint list: https://docs.aws.amazon.com/general/latest/gr/s3.html, GCP S3 endpoint: https://storage.googleapis.com, Storj: https://gateway.storjshare.io)
 	Endpoint string `json:"endpoint"`
 	// Bucket with output files
 	Bucket string `json:"bucket"`
 	// Credentials for the output video storage
-	Credentials TranscodePayloadCredentials `json:"credentials"`
+	Credentials StorageCredentials `json:"credentials"`
 }
 
-func (o *TranscodePayloadSchemas1) GetType() TranscodePayloadSchemasType {
+func (o *Storage1) GetType() StorageType {
 	if o == nil {
-		return TranscodePayloadSchemasType("")
+		return StorageType("")
 	}
 	return o.Type
 }
 
-func (o *TranscodePayloadSchemas1) GetEndpoint() string {
+func (o *Storage1) GetEndpoint() string {
 	if o == nil {
 		return ""
 	}
 	return o.Endpoint
 }
 
-func (o *TranscodePayloadSchemas1) GetBucket() string {
+func (o *Storage1) GetBucket() string {
 	if o == nil {
 		return ""
 	}
 	return o.Bucket
 }
 
-func (o *TranscodePayloadSchemas1) GetCredentials() TranscodePayloadCredentials {
+func (o *Storage1) GetCredentials() StorageCredentials {
 	if o == nil {
-		return TranscodePayloadCredentials{}
+		return StorageCredentials{}
 	}
 	return o.Credentials
 }
 
-type TranscodePayloadStorageType string
+type TranscodePayloadStorageUnionType string
 
 const (
-	TranscodePayloadStorageTypeTranscodePayloadSchemas1 TranscodePayloadStorageType = "transcode-payload_Schemas_1"
-	TranscodePayloadStorageTypeTranscodePayloadSchemas2 TranscodePayloadStorageType = "transcode-payload_Schemas_2"
+	TranscodePayloadStorageUnionTypeStorage1 TranscodePayloadStorageUnionType = "storage_1"
+	TranscodePayloadStorageUnionTypeStorage2 TranscodePayloadStorageUnionType = "storage_2"
 )
 
 type TranscodePayloadStorage struct {
-	TranscodePayloadSchemas1 *TranscodePayloadSchemas1
-	TranscodePayloadSchemas2 *TranscodePayloadSchemas2
+	Storage1 *Storage1
+	Storage2 *Storage2
 
-	Type TranscodePayloadStorageType
+	Type TranscodePayloadStorageUnionType
 }
 
-func CreateTranscodePayloadStorageTranscodePayloadSchemas1(transcodePayloadSchemas1 TranscodePayloadSchemas1) TranscodePayloadStorage {
-	typ := TranscodePayloadStorageTypeTranscodePayloadSchemas1
+func CreateTranscodePayloadStorageStorage1(storage1 Storage1) TranscodePayloadStorage {
+	typ := TranscodePayloadStorageUnionTypeStorage1
 
 	return TranscodePayloadStorage{
-		TranscodePayloadSchemas1: &transcodePayloadSchemas1,
-		Type:                     typ,
+		Storage1: &storage1,
+		Type:     typ,
 	}
 }
 
-func CreateTranscodePayloadStorageTranscodePayloadSchemas2(transcodePayloadSchemas2 TranscodePayloadSchemas2) TranscodePayloadStorage {
-	typ := TranscodePayloadStorageTypeTranscodePayloadSchemas2
+func CreateTranscodePayloadStorageStorage2(storage2 Storage2) TranscodePayloadStorage {
+	typ := TranscodePayloadStorageUnionTypeStorage2
 
 	return TranscodePayloadStorage{
-		TranscodePayloadSchemas2: &transcodePayloadSchemas2,
-		Type:                     typ,
+		Storage2: &storage2,
+		Type:     typ,
 	}
 }
 
 func (u *TranscodePayloadStorage) UnmarshalJSON(data []byte) error {
 
-	transcodePayloadSchemas2 := TranscodePayloadSchemas2{}
-	if err := utils.UnmarshalJSON(data, &transcodePayloadSchemas2, "", true, true); err == nil {
-		u.TranscodePayloadSchemas2 = &transcodePayloadSchemas2
-		u.Type = TranscodePayloadStorageTypeTranscodePayloadSchemas2
+	storage2 := Storage2{}
+	if err := utils.UnmarshalJSON(data, &storage2, "", true, true); err == nil {
+		u.Storage2 = &storage2
+		u.Type = TranscodePayloadStorageUnionTypeStorage2
 		return nil
 	}
 
-	transcodePayloadSchemas1 := TranscodePayloadSchemas1{}
-	if err := utils.UnmarshalJSON(data, &transcodePayloadSchemas1, "", true, true); err == nil {
-		u.TranscodePayloadSchemas1 = &transcodePayloadSchemas1
-		u.Type = TranscodePayloadStorageTypeTranscodePayloadSchemas1
+	storage1 := Storage1{}
+	if err := utils.UnmarshalJSON(data, &storage1, "", true, true); err == nil {
+		u.Storage1 = &storage1
+		u.Type = TranscodePayloadStorageUnionTypeStorage1
 		return nil
 	}
 
@@ -386,12 +386,12 @@ func (u *TranscodePayloadStorage) UnmarshalJSON(data []byte) error {
 }
 
 func (u TranscodePayloadStorage) MarshalJSON() ([]byte, error) {
-	if u.TranscodePayloadSchemas1 != nil {
-		return utils.MarshalJSON(u.TranscodePayloadSchemas1, "", true)
+	if u.Storage1 != nil {
+		return utils.MarshalJSON(u.Storage1, "", true)
 	}
 
-	if u.TranscodePayloadSchemas2 != nil {
-		return utils.MarshalJSON(u.TranscodePayloadSchemas2, "", true)
+	if u.Storage2 != nil {
+		return utils.MarshalJSON(u.Storage2, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type: all fields are null")

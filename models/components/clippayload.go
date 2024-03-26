@@ -3,15 +3,15 @@
 package components
 
 type ClipPayload struct {
-	// Playback ID of the stream or asset to clip
+	// The playback ID of the stream or stream recording to clip. Asset playback IDs are not supported yet.
 	PlaybackID string `json:"playbackId"`
-	// Start time of the clip in milliseconds
+	// The start timestamp of the clip in Unix milliseconds. _See the ClipTrigger in the UI Kit for an example of how this is calculated (for HLS, it uses `Program Date-Time` tags, and for WebRTC, it uses the latency from server to client at stream startup)._
 	StartTime float64 `json:"startTime"`
-	// End time of the clip in milliseconds
+	// The end timestamp of the clip in Unix milliseconds. _See the ClipTrigger in the UI Kit for an example of how this is calculated (for HLS, it uses `Program Date-Time` tags, and for WebRTC, it uses the latency from server to client at stream startup)._
 	EndTime *float64 `json:"endTime,omitempty"`
-	// Name of the clip
+	// The optional friendly name of the clip to create.
 	Name *string `json:"name,omitempty"`
-	// Session ID of the stream to clip
+	// The optional session ID of the stream to clip. This can be used to clip _recordings_ - if it is not specified, it will clip the ongoing livestream.
 	SessionID *string `json:"sessionId,omitempty"`
 }
 

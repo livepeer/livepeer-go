@@ -8,11 +8,11 @@ type UsageMetric struct {
 	UserID string `json:"UserID"`
 	// The creator ID associated with the metric
 	CreatorID string `json:"CreatorID"`
-	// The number of minutes of delivery usage
+	// Total minutes of delivery usage.
 	DeliveryUsageMins float64 `json:"DeliveryUsageMins"`
-	// The number of minutes of total usage
+	// Total transcoded minutes.
 	TotalUsageMins float64 `json:"TotalUsageMins"`
-	// The number of minutes of storage usage
+	// Total minutes of storage usage.
 	StorageUsageMins float64 `json:"StorageUsageMins"`
 }
 

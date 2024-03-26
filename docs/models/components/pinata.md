@@ -1,17 +1,21 @@
 # Pinata
 
+Custom credentials for the Piñata service. Must have either
+a JWT or an API key and an API secret.
+
+
 
 ## Supported Types
 
-### IpfsExportParams1
+### Pinata1
 
 ```go
-pinata := components.CreatePinataIpfsExportParams1(components.IpfsExportParams1{/* values here */})
+pinata := components.CreatePinataPinata1(components.Pinata1{/* values here */})
 ```
 
-### IpfsExportParams2
+### Pinata2
 
 ```go
-pinata := components.CreatePinataIpfsExportParams2(components.IpfsExportParams2{/* values here */})
+pinata := components.CreatePinataPinata2(components.Pinata2{/* values here */})
 ```
 

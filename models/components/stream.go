@@ -2,6 +2,218 @@
 
 package components
 
+import (
+	"errors"
+	"github.com/livepeer/livepeer-go/internal/utils"
+)
+
+type ThreeType string
+
+const (
+	ThreeTypeStr    ThreeType = "str"
+	ThreeTypeNumber ThreeType = "number"
+)
+
+type Three struct {
+	Str    *string
+	Number *float64
+
+	Type ThreeType
+}
+
+func CreateThreeStr(str string) Three {
+	typ := ThreeTypeStr
+
+	return Three{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateThreeNumber(number float64) Three {
+	typ := ThreeTypeNumber
+
+	return Three{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func (u *Three) UnmarshalJSON(data []byte) error {
+
+	str := ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
+		u.Str = &str
+		u.Type = ThreeTypeStr
+		return nil
+	}
+
+	number := float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
+		u.Number = &number
+		u.Type = ThreeTypeNumber
+		return nil
+	}
+
+	return errors.New("could not unmarshal into supported union types")
+}
+
+func (u Three) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type: all fields are null")
+}
+
+type StreamUserTagsType string
+
+const (
+	StreamUserTagsTypeStr      StreamUserTagsType = "str"
+	StreamUserTagsTypeNumber   StreamUserTagsType = "number"
+	StreamUserTagsTypeArrayOf3 StreamUserTagsType = "arrayOf3"
+)
+
+type StreamUserTags struct {
+	Str      *string
+	Number   *float64
+	ArrayOf3 []Three
+
+	Type StreamUserTagsType
+}
+
+func CreateStreamUserTagsStr(str string) StreamUserTags {
+	typ := StreamUserTagsTypeStr
+
+	return StreamUserTags{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateStreamUserTagsNumber(number float64) StreamUserTags {
+	typ := StreamUserTagsTypeNumber
+
+	return StreamUserTags{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func CreateStreamUserTagsArrayOf3(arrayOf3 []Three) StreamUserTags {
+	typ := StreamUserTagsTypeArrayOf3
+
+	return StreamUserTags{
+		ArrayOf3: arrayOf3,
+		Type:     typ,
+	}
+}
+
+func (u *StreamUserTags) UnmarshalJSON(data []byte) error {
+
+	str := ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
+		u.Str = &str
+		u.Type = StreamUserTagsTypeStr
+		return nil
+	}
+
+	number := float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
+		u.Number = &number
+		u.Type = StreamUserTagsTypeNumber
+		return nil
+	}
+
+	arrayOf3 := []Three{}
+	if err := utils.UnmarshalJSON(data, &arrayOf3, "", true, true); err == nil {
+		u.ArrayOf3 = arrayOf3
+		u.Type = StreamUserTagsTypeArrayOf3
+		return nil
+	}
+
+	return errors.New("could not unmarshal into supported union types")
+}
+
+func (u StreamUserTags) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	if u.ArrayOf3 != nil {
+		return utils.MarshalJSON(u.ArrayOf3, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type: all fields are null")
+}
+
+// StreamLocation - Approximate location of the pull source. The location is used to
+// determine the closest Livepeer region to pull the stream from.
+type StreamLocation struct {
+	// Latitude of the pull source in degrees. North is positive,
+	// south is negative.
+	Lat float64 `json:"lat"`
+	// Longitude of the pull source in degrees. East is positive,
+	// west is negative.
+	Lon float64 `json:"lon"`
+}
+
+func (o *StreamLocation) GetLat() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.Lat
+}
+
+func (o *StreamLocation) GetLon() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.Lon
+}
+
+// StreamPull - Configuration for a stream that should be actively pulled from an
+// external source, rather than pushed to Livepeer. If specified, the
+// stream will not have a streamKey.
+type StreamPull struct {
+	// URL from which to pull from.
+	Source string `json:"source"`
+	// Headers to be sent with the request to the pull source.
+	Headers map[string]string `json:"headers,omitempty"`
+	// Approximate location of the pull source. The location is used to
+	// determine the closest Livepeer region to pull the stream from.
+	Location *StreamLocation `json:"location,omitempty"`
+}
+
+func (o *StreamPull) GetSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.Source
+}
+
+func (o *StreamPull) GetHeaders() map[string]string {
+	if o == nil {
+		return nil
+	}
+	return o.Headers
+}
+
+func (o *StreamPull) GetLocation() *StreamLocation {
+	if o == nil {
+		return nil
+	}
+	return o.Location
+}
+
 type StreamMultistream struct {
 	// References to targets where this stream will be simultaneously
 	// streamed to
@@ -17,12 +229,14 @@ func (o *StreamMultistream) GetTargets() []TargetOutput {
 }
 
 type Stream struct {
-	ID                 *string    `json:"id,omitempty"`
-	Name               string     `json:"name"`
-	CreatorID          *CreatorID `json:"creatorId,omitempty"`
-	LastSeen           *float64   `json:"lastSeen,omitempty"`
-	SourceSegments     *float64   `json:"sourceSegments,omitempty"`
-	TranscodedSegments *float64   `json:"transcodedSegments,omitempty"`
+	ID        *string    `json:"id,omitempty"`
+	Name      string     `json:"name"`
+	CreatorID *CreatorID `json:"creatorId,omitempty"`
+	// User input tags associated with the stream
+	UserTags           map[string]StreamUserTags `json:"userTags,omitempty"`
+	LastSeen           *float64                  `json:"lastSeen,omitempty"`
+	SourceSegments     *float64                  `json:"sourceSegments,omitempty"`
+	TranscodedSegments *float64                  `json:"transcodedSegments,omitempty"`
 	// Duration of all the source segments, sec
 	SourceSegmentsDuration *float64 `json:"sourceSegmentsDuration,omitempty"`
 	// Duration of all the transcoded segments, sec
@@ -49,7 +263,11 @@ type Stream struct {
 	ParentID *string `json:"parentId,omitempty"`
 	// Used to form RTMP ingest URL
 	StreamKey *string `json:"streamKey,omitempty"`
-	// Used to form playback URL
+	// Configuration for a stream that should be actively pulled from an
+	// external source, rather than pushed to Livepeer. If specified, the
+	// stream will not have a streamKey.
+	Pull *StreamPull `json:"pull,omitempty"`
+	// The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
 	PlaybackID *string `json:"playbackId,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
@@ -82,6 +300,13 @@ func (o *Stream) GetCreatorID() *CreatorID {
 		return nil
 	}
 	return o.CreatorID
+}
+
+func (o *Stream) GetUserTags() map[string]StreamUserTags {
+	if o == nil {
+		return nil
+	}
+	return o.UserTags
 }
 
 func (o *Stream) GetLastSeen() *float64 {
@@ -194,6 +419,13 @@ func (o *Stream) GetStreamKey() *string {
 		return nil
 	}
 	return o.StreamKey
+}
+
+func (o *Stream) GetPull() *StreamPull {
+	if o == nil {
+		return nil
+	}
+	return o.Pull
 }
 
 func (o *Stream) GetPlaybackID() *string {
