@@ -7,7 +7,7 @@ import (
 )
 
 type Error struct {
-	Errors []string `json:"errors"`
+	Errors []string `json:"errors,omitempty"`
 }
 
 var _ error = &Error{}

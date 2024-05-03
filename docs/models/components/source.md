@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### Source1
+### One
 
 ```go
-source := components.CreateSourceSource1(components.Source1{/* values here */})
+source := components.CreateSourceOne(components.One{/* values here */})
 ```
 
 ### Two

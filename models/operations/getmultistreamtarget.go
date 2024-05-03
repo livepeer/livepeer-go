@@ -7,10 +7,22 @@ import (
 	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
+type GetMultistreamTargetRequest struct {
+	// ID of the multistream target
+	ID string `pathParam:"style=simple,explode=false,name=id"`
+}
+
+func (o *GetMultistreamTargetRequest) GetID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ID
+}
+
 type GetMultistreamTargetResponse struct {
 	HTTPMeta components.HTTPMetadata
 	// Success
-	MultistreamTargets []components.MultistreamTarget
+	MultistreamTarget *components.MultistreamTarget
 	// Error
 	Error *sdkerrors.Error
 }
@@ -22,11 +34,11 @@ func (o *GetMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *GetMultistreamTargetResponse) GetMultistreamTargets() []components.MultistreamTarget {
+func (o *GetMultistreamTargetResponse) GetMultistreamTarget() *components.MultistreamTarget {
 	if o == nil {
 		return nil
 	}
-	return o.MultistreamTargets
+	return o.MultistreamTarget
 }
 
 func (o *GetMultistreamTargetResponse) GetError() *sdkerrors.Error {

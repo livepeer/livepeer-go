@@ -228,9 +228,14 @@ func (o *StreamMultistream) GetTargets() []TargetOutput {
 	return o.Targets
 }
 
+type Renditions struct {
+}
+
 type Stream struct {
-	ID        *string    `json:"id,omitempty"`
-	Name      string     `json:"name"`
+	ID   *string `json:"id,omitempty"`
+	Name string  `json:"name"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	Kind      *string    `json:"kind,omitempty"`
 	CreatorID *CreatorID `json:"creatorId,omitempty"`
 	// User input tags associated with the stream
 	UserTags           map[string]StreamUserTags `json:"userTags,omitempty"`
@@ -251,9 +256,7 @@ type Stream struct {
 	IsActive *bool `json:"isActive,omitempty"`
 	// Indicates whether the stream is healthy or not.
 	IsHealthy *bool `json:"isHealthy,omitempty"`
-	// A string array of human-readable errors describing issues affecting
-	// the stream, if any.
-	//
+	// A string array of human-readable errors describing issues affecting the stream, if any.
 	Issues []string `json:"issues,omitempty"`
 	// Name of the token used to create this object
 	CreatedByTokenName *string `json:"createdByTokenName,omitempty"`
@@ -279,6 +282,11 @@ type Stream struct {
 	Multistream *StreamMultistream `json:"multistream,omitempty"`
 	// If currently suspended
 	Suspended *bool `json:"suspended,omitempty"`
+	// Timestamp (in milliseconds) when the stream was last terminated
+	LastTerminatedAt *float64 `json:"lastTerminatedAt,omitempty"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	UserID     *string     `json:"userId,omitempty"`
+	Renditions *Renditions `json:"renditions,omitempty"`
 }
 
 func (o *Stream) GetID() *string {
@@ -293,6 +301,13 @@ func (o *Stream) GetName() string {
 		return ""
 	}
 	return o.Name
+}
+
+func (o *Stream) GetKind() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Kind
 }
 
 func (o *Stream) GetCreatorID() *CreatorID {
@@ -468,4 +483,25 @@ func (o *Stream) GetSuspended() *bool {
 		return nil
 	}
 	return o.Suspended
+}
+
+func (o *Stream) GetLastTerminatedAt() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LastTerminatedAt
+}
+
+func (o *Stream) GetUserID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserID
+}
+
+func (o *Stream) GetRenditions() *Renditions {
+	if o == nil {
+		return nil
+	}
+	return o.Renditions
 }

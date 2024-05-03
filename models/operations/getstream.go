@@ -8,20 +8,21 @@ import (
 )
 
 type GetStreamRequest struct {
-	Streamsonly *string `queryParam:"style=form,explode=true,name=streamsonly"`
+	// ID of the stream
+	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetStreamRequest) GetStreamsonly() *string {
+func (o *GetStreamRequest) GetID() string {
 	if o == nil {
-		return nil
+		return ""
 	}
-	return o.Streamsonly
+	return o.ID
 }
 
 type GetStreamResponse struct {
 	HTTPMeta components.HTTPMetadata
 	// Success
-	Streams []components.Stream
+	Stream *components.Stream
 	// Error
 	Error *sdkerrors.Error
 }
@@ -33,11 +34,11 @@ func (o *GetStreamResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *GetStreamResponse) GetStreams() []components.Stream {
+func (o *GetStreamResponse) GetStream() *components.Stream {
 	if o == nil {
 		return nil
 	}
-	return o.Streams
+	return o.Stream
 }
 
 func (o *GetStreamResponse) GetError() *sdkerrors.Error {

@@ -7,10 +7,21 @@ import (
 	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
+type GetWebhookRequest struct {
+	ID string `pathParam:"style=simple,explode=false,name=id"`
+}
+
+func (o *GetWebhookRequest) GetID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ID
+}
+
 type GetWebhookResponse struct {
 	HTTPMeta components.HTTPMetadata
 	// Success
-	Webhooks []components.Webhook
+	Webhook *components.Webhook
 	// Error
 	Error *sdkerrors.Error
 }
@@ -22,11 +33,11 @@ func (o *GetWebhookResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *GetWebhookResponse) GetWebhooks() []components.Webhook {
+func (o *GetWebhookResponse) GetWebhook() *components.Webhook {
 	if o == nil {
 		return nil
 	}
-	return o.Webhooks
+	return o.Webhook
 }
 
 func (o *GetWebhookResponse) GetError() *sdkerrors.Error {

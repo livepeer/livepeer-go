@@ -44,9 +44,6 @@ type Encoder string
 
 const (
 	EncoderH264 Encoder = "H.264"
-	EncoderHevc Encoder = "HEVC"
-	EncoderVp8  Encoder = "VP8"
-	EncoderVp9  Encoder = "VP9"
 )
 
 func (e Encoder) ToPointer() *Encoder {
@@ -60,12 +57,6 @@ func (e *Encoder) UnmarshalJSON(data []byte) error {
 	}
 	switch v {
 	case "H.264":
-		fallthrough
-	case "HEVC":
-		fallthrough
-	case "VP8":
-		fallthrough
-	case "VP9":
 		*e = Encoder(v)
 		return nil
 	default:
@@ -73,7 +64,7 @@ func (e *Encoder) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// FfmpegProfile - LMPS ffmpeg profile
+// FfmpegProfile - Transcode profile
 type FfmpegProfile struct {
 	Width   int64  `json:"width"`
 	Name    string `json:"name"`

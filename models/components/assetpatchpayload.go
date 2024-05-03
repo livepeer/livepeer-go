@@ -3,8 +3,7 @@
 package components
 
 type AssetPatchPayload struct {
-	// The name of the asset. This is not necessarily the filename - it can be a
-	// custom name or title.
+	// The name of the asset. This is not necessarily the filename - it can be a custom name or title.
 	//
 	Name      *string         `json:"name,omitempty"`
 	CreatorID *InputCreatorID `json:"creatorId,omitempty"`

@@ -48,8 +48,8 @@ func (e *TaskType) UnmarshalJSON(data []byte) error {
 // Upload - Parameters for the upload task
 type Upload struct {
 	// URL of the asset to "upload"
-	URL        *string     `json:"url,omitempty"`
-	Encryption *Encryption `json:"encryption,omitempty"`
+	URL        *string           `json:"url,omitempty"`
+	Encryption *EncryptionOutput `json:"encryption,omitempty"`
 	// Decides if the output video should include C2PA signature
 	C2pa     *bool              `json:"c2pa,omitempty"`
 	Profiles []TranscodeProfile `json:"profiles,omitempty"`
@@ -64,7 +64,7 @@ func (o *Upload) GetURL() *string {
 	return o.URL
 }
 
-func (o *Upload) GetEncryption() *Encryption {
+func (o *Upload) GetEncryption() *EncryptionOutput {
 	if o == nil {
 		return nil
 	}

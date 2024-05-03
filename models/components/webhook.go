@@ -155,6 +155,10 @@ func (o *Status) GetLastTriggeredAt() *float64 {
 type Webhook struct {
 	ID   *string `json:"id,omitempty"`
 	Name string  `json:"name"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	Kind *string `json:"kind,omitempty"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	UserID *string `json:"userId,omitempty"`
 	// Timestamp (in milliseconds) at which stream object was created
 	CreatedAt *float64 `json:"createdAt,omitempty"`
 	Events    []Events `json:"events,omitempty"`
@@ -177,6 +181,20 @@ func (o *Webhook) GetName() string {
 		return ""
 	}
 	return o.Name
+}
+
+func (o *Webhook) GetKind() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Kind
+}
+
+func (o *Webhook) GetUserID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserID
 }
 
 func (o *Webhook) GetCreatedAt() *float64 {
@@ -212,4 +230,49 @@ func (o *Webhook) GetStatus() *Status {
 		return nil
 	}
 	return o.Status
+}
+
+type WebhookInput struct {
+	Name   string   `json:"name"`
+	Events []Events `json:"events,omitempty"`
+	URL    string   `json:"url"`
+	// shared secret used to sign the webhook payload
+	SharedSecret *string `json:"sharedSecret,omitempty"`
+	// streamId of the stream on which the webhook is applied
+	StreamID *string `json:"streamId,omitempty"`
+}
+
+func (o *WebhookInput) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *WebhookInput) GetEvents() []Events {
+	if o == nil {
+		return nil
+	}
+	return o.Events
+}
+
+func (o *WebhookInput) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *WebhookInput) GetSharedSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SharedSecret
+}
+
+func (o *WebhookInput) GetStreamID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StreamID
 }
