@@ -7,10 +7,22 @@ import (
 	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
+type GetSessionRequest struct {
+	// ID of the session
+	ID string `pathParam:"style=simple,explode=false,name=id"`
+}
+
+func (o *GetSessionRequest) GetID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ID
+}
+
 type GetSessionResponse struct {
 	HTTPMeta components.HTTPMetadata
 	// Success
-	Sessions []components.Session
+	Session *components.Session
 	// Error
 	Error *sdkerrors.Error
 }
@@ -22,11 +34,11 @@ func (o *GetSessionResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *GetSessionResponse) GetSessions() []components.Session {
+func (o *GetSessionResponse) GetSession() *components.Session {
 	if o == nil {
 		return nil
 	}
-	return o.Sessions
+	return o.Session
 }
 
 func (o *GetSessionResponse) GetError() *sdkerrors.Error {

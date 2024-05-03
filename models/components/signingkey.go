@@ -6,6 +6,8 @@ type SigningKey struct {
 	ID *string `json:"id,omitempty"`
 	// Name of the signing key
 	Name *string `json:"name,omitempty"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	UserID *string `json:"userId,omitempty"`
 	// Timestamp (in milliseconds) at which the signing-key was created
 	CreatedAt *float64 `json:"createdAt,omitempty"`
 	// Timestamp (in milliseconds) at which the signing-key was last used
@@ -27,6 +29,13 @@ func (o *SigningKey) GetName() *string {
 		return nil
 	}
 	return o.Name
+}
+
+func (o *SigningKey) GetUserID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserID
 }
 
 func (o *SigningKey) GetCreatedAt() *float64 {

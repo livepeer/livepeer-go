@@ -41,7 +41,7 @@ type ViewershipMetric struct {
 	// The timezone where the viewer is located.
 	Timezone *string `json:"timezone,omitempty"`
 	// Geographic encoding of the viewers location. Accurate to 3 digits.
-	Geohas *string `json:"geohas,omitempty"`
+	Geohash *string `json:"geohash,omitempty"`
 	// The number of views for the asset.
 	ViewCount int64 `json:"viewCount"`
 	// The total playtime in minutes for the asset.
@@ -163,11 +163,11 @@ func (o *ViewershipMetric) GetTimezone() *string {
 	return o.Timezone
 }
 
-func (o *ViewershipMetric) GetGeohas() *string {
+func (o *ViewershipMetric) GetGeohash() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Geohas
+	return o.Geohash
 }
 
 func (o *ViewershipMetric) GetViewCount() int64 {

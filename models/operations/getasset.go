@@ -7,10 +7,22 @@ import (
 	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
+type GetAssetRequest struct {
+	// ID of the asset
+	AssetID string `pathParam:"style=simple,explode=false,name=assetId"`
+}
+
+func (o *GetAssetRequest) GetAssetID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssetID
+}
+
 type GetAssetResponse struct {
 	HTTPMeta components.HTTPMetadata
 	// Success
-	Assets []components.Asset
+	Asset *components.Asset
 	// Error
 	Error *sdkerrors.Error
 }
@@ -22,11 +34,11 @@ func (o *GetAssetResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *GetAssetResponse) GetAssets() []components.Asset {
+func (o *GetAssetResponse) GetAsset() *components.Asset {
 	if o == nil {
 		return nil
 	}
-	return o.Assets
+	return o.Asset
 }
 
 func (o *GetAssetResponse) GetError() *sdkerrors.Error {

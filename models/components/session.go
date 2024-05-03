@@ -39,7 +39,11 @@ func (e *RecordingStatus) UnmarshalJSON(data []byte) error {
 }
 
 type Session struct {
-	ID                 *string  `json:"id,omitempty"`
+	ID *string `json:"id,omitempty"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	Kind *string `json:"kind,omitempty"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	UserID             *string  `json:"userId,omitempty"`
 	Name               string   `json:"name"`
 	LastSeen           *float64 `json:"lastSeen,omitempty"`
 	SourceSegments     *float64 `json:"sourceSegments,omitempty"`
@@ -56,16 +60,13 @@ type Session struct {
 	OutgoingRate *float64 `json:"outgoingRate,omitempty"`
 	// Indicates whether the stream is healthy or not.
 	IsHealthy *bool `json:"isHealthy,omitempty"`
-	// A string array of human-readable errors describing issues affecting
-	// the stream, if any.
-	//
+	// A string array of human-readable errors describing issues affecting the stream, if any.
 	Issues []string `json:"issues,omitempty"`
 	// Timestamp (in milliseconds) at which stream object was created
 	CreatedAt *float64 `json:"createdAt,omitempty"`
 	// Points to parent stream object
 	ParentID *string `json:"parentId,omitempty"`
-	// Whether the stream should be recorded. Uses default settings. For more
-	// customization, create and configure an object store.
+	// Whether the stream should be recorded. Uses default settings. For more customization, create and configure an object store.
 	//
 	Record *bool `json:"record,omitempty"`
 	// The status of the recording process of this stream session.
@@ -84,6 +85,20 @@ func (o *Session) GetID() *string {
 		return nil
 	}
 	return o.ID
+}
+
+func (o *Session) GetKind() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Kind
+}
+
+func (o *Session) GetUserID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserID
 }
 
 func (o *Session) GetName() string {

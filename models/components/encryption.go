@@ -3,4 +3,13 @@
 package components
 
 type Encryption struct {
+	// Encryption key used to encrypt the asset. Only writable in the upload asset endpoints and cannot be retrieved back.
+	EncryptedKey string `json:"encryptedKey"`
+}
+
+func (o *Encryption) GetEncryptedKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.EncryptedKey
 }

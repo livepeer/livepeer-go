@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### CreatorID
+### InputCreatorID1
 
 ```go
-inputCreatorID := components.CreateInputCreatorIDCreatorID(components.CreatorID{/* values here */})
+inputCreatorID := components.CreateInputCreatorIDInputCreatorID1(components.InputCreatorID1{/* values here */})
 ```
 
 ### 

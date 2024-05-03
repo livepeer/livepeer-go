@@ -4,15 +4,24 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
+
+type GetTaskRequest struct {
+	// ID of the task
+	TaskID string `pathParam:"style=simple,explode=false,name=taskId"`
+}
+
+func (o *GetTaskRequest) GetTaskID() string {
+	if o == nil {
+		return ""
+	}
+	return o.TaskID
+}
 
 type GetTaskResponse struct {
 	HTTPMeta components.HTTPMetadata
 	// Success
-	Tasks []components.Task
-	// Error
-	Error *sdkerrors.Error
+	Task *components.Task
 }
 
 func (o *GetTaskResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -22,16 +31,9 @@ func (o *GetTaskResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *GetTaskResponse) GetTasks() []components.Task {
+func (o *GetTaskResponse) GetTask() *components.Task {
 	if o == nil {
 		return nil
 	}
-	return o.Tasks
-}
-
-func (o *GetTaskResponse) GetError() *sdkerrors.Error {
-	if o == nil {
-		return nil
-	}
-	return o.Error
+	return o.Task
 }

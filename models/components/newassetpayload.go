@@ -7,11 +7,11 @@ import (
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
-type Ipfs1 struct {
+type NewAssetPayloadIpfs1 struct {
 	Spec *Spec `json:"spec,omitempty"`
 }
 
-func (o *Ipfs1) GetSpec() *Spec {
+func (o *NewAssetPayloadIpfs1) GetSpec() *Spec {
 	if o == nil {
 		return nil
 	}
@@ -21,26 +21,26 @@ func (o *Ipfs1) GetSpec() *Spec {
 type NewAssetPayloadIpfsType string
 
 const (
-	NewAssetPayloadIpfsTypeIpfs1   NewAssetPayloadIpfsType = "ipfs_1"
-	NewAssetPayloadIpfsTypeBoolean NewAssetPayloadIpfsType = "boolean"
+	NewAssetPayloadIpfsTypeNewAssetPayloadIpfs1 NewAssetPayloadIpfsType = "new-asset-payload_ipfs_1"
+	NewAssetPayloadIpfsTypeBoolean              NewAssetPayloadIpfsType = "boolean"
 )
 
 // NewAssetPayloadIpfs - Set to true to make default export to IPFS. To customize the
 // pinned files, specify an object with a spec field. False or null
 // means to unpin from IPFS, but it's unsupported right now.
 type NewAssetPayloadIpfs struct {
-	Ipfs1   *Ipfs1
-	Boolean *bool
+	NewAssetPayloadIpfs1 *NewAssetPayloadIpfs1
+	Boolean              *bool
 
 	Type NewAssetPayloadIpfsType
 }
 
-func CreateNewAssetPayloadIpfsIpfs1(ipfs1 Ipfs1) NewAssetPayloadIpfs {
-	typ := NewAssetPayloadIpfsTypeIpfs1
+func CreateNewAssetPayloadIpfsNewAssetPayloadIpfs1(newAssetPayloadIpfs1 NewAssetPayloadIpfs1) NewAssetPayloadIpfs {
+	typ := NewAssetPayloadIpfsTypeNewAssetPayloadIpfs1
 
 	return NewAssetPayloadIpfs{
-		Ipfs1: &ipfs1,
-		Type:  typ,
+		NewAssetPayloadIpfs1: &newAssetPayloadIpfs1,
+		Type:                 typ,
 	}
 }
 
@@ -55,10 +55,10 @@ func CreateNewAssetPayloadIpfsBoolean(boolean bool) NewAssetPayloadIpfs {
 
 func (u *NewAssetPayloadIpfs) UnmarshalJSON(data []byte) error {
 
-	ipfs1 := Ipfs1{}
-	if err := utils.UnmarshalJSON(data, &ipfs1, "", true, true); err == nil {
-		u.Ipfs1 = &ipfs1
-		u.Type = NewAssetPayloadIpfsTypeIpfs1
+	newAssetPayloadIpfs1 := NewAssetPayloadIpfs1{}
+	if err := utils.UnmarshalJSON(data, &newAssetPayloadIpfs1, "", true, true); err == nil {
+		u.NewAssetPayloadIpfs1 = &newAssetPayloadIpfs1
+		u.Type = NewAssetPayloadIpfsTypeNewAssetPayloadIpfs1
 		return nil
 	}
 
@@ -73,8 +73,8 @@ func (u *NewAssetPayloadIpfs) UnmarshalJSON(data []byte) error {
 }
 
 func (u NewAssetPayloadIpfs) MarshalJSON() ([]byte, error) {
-	if u.Ipfs1 != nil {
-		return utils.MarshalJSON(u.Ipfs1, "", true)
+	if u.NewAssetPayloadIpfs1 != nil {
+		return utils.MarshalJSON(u.NewAssetPayloadIpfs1, "", true)
 	}
 
 	if u.Boolean != nil {
@@ -112,10 +112,10 @@ func (o *NewAssetPayloadEncryption) GetEncryptedKey() string {
 }
 
 type NewAssetPayload struct {
-	// The name of the asset. This is not necessarily the filename - it can be a
-	// custom name or title.
+	// The name of the asset. This is not necessarily the filename - it can be a custom name or title.
 	//
-	Name string `json:"name"`
+	Name      string      `json:"name"`
+	ProjectID *AssetInput `json:"projectId,omitempty"`
 	// Whether to generate MP4s for the asset.
 	StaticMp4 *bool `json:"staticMp4,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
@@ -135,6 +135,13 @@ func (o *NewAssetPayload) GetName() string {
 		return ""
 	}
 	return o.Name
+}
+
+func (o *NewAssetPayload) GetProjectID() *AssetInput {
+	if o == nil {
+		return nil
+	}
+	return o.ProjectID
 }
 
 func (o *NewAssetPayload) GetStaticMp4() *bool {
