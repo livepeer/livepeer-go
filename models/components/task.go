@@ -538,8 +538,8 @@ func (o *TaskStatus) GetRetries() *float64 {
 
 // TaskUpload - Output of the upload task
 type TaskUpload struct {
-	AssetSpec            *Asset                 `json:"assetSpec,omitempty"`
-	AdditionalProperties map[string]interface{} `additionalProperties:"true" json:"-"`
+	AssetSpec            *Asset         `json:"assetSpec,omitempty"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 
 func (t TaskUpload) MarshalJSON() ([]byte, error) {
@@ -560,7 +560,7 @@ func (o *TaskUpload) GetAssetSpec() *Asset {
 	return o.AssetSpec
 }
 
-func (o *TaskUpload) GetAdditionalProperties() map[string]interface{} {
+func (o *TaskUpload) GetAdditionalProperties() map[string]any {
 	if o == nil {
 		return nil
 	}

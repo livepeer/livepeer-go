@@ -278,21 +278,21 @@ func CreateAssetSourceAssetSource3(assetSource3 AssetSource3) AssetSource {
 
 func (u *AssetSource) UnmarshalJSON(data []byte) error {
 
-	two := Two{}
+	var two Two = Two{}
 	if err := utils.UnmarshalJSON(data, &two, "", true, true); err == nil {
 		u.Two = &two
 		u.Type = AssetSourceUnionTypeTwo
 		return nil
 	}
 
-	source1 := Source1{}
+	var source1 Source1 = Source1{}
 	if err := utils.UnmarshalJSON(data, &source1, "", true, true); err == nil {
 		u.Source1 = &source1
 		u.Type = AssetSourceUnionTypeSource1
 		return nil
 	}
 
-	assetSource3 := AssetSource3{}
+	var assetSource3 AssetSource3 = AssetSource3{}
 	if err := utils.UnmarshalJSON(data, &assetSource3, "", true, true); err == nil {
 		u.AssetSource3 = &assetSource3
 		u.Type = AssetSourceUnionTypeAssetSource3
@@ -394,7 +394,7 @@ func (o *AssetSpec) GetNftMetadata() *AssetNftMetadata {
 
 type AssetIpfs struct {
 	Spec        *AssetSpec    `json:"spec,omitempty"`
-	DollarRef   interface{}   `json:"$ref,omitempty"`
+	DollarRef   any           `json:"$ref,omitempty"`
 	NftMetadata *IpfsFileInfo `json:"nftMetadata,omitempty"`
 	// Timestamp (in milliseconds) at which IPFS export task was
 	// updated
@@ -409,7 +409,7 @@ func (o *AssetIpfs) GetSpec() *AssetSpec {
 	return o.Spec
 }
 
-func (o *AssetIpfs) GetDollarRef() interface{} {
+func (o *AssetIpfs) GetDollarRef() any {
 	if o == nil {
 		return nil
 	}
@@ -1044,21 +1044,21 @@ func CreateSourceSource3(source3 Source3) Source {
 
 func (u *Source) UnmarshalJSON(data []byte) error {
 
-	two := Two{}
+	var two Two = Two{}
 	if err := utils.UnmarshalJSON(data, &two, "", true, true); err == nil {
 		u.Two = &two
 		u.Type = SourceUnionTypeTwo
 		return nil
 	}
 
-	one := One{}
+	var one One = One{}
 	if err := utils.UnmarshalJSON(data, &one, "", true, true); err == nil {
 		u.One = &one
 		u.Type = SourceUnionTypeOne
 		return nil
 	}
 
-	source3 := Source3{}
+	var source3 Source3 = Source3{}
 	if err := utils.UnmarshalJSON(data, &source3, "", true, true); err == nil {
 		u.Source3 = &source3
 		u.Type = SourceUnionTypeSource3
@@ -1086,7 +1086,7 @@ func (u Source) MarshalJSON() ([]byte, error) {
 
 type AssetIpfsInput struct {
 	Spec        *AssetSpec         `json:"spec,omitempty"`
-	DollarRef   interface{}        `json:"$ref,omitempty"`
+	DollarRef   any                `json:"$ref,omitempty"`
 	NftMetadata *IpfsFileInfoInput `json:"nftMetadata,omitempty"`
 }
 
@@ -1097,7 +1097,7 @@ func (o *AssetIpfsInput) GetSpec() *AssetSpec {
 	return o.Spec
 }
 
-func (o *AssetIpfsInput) GetDollarRef() interface{} {
+func (o *AssetIpfsInput) GetDollarRef() any {
 	if o == nil {
 		return nil
 	}

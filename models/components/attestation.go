@@ -183,13 +183,13 @@ func (e *SignatureType) UnmarshalJSON(data []byte) error {
 }
 
 type AttestationIpfs struct {
-	DollarRef interface{} `json:"$ref,omitempty"`
+	DollarRef any `json:"$ref,omitempty"`
 	// Timestamp (in milliseconds) at which IPFS export task was updated
 	//
 	UpdatedAt *float64 `json:"updatedAt,omitempty"`
 }
 
-func (o *AttestationIpfs) GetDollarRef() interface{} {
+func (o *AttestationIpfs) GetDollarRef() any {
 	if o == nil {
 		return nil
 	}

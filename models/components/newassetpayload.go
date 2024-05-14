@@ -55,14 +55,14 @@ func CreateNewAssetPayloadIpfsBoolean(boolean bool) NewAssetPayloadIpfs {
 
 func (u *NewAssetPayloadIpfs) UnmarshalJSON(data []byte) error {
 
-	newAssetPayloadIpfs1 := NewAssetPayloadIpfs1{}
+	var newAssetPayloadIpfs1 NewAssetPayloadIpfs1 = NewAssetPayloadIpfs1{}
 	if err := utils.UnmarshalJSON(data, &newAssetPayloadIpfs1, "", true, true); err == nil {
 		u.NewAssetPayloadIpfs1 = &newAssetPayloadIpfs1
 		u.Type = NewAssetPayloadIpfsTypeNewAssetPayloadIpfs1
 		return nil
 	}
 
-	boolean := false
+	var boolean bool = false
 	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
 		u.Boolean = &boolean
 		u.Type = NewAssetPayloadIpfsTypeBoolean

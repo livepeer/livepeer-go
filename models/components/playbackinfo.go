@@ -37,6 +37,33 @@ func (e *PlaybackInfoType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type Live int64
+
+const (
+	LiveZero Live = 0
+	LiveOne  Live = 1
+)
+
+func (e Live) ToPointer() *Live {
+	return &e
+}
+
+func (e *Live) UnmarshalJSON(data []byte) error {
+	var v int64
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case 0:
+		fallthrough
+	case 1:
+		*e = Live(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for Live: %v", v)
+	}
+}
+
 // Hrn - Human Readable Name
 type Hrn string
 
@@ -260,7 +287,7 @@ func (o *DvrPlayback) GetError() *string {
 }
 
 type Meta struct {
-	Live *float64 `json:"live,omitempty"`
+	Live *Live `json:"live,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy      `json:"playbackPolicy,omitempty"`
 	Source         []PlaybackInfoSource `json:"source"`
@@ -268,7 +295,7 @@ type Meta struct {
 	Attestation    *Attestation         `json:"attestation,omitempty"`
 }
 
-func (o *Meta) GetLive() *float64 {
+func (o *Meta) GetLive() *Live {
 	if o == nil {
 		return nil
 	}

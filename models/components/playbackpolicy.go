@@ -43,7 +43,7 @@ type PlaybackPolicy struct {
 	// ID of the webhook to use for playback policy
 	WebhookID *string `json:"webhookId,omitempty"`
 	// User-defined webhook context
-	WebhookContext map[string]interface{} `json:"webhookContext,omitempty"`
+	WebhookContext map[string]any `json:"webhookContext,omitempty"`
 	// Interval (in seconds) at which the playback policy should be
 	// refreshed (default 600 seconds)
 	//
@@ -64,7 +64,7 @@ func (o *PlaybackPolicy) GetWebhookID() *string {
 	return o.WebhookID
 }
 
-func (o *PlaybackPolicy) GetWebhookContext() map[string]interface{} {
+func (o *PlaybackPolicy) GetWebhookContext() map[string]any {
 	if o == nil {
 		return nil
 	}

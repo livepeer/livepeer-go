@@ -76,7 +76,7 @@ func CreateCreatorIDCreatorID1(creatorID1 CreatorID1) CreatorID {
 
 func (u *CreatorID) UnmarshalJSON(data []byte) error {
 
-	creatorID1 := CreatorID1{}
+	var creatorID1 CreatorID1 = CreatorID1{}
 	if err := utils.UnmarshalJSON(data, &creatorID1, "", true, true); err == nil {
 		u.CreatorID1 = &creatorID1
 		u.Type = CreatorIDUnionTypeCreatorID1

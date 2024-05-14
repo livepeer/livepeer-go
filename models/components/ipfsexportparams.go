@@ -58,14 +58,14 @@ func CreatePinataPinata2(pinata2 Pinata2) Pinata {
 
 func (u *Pinata) UnmarshalJSON(data []byte) error {
 
-	pinata1 := Pinata1{}
+	var pinata1 Pinata1 = Pinata1{}
 	if err := utils.UnmarshalJSON(data, &pinata1, "", true, true); err == nil {
 		u.Pinata1 = &pinata1
 		u.Type = PinataTypePinata1
 		return nil
 	}
 
-	pinata2 := Pinata2{}
+	var pinata2 Pinata2 = Pinata2{}
 	if err := utils.UnmarshalJSON(data, &pinata2, "", true, true); err == nil {
 		u.Pinata2 = &pinata2
 		u.Type = PinataTypePinata2
@@ -88,14 +88,14 @@ func (u Pinata) MarshalJSON() ([]byte, error) {
 }
 
 type IpfsExportParams struct {
-	DollarRef interface{} `json:"$ref,omitempty"`
+	DollarRef any `json:"$ref,omitempty"`
 	// Custom credentials for the Piñata service. Must have either
 	// a JWT or an API key and an API secret.
 	//
 	Pinata *Pinata `json:"pinata,omitempty"`
 }
 
-func (o *IpfsExportParams) GetDollarRef() interface{} {
+func (o *IpfsExportParams) GetDollarRef() any {
 	if o == nil {
 		return nil
 	}
