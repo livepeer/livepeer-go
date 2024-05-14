@@ -13,7 +13,7 @@ type StreamPatchPayload struct {
 	Multistream *Multistream `json:"multistream,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
-	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
+	Profiles       []FfmpegProfile `json:"profiles"`
 	// User input tags associated with the stream
 	UserTags map[string]UserTags `json:"userTags,omitempty"`
 }
