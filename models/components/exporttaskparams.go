@@ -107,14 +107,14 @@ func CreateExportTaskParamsExportTaskParams2(exportTaskParams2 ExportTaskParams2
 
 func (u *ExportTaskParams) UnmarshalJSON(data []byte) error {
 
-	exportTaskParams1 := ExportTaskParams1{}
+	var exportTaskParams1 ExportTaskParams1 = ExportTaskParams1{}
 	if err := utils.UnmarshalJSON(data, &exportTaskParams1, "", true, true); err == nil {
 		u.ExportTaskParams1 = &exportTaskParams1
 		u.Type = ExportTaskParamsTypeExportTaskParams1
 		return nil
 	}
 
-	exportTaskParams2 := ExportTaskParams2{}
+	var exportTaskParams2 ExportTaskParams2 = ExportTaskParams2{}
 	if err := utils.UnmarshalJSON(data, &exportTaskParams2, "", true, true); err == nil {
 		u.ExportTaskParams2 = &exportTaskParams2
 		u.Type = ExportTaskParamsTypeExportTaskParams2

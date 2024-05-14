@@ -86,14 +86,14 @@ func CreateInputCreatorIDStr(str string) InputCreatorID {
 
 func (u *InputCreatorID) UnmarshalJSON(data []byte) error {
 
-	inputCreatorID1 := InputCreatorID1{}
+	var inputCreatorID1 InputCreatorID1 = InputCreatorID1{}
 	if err := utils.UnmarshalJSON(data, &inputCreatorID1, "", true, true); err == nil {
 		u.InputCreatorID1 = &inputCreatorID1
 		u.Type = InputCreatorIDUnionTypeInputCreatorID1
 		return nil
 	}
 
-	str := ""
+	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
 		u.Str = &str
 		u.Type = InputCreatorIDUnionTypeStr

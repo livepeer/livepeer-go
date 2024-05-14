@@ -1,25 +1,31 @@
 lockVersion: 2.0.0
 id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
-  docChecksum: 8cb92d6e4be786c4354f6df0790f5984
+  docChecksum: d08cb11c6018073f98ad5a725a5ab301
   docVersion: 1.0.0
-  speakeasyVersion: 1.279.0
-  generationVersion: 2.322.5
-  releaseVersion: 0.0.2
-  configChecksum: ba19d945222f00916da58a93d52eceac
+  speakeasyVersion: 1.288.0
+  generationVersion: 2.331.0
+  releaseVersion: 0.1.0
+  configChecksum: 402ef2470cbfb02b078545cdba117f98
 features:
   go:
+    additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.4
-    core: 3.4.7
+    core: 3.4.8
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.82.9
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.2
     inputOutputModels: 2.83.0
+    intellisenseMarkdownSupport: 0.1.0
     nameOverrides: 2.81.2
+    nullables: 0.1.0
     responseFormat: 0.1.1
-    unions: 2.85.4
+    sdkHooks: 0.1.0
+    unions: 2.85.6
 generatedFiles:
   - stream.go
   - multistream.go
@@ -274,6 +280,7 @@ generatedFiles:
   - docs/models/sdkerrors/error.md
   - docs/models/components/three.md
   - docs/models/components/streamusertags.md
+  - docs/models/components/streamismobile.md
   - docs/models/components/streamlocation.md
   - docs/models/components/streampull.md
   - docs/models/components/streammultistream.md
@@ -298,6 +305,7 @@ generatedFiles:
   - docs/models/components/inputcreatoridtype.md
   - docs/models/components/inputcreatorid1.md
   - docs/models/components/inputcreatorid.md
+  - docs/models/components/ismobile.md
   - docs/models/components/location.md
   - docs/models/components/pull.md
   - docs/models/components/streampatchpayload.md
@@ -426,6 +434,7 @@ generatedFiles:
   - docs/models/components/outputs.md
   - docs/models/components/transcodepayload.md
   - docs/models/components/playbackinfotype.md
+  - docs/models/components/live.md
   - docs/models/components/hrn.md
   - docs/models/components/playbackinfometatype.md
   - docs/models/components/playbackinfosource.md
@@ -445,18 +454,6 @@ generatedFiles:
   - docs/models/components/attestationstorage.md
   - docs/models/components/attestation.md
   - docs/models/components/security.md
-  - docs/sdks/livepeer/README.md
-  - docs/sdks/stream/README.md
-  - docs/sdks/multistream/README.md
-  - docs/sdks/webhook/README.md
-  - docs/sdks/asset/README.md
-  - docs/sdks/session/README.md
-  - docs/sdks/room/README.md
-  - docs/sdks/metrics/README.md
-  - docs/sdks/accesscontrol/README.md
-  - docs/sdks/task/README.md
-  - docs/sdks/transcode/README.md
-  - docs/sdks/playback/README.md
   - USAGE.md
   - .gitattributes
   - internal/hooks/hooks.go

@@ -47,14 +47,14 @@ func CreateFromInteger(integer int64) From {
 
 func (u *From) UnmarshalJSON(data []byte) error {
 
-	dateTime := time.Time{}
+	var dateTime time.Time = time.Time{}
 	if err := utils.UnmarshalJSON(data, &dateTime, "", true, true); err == nil {
 		u.DateTime = &dateTime
 		u.Type = FromTypeDateTime
 		return nil
 	}
 
-	integer := int64(0)
+	var integer int64 = int64(0)
 	if err := utils.UnmarshalJSON(data, &integer, "", true, true); err == nil {
 		u.Integer = &integer
 		u.Type = FromTypeInteger
@@ -111,14 +111,14 @@ func CreateToInteger(integer int64) To {
 
 func (u *To) UnmarshalJSON(data []byte) error {
 
-	dateTime := time.Time{}
+	var dateTime time.Time = time.Time{}
 	if err := utils.UnmarshalJSON(data, &dateTime, "", true, true); err == nil {
 		u.DateTime = &dateTime
 		u.Type = ToTypeDateTime
 		return nil
 	}
 
-	integer := int64(0)
+	var integer int64 = int64(0)
 	if err := utils.UnmarshalJSON(data, &integer, "", true, true); err == nil {
 		u.Integer = &integer
 		u.Type = ToTypeInteger

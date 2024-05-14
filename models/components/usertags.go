@@ -41,14 +41,14 @@ func CreateUserTags3Number(number float64) UserTags3 {
 
 func (u *UserTags3) UnmarshalJSON(data []byte) error {
 
-	str := ""
+	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
 		u.Str = &str
 		u.Type = UserTags3TypeStr
 		return nil
 	}
 
-	number := float64(0)
+	var number float64 = float64(0)
 	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
 		u.Number = &number
 		u.Type = UserTags3TypeNumber
@@ -115,21 +115,21 @@ func CreateUserTagsArrayOfuserTags3(arrayOfuserTags3 []UserTags3) UserTags {
 
 func (u *UserTags) UnmarshalJSON(data []byte) error {
 
-	str := ""
+	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
 		u.Str = &str
 		u.Type = UserTagsTypeStr
 		return nil
 	}
 
-	number := float64(0)
+	var number float64 = float64(0)
 	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
 		u.Number = &number
 		u.Type = UserTagsTypeNumber
 		return nil
 	}
 
-	arrayOfuserTags3 := []UserTags3{}
+	var arrayOfuserTags3 []UserTags3 = []UserTags3{}
 	if err := utils.UnmarshalJSON(data, &arrayOfuserTags3, "", true, true); err == nil {
 		u.ArrayOfuserTags3 = arrayOfuserTags3
 		u.Type = UserTagsTypeArrayOfuserTags3

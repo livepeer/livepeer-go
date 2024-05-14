@@ -2,6 +2,43 @@
 
 package components
 
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/livepeer/livepeer-go/internal/utils"
+)
+
+// IsMobile - If true, the stream will be pulled from a mobile source.
+type IsMobile int64
+
+const (
+	IsMobileZero IsMobile = 0
+	IsMobileOne  IsMobile = 1
+	IsMobileTwo  IsMobile = 2
+)
+
+func (e IsMobile) ToPointer() *IsMobile {
+	return &e
+}
+
+func (e *IsMobile) UnmarshalJSON(data []byte) error {
+	var v int64
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case 0:
+		fallthrough
+	case 1:
+		fallthrough
+	case 2:
+		*e = IsMobile(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for IsMobile: %v", v)
+	}
+}
+
 // Location - Approximate location of the pull source. The location is used to
 // determine the closest Livepeer region to pull the stream from.
 type Location struct {
@@ -35,9 +72,22 @@ type Pull struct {
 	Source string `json:"source"`
 	// Headers to be sent with the request to the pull source.
 	Headers map[string]string `json:"headers,omitempty"`
+	// If true, the stream will be pulled from a mobile source.
+	IsMobile *IsMobile `default:"0" json:"isMobile"`
 	// Approximate location of the pull source. The location is used to
 	// determine the closest Livepeer region to pull the stream from.
 	Location *Location `json:"location,omitempty"`
+}
+
+func (p Pull) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *Pull) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, false); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Pull) GetSource() string {
@@ -52,6 +102,13 @@ func (o *Pull) GetHeaders() map[string]string {
 		return nil
 	}
 	return o.Headers
+}
+
+func (o *Pull) GetIsMobile() *IsMobile {
+	if o == nil {
+		return nil
+	}
+	return o.IsMobile
 }
 
 func (o *Pull) GetLocation() *Location {

@@ -55,14 +55,14 @@ func CreateIpfsBoolean(boolean bool) Ipfs {
 
 func (u *Ipfs) UnmarshalJSON(data []byte) error {
 
-	ipfs1 := Ipfs1{}
+	var ipfs1 Ipfs1 = Ipfs1{}
 	if err := utils.UnmarshalJSON(data, &ipfs1, "", true, true); err == nil {
 		u.Ipfs1 = &ipfs1
 		u.Type = IpfsTypeIpfs1
 		return nil
 	}
 
-	boolean := false
+	var boolean bool = false
 	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
 		u.Boolean = &boolean
 		u.Type = IpfsTypeBoolean

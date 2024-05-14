@@ -3,7 +3,9 @@
 package components
 
 import (
+	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
@@ -41,14 +43,14 @@ func CreateThreeNumber(number float64) Three {
 
 func (u *Three) UnmarshalJSON(data []byte) error {
 
-	str := ""
+	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
 		u.Str = &str
 		u.Type = ThreeTypeStr
 		return nil
 	}
 
-	number := float64(0)
+	var number float64 = float64(0)
 	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
 		u.Number = &number
 		u.Type = ThreeTypeNumber
@@ -115,21 +117,21 @@ func CreateStreamUserTagsArrayOf3(arrayOf3 []Three) StreamUserTags {
 
 func (u *StreamUserTags) UnmarshalJSON(data []byte) error {
 
-	str := ""
+	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
 		u.Str = &str
 		u.Type = StreamUserTagsTypeStr
 		return nil
 	}
 
-	number := float64(0)
+	var number float64 = float64(0)
 	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
 		u.Number = &number
 		u.Type = StreamUserTagsTypeNumber
 		return nil
 	}
 
-	arrayOf3 := []Three{}
+	var arrayOf3 []Three = []Three{}
 	if err := utils.UnmarshalJSON(data, &arrayOf3, "", true, true); err == nil {
 		u.ArrayOf3 = arrayOf3
 		u.Type = StreamUserTagsTypeArrayOf3
@@ -153,6 +155,37 @@ func (u StreamUserTags) MarshalJSON() ([]byte, error) {
 	}
 
 	return nil, errors.New("could not marshal union type: all fields are null")
+}
+
+// StreamIsMobile - If true, the stream will be pulled from a mobile source.
+type StreamIsMobile int64
+
+const (
+	StreamIsMobileZero StreamIsMobile = 0
+	StreamIsMobileOne  StreamIsMobile = 1
+	StreamIsMobileTwo  StreamIsMobile = 2
+)
+
+func (e StreamIsMobile) ToPointer() *StreamIsMobile {
+	return &e
+}
+
+func (e *StreamIsMobile) UnmarshalJSON(data []byte) error {
+	var v int64
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case 0:
+		fallthrough
+	case 1:
+		fallthrough
+	case 2:
+		*e = StreamIsMobile(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for StreamIsMobile: %v", v)
+	}
 }
 
 // StreamLocation - Approximate location of the pull source. The location is used to
@@ -188,9 +221,22 @@ type StreamPull struct {
 	Source string `json:"source"`
 	// Headers to be sent with the request to the pull source.
 	Headers map[string]string `json:"headers,omitempty"`
+	// If true, the stream will be pulled from a mobile source.
+	IsMobile *StreamIsMobile `default:"0" json:"isMobile"`
 	// Approximate location of the pull source. The location is used to
 	// determine the closest Livepeer region to pull the stream from.
 	Location *StreamLocation `json:"location,omitempty"`
+}
+
+func (s StreamPull) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StreamPull) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *StreamPull) GetSource() string {
@@ -205,6 +251,13 @@ func (o *StreamPull) GetHeaders() map[string]string {
 		return nil
 	}
 	return o.Headers
+}
+
+func (o *StreamPull) GetIsMobile() *StreamIsMobile {
+	if o == nil {
+		return nil
+	}
+	return o.IsMobile
 }
 
 func (o *StreamPull) GetLocation() *StreamLocation {
@@ -274,7 +327,7 @@ type Stream struct {
 	PlaybackID *string `json:"playbackId,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
-	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
+	Profiles       []FfmpegProfile `json:"profiles"`
 	// Should this stream be recorded? Uses default settings. For more
 	// customization, create and configure an object store.
 	//

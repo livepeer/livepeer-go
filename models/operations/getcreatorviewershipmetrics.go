@@ -47,14 +47,14 @@ func CreateQueryParamFromInteger(integer int64) QueryParamFrom {
 
 func (u *QueryParamFrom) UnmarshalJSON(data []byte) error {
 
-	dateTime := time.Time{}
+	var dateTime time.Time = time.Time{}
 	if err := utils.UnmarshalJSON(data, &dateTime, "", true, true); err == nil {
 		u.DateTime = &dateTime
 		u.Type = QueryParamFromTypeDateTime
 		return nil
 	}
 
-	integer := int64(0)
+	var integer int64 = int64(0)
 	if err := utils.UnmarshalJSON(data, &integer, "", true, true); err == nil {
 		u.Integer = &integer
 		u.Type = QueryParamFromTypeInteger
@@ -111,14 +111,14 @@ func CreateQueryParamToInteger(integer int64) QueryParamTo {
 
 func (u *QueryParamTo) UnmarshalJSON(data []byte) error {
 
-	dateTime := time.Time{}
+	var dateTime time.Time = time.Time{}
 	if err := utils.UnmarshalJSON(data, &dateTime, "", true, true); err == nil {
 		u.DateTime = &dateTime
 		u.Type = QueryParamToTypeDateTime
 		return nil
 	}
 
-	integer := int64(0)
+	var integer int64 = int64(0)
 	if err := utils.UnmarshalJSON(data, &integer, "", true, true); err == nil {
 		u.Integer = &integer
 		u.Type = QueryParamToTypeInteger

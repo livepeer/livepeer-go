@@ -155,14 +155,14 @@ func CreateInputInput2(input2 Input2) Input {
 
 func (u *Input) UnmarshalJSON(data []byte) error {
 
-	input1 := Input1{}
+	var input1 Input1 = Input1{}
 	if err := utils.UnmarshalJSON(data, &input1, "", true, true); err == nil {
 		u.Input1 = &input1
 		u.Type = InputUnionTypeInput1
 		return nil
 	}
 
-	input2 := Input2{}
+	var input2 Input2 = Input2{}
 	if err := utils.UnmarshalJSON(data, &input2, "", true, true); err == nil {
 		u.Input2 = &input2
 		u.Type = InputUnionTypeInput2
@@ -368,14 +368,14 @@ func CreateTranscodePayloadStorageStorage2(storage2 Storage2) TranscodePayloadSt
 
 func (u *TranscodePayloadStorage) UnmarshalJSON(data []byte) error {
 
-	storage2 := Storage2{}
+	var storage2 Storage2 = Storage2{}
 	if err := utils.UnmarshalJSON(data, &storage2, "", true, true); err == nil {
 		u.Storage2 = &storage2
 		u.Type = TranscodePayloadStorageUnionTypeStorage2
 		return nil
 	}
 
-	storage1 := Storage1{}
+	var storage1 Storage1 = Storage1{}
 	if err := utils.UnmarshalJSON(data, &storage1, "", true, true); err == nil {
 		u.Storage1 = &storage1
 		u.Type = TranscodePayloadStorageUnionTypeStorage1
