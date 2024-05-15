@@ -11,7 +11,7 @@ type NewStreamPayload struct {
 	CreatorID *InputCreatorID `json:"creatorId,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
-	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
+	Profiles       []FfmpegProfile `json:"profiles"`
 	// Should this stream be recorded? Uses default settings. For more
 	// customization, create and configure an object store.
 	//
