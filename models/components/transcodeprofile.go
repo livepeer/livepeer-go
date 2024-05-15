@@ -19,7 +19,6 @@ const (
 func (e TranscodeProfileProfile) ToPointer() *TranscodeProfileProfile {
 	return &e
 }
-
 func (e *TranscodeProfileProfile) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -52,7 +51,6 @@ const (
 func (e TranscodeProfileEncoder) ToPointer() *TranscodeProfileEncoder {
 	return &e
 }
-
 func (e *TranscodeProfileEncoder) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {

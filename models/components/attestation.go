@@ -17,7 +17,6 @@ const (
 func (e PrimaryType) ToPointer() *PrimaryType {
 	return &e
 }
-
 func (e *PrimaryType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -41,7 +40,6 @@ const (
 func (e Name) ToPointer() *Name {
 	return &e
 }
-
 func (e *Name) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -65,7 +63,6 @@ const (
 func (e Version) ToPointer() *Version {
 	return &e
 }
-
 func (e *Version) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -165,7 +162,6 @@ const (
 func (e SignatureType) ToPointer() *SignatureType {
 	return &e
 }
-
 func (e *SignatureType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {

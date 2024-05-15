@@ -20,7 +20,6 @@ const (
 func (e RecordingStatus) ToPointer() *RecordingStatus {
 	return &e
 }
-
 func (e *RecordingStatus) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {

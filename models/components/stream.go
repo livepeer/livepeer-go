@@ -169,7 +169,6 @@ const (
 func (e StreamIsMobile) ToPointer() *StreamIsMobile {
 	return &e
 }
-
 func (e *StreamIsMobile) UnmarshalJSON(data []byte) error {
 	var v int64
 	if err := json.Unmarshal(data, &v); err != nil {

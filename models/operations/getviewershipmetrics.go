@@ -154,7 +154,6 @@ const (
 func (e TimeStep) ToPointer() *TimeStep {
 	return &e
 }
-
 func (e *TimeStep) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -199,7 +198,6 @@ const (
 func (e BreakdownBy) ToPointer() *BreakdownBy {
 	return &e
 }
-
 func (e *BreakdownBy) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {

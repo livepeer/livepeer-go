@@ -20,7 +20,6 @@ const (
 func (e IsMobile) ToPointer() *IsMobile {
 	return &e
 }
-
 func (e *IsMobile) UnmarshalJSON(data []byte) error {
 	var v int64
 	if err := json.Unmarshal(data, &v); err != nil {

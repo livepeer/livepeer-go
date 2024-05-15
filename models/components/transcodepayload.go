@@ -20,7 +20,6 @@ const (
 func (e InputType) ToPointer() *InputType {
 	return &e
 }
-
 func (e *InputType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -194,7 +193,6 @@ const (
 func (e TranscodePayloadStorageType) ToPointer() *TranscodePayloadStorageType {
 	return &e
 }
-
 func (e *TranscodePayloadStorageType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -257,7 +255,6 @@ const (
 func (e StorageType) ToPointer() *StorageType {
 	return &e
 }
-
 func (e *StorageType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {

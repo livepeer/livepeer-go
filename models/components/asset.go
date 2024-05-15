@@ -20,7 +20,6 @@ const (
 func (e AssetType) ToPointer() *AssetType {
 	return &e
 }
-
 func (e *AssetType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -47,7 +46,6 @@ const (
 func (e AssetSource3Type) ToPointer() *AssetSource3Type {
 	return &e
 }
-
 func (e *AssetSource3Type) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -137,7 +135,6 @@ const (
 func (e AssetSourceType) ToPointer() *AssetSourceType {
 	return &e
 }
-
 func (e *AssetSourceType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -181,7 +178,6 @@ const (
 func (e SourceType) ToPointer() *SourceType {
 	return &e
 }
-
 func (e *SourceType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -331,7 +327,6 @@ const (
 func (e AssetNftMetadataTemplate) ToPointer() *AssetNftMetadataTemplate {
 	return &e
 }
-
 func (e *AssetNftMetadataTemplate) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -465,7 +460,6 @@ const (
 func (e AssetPhase) ToPointer() *AssetPhase {
 	return &e
 }
-
 func (e *AssetPhase) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -564,7 +558,6 @@ const (
 func (e AssetVideoSpecType) ToPointer() *AssetVideoSpecType {
 	return &e
 }
-
 func (e *AssetVideoSpecType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
