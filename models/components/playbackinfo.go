@@ -18,7 +18,6 @@ const (
 func (e PlaybackInfoType) ToPointer() *PlaybackInfoType {
 	return &e
 }
-
 func (e *PlaybackInfoType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -47,7 +46,6 @@ const (
 func (e Live) ToPointer() *Live {
 	return &e
 }
-
 func (e *Live) UnmarshalJSON(data []byte) error {
 	var v int64
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -79,7 +77,6 @@ const (
 func (e Hrn) ToPointer() *Hrn {
 	return &e
 }
-
 func (e *Hrn) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -118,7 +115,6 @@ const (
 func (e PlaybackInfoMetaType) ToPointer() *PlaybackInfoMetaType {
 	return &e
 }
-
 func (e *PlaybackInfoMetaType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -212,7 +208,6 @@ const (
 func (e PlaybackInfoHrn) ToPointer() *PlaybackInfoHrn {
 	return &e
 }
-
 func (e *PlaybackInfoHrn) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -236,7 +231,6 @@ const (
 func (e PlaybackInfoMetaDvrPlaybackType) ToPointer() *PlaybackInfoMetaDvrPlaybackType {
 	return &e
 }
-
 func (e *PlaybackInfoMetaDvrPlaybackType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {

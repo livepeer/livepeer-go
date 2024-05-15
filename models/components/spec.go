@@ -21,7 +21,6 @@ const (
 func (e NftMetadataTemplate) ToPointer() *NftMetadataTemplate {
 	return &e
 }
-
 func (e *NftMetadataTemplate) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {

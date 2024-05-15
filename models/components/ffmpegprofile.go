@@ -19,7 +19,6 @@ const (
 func (e Profile) ToPointer() *Profile {
 	return &e
 }
-
 func (e *Profile) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -49,7 +48,6 @@ const (
 func (e Encoder) ToPointer() *Encoder {
 	return &e
 }
-
 func (e *Encoder) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {

@@ -169,7 +169,6 @@ const (
 func (e StreamIsMobile) ToPointer() *StreamIsMobile {
 	return &e
 }
-
 func (e *StreamIsMobile) UnmarshalJSON(data []byte) error {
 	var v int64
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -327,7 +326,7 @@ type Stream struct {
 	PlaybackID *string `json:"playbackId,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
-	Profiles       []FfmpegProfile `json:"profiles"`
+	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
 	// Should this stream be recorded? Uses default settings. For more
 	// customization, create and configure an object store.
 	//

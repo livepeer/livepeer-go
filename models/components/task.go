@@ -22,7 +22,6 @@ const (
 func (e TaskType) ToPointer() *TaskType {
 	return &e
 }
-
 func (e *TaskType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -326,7 +325,6 @@ const (
 func (e CatalystPipelineStrategy) ToPointer() *CatalystPipelineStrategy {
 	return &e
 }
-
 func (e *CatalystPipelineStrategy) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
@@ -462,7 +460,6 @@ const (
 func (e TaskPhase) ToPointer() *TaskPhase {
 	return &e
 }
-
 func (e *TaskPhase) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
