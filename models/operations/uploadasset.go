@@ -7,6 +7,37 @@ import (
 	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
+type UploadAssetAssetTask struct {
+	ID *string `json:"id,omitempty"`
+}
+
+func (o *UploadAssetAssetTask) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+// UploadAssetDataOutput - Success
+type UploadAssetDataOutput struct {
+	Asset components.Asset     `json:"asset"`
+	Task  UploadAssetAssetTask `json:"task"`
+}
+
+func (o *UploadAssetDataOutput) GetAsset() components.Asset {
+	if o == nil {
+		return components.Asset{}
+	}
+	return o.Asset
+}
+
+func (o *UploadAssetDataOutput) GetTask() UploadAssetAssetTask {
+	if o == nil {
+		return UploadAssetAssetTask{}
+	}
+	return o.Task
+}
+
 type UploadAssetTask struct {
 	ID *string `json:"id,omitempty"`
 }
@@ -18,7 +49,7 @@ func (o *UploadAssetTask) GetID() *string {
 	return o.ID
 }
 
-// UploadAssetData - Success
+// UploadAssetData - Import in progress
 type UploadAssetData struct {
 	Asset components.Asset `json:"asset"`
 	Task  UploadAssetTask  `json:"task"`
@@ -40,8 +71,10 @@ func (o *UploadAssetData) GetTask() UploadAssetTask {
 
 type UploadAssetResponse struct {
 	HTTPMeta components.HTTPMetadata
+	// Import in progress
+	TwoHundredApplicationJSONData *UploadAssetData
 	// Success
-	Data *UploadAssetData
+	TwoHundredAndOneApplicationJSONData *UploadAssetDataOutput
 	// Error
 	Error *sdkerrors.Error
 }
@@ -53,11 +86,18 @@ func (o *UploadAssetResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *UploadAssetResponse) GetData() *UploadAssetData {
+func (o *UploadAssetResponse) GetTwoHundredApplicationJSONData() *UploadAssetData {
 	if o == nil {
 		return nil
 	}
-	return o.Data
+	return o.TwoHundredApplicationJSONData
+}
+
+func (o *UploadAssetResponse) GetTwoHundredAndOneApplicationJSONData() *UploadAssetDataOutput {
+	if o == nil {
+		return nil
+	}
+	return o.TwoHundredAndOneApplicationJSONData
 }
 
 func (o *UploadAssetResponse) GetError() *sdkerrors.Error {

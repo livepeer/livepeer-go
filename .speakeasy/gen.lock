@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
-  docChecksum: 3e31f9f2e87cd58906f4e4f5034fd903
+  docChecksum: 0a9791e447b0acd047a206660d89f0d2
   docVersion: 1.0.0
   speakeasyVersion: 1.290.0
   generationVersion: 2.332.1
-  releaseVersion: 0.1.1
-  configChecksum: cb89d1236e821429361a5b95f925449f
+  releaseVersion: 0.1.6
+  configChecksum: 5561829438fe80b718eef8f660f4f06e
 features:
   go:
     additionalDependencies: 0.1.0
@@ -211,6 +211,8 @@ generatedFiles:
   - docs/models/operations/task.md
   - docs/models/operations/requestuploaddata.md
   - docs/models/operations/requestuploadresponse.md
+  - docs/models/operations/uploadassetassettask.md
+  - docs/models/operations/uploadassetdataoutput.md
   - docs/models/operations/uploadassettask.md
   - docs/models/operations/uploadassetdata.md
   - docs/models/operations/uploadassetresponse.md
@@ -454,6 +456,18 @@ generatedFiles:
   - docs/models/components/attestationstorage.md
   - docs/models/components/attestation.md
   - docs/models/components/security.md
+  - docs/sdks/livepeer/README.md
+  - docs/sdks/stream/README.md
+  - docs/sdks/multistream/README.md
+  - docs/sdks/webhook/README.md
+  - docs/sdks/asset/README.md
+  - docs/sdks/session/README.md
+  - docs/sdks/room/README.md
+  - docs/sdks/metrics/README.md
+  - docs/sdks/accesscontrol/README.md
+  - docs/sdks/task/README.md
+  - docs/sdks/transcode/README.md
+  - docs/sdks/playback/README.md
   - USAGE.md
   - .gitattributes
   - internal/hooks/hooks.go
