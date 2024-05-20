@@ -8,12 +8,12 @@ import (
 )
 
 type Task struct {
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
-func (o *Task) GetID() *string {
+func (o *Task) GetID() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.ID
 }

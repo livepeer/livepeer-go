@@ -61,7 +61,7 @@ func (u *QueryParamFrom) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for QueryParamFrom", string(data))
 }
 
 func (u QueryParamFrom) MarshalJSON() ([]byte, error) {
@@ -73,7 +73,7 @@ func (u QueryParamFrom) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Integer, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type QueryParamFrom: all fields are null")
 }
 
 type QueryParamToType string
@@ -125,7 +125,7 @@ func (u *QueryParamTo) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for QueryParamTo", string(data))
 }
 
 func (u QueryParamTo) MarshalJSON() ([]byte, error) {
@@ -137,7 +137,7 @@ func (u QueryParamTo) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Integer, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type QueryParamTo: all fields are null")
 }
 
 // QueryParamTimeStep - The time step to aggregate viewership metrics by

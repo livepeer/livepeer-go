@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### Source1
+### AssetSource1
 
 ```go
-assetSource := components.CreateAssetSourceSource1(components.Source1{/* values here */})
+assetSource := components.CreateAssetSourceAssetSource1(components.AssetSource1{/* values here */})
 ```
 
 ### Two

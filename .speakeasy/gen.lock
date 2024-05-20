@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
-  docChecksum: 0a9791e447b0acd047a206660d89f0d2
+  docChecksum: ed7f9c3c7ce4cdc8b3524a59c596ef0b
   docVersion: 1.0.0
-  speakeasyVersion: 1.290.0
-  generationVersion: 2.332.1
-  releaseVersion: 0.1.6
-  configChecksum: 5561829438fe80b718eef8f660f4f06e
+  speakeasyVersion: 1.293.1
+  generationVersion: 2.333.3
+  releaseVersion: 0.1.7
+  configChecksum: 4d1ec1d46b5cf1b0bd02ab07e4b2888c
 features:
   go:
     additionalDependencies: 0.1.0
@@ -25,7 +25,7 @@ features:
     nullables: 0.1.0
     responseFormat: 0.1.1
     sdkHooks: 0.1.0
-    unions: 2.85.6
+    unions: 2.85.8
 generatedFiles:
   - stream.go
   - multistream.go
@@ -262,6 +262,7 @@ generatedFiles:
   - docs/models/operations/getpublicviewershipmetricsdata.md
   - docs/models/operations/getpublicviewershipmetricsresponse.md
   - docs/models/operations/getusagemetricsqueryparamtimestep.md
+  - docs/models/operations/getusagemetricsqueryparambreakdownby.md
   - docs/models/operations/getusagemetricsrequest.md
   - docs/models/operations/getusagemetricsresponse.md
   - docs/models/operations/createsigningkeyresponse.md
@@ -282,6 +283,7 @@ generatedFiles:
   - docs/models/sdkerrors/error.md
   - docs/models/components/three.md
   - docs/models/components/streamusertags.md
+  - docs/models/components/ismobile1.md
   - docs/models/components/streamismobile.md
   - docs/models/components/streamlocation.md
   - docs/models/components/streampull.md
@@ -307,6 +309,7 @@ generatedFiles:
   - docs/models/components/inputcreatoridtype.md
   - docs/models/components/inputcreatorid1.md
   - docs/models/components/inputcreatorid.md
+  - docs/models/components/one.md
   - docs/models/components/ismobile.md
   - docs/models/components/location.md
   - docs/models/components/pull.md
@@ -317,7 +320,7 @@ generatedFiles:
   - docs/models/components/assetsourcetype.md
   - docs/models/components/two.md
   - docs/models/components/sourcetype.md
-  - docs/models/components/source1.md
+  - docs/models/components/assetsource1.md
   - docs/models/components/assetsource.md
   - docs/models/components/assetnftmetadatatemplate.md
   - docs/models/components/assetnftmetadata.md
@@ -362,7 +365,7 @@ generatedFiles:
   - docs/models/components/nftmetadata.md
   - docs/models/components/spec.md
   - docs/models/components/source3.md
-  - docs/models/components/one.md
+  - docs/models/components/source1.md
   - docs/models/components/source.md
   - docs/models/components/assetipfsinput.md
   - docs/models/components/assetstorageinput.md

@@ -1,12 +1,19 @@
 # IsMobile
 
-If true, the stream will be pulled from a mobile source.
+Indicates whether the stream will be pulled from a mobile source.
 
 
-## Values
+## Supported Types
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `IsMobileZero` | 0              |
-| `IsMobileOne`  | 1              |
-| `IsMobileTwo`  | 2              |
+### One
+
+```go
+isMobile := components.CreateIsMobileOne(components.One{/* values here */})
+```
+
+### 
+
+```go
+isMobile := components.CreateIsMobileBoolean(bool{/* values here */})
+```
+

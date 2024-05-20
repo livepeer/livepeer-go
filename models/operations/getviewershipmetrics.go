@@ -61,7 +61,7 @@ func (u *From) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for From", string(data))
 }
 
 func (u From) MarshalJSON() ([]byte, error) {
@@ -73,7 +73,7 @@ func (u From) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Integer, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type From: all fields are null")
 }
 
 type ToType string
@@ -125,7 +125,7 @@ func (u *To) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for To", string(data))
 }
 
 func (u To) MarshalJSON() ([]byte, error) {
@@ -137,7 +137,7 @@ func (u To) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Integer, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type To: all fields are null")
 }
 
 // TimeStep - The time step to aggregate viewership metrics by

@@ -192,7 +192,7 @@ func (e *SourceType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type Source1 struct {
+type AssetSource1 struct {
 	Type SourceType `json:"type"`
 	// URL from which the asset was uploaded.
 	URL string `json:"url"`
@@ -201,28 +201,28 @@ type Source1 struct {
 	Encryption *EncryptionOutput `json:"encryption,omitempty"`
 }
 
-func (o *Source1) GetType() SourceType {
+func (o *AssetSource1) GetType() SourceType {
 	if o == nil {
 		return SourceType("")
 	}
 	return o.Type
 }
 
-func (o *Source1) GetURL() string {
+func (o *AssetSource1) GetURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.URL
 }
 
-func (o *Source1) GetGatewayURL() *string {
+func (o *AssetSource1) GetGatewayURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.GatewayURL
 }
 
-func (o *Source1) GetEncryption() *EncryptionOutput {
+func (o *AssetSource1) GetEncryption() *EncryptionOutput {
 	if o == nil {
 		return nil
 	}
@@ -232,25 +232,25 @@ func (o *Source1) GetEncryption() *EncryptionOutput {
 type AssetSourceUnionType string
 
 const (
-	AssetSourceUnionTypeSource1      AssetSourceUnionType = "source_1"
+	AssetSourceUnionTypeAssetSource1 AssetSourceUnionType = "asset_source_1"
 	AssetSourceUnionTypeTwo          AssetSourceUnionType = "2"
 	AssetSourceUnionTypeAssetSource3 AssetSourceUnionType = "asset_source_3"
 )
 
 type AssetSource struct {
-	Source1      *Source1
+	AssetSource1 *AssetSource1
 	Two          *Two
 	AssetSource3 *AssetSource3
 
 	Type AssetSourceUnionType
 }
 
-func CreateAssetSourceSource1(source1 Source1) AssetSource {
-	typ := AssetSourceUnionTypeSource1
+func CreateAssetSourceAssetSource1(assetSource1 AssetSource1) AssetSource {
+	typ := AssetSourceUnionTypeAssetSource1
 
 	return AssetSource{
-		Source1: &source1,
-		Type:    typ,
+		AssetSource1: &assetSource1,
+		Type:         typ,
 	}
 }
 
@@ -281,10 +281,10 @@ func (u *AssetSource) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var source1 Source1 = Source1{}
-	if err := utils.UnmarshalJSON(data, &source1, "", true, true); err == nil {
-		u.Source1 = &source1
-		u.Type = AssetSourceUnionTypeSource1
+	var assetSource1 AssetSource1 = AssetSource1{}
+	if err := utils.UnmarshalJSON(data, &assetSource1, "", true, true); err == nil {
+		u.AssetSource1 = &assetSource1
+		u.Type = AssetSourceUnionTypeAssetSource1
 		return nil
 	}
 
@@ -295,12 +295,12 @@ func (u *AssetSource) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for AssetSource", string(data))
 }
 
 func (u AssetSource) MarshalJSON() ([]byte, error) {
-	if u.Source1 != nil {
-		return utils.MarshalJSON(u.Source1, "", true)
+	if u.AssetSource1 != nil {
+		return utils.MarshalJSON(u.AssetSource1, "", true)
 	}
 
 	if u.Two != nil {
@@ -311,7 +311,7 @@ func (u AssetSource) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.AssetSource3, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type AssetSource: all fields are null")
 }
 
 // AssetNftMetadataTemplate - Name of the NFT metadata template to export. 'player'
@@ -955,7 +955,7 @@ func (o *Source3) GetAssetID() *string {
 	return o.AssetID
 }
 
-type One struct {
+type Source1 struct {
 	Type SourceType `json:"type"`
 	// URL from which the asset was uploaded.
 	URL string `json:"url"`
@@ -964,28 +964,28 @@ type One struct {
 	Encryption *Encryption `json:"encryption,omitempty"`
 }
 
-func (o *One) GetType() SourceType {
+func (o *Source1) GetType() SourceType {
 	if o == nil {
 		return SourceType("")
 	}
 	return o.Type
 }
 
-func (o *One) GetURL() string {
+func (o *Source1) GetURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.URL
 }
 
-func (o *One) GetGatewayURL() *string {
+func (o *Source1) GetGatewayURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.GatewayURL
 }
 
-func (o *One) GetEncryption() *Encryption {
+func (o *Source1) GetEncryption() *Encryption {
 	if o == nil {
 		return nil
 	}
@@ -995,25 +995,25 @@ func (o *One) GetEncryption() *Encryption {
 type SourceUnionType string
 
 const (
-	SourceUnionTypeOne     SourceUnionType = "1"
+	SourceUnionTypeSource1 SourceUnionType = "source_1"
 	SourceUnionTypeTwo     SourceUnionType = "2"
 	SourceUnionTypeSource3 SourceUnionType = "source_3"
 )
 
 type Source struct {
-	One     *One
+	Source1 *Source1
 	Two     *Two
 	Source3 *Source3
 
 	Type SourceUnionType
 }
 
-func CreateSourceOne(one One) Source {
-	typ := SourceUnionTypeOne
+func CreateSourceSource1(source1 Source1) Source {
+	typ := SourceUnionTypeSource1
 
 	return Source{
-		One:  &one,
-		Type: typ,
+		Source1: &source1,
+		Type:    typ,
 	}
 }
 
@@ -1044,10 +1044,10 @@ func (u *Source) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var one One = One{}
-	if err := utils.UnmarshalJSON(data, &one, "", true, true); err == nil {
-		u.One = &one
-		u.Type = SourceUnionTypeOne
+	var source1 Source1 = Source1{}
+	if err := utils.UnmarshalJSON(data, &source1, "", true, true); err == nil {
+		u.Source1 = &source1
+		u.Type = SourceUnionTypeSource1
 		return nil
 	}
 
@@ -1058,12 +1058,12 @@ func (u *Source) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Source", string(data))
 }
 
 func (u Source) MarshalJSON() ([]byte, error) {
-	if u.One != nil {
-		return utils.MarshalJSON(u.One, "", true)
+	if u.Source1 != nil {
+		return utils.MarshalJSON(u.Source1, "", true)
 	}
 
 	if u.Two != nil {
@@ -1074,7 +1074,7 @@ func (u Source) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Source3, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type Source: all fields are null")
 }
 
 type AssetIpfsInput struct {

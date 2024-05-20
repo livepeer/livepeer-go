@@ -99,7 +99,7 @@ func (u *InputCreatorID) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputCreatorID", string(data))
 }
 
 func (u InputCreatorID) MarshalJSON() ([]byte, error) {
@@ -111,5 +111,5 @@ func (u InputCreatorID) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type InputCreatorID: all fields are null")
 }

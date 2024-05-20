@@ -36,6 +36,29 @@ func (e *GetUsageMetricsQueryParamTimeStep) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type GetUsageMetricsQueryParamBreakdownBy string
+
+const (
+	GetUsageMetricsQueryParamBreakdownByCreatorID GetUsageMetricsQueryParamBreakdownBy = "creatorId"
+)
+
+func (e GetUsageMetricsQueryParamBreakdownBy) ToPointer() *GetUsageMetricsQueryParamBreakdownBy {
+	return &e
+}
+func (e *GetUsageMetricsQueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "creatorId":
+		*e = GetUsageMetricsQueryParamBreakdownBy(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetUsageMetricsQueryParamBreakdownBy: %v", v)
+	}
+}
+
 type GetUsageMetricsRequest struct {
 	// Start millis timestamp for the query range (inclusive)
 	//
@@ -49,6 +72,10 @@ type GetUsageMetricsRequest struct {
 	// The creator ID to filter the query results
 	//
 	CreatorID *string `queryParam:"style=form,explode=true,name=creatorId"`
+	// The list of fields to break down the query results. Currently the
+	// only supported breakdown is by `creatorId`.
+	//
+	BreakdownBy []GetUsageMetricsQueryParamBreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
 }
 
 func (o *GetUsageMetricsRequest) GetFrom() *int64 {
@@ -77,6 +104,13 @@ func (o *GetUsageMetricsRequest) GetCreatorID() *string {
 		return nil
 	}
 	return o.CreatorID
+}
+
+func (o *GetUsageMetricsRequest) GetBreakdownBy() []GetUsageMetricsQueryParamBreakdownBy {
+	if o == nil {
+		return nil
+	}
+	return o.BreakdownBy
 }
 
 type GetUsageMetricsResponse struct {

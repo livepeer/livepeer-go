@@ -18,6 +18,6 @@ userTags := components.CreateUserTagsNumber(float64{/* values here */})
 ### 
 
 ```go
-userTags := components.CreateUserTagsArrayOfuserTags3([]components.UserTags3{/* values here */})
+userTags := components.CreateUserTagsArrayOfUserTags3([]components.UserTags3{/* values here */})
 ```
 

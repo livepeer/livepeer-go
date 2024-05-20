@@ -8,17 +8,17 @@ import (
 )
 
 type UploadAssetAssetTask struct {
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
-func (o *UploadAssetAssetTask) GetID() *string {
+func (o *UploadAssetAssetTask) GetID() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.ID
 }
 
-// UploadAssetDataOutput - Success
+// UploadAssetDataOutput - Upload started
 type UploadAssetDataOutput struct {
 	Asset components.Asset     `json:"asset"`
 	Task  UploadAssetAssetTask `json:"task"`
@@ -39,17 +39,17 @@ func (o *UploadAssetDataOutput) GetTask() UploadAssetAssetTask {
 }
 
 type UploadAssetTask struct {
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
-func (o *UploadAssetTask) GetID() *string {
+func (o *UploadAssetTask) GetID() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.ID
 }
 
-// UploadAssetData - Import in progress
+// UploadAssetData - Upload in progress
 type UploadAssetData struct {
 	Asset components.Asset `json:"asset"`
 	Task  UploadAssetTask  `json:"task"`
@@ -71,9 +71,9 @@ func (o *UploadAssetData) GetTask() UploadAssetTask {
 
 type UploadAssetResponse struct {
 	HTTPMeta components.HTTPMetadata
-	// Import in progress
+	// Upload in progress
 	TwoHundredApplicationJSONData *UploadAssetData
-	// Success
+	// Upload started
 	TwoHundredAndOneApplicationJSONData *UploadAssetDataOutput
 	// Error
 	Error *sdkerrors.Error
