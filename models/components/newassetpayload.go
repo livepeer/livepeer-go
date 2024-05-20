@@ -4,6 +4,7 @@ package components
 
 import (
 	"errors"
+	"fmt"
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
@@ -69,7 +70,7 @@ func (u *NewAssetPayloadIpfs) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for NewAssetPayloadIpfs", string(data))
 }
 
 func (u NewAssetPayloadIpfs) MarshalJSON() ([]byte, error) {
@@ -81,7 +82,7 @@ func (u NewAssetPayloadIpfs) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Boolean, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type NewAssetPayloadIpfs: all fields are null")
 }
 
 type NewAssetPayloadStorage struct {

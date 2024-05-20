@@ -57,7 +57,7 @@ func (u *Three) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Three", string(data))
 }
 
 func (u Three) MarshalJSON() ([]byte, error) {
@@ -69,7 +69,7 @@ func (u Three) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Number, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type Three: all fields are null")
 }
 
 type StreamUserTagsType string
@@ -138,7 +138,7 @@ func (u *StreamUserTags) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for StreamUserTags", string(data))
 }
 
 func (u StreamUserTags) MarshalJSON() ([]byte, error) {
@@ -154,22 +154,22 @@ func (u StreamUserTags) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ArrayOf3, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type StreamUserTags: all fields are null")
 }
 
-// StreamIsMobile - If true, the stream will be pulled from a mobile source.
-type StreamIsMobile int64
+// IsMobile1 - 0: not mobile, 1: mobile screen share, 2: mobile camera.
+type IsMobile1 int64
 
 const (
-	StreamIsMobileZero StreamIsMobile = 0
-	StreamIsMobileOne  StreamIsMobile = 1
-	StreamIsMobileTwo  StreamIsMobile = 2
+	IsMobile1Zero IsMobile1 = 0
+	IsMobile1One  IsMobile1 = 1
+	IsMobile1Two  IsMobile1 = 2
 )
 
-func (e StreamIsMobile) ToPointer() *StreamIsMobile {
+func (e IsMobile1) ToPointer() *IsMobile1 {
 	return &e
 }
-func (e *StreamIsMobile) UnmarshalJSON(data []byte) error {
+func (e *IsMobile1) UnmarshalJSON(data []byte) error {
 	var v int64
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -180,11 +180,75 @@ func (e *StreamIsMobile) UnmarshalJSON(data []byte) error {
 	case 1:
 		fallthrough
 	case 2:
-		*e = StreamIsMobile(v)
+		*e = IsMobile1(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for StreamIsMobile: %v", v)
+		return fmt.Errorf("invalid value for IsMobile1: %v", v)
 	}
+}
+
+type StreamIsMobileType string
+
+const (
+	StreamIsMobileTypeIsMobile1 StreamIsMobileType = "isMobile_1"
+	StreamIsMobileTypeBoolean   StreamIsMobileType = "boolean"
+)
+
+// StreamIsMobile - Indicates whether the stream will be pulled from a mobile source.
+type StreamIsMobile struct {
+	IsMobile1 *IsMobile1
+	Boolean   *bool
+
+	Type StreamIsMobileType
+}
+
+func CreateStreamIsMobileIsMobile1(isMobile1 IsMobile1) StreamIsMobile {
+	typ := StreamIsMobileTypeIsMobile1
+
+	return StreamIsMobile{
+		IsMobile1: &isMobile1,
+		Type:      typ,
+	}
+}
+
+func CreateStreamIsMobileBoolean(boolean bool) StreamIsMobile {
+	typ := StreamIsMobileTypeBoolean
+
+	return StreamIsMobile{
+		Boolean: &boolean,
+		Type:    typ,
+	}
+}
+
+func (u *StreamIsMobile) UnmarshalJSON(data []byte) error {
+
+	var isMobile1 IsMobile1 = IsMobile1(0)
+	if err := utils.UnmarshalJSON(data, &isMobile1, "", true, true); err == nil {
+		u.IsMobile1 = &isMobile1
+		u.Type = StreamIsMobileTypeIsMobile1
+		return nil
+	}
+
+	var boolean bool = false
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
+		u.Boolean = &boolean
+		u.Type = StreamIsMobileTypeBoolean
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for StreamIsMobile", string(data))
+}
+
+func (u StreamIsMobile) MarshalJSON() ([]byte, error) {
+	if u.IsMobile1 != nil {
+		return utils.MarshalJSON(u.IsMobile1, "", true)
+	}
+
+	if u.Boolean != nil {
+		return utils.MarshalJSON(u.Boolean, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type StreamIsMobile: all fields are null")
 }
 
 // StreamLocation - Approximate location of the pull source. The location is used to
@@ -220,22 +284,11 @@ type StreamPull struct {
 	Source string `json:"source"`
 	// Headers to be sent with the request to the pull source.
 	Headers map[string]string `json:"headers,omitempty"`
-	// If true, the stream will be pulled from a mobile source.
-	IsMobile *StreamIsMobile `default:"0" json:"isMobile"`
+	// Indicates whether the stream will be pulled from a mobile source.
+	IsMobile *StreamIsMobile `json:"isMobile,omitempty"`
 	// Approximate location of the pull source. The location is used to
 	// determine the closest Livepeer region to pull the stream from.
 	Location *StreamLocation `json:"location,omitempty"`
-}
-
-func (s StreamPull) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StreamPull) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (o *StreamPull) GetSource() string {

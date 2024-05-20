@@ -26,7 +26,6 @@ Retrieve a Webhook
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -75,8 +74,8 @@ To create a new webhook, you need to make an API call with the events you want t
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"context"
 	"log"
 )
@@ -133,7 +132,6 @@ Retrieve a webhook
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -182,8 +180,8 @@ Update a webhook
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"context"
 	"log"
 )
@@ -243,7 +241,6 @@ Delete a webhook
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -292,7 +289,6 @@ Retrieve webhook logs
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -341,7 +337,6 @@ Retrieve a webhook log
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -396,7 +391,6 @@ to check or fix the behaviour in your handler.
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"

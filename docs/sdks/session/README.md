@@ -22,7 +22,6 @@ Retrieve clips of a session
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -71,7 +70,6 @@ Retrieve sessions
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -119,7 +117,6 @@ Retrieve a session
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -168,7 +165,6 @@ Retrieve Recorded Sessions
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"

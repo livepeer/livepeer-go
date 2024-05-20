@@ -20,7 +20,6 @@ Retrieve Tasks
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -68,7 +67,6 @@ Retrieve a Task
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"

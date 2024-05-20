@@ -4,6 +4,7 @@ package components
 
 import (
 	"errors"
+	"fmt"
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
@@ -55,7 +56,7 @@ func (u *UserTags3) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for UserTags3", string(data))
 }
 
 func (u UserTags3) MarshalJSON() ([]byte, error) {
@@ -67,7 +68,7 @@ func (u UserTags3) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Number, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type UserTags3: all fields are null")
 }
 
 type UserTagsType string
@@ -75,13 +76,13 @@ type UserTagsType string
 const (
 	UserTagsTypeStr              UserTagsType = "str"
 	UserTagsTypeNumber           UserTagsType = "number"
-	UserTagsTypeArrayOfuserTags3 UserTagsType = "arrayOfuserTags_3"
+	UserTagsTypeArrayOfUserTags3 UserTagsType = "arrayOfUserTags3"
 )
 
 type UserTags struct {
 	Str              *string
 	Number           *float64
-	ArrayOfuserTags3 []UserTags3
+	ArrayOfUserTags3 []UserTags3
 
 	Type UserTagsType
 }
@@ -104,11 +105,11 @@ func CreateUserTagsNumber(number float64) UserTags {
 	}
 }
 
-func CreateUserTagsArrayOfuserTags3(arrayOfuserTags3 []UserTags3) UserTags {
-	typ := UserTagsTypeArrayOfuserTags3
+func CreateUserTagsArrayOfUserTags3(arrayOfUserTags3 []UserTags3) UserTags {
+	typ := UserTagsTypeArrayOfUserTags3
 
 	return UserTags{
-		ArrayOfuserTags3: arrayOfuserTags3,
+		ArrayOfUserTags3: arrayOfUserTags3,
 		Type:             typ,
 	}
 }
@@ -129,14 +130,14 @@ func (u *UserTags) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var arrayOfuserTags3 []UserTags3 = []UserTags3{}
-	if err := utils.UnmarshalJSON(data, &arrayOfuserTags3, "", true, true); err == nil {
-		u.ArrayOfuserTags3 = arrayOfuserTags3
-		u.Type = UserTagsTypeArrayOfuserTags3
+	var arrayOfUserTags3 []UserTags3 = []UserTags3{}
+	if err := utils.UnmarshalJSON(data, &arrayOfUserTags3, "", true, true); err == nil {
+		u.ArrayOfUserTags3 = arrayOfUserTags3
+		u.Type = UserTagsTypeArrayOfUserTags3
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for UserTags", string(data))
 }
 
 func (u UserTags) MarshalJSON() ([]byte, error) {
@@ -148,9 +149,9 @@ func (u UserTags) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Number, "", true)
 	}
 
-	if u.ArrayOfuserTags3 != nil {
-		return utils.MarshalJSON(u.ArrayOfuserTags3, "", true)
+	if u.ArrayOfUserTags3 != nil {
+		return utils.MarshalJSON(u.ArrayOfUserTags3, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type UserTags: all fields are null")
 }

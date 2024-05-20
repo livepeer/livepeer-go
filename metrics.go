@@ -354,19 +354,12 @@ func (s *Metrics) GetPublicViewership(ctx context.Context, playbackID string) (*
 }
 
 // GetUsage - Query usage metrics
-func (s *Metrics) GetUsage(ctx context.Context, from *int64, to *int64, timeStep *operations.GetUsageMetricsQueryParamTimeStep, creatorID *string) (*operations.GetUsageMetricsResponse, error) {
+func (s *Metrics) GetUsage(ctx context.Context, request operations.GetUsageMetricsRequest) (*operations.GetUsageMetricsResponse, error) {
 	hookCtx := hooks.HookContext{
 		Context:        ctx,
 		OperationID:    "getUsageMetrics",
 		OAuth2Scopes:   []string{},
 		SecuritySource: s.sdkConfiguration.Security,
-	}
-
-	request := operations.GetUsageMetricsRequest{
-		From:      from,
-		To:        to,
-		TimeStep:  timeStep,
-		CreatorID: creatorID,
 	}
 
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())

@@ -140,8 +140,8 @@ This endpoint currently supports the following output types:
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"context"
 	"log"
 )

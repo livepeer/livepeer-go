@@ -4,23 +4,24 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
-// IsMobile - If true, the stream will be pulled from a mobile source.
-type IsMobile int64
+// One - 0: not mobile, 1: mobile screen share, 2: mobile camera.
+type One int64
 
 const (
-	IsMobileZero IsMobile = 0
-	IsMobileOne  IsMobile = 1
-	IsMobileTwo  IsMobile = 2
+	OneZero One = 0
+	OneOne  One = 1
+	OneTwo  One = 2
 )
 
-func (e IsMobile) ToPointer() *IsMobile {
+func (e One) ToPointer() *One {
 	return &e
 }
-func (e *IsMobile) UnmarshalJSON(data []byte) error {
+func (e *One) UnmarshalJSON(data []byte) error {
 	var v int64
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -31,11 +32,75 @@ func (e *IsMobile) UnmarshalJSON(data []byte) error {
 	case 1:
 		fallthrough
 	case 2:
-		*e = IsMobile(v)
+		*e = One(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for IsMobile: %v", v)
+		return fmt.Errorf("invalid value for One: %v", v)
 	}
+}
+
+type IsMobileType string
+
+const (
+	IsMobileTypeOne     IsMobileType = "1"
+	IsMobileTypeBoolean IsMobileType = "boolean"
+)
+
+// IsMobile - Indicates whether the stream will be pulled from a mobile source.
+type IsMobile struct {
+	One     *One
+	Boolean *bool
+
+	Type IsMobileType
+}
+
+func CreateIsMobileOne(one One) IsMobile {
+	typ := IsMobileTypeOne
+
+	return IsMobile{
+		One:  &one,
+		Type: typ,
+	}
+}
+
+func CreateIsMobileBoolean(boolean bool) IsMobile {
+	typ := IsMobileTypeBoolean
+
+	return IsMobile{
+		Boolean: &boolean,
+		Type:    typ,
+	}
+}
+
+func (u *IsMobile) UnmarshalJSON(data []byte) error {
+
+	var one One = One(0)
+	if err := utils.UnmarshalJSON(data, &one, "", true, true); err == nil {
+		u.One = &one
+		u.Type = IsMobileTypeOne
+		return nil
+	}
+
+	var boolean bool = false
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
+		u.Boolean = &boolean
+		u.Type = IsMobileTypeBoolean
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for IsMobile", string(data))
+}
+
+func (u IsMobile) MarshalJSON() ([]byte, error) {
+	if u.One != nil {
+		return utils.MarshalJSON(u.One, "", true)
+	}
+
+	if u.Boolean != nil {
+		return utils.MarshalJSON(u.Boolean, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type IsMobile: all fields are null")
 }
 
 // Location - Approximate location of the pull source. The location is used to
@@ -71,22 +136,11 @@ type Pull struct {
 	Source string `json:"source"`
 	// Headers to be sent with the request to the pull source.
 	Headers map[string]string `json:"headers,omitempty"`
-	// If true, the stream will be pulled from a mobile source.
-	IsMobile *IsMobile `default:"0" json:"isMobile"`
+	// Indicates whether the stream will be pulled from a mobile source.
+	IsMobile *IsMobile `json:"isMobile,omitempty"`
 	// Approximate location of the pull source. The location is used to
 	// determine the closest Livepeer region to pull the stream from.
 	Location *Location `json:"location,omitempty"`
-}
-
-func (p Pull) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *Pull) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, false); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (o *Pull) GetSource() string {

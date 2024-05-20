@@ -168,7 +168,7 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Input", string(data))
 }
 
 func (u Input) MarshalJSON() ([]byte, error) {
@@ -180,7 +180,7 @@ func (u Input) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Input2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type Input: all fields are null")
 }
 
 // TranscodePayloadStorageType - Type of service used for output files
@@ -379,7 +379,7 @@ func (u *TranscodePayloadStorage) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for TranscodePayloadStorage", string(data))
 }
 
 func (u TranscodePayloadStorage) MarshalJSON() ([]byte, error) {
@@ -391,7 +391,7 @@ func (u TranscodePayloadStorage) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Storage2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type TranscodePayloadStorage: all fields are null")
 }
 
 // Hls - HLS output format

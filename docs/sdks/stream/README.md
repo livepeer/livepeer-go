@@ -42,8 +42,8 @@ also be added upon the creation of a new stream by adding
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"context"
 	"log"
 )
@@ -138,7 +138,6 @@ Retrieve streams
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -187,7 +186,6 @@ Retrieve a stream
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -236,8 +234,8 @@ Update a stream
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"context"
 	"log"
 )
@@ -328,7 +326,6 @@ using the PATCH stream API.
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -385,7 +382,6 @@ terminated.
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -441,7 +437,6 @@ started.
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -490,8 +485,8 @@ Create a clip
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"context"
 	"log"
 )
@@ -545,7 +540,6 @@ Retrieve clips of a livestream
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -594,8 +588,8 @@ Add a multistream target
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"context"
 	"log"
 )
@@ -654,7 +648,6 @@ Remove a multistream target
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"

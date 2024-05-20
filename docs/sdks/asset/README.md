@@ -24,7 +24,6 @@ Retrieve assets
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -143,8 +142,8 @@ definition above.
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"context"
 	"log"
 )
@@ -248,8 +247,8 @@ Upload asset via URL
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"context"
 	"log"
 )
@@ -322,7 +321,6 @@ Retrieves an asset
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -371,8 +369,8 @@ Patch an asset
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"context"
 	"log"
 )
@@ -433,7 +431,6 @@ Delete an asset
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"

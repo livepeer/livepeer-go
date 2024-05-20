@@ -23,7 +23,6 @@ Requires a private (non-CORS) API key to be used.
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/operations"
 	"context"
@@ -74,7 +73,6 @@ Requires a proof of ownership to be sent in the request, which for now is just t
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/operations"
 	"context"
@@ -127,7 +125,6 @@ unauthenticated.
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
 	"log"
@@ -176,7 +173,6 @@ Query usage metrics
 package main
 
 import(
-	"github.com/livepeer/livepeer-go/models/components"
 	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/operations"
 	"context"
@@ -188,16 +184,10 @@ func main() {
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    var from *int64 = livepeergo.Int64(224089)
-
-    var to *int64 = livepeergo.Int64(231125)
-
-    var timeStep *operations.GetUsageMetricsQueryParamTimeStep = operations.GetUsageMetricsQueryParamTimeStepDay.ToPointer()
-
-    var creatorID *string = livepeergo.String("<value>")
+    request := operations.GetUsageMetricsRequest{}
     
     ctx := context.Background()
-    res, err := s.Metrics.GetUsage(ctx, from, to, timeStep, creatorID)
+    res, err := s.Metrics.GetUsage(ctx, request)
     if err != nil {
         log.Fatal(err)
     }
@@ -209,13 +199,10 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                         | [context.Context](https://pkg.go.dev/context#Context)                                                         | :heavy_check_mark:                                                                                            | The context to use for the request.                                                                           |
-| `from`                                                                                                        | **int64*                                                                                                      | :heavy_minus_sign:                                                                                            | Start millis timestamp for the query range (inclusive)<br/>                                                   |
-| `to`                                                                                                          | **int64*                                                                                                      | :heavy_minus_sign:                                                                                            | End millis timestamp for the query range (exclusive)<br/>                                                     |
-| `timeStep`                                                                                                    | [*operations.GetUsageMetricsQueryParamTimeStep](../../models/operations/getusagemetricsqueryparamtimestep.md) | :heavy_minus_sign:                                                                                            | The time step to aggregate viewership metrics by<br/>                                                         |
-| `creatorID`                                                                                                   | **string*                                                                                                     | :heavy_minus_sign:                                                                                            | The creator ID to filter the query results<br/>                                                               |
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
+| `request`                                                                              | [operations.GetUsageMetricsRequest](../../models/operations/getusagemetricsrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
 
 
 ### Response

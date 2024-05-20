@@ -4,6 +4,7 @@ package components
 
 import (
 	"errors"
+	"fmt"
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
@@ -121,7 +122,7 @@ func (u *ExportTaskParams) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ExportTaskParams", string(data))
 }
 
 func (u ExportTaskParams) MarshalJSON() ([]byte, error) {
@@ -133,5 +134,5 @@ func (u ExportTaskParams) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ExportTaskParams2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type ExportTaskParams: all fields are null")
 }

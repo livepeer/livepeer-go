@@ -156,7 +156,6 @@ import (
 	"context"
 	"errors"
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"github.com/livepeer/livepeer-go/models/sdkerrors"
 	"log"
 )

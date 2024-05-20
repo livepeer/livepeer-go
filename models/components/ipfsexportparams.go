@@ -4,6 +4,7 @@ package components
 
 import (
 	"errors"
+	"fmt"
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
@@ -72,7 +73,7 @@ func (u *Pinata) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return errors.New("could not unmarshal into supported union types")
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Pinata", string(data))
 }
 
 func (u Pinata) MarshalJSON() ([]byte, error) {
@@ -84,7 +85,7 @@ func (u Pinata) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Pinata2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type: all fields are null")
+	return nil, errors.New("could not marshal union type Pinata: all fields are null")
 }
 
 type IpfsExportParams struct {
