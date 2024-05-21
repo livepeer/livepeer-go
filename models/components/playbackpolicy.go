@@ -47,6 +47,8 @@ type PlaybackPolicy struct {
 	// refreshed (default 600 seconds)
 	//
 	RefreshInterval *float64 `json:"refreshInterval,omitempty"`
+	// List of allowed origins for CORS playback (<scheme>://<hostname>:<port>, <scheme>://<hostname>)
+	AllowedOrigins []string `json:"allowedOrigins,omitempty"`
 }
 
 func (o *PlaybackPolicy) GetType() Type {
@@ -75,4 +77,11 @@ func (o *PlaybackPolicy) GetRefreshInterval() *float64 {
 		return nil
 	}
 	return o.RefreshInterval
+}
+
+func (o *PlaybackPolicy) GetAllowedOrigins() []string {
+	if o == nil {
+		return nil
+	}
+	return o.AllowedOrigins
 }

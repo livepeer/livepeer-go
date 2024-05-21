@@ -155,38 +155,6 @@ func main() {
 
     request := components.NewAssetPayload{
         Name: "filename.mp4",
-        ProjectID: &components.AssetInput{
-            Type: components.AssetTypeVideo.ToPointer(),
-            PlaybackID: livepeergo.String("eaw4nk06ts2d0mzb"),
-            PlaybackPolicy: &components.PlaybackPolicy{
-                Type: components.TypeWebhook,
-                WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
-                WebhookContext: map[string]any{
-                    "streamerId": "my-custom-id",
-                },
-                RefreshInterval: livepeergo.Float64(600),
-            },
-            Source: components.CreateSourceTwo(
-                    components.Two{
-                        Type: components.AssetSourceTypeRecording,
-                        SessionID: "<value>",
-                    },
-            ),
-            CreatorID: components.CreateCreatorIDCreatorID1(
-                    components.CreatorID1{
-                        Type: components.CreatorIDTypeUnverified,
-                        Value: "user123",
-                    },
-            ),
-            Name: "filename.mp4",
-            ProjectID: livepeergo.String("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
-            Hash: []components.Hash{
-                components.Hash{
-                    Hash: livepeergo.String("9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57"),
-                    Algorithm: livepeergo.String("sha256"),
-                },
-            },
-        },
         StaticMp4: livepeergo.Bool(true),
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypeWebhook,
