@@ -115,8 +115,7 @@ func (o *NewAssetPayloadEncryption) GetEncryptedKey() string {
 type NewAssetPayload struct {
 	// The name of the asset. This is not necessarily the filename - it can be a custom name or title.
 	//
-	Name      string      `json:"name"`
-	ProjectID *AssetInput `json:"projectId,omitempty"`
+	Name string `json:"name"`
 	// Whether to generate MP4s for the asset.
 	StaticMp4 *bool `json:"staticMp4,omitempty"`
 	// Whether the playback policy for a asset or stream is public or signed
@@ -136,13 +135,6 @@ func (o *NewAssetPayload) GetName() string {
 		return ""
 	}
 	return o.Name
-}
-
-func (o *NewAssetPayload) GetProjectID() *AssetInput {
-	if o == nil {
-		return nil
-	}
-	return o.ProjectID
 }
 
 func (o *NewAssetPayload) GetStaticMp4() *bool {

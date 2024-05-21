@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
-  docChecksum: ed7f9c3c7ce4cdc8b3524a59c596ef0b
+  docChecksum: b10c6d403306684b2080504dd2e51041
   docVersion: 1.0.0
-  speakeasyVersion: 1.293.1
+  speakeasyVersion: 1.294.0
   generationVersion: 2.333.3
-  releaseVersion: 0.1.7
-  configChecksum: 4d1ec1d46b5cf1b0bd02ab07e4b2888c
+  releaseVersion: 0.1.8
+  configChecksum: c447794e0f02be0d212976dba63ed400
 features:
   go:
     additionalDependencies: 0.1.0
@@ -126,6 +126,7 @@ generatedFiles:
   - /models/components/inputcreatorid.go
   - /models/components/pull.go
   - /models/components/streampatchpayload.go
+  - /models/components/asset.go
   - /models/components/storagestatus.go
   - /models/components/ipfsfileinfo.go
   - /models/components/encryptionoutput.go
@@ -139,10 +140,8 @@ generatedFiles:
   - /models/components/newassetpayload.go
   - /models/components/transcodeprofile.go
   - /models/components/spec.go
-  - /models/components/asset.go
-  - /models/components/ipfsfileinfoinput.go
-  - /models/components/encryption.go
   - /models/components/newassetfromurlpayload.go
+  - /models/components/encryption.go
   - /models/components/storage.go
   - /models/components/assetpatchpayload.go
   - /models/components/session.go
@@ -316,12 +315,12 @@ generatedFiles:
   - docs/models/components/streampatchpayload.md
   - docs/models/components/assettype.md
   - docs/models/components/assetsource3type.md
-  - docs/models/components/assetsource3.md
+  - docs/models/components/source3.md
   - docs/models/components/assetsourcetype.md
   - docs/models/components/two.md
   - docs/models/components/sourcetype.md
-  - docs/models/components/assetsource1.md
-  - docs/models/components/assetsource.md
+  - docs/models/components/source1.md
+  - docs/models/components/source.md
   - docs/models/components/assetnftmetadatatemplate.md
   - docs/models/components/assetnftmetadata.md
   - docs/models/components/assetspec.md
@@ -364,15 +363,8 @@ generatedFiles:
   - docs/models/components/nftmetadatatemplate.md
   - docs/models/components/nftmetadata.md
   - docs/models/components/spec.md
-  - docs/models/components/source3.md
-  - docs/models/components/source1.md
-  - docs/models/components/source.md
-  - docs/models/components/assetipfsinput.md
-  - docs/models/components/assetstorageinput.md
-  - docs/models/components/assetinput.md
-  - docs/models/components/ipfsfileinfoinput.md
-  - docs/models/components/encryption.md
   - docs/models/components/newassetfromurlpayload.md
+  - docs/models/components/encryption.md
   - docs/models/components/ipfs1.md
   - docs/models/components/ipfs.md
   - docs/models/components/storage.md
