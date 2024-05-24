@@ -298,7 +298,7 @@ func (o *GetCreatorViewershipMetricsRequest) GetBreakdownBy() []QueryParamBreakd
 }
 
 type GetCreatorViewershipMetricsResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// A list of Metric objects
 	Data []components.ViewershipMetric
 	// Error

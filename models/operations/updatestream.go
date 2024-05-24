@@ -28,7 +28,7 @@ func (o *UpdateStreamRequest) GetStreamPatchPayload() components.StreamPatchPayl
 }
 
 type UpdateStreamResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }

@@ -131,6 +131,7 @@ func (s *Room) Create(ctx context.Context) (*operations.CreateRoomResponse, erro
 	}
 
 	return res, nil
+
 }
 
 // Get - Retrieve a room
@@ -240,6 +241,7 @@ func (s *Room) Get(ctx context.Context, id string) (*operations.GetRoomResponse,
 	}
 
 	return res, nil
+
 }
 
 // Delete a room
@@ -338,6 +340,7 @@ func (s *Room) Delete(ctx context.Context, id string) (*operations.DeleteRoomRes
 	}
 
 	return res, nil
+
 }
 
 // StartEgress - Start room RTMP egress
@@ -445,6 +448,7 @@ func (s *Room) StartEgress(ctx context.Context, id string, roomEgressPayload com
 	}
 
 	return res, nil
+
 }
 
 // StopEgress - Stop room RTMP egress
@@ -543,6 +547,7 @@ func (s *Room) StopEgress(ctx context.Context, id string) (*operations.StopRoomE
 	}
 
 	return res, nil
+
 }
 
 // CreateUser - Create a room user
@@ -662,6 +667,7 @@ func (s *Room) CreateUser(ctx context.Context, id string, roomUserPayload compon
 	}
 
 	return res, nil
+
 }
 
 // GetUser - Get user details
@@ -772,6 +778,7 @@ func (s *Room) GetUser(ctx context.Context, id string, userID string) (*operatio
 	}
 
 	return res, nil
+
 }
 
 // UpdateUser - Update a room user
@@ -879,6 +886,7 @@ func (s *Room) UpdateUser(ctx context.Context, id string, userID string, roomUse
 	}
 
 	return res, nil
+
 }
 
 // DeleteUser - Remove a user from the room
@@ -978,4 +986,5 @@ func (s *Room) DeleteUser(ctx context.Context, id string, userID string) (*opera
 	}
 
 	return res, nil
+
 }

@@ -19,7 +19,7 @@ func (o *GetTaskRequest) GetTaskID() string {
 }
 
 type GetTaskResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Task *components.Task
 }

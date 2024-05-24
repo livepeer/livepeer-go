@@ -28,7 +28,7 @@ func (o *AddMultistreamTargetRequest) GetTargetAddPayload() components.TargetAdd
 }
 
 type AddMultistreamTargetResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }

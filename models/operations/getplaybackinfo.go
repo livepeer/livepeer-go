@@ -19,7 +19,7 @@ func (o *GetPlaybackInfoRequest) GetID() string {
 }
 
 type GetPlaybackInfoResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response
 	PlaybackInfo *components.PlaybackInfo
 }

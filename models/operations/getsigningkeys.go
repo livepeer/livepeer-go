@@ -8,7 +8,7 @@ import (
 )
 
 type GetSigningKeysResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data []components.SigningKey
 	// Error

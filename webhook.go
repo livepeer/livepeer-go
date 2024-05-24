@@ -128,6 +128,7 @@ func (s *Webhook) GetAll(ctx context.Context) (*operations.GetWebhooksResponse, 
 	}
 
 	return res, nil
+
 }
 
 // Create a webhook
@@ -238,6 +239,7 @@ func (s *Webhook) Create(ctx context.Context, request components.WebhookInput) (
 	}
 
 	return res, nil
+
 }
 
 // Get - Retrieve a webhook
@@ -345,6 +347,7 @@ func (s *Webhook) Get(ctx context.Context, id string) (*operations.GetWebhookRes
 	}
 
 	return res, nil
+
 }
 
 // Update a webhook
@@ -459,6 +462,7 @@ func (s *Webhook) Update(ctx context.Context, id string, webhook components.Webh
 	}
 
 	return res, nil
+
 }
 
 // Delete a webhook
@@ -566,6 +570,7 @@ func (s *Webhook) Delete(ctx context.Context, id string) (*operations.DeleteWebh
 	}
 
 	return res, nil
+
 }
 
 // GetLogs - Retrieve webhook logs
@@ -673,6 +678,7 @@ func (s *Webhook) GetLogs(ctx context.Context, id string) (*operations.GetWebhoo
 	}
 
 	return res, nil
+
 }
 
 // GetLog - Retrieve a webhook log
@@ -781,6 +787,7 @@ func (s *Webhook) GetLog(ctx context.Context, id string, logID string) (*operati
 	}
 
 	return res, nil
+
 }
 
 // ResendLog - Resend a webhook
@@ -892,4 +899,5 @@ func (s *Webhook) ResendLog(ctx context.Context, id string, logID string) (*oper
 	}
 
 	return res, nil
+
 }

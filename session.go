@@ -132,6 +132,7 @@ func (s *Session) GetClips(ctx context.Context, id string) (*operations.GetSessi
 	}
 
 	return res, nil
+
 }
 
 // GetAll - Retrieve sessions
@@ -235,6 +236,7 @@ func (s *Session) GetAll(ctx context.Context) (*operations.GetSessionsResponse, 
 	}
 
 	return res, nil
+
 }
 
 // Get - Retrieve a session
@@ -342,6 +344,7 @@ func (s *Session) Get(ctx context.Context, id string) (*operations.GetSessionRes
 	}
 
 	return res, nil
+
 }
 
 // GetRecorded - Retrieve Recorded Sessions
@@ -454,4 +457,5 @@ func (s *Session) GetRecorded(ctx context.Context, parentID string, record *int6
 	}
 
 	return res, nil
+
 }

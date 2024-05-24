@@ -1,17 +1,17 @@
-speakeasyVersion: 1.294.0
+speakeasyVersion: 1.296.0
 sources:
     livepeer-studio-api:
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:5d028ab2dbf42e76cdd6e3cdf7bfcd2904494da0d52f7ad1c1c4fbc349df886d
-        sourceBlobDigest: sha256:958ae7f3a7e7f591357a9efa6b0151703d354eecffe92ae352c6da31ec3ac238
+        sourceRevisionDigest: sha256:fcf3ed26f77d003444f896e48452f794687e85fa5826da252e3c27e91bdc7cec
+        sourceBlobDigest: sha256:5a97d733e029650c5a9fa556d69518400fe98e9eb87e8a7ad294d6a20e896226
         tags:
             - latest
 targets:
     livepeer-go:
         source: livepeer-studio-api
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:5d028ab2dbf42e76cdd6e3cdf7bfcd2904494da0d52f7ad1c1c4fbc349df886d
-        sourceBlobDigest: sha256:958ae7f3a7e7f591357a9efa6b0151703d354eecffe92ae352c6da31ec3ac238
+        sourceRevisionDigest: sha256:fcf3ed26f77d003444f896e48452f794687e85fa5826da252e3c27e91bdc7cec
+        sourceBlobDigest: sha256:5a97d733e029650c5a9fa556d69518400fe98e9eb87e8a7ad294d6a20e896226
         outLocation: /Users/chase/git/livepeer/livepeer-go
 workflow:
     workflowVersion: 1.0.0

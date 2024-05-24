@@ -33,9 +33,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     request := operations.GetViewershipMetricsRequest{}
-    
     ctx := context.Background()
     res, err := s.Metrics.GetViewership(ctx, request)
     if err != nil {
@@ -83,9 +81,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     request := operations.GetCreatorViewershipMetricsRequest{}
-    
     ctx := context.Background()
     res, err := s.Metrics.GetCreatorViewership(ctx, request)
     if err != nil {
@@ -134,9 +130,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var playbackID string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Metrics.GetPublicViewership(ctx, playbackID)
     if err != nil {
@@ -183,9 +177,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     request := operations.GetUsageMetricsRequest{}
-    
     ctx := context.Background()
     res, err := s.Metrics.GetUsage(ctx, request)
     if err != nil {

@@ -8,7 +8,7 @@ import (
 )
 
 type CreateStreamResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Stream *components.Stream
 	// Error

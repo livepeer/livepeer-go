@@ -147,6 +147,7 @@ func (s *Stream) Create(ctx context.Context, request components.NewStreamPayload
 	}
 
 	return res, nil
+
 }
 
 // GetAll - Retrieve streams
@@ -258,6 +259,7 @@ func (s *Stream) GetAll(ctx context.Context, streamsonly *string) (*operations.G
 	}
 
 	return res, nil
+
 }
 
 // Get - Retrieve a stream
@@ -365,6 +367,7 @@ func (s *Stream) Get(ctx context.Context, id string) (*operations.GetStreamRespo
 	}
 
 	return res, nil
+
 }
 
 // Update a stream
@@ -468,6 +471,7 @@ func (s *Stream) Update(ctx context.Context, id string, streamPatchPayload compo
 	}
 
 	return res, nil
+
 }
 
 // Delete a stream
@@ -568,6 +572,7 @@ func (s *Stream) Delete(ctx context.Context, id string) (*operations.DeleteStrea
 	}
 
 	return res, nil
+
 }
 
 // Terminate - Terminates a live stream
@@ -672,6 +677,7 @@ func (s *Stream) Terminate(ctx context.Context, id string) (*operations.Terminat
 	}
 
 	return res, nil
+
 }
 
 // StartPull - Start ingest for a pull stream
@@ -775,6 +781,7 @@ func (s *Stream) StartPull(ctx context.Context, id string) (*operations.StartPul
 	}
 
 	return res, nil
+
 }
 
 // CreateClip - Create a clip
@@ -884,6 +891,7 @@ func (s *Stream) CreateClip(ctx context.Context, request components.ClipPayload)
 	}
 
 	return res, nil
+
 }
 
 // GetClips - Retrieve clips of a livestream
@@ -991,6 +999,7 @@ func (s *Stream) GetClips(ctx context.Context, id string) (*operations.GetClipsR
 	}
 
 	return res, nil
+
 }
 
 // AddMultistreamTarget - Add a multistream target
@@ -1094,6 +1103,7 @@ func (s *Stream) AddMultistreamTarget(ctx context.Context, id string, targetAddP
 	}
 
 	return res, nil
+
 }
 
 // RemoveMultistreamTarget - Remove a multistream target
@@ -1191,4 +1201,5 @@ func (s *Stream) RemoveMultistreamTarget(ctx context.Context, id string, targetI
 	}
 
 	return res, nil
+
 }

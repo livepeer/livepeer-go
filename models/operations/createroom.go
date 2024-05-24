@@ -8,7 +8,7 @@ import (
 )
 
 type CreateRoomResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	CreateRoomResponse *components.CreateRoomResponse
 	// Error

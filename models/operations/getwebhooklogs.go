@@ -19,7 +19,7 @@ func (o *GetWebhookLogsRequest) GetID() string {
 }
 
 type GetWebhookLogsResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data []components.WebhookLog
 	// Error

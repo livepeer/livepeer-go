@@ -19,7 +19,7 @@ func (o *GetRoomRequest) GetID() string {
 }
 
 type GetRoomResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Room *components.Room
 	// Error

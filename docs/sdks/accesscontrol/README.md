@@ -35,8 +35,6 @@ func main() {
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-
-    
     ctx := context.Background()
     res, err := s.AccessControl.Create(ctx)
     if err != nil {
@@ -82,8 +80,6 @@ func main() {
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-
-    
     ctx := context.Background()
     res, err := s.AccessControl.GetAll(ctx)
     if err != nil {
@@ -128,9 +124,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var keyID string = "<value>"
-    
     ctx := context.Background()
     res, err := s.AccessControl.Delete(ctx, keyID)
     if err != nil {
@@ -176,9 +170,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var keyID string = "<value>"
-    
     ctx := context.Background()
     res, err := s.AccessControl.Get(ctx, keyID)
     if err != nil {
@@ -225,11 +217,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var keyID string = "<value>"
 
     requestBody := operations.UpdateSigningKeyRequestBody{}
-    
     ctx := context.Background()
     res, err := s.AccessControl.Update(ctx, keyID, requestBody)
     if err != nil {

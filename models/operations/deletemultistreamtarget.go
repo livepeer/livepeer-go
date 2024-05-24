@@ -20,7 +20,7 @@ func (o *DeleteMultistreamTargetRequest) GetID() string {
 }
 
 type DeleteMultistreamTargetResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }

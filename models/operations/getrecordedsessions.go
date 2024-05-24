@@ -31,7 +31,7 @@ func (o *GetRecordedSessionsRequest) GetRecord() *int64 {
 }
 
 type GetRecordedSessionsResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data []components.Session
 	// Error

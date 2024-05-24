@@ -52,7 +52,6 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     request := components.NewStreamPayload{
         Name: "test_stream",
         Pull: &components.Pull{
@@ -101,7 +100,6 @@ func main() {
             },
         },
     }
-    
     ctx := context.Background()
     res, err := s.Stream.Create(ctx, request)
     if err != nil {
@@ -147,9 +145,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var streamsonly *string = livepeergo.String("<value>")
-    
     ctx := context.Background()
     res, err := s.Stream.GetAll(ctx, streamsonly)
     if err != nil {
@@ -195,9 +191,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Stream.Get(ctx, id)
     if err != nil {
@@ -244,7 +238,6 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
 
     streamPatchPayload := components.StreamPatchPayload{
@@ -284,7 +277,6 @@ func main() {
             },
         },
     }
-    
     ctx := context.Background()
     res, err := s.Stream.Update(ctx, id, streamPatchPayload)
     if err != nil {
@@ -335,9 +327,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Stream.Delete(ctx, id)
     if err != nil {
@@ -391,9 +381,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Stream.Terminate(ctx, id)
     if err != nil {
@@ -446,9 +434,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Stream.StartPull(ctx, id)
     if err != nil {
@@ -495,7 +481,6 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     request := components.ClipPayload{
         PlaybackID: "eaw4nk06ts2d0mzb",
         StartTime: 1587667174725,
@@ -503,7 +488,6 @@ func main() {
         Name: livepeergo.String("My Clip"),
         SessionID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
     }
-    
     ctx := context.Background()
     res, err := s.Stream.CreateClip(ctx, request)
     if err != nil {
@@ -549,9 +533,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Stream.GetClips(ctx, id)
     if err != nil {
@@ -598,7 +580,6 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
 
     targetAddPayload := components.TargetAddPayload{
@@ -610,7 +591,6 @@ func main() {
             URL: "rtmps://live.my-service.tv/channel/secretKey",
         },
     }
-    
     ctx := context.Background()
     res, err := s.Stream.AddMultistreamTarget(ctx, id, targetAddPayload)
     if err != nil {
@@ -657,11 +637,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
 
     var targetID string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Stream.RemoveMultistreamTarget(ctx, id, targetID)
     if err != nil {

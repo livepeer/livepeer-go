@@ -27,7 +27,7 @@ func (o *CreateRoomUserRequest) GetRoomUserPayload() components.RoomUserPayload 
 }
 
 type CreateRoomUserResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	RoomUserResponse *components.RoomUserResponse
 	// Error

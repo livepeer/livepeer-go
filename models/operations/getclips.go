@@ -20,7 +20,7 @@ func (o *GetClipsRequest) GetID() string {
 }
 
 type GetClipsResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data []components.Asset
 	// Error

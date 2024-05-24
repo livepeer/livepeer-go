@@ -128,6 +128,7 @@ func (s *Multistream) GetAll(ctx context.Context) (*operations.GetMultistreamTar
 	}
 
 	return res, nil
+
 }
 
 // Create a multistream target
@@ -237,6 +238,7 @@ func (s *Multistream) Create(ctx context.Context, request components.Multistream
 	}
 
 	return res, nil
+
 }
 
 // Get - Retrieve a multistream target
@@ -344,6 +346,7 @@ func (s *Multistream) Get(ctx context.Context, id string) (*operations.GetMultis
 	}
 
 	return res, nil
+
 }
 
 // Update Multistream Target
@@ -447,6 +450,7 @@ func (s *Multistream) Update(ctx context.Context, id string, multistreamTargetPa
 	}
 
 	return res, nil
+
 }
 
 // Delete a multistream target
@@ -545,4 +549,5 @@ func (s *Multistream) Delete(ctx context.Context, id string) (*operations.Delete
 	}
 
 	return res, nil
+
 }

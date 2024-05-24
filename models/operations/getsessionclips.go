@@ -20,7 +20,7 @@ func (o *GetSessionClipsRequest) GetID() string {
 }
 
 type GetSessionClipsResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data []components.Asset
 	// Error

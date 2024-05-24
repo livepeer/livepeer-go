@@ -27,7 +27,7 @@ func (o *StartRoomEgressRequest) GetRoomEgressPayload() components.RoomEgressPay
 }
 
 type StartRoomEgressResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }

@@ -19,7 +19,7 @@ func (o *StopRoomEgressRequest) GetID() string {
 }
 
 type StopRoomEgressResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }

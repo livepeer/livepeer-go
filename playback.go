@@ -133,4 +133,5 @@ func (s *Playback) Get(ctx context.Context, id string) (*operations.GetPlaybackI
 	}
 
 	return res, nil
+
 }

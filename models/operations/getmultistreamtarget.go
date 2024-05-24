@@ -20,7 +20,7 @@ func (o *GetMultistreamTargetRequest) GetID() string {
 }
 
 type GetMultistreamTargetResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	MultistreamTarget *components.MultistreamTarget
 	// Error

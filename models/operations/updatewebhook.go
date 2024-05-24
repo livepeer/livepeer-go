@@ -27,7 +27,7 @@ func (o *UpdateWebhookRequest) GetWebhook() components.WebhookInput {
 }
 
 type UpdateWebhookResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Webhook *components.Webhook
 	// Error

@@ -35,7 +35,7 @@ func (o *UpdateRoomUserRequest) GetRoomUserUpdatePayload() components.RoomUserUp
 }
 
 type UpdateRoomUserResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }
