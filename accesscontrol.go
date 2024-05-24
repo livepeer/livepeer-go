@@ -130,6 +130,7 @@ func (s *AccessControl) Create(ctx context.Context) (*operations.CreateSigningKe
 	}
 
 	return res, nil
+
 }
 
 // GetAll - Retrieves signing keys
@@ -233,6 +234,7 @@ func (s *AccessControl) GetAll(ctx context.Context) (*operations.GetSigningKeysR
 	}
 
 	return res, nil
+
 }
 
 // Delete Signing Key
@@ -329,6 +331,7 @@ func (s *AccessControl) Delete(ctx context.Context, keyID string) (*operations.D
 	}
 
 	return res, nil
+
 }
 
 // Get - Retrieves a signing key
@@ -436,6 +439,7 @@ func (s *AccessControl) Get(ctx context.Context, keyID string) (*operations.GetS
 	}
 
 	return res, nil
+
 }
 
 // Update a signing key
@@ -539,4 +543,5 @@ func (s *AccessControl) Update(ctx context.Context, keyID string, requestBody op
 	}
 
 	return res, nil
+
 }

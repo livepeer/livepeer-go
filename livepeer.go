@@ -130,17 +130,11 @@ func WithClient(client HTTPClient) SDKOption {
 	}
 }
 
-func withSecurity(security interface{}) func(context.Context) (interface{}, error) {
-	return func(context.Context) (interface{}, error) {
-		return security, nil
-	}
-}
-
 // WithSecurity configures the SDK to use the provided security details
 func WithSecurity(apiKey string) SDKOption {
 	return func(sdk *Livepeer) {
 		security := components.Security{APIKey: apiKey}
-		sdk.sdkConfiguration.Security = withSecurity(&security)
+		sdk.sdkConfiguration.Security = utils.AsSecuritySource(&security)
 	}
 }
 
@@ -165,9 +159,9 @@ func New(opts ...SDKOption) *Livepeer {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "1.0.0",
-			SDKVersion:        "0.1.8",
-			GenVersion:        "2.333.3",
-			UserAgent:         "speakeasy-sdk/go 0.1.8 2.333.3 1.0.0 github.com/livepeer/livepeer-go",
+			SDKVersion:        "0.1.9",
+			GenVersion:        "2.337.1",
+			UserAgent:         "speakeasy-sdk/go 0.1.9 2.337.1 1.0.0 github.com/livepeer/livepeer-go",
 			Hooks:             hooks.New(),
 		},
 	}

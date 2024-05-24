@@ -20,7 +20,7 @@ func (o *DeleteAssetRequest) GetAssetID() string {
 }
 
 type DeleteAssetResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }

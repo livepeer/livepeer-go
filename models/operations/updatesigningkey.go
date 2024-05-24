@@ -47,7 +47,7 @@ func (o *UpdateSigningKeyRequest) GetRequestBody() UpdateSigningKeyRequestBody {
 }
 
 type UpdateSigningKeyResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }

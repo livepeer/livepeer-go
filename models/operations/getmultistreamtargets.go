@@ -8,7 +8,7 @@ import (
 )
 
 type GetMultistreamTargetsResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data []components.MultistreamTarget
 	// Error

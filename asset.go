@@ -128,6 +128,7 @@ func (s *Asset) GetAll(ctx context.Context) (*operations.GetAssetsResponse, erro
 	}
 
 	return res, nil
+
 }
 
 // Create - Upload an asset
@@ -307,6 +308,7 @@ func (s *Asset) Create(ctx context.Context, request components.NewAssetPayload) 
 	}
 
 	return res, nil
+
 }
 
 // CreateViaURL - Upload asset via URL
@@ -428,6 +430,7 @@ func (s *Asset) CreateViaURL(ctx context.Context, request components.NewAssetFro
 	}
 
 	return res, nil
+
 }
 
 // Get - Retrieves an asset
@@ -535,6 +538,7 @@ func (s *Asset) Get(ctx context.Context, assetID string) (*operations.GetAssetRe
 	}
 
 	return res, nil
+
 }
 
 // Update - Patch an asset
@@ -649,6 +653,7 @@ func (s *Asset) Update(ctx context.Context, assetID string, assetPatchPayload co
 	}
 
 	return res, nil
+
 }
 
 // Delete an asset
@@ -745,4 +750,5 @@ func (s *Asset) Delete(ctx context.Context, assetID string) (*operations.DeleteA
 	}
 
 	return res, nil
+
 }

@@ -8,7 +8,7 @@ import (
 )
 
 type TranscodeVideoResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Task *components.Task
 	// Error

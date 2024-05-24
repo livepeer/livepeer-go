@@ -20,7 +20,7 @@ func (o *GetSessionRequest) GetID() string {
 }
 
 type GetSessionResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Session *components.Session
 	// Error

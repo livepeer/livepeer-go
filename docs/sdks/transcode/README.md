@@ -150,7 +150,6 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     request := components.TranscodePayload{
         Input: components.CreateInputInput1(
                 components.Input1{
@@ -193,7 +192,6 @@ func main() {
             },
         },
     }
-    
     ctx := context.Background()
     res, err := s.Transcode.Create(ctx, request)
     if err != nil {

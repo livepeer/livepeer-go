@@ -28,7 +28,7 @@ func (o *UpdateAssetRequest) GetAssetPatchPayload() components.AssetPatchPayload
 }
 
 type UpdateAssetResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Asset *components.Asset
 	// Error

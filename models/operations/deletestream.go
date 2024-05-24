@@ -20,7 +20,7 @@ func (o *DeleteStreamRequest) GetID() string {
 }
 
 type DeleteStreamResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }

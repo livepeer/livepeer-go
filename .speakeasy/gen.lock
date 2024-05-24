@@ -3,16 +3,16 @@ id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
   docChecksum: b10c6d403306684b2080504dd2e51041
   docVersion: 1.0.0
-  speakeasyVersion: 1.294.0
-  generationVersion: 2.333.3
-  releaseVersion: 0.1.8
-  configChecksum: c447794e0f02be0d212976dba63ed400
+  speakeasyVersion: 1.296.0
+  generationVersion: 2.337.1
+  releaseVersion: 0.1.9
+  configChecksum: 3dc9f5bfc5bdb07b7608d1109f86a92b
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.4
-    core: 3.4.8
+    core: 3.4.10
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.82.9
@@ -23,7 +23,7 @@ features:
     intellisenseMarkdownSupport: 0.1.0
     nameOverrides: 2.81.2
     nullables: 0.1.0
-    responseFormat: 0.1.1
+    responseFormat: 0.1.2
     sdkHooks: 0.1.0
     unions: 2.85.8
 generatedFiles:

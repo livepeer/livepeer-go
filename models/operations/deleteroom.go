@@ -19,7 +19,7 @@ func (o *DeleteRoomRequest) GetID() string {
 }
 
 type DeleteRoomResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }

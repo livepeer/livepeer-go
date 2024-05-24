@@ -70,7 +70,7 @@ func (o *UploadAssetData) GetTask() UploadAssetTask {
 }
 
 type UploadAssetResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Upload in progress
 	TwoHundredApplicationJSONData *UploadAssetData
 	// Upload started

@@ -27,7 +27,7 @@ func (o *GetRoomUserRequest) GetUserID() string {
 }
 
 type GetRoomUserResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	GetRoomUserResponse *components.GetRoomUserResponse
 	// Error

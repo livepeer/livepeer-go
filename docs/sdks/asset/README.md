@@ -34,8 +34,6 @@ func main() {
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-
-    
     ctx := context.Background()
     res, err := s.Asset.GetAll(ctx)
     if err != nil {
@@ -152,7 +150,6 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     request := components.NewAssetPayload{
         Name: "filename.mp4",
         StaticMp4: livepeergo.Bool(true),
@@ -178,7 +175,6 @@ func main() {
             },
         },
     }
-    
     ctx := context.Background()
     res, err := s.Asset.Create(ctx, request)
     if err != nil {
@@ -225,7 +221,6 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     request := components.NewAssetFromURLPayload{
         Name: "filename.mp4",
         StaticMp4: livepeergo.Bool(true),
@@ -252,7 +247,6 @@ func main() {
             },
         },
     }
-    
     ctx := context.Background()
     res, err := s.Asset.CreateViaURL(ctx, request)
     if err != nil {
@@ -298,9 +292,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var assetID string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Asset.Get(ctx, assetID)
     if err != nil {
@@ -347,7 +339,6 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var assetID string = "<value>"
 
     assetPatchPayload := components.AssetPatchPayload{
@@ -361,7 +352,6 @@ func main() {
             RefreshInterval: livepeergo.Float64(600),
         },
     }
-    
     ctx := context.Background()
     res, err := s.Asset.Update(ctx, assetID, assetPatchPayload)
     if err != nil {
@@ -408,9 +398,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var assetID string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Asset.Delete(ctx, assetID)
     if err != nil {

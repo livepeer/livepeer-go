@@ -28,9 +28,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Playback.Get(ctx, id)
     if err != nil {

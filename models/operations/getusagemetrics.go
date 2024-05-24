@@ -114,7 +114,7 @@ func (o *GetUsageMetricsRequest) GetBreakdownBy() []GetUsageMetricsQueryParamBre
 }
 
 type GetUsageMetricsResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// A Usage Metric object
 	UsageMetric *components.UsageMetric
 	// Error

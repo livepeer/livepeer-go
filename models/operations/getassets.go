@@ -8,7 +8,7 @@ import (
 )
 
 type GetAssetsResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data []components.Asset
 	// Error

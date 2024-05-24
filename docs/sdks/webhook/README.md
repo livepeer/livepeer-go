@@ -36,8 +36,6 @@ func main() {
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-
-    
     ctx := context.Background()
     res, err := s.Webhook.GetAll(ctx)
     if err != nil {
@@ -84,7 +82,6 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     request := components.WebhookInput{
         Name: "test_webhook",
         Events: []components.Events{
@@ -95,7 +92,6 @@ func main() {
         SharedSecret: livepeergo.String("my-secret"),
         StreamID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
     }
-    
     ctx := context.Background()
     res, err := s.Webhook.Create(ctx, request)
     if err != nil {
@@ -141,9 +137,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Webhook.Get(ctx, id)
     if err != nil {
@@ -190,7 +184,6 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
 
     webhook := components.WebhookInput{
@@ -203,7 +196,6 @@ func main() {
         SharedSecret: livepeergo.String("my-secret"),
         StreamID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
     }
-    
     ctx := context.Background()
     res, err := s.Webhook.Update(ctx, id, webhook)
     if err != nil {
@@ -250,9 +242,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Webhook.Delete(ctx, id)
     if err != nil {
@@ -298,9 +288,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Webhook.GetLogs(ctx, id)
     if err != nil {
@@ -346,11 +334,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
 
     var logID string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Webhook.GetLog(ctx, id, logID)
     if err != nil {
@@ -400,11 +386,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
 
     var logID string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Webhook.ResendLog(ctx, id, logID)
     if err != nil {

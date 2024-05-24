@@ -19,7 +19,7 @@ func (o *GetStreamsRequest) GetStreamsonly() *string {
 }
 
 type GetStreamsResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data []components.Stream
 	// Error

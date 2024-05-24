@@ -20,7 +20,7 @@ func (o *StartPullStreamRequest) GetID() string {
 }
 
 type StartPullStreamResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
 	Error *sdkerrors.Error
 }

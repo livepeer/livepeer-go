@@ -8,7 +8,7 @@ import (
 )
 
 type GetTasksResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data []components.Task
 	// Error

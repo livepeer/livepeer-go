@@ -164,9 +164,7 @@ func main() {
 	s := livepeergo.New(
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
-
 	var id string = "<value>"
-
 	ctx := context.Background()
 	res, err := s.Playback.Get(ctx, id)
 	if err != nil {
@@ -216,7 +214,6 @@ func main() {
 		livepeergo.WithServerIndex(0),
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
-
 	request := components.NewStreamPayload{
 		Name: "test_stream",
 		Pull: &components.Pull{
@@ -265,7 +262,6 @@ func main() {
 			},
 		},
 	}
-
 	ctx := context.Background()
 	res, err := s.Stream.Create(ctx, request)
 	if err != nil {
@@ -297,7 +293,6 @@ func main() {
 		livepeergo.WithServerURL("https://livepeer.studio/api"),
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
-
 	request := components.NewStreamPayload{
 		Name: "test_stream",
 		Pull: &components.Pull{
@@ -346,7 +341,6 @@ func main() {
 			},
 		},
 	}
-
 	ctx := context.Background()
 	res, err := s.Stream.Create(ctx, request)
 	if err != nil {
@@ -415,7 +409,6 @@ func main() {
 	s := livepeergo.New(
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
-
 	request := components.NewStreamPayload{
 		Name: "test_stream",
 		Pull: &components.Pull{
@@ -464,7 +457,6 @@ func main() {
 			},
 		},
 	}
-
 	ctx := context.Background()
 	res, err := s.Stream.Create(ctx, request)
 	if err != nil {
@@ -511,7 +503,6 @@ func main() {
 	s := livepeergo.New(
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
-
 	request := components.NewStreamPayload{
 		Name: "test_stream",
 		Pull: &components.Pull{
@@ -560,7 +551,6 @@ func main() {
 			},
 		},
 	}
-
 	ctx := context.Background()
 	res, err := s.Stream.Create(ctx, request)
 	if err != nil {

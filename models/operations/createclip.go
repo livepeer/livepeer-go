@@ -39,7 +39,7 @@ func (o *CreateClipData) GetTask() CreateClipTask {
 }
 
 type CreateClipResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data *CreateClipData
 	// Error

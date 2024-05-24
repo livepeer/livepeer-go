@@ -57,7 +57,7 @@ func (o *RequestUploadData) GetTask() Task {
 }
 
 type RequestUploadResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Data *RequestUploadData
 	// Error

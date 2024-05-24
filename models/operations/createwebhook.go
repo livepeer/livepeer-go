@@ -8,7 +8,7 @@ import (
 )
 
 type CreateWebhookResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Webhook *components.Webhook
 	// Error

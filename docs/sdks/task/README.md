@@ -30,8 +30,6 @@ func main() {
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-
-    
     ctx := context.Background()
     res, err := s.Task.GetAll(ctx)
     if err != nil {
@@ -76,9 +74,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var taskID string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Task.Get(ctx, taskID)
     if err != nil {

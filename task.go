@@ -128,6 +128,7 @@ func (s *Task) GetAll(ctx context.Context) (*operations.GetTasksResponse, error)
 	}
 
 	return res, nil
+
 }
 
 // Get - Retrieve a Task
@@ -224,4 +225,5 @@ func (s *Task) Get(ctx context.Context, taskID string) (*operations.GetTaskRespo
 	}
 
 	return res, nil
+
 }

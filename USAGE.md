@@ -13,7 +13,6 @@ func main() {
 	s := livepeergo.New(
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
-
 	request := components.NewStreamPayload{
 		Name: "test_stream",
 		Pull: &components.Pull{
@@ -62,7 +61,6 @@ func main() {
 			},
 		},
 	}
-
 	ctx := context.Background()
 	res, err := s.Stream.Create(ctx, request)
 	if err != nil {

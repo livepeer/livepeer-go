@@ -133,6 +133,7 @@ func (s *Metrics) GetViewership(ctx context.Context, request operations.GetViewe
 	}
 
 	return res, nil
+
 }
 
 // GetCreatorViewership - Query creator viewership metrics
@@ -241,6 +242,7 @@ func (s *Metrics) GetCreatorViewership(ctx context.Context, request operations.G
 	}
 
 	return res, nil
+
 }
 
 // GetPublicViewership - Query public total views metrics
@@ -351,6 +353,7 @@ func (s *Metrics) GetPublicViewership(ctx context.Context, playbackID string) (*
 	}
 
 	return res, nil
+
 }
 
 // GetUsage - Query usage metrics
@@ -458,4 +461,5 @@ func (s *Metrics) GetUsage(ctx context.Context, request operations.GetUsageMetri
 	}
 
 	return res, nil
+
 }

@@ -64,7 +64,7 @@ func (o *GetPublicViewershipMetricsData) GetPlaytimeMins() *float64 {
 }
 
 type GetPublicViewershipMetricsResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// A single Metric object with the viewCount and playtimeMins metrics.
 	Data *GetPublicViewershipMetricsData
 	// Error

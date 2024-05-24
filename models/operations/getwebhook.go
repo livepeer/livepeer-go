@@ -19,7 +19,7 @@ func (o *GetWebhookRequest) GetID() string {
 }
 
 type GetWebhookResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Webhook *components.Webhook
 	// Error

@@ -31,9 +31,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Session.GetClips(ctx, id)
     if err != nil {
@@ -80,8 +78,6 @@ func main() {
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-
-    
     ctx := context.Background()
     res, err := s.Session.GetAll(ctx)
     if err != nil {
@@ -126,9 +122,7 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var id string = "<value>"
-    
     ctx := context.Background()
     res, err := s.Session.Get(ctx, id)
     if err != nil {
@@ -174,11 +168,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-
     var parentID string = "<value>"
 
     var record *int64 = livepeergo.Int64(1)
-    
     ctx := context.Background()
     res, err := s.Session.GetRecorded(ctx, parentID, record)
     if err != nil {

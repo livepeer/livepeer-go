@@ -20,7 +20,7 @@ func (o *GetSigningKeyRequest) GetKeyID() string {
 }
 
 type GetSigningKeyResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	SigningKey *components.SigningKey
 	// Error

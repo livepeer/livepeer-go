@@ -20,7 +20,7 @@ func (o *GetStreamRequest) GetID() string {
 }
 
 type GetStreamResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Stream *components.Stream
 	// Error

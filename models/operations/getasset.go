@@ -20,7 +20,7 @@ func (o *GetAssetRequest) GetAssetID() string {
 }
 
 type GetAssetResponse struct {
-	HTTPMeta components.HTTPMetadata
+	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Success
 	Asset *components.Asset
 	// Error
