@@ -348,7 +348,7 @@ func (s *Session) Get(ctx context.Context, id string) (*operations.GetSessionRes
 }
 
 // GetRecorded - Retrieve Recorded Sessions
-func (s *Session) GetRecorded(ctx context.Context, parentID string, record *int64) (*operations.GetRecordedSessionsResponse, error) {
+func (s *Session) GetRecorded(ctx context.Context, parentID string, record *operations.Record) (*operations.GetRecordedSessionsResponse, error) {
 	hookCtx := hooks.HookContext{
 		Context:        ctx,
 		OperationID:    "getRecordedSessions",

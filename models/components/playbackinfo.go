@@ -282,7 +282,7 @@ func (o *DvrPlayback) GetError() *string {
 
 type Meta struct {
 	Live *Live `json:"live,omitempty"`
-	// Whether the playback policy for a asset or stream is public or signed
+	// Whether the playback policy for an asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy      `json:"playbackPolicy,omitempty"`
 	Source         []PlaybackInfoSource `json:"source"`
 	DvrPlayback    []DvrPlayback        `json:"dvrPlayback,omitempty"`

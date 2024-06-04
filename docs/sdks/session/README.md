@@ -160,6 +160,7 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/operations"
 	"context"
 	"log"
 )
@@ -170,7 +171,9 @@ func main() {
     )
     var parentID string = "<value>"
 
-    var record *int64 = livepeergo.Int64(1)
+    var record *operations.Record = operations.CreateRecordBoolean(
+    true,
+    )
     ctx := context.Background()
     res, err := s.Session.GetRecorded(ctx, parentID, record)
     if err != nil {
@@ -188,7 +191,7 @@ func main() {
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | `ctx`                                                                  | [context.Context](https://pkg.go.dev/context#Context)                  | :heavy_check_mark:                                                     | The context to use for the request.                                    |                                                                        |
 | `parentID`                                                             | *string*                                                               | :heavy_check_mark:                                                     | ID of the parent stream                                                |                                                                        |
-| `record`                                                               | **int64*                                                               | :heavy_minus_sign:                                                     | Flag indicating if the response should only include recorded<br/>sessions<br/> | 1                                                                      |
+| `record`                                                               | [*operations.Record](../../models/operations/record.md)                | :heavy_minus_sign:                                                     | Flag indicating if the response should only include recorded<br/>sessions<br/> | true                                                                   |
 
 
 ### Response
