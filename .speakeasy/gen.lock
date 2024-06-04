@@ -1,18 +1,20 @@
 lockVersion: 2.0.0
 id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
-  docChecksum: b10c6d403306684b2080504dd2e51041
+  docChecksum: b23c9725282eea80900b05121d16fea8
   docVersion: 1.0.0
-  speakeasyVersion: 1.296.0
-  generationVersion: 2.337.1
-  releaseVersion: 0.1.9
-  configChecksum: 3dc9f5bfc5bdb07b7608d1109f86a92b
+  speakeasyVersion: 1.299.6
+  generationVersion: 2.338.12
+  releaseVersion: 0.1.10
+  configChecksum: 105ad9c12eb8b1f8ef31f9cef0516454
+  repoURL: https://github.com/livepeer/livepeer-go.git
+  installationURL: https://github.com/livepeer/livepeer-go
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.4
-    core: 3.4.10
+    core: 3.4.11
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.82.9
@@ -226,6 +228,7 @@ generatedFiles:
   - docs/models/operations/getsessionsresponse.md
   - docs/models/operations/getsessionrequest.md
   - docs/models/operations/getsessionresponse.md
+  - docs/models/operations/record.md
   - docs/models/operations/getrecordedsessionsrequest.md
   - docs/models/operations/getrecordedsessionsresponse.md
   - docs/models/operations/createroomresponse.md

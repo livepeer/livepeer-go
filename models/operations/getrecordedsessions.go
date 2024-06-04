@@ -3,9 +3,77 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
+	"github.com/livepeer/livepeer-go/internal/utils"
 	"github.com/livepeer/livepeer-go/models/components"
 	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
+
+type RecordType string
+
+const (
+	RecordTypeBoolean RecordType = "boolean"
+	RecordTypeInteger RecordType = "integer"
+)
+
+// Record - Flag indicating if the response should only include recorded
+// sessions
+type Record struct {
+	Boolean *bool
+	Integer *int64
+
+	Type RecordType
+}
+
+func CreateRecordBoolean(boolean bool) Record {
+	typ := RecordTypeBoolean
+
+	return Record{
+		Boolean: &boolean,
+		Type:    typ,
+	}
+}
+
+func CreateRecordInteger(integer int64) Record {
+	typ := RecordTypeInteger
+
+	return Record{
+		Integer: &integer,
+		Type:    typ,
+	}
+}
+
+func (u *Record) UnmarshalJSON(data []byte) error {
+
+	var boolean bool = false
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
+		u.Boolean = &boolean
+		u.Type = RecordTypeBoolean
+		return nil
+	}
+
+	var integer int64 = int64(0)
+	if err := utils.UnmarshalJSON(data, &integer, "", true, true); err == nil {
+		u.Integer = &integer
+		u.Type = RecordTypeInteger
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Record", string(data))
+}
+
+func (u Record) MarshalJSON() ([]byte, error) {
+	if u.Boolean != nil {
+		return utils.MarshalJSON(u.Boolean, "", true)
+	}
+
+	if u.Integer != nil {
+		return utils.MarshalJSON(u.Integer, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type Record: all fields are null")
+}
 
 type GetRecordedSessionsRequest struct {
 	// ID of the parent stream
@@ -13,7 +81,7 @@ type GetRecordedSessionsRequest struct {
 	// Flag indicating if the response should only include recorded
 	// sessions
 	//
-	Record *int64 `queryParam:"style=form,explode=true,name=record"`
+	Record *Record `queryParam:"style=form,explode=true,name=record"`
 }
 
 func (o *GetRecordedSessionsRequest) GetParentID() string {
@@ -23,7 +91,7 @@ func (o *GetRecordedSessionsRequest) GetParentID() string {
 	return o.ParentID
 }
 
-func (o *GetRecordedSessionsRequest) GetRecord() *int64 {
+func (o *GetRecordedSessionsRequest) GetRecord() *Record {
 	if o == nil {
 		return nil
 	}

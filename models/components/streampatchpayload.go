@@ -11,7 +11,7 @@ type StreamPatchPayload struct {
 	// If currently suspended
 	Suspended   *bool        `json:"suspended,omitempty"`
 	Multistream *Multistream `json:"multistream,omitempty"`
-	// Whether the playback policy for a asset or stream is public or signed
+	// Whether the playback policy for an asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
 	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
 	// User input tags associated with the stream

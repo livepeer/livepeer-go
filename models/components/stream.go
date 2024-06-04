@@ -377,7 +377,7 @@ type Stream struct {
 	Pull *StreamPull `json:"pull,omitempty"`
 	// The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
 	PlaybackID *string `json:"playbackId,omitempty"`
-	// Whether the playback policy for a asset or stream is public or signed
+	// Whether the playback policy for an asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
 	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
 	// Should this stream be recorded? Uses default settings. For more

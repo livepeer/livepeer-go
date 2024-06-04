@@ -118,7 +118,7 @@ type NewAssetPayload struct {
 	Name string `json:"name"`
 	// Whether to generate MP4s for the asset.
 	StaticMp4 *bool `json:"staticMp4,omitempty"`
-	// Whether the playback policy for a asset or stream is public or signed
+	// Whether the playback policy for an asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy            `json:"playbackPolicy,omitempty"`
 	CreatorID      *InputCreatorID            `json:"creatorId,omitempty"`
 	Storage        *NewAssetPayloadStorage    `json:"storage,omitempty"`

@@ -741,7 +741,7 @@ type Asset struct {
 	PlaybackURL *string `json:"playbackUrl,omitempty"`
 	// The URL to directly download the asset, e.g. `https://livepeercdn.com/asset/eawrrk06ts2d0mzb/video`. It is not recommended to use this for playback.
 	DownloadURL *string `json:"downloadUrl,omitempty"`
-	// Whether the playback policy for a asset or stream is public or signed
+	// Whether the playback policy for an asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
 	Source         Source          `json:"source"`
 	CreatorID      *CreatorID      `json:"creatorId,omitempty"`

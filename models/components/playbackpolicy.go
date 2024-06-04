@@ -36,7 +36,7 @@ func (e *Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PlaybackPolicy - Whether the playback policy for a asset or stream is public or signed
+// PlaybackPolicy - Whether the playback policy for an asset or stream is public or signed
 type PlaybackPolicy struct {
 	Type Type `json:"type"`
 	// ID of the webhook to use for playback policy
