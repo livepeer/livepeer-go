@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
-  docChecksum: b23c9725282eea80900b05121d16fea8
+  docChecksum: a20a2b61185fa86d7fba41119e953873
   docVersion: 1.0.0
-  speakeasyVersion: 1.299.6
-  generationVersion: 2.338.12
-  releaseVersion: 0.1.10
-  configChecksum: 105ad9c12eb8b1f8ef31f9cef0516454
+  speakeasyVersion: 1.300.1
+  generationVersion: 2.339.1
+  releaseVersion: 0.1.11
+  configChecksum: bd53ce4810c9a4c3b87d432a94820c11
   repoURL: https://github.com/livepeer/livepeer-go.git
   installationURL: https://github.com/livepeer/livepeer-go
 features:
@@ -125,6 +125,7 @@ generatedFiles:
   - /models/components/usertags.go
   - /models/components/multistream.go
   - /models/components/target.go
+  - /models/components/recordingspec.go
   - /models/components/inputcreatorid.go
   - /models/components/pull.go
   - /models/components/streampatchpayload.go
@@ -289,6 +290,7 @@ generatedFiles:
   - docs/models/components/streamismobile.md
   - docs/models/components/streamlocation.md
   - docs/models/components/streampull.md
+  - docs/models/components/streamrecordingspec.md
   - docs/models/components/streammultistream.md
   - docs/models/components/renditions.md
   - docs/models/components/stream.md
@@ -308,6 +310,7 @@ generatedFiles:
   - docs/models/components/multistream.md
   - docs/models/components/targetspec.md
   - docs/models/components/target.md
+  - docs/models/components/recordingspec.md
   - docs/models/components/inputcreatoridtype.md
   - docs/models/components/inputcreatorid1.md
   - docs/models/components/inputcreatorid.md

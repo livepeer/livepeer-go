@@ -84,6 +84,7 @@ func main() {
     )
     request := components.WebhookInput{
         Name: "test_webhook",
+        ProjectID: livepeergo.String("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
         Events: []components.Events{
             components.EventsStreamStarted,
             components.EventsStreamIdle,
@@ -188,6 +189,7 @@ func main() {
 
     webhook := components.WebhookInput{
         Name: "test_webhook",
+        ProjectID: livepeergo.String("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
         Events: []components.Events{
             components.EventsStreamStarted,
             components.EventsStreamIdle,

@@ -248,6 +248,21 @@ func main() {
 			},
 		},
 		Record: livepeergo.Bool(false),
+		RecordingSpec: &components.RecordingSpec{
+			Profiles: []components.FfmpegProfile{
+				components.FfmpegProfile{
+					Width:   1280,
+					Name:    "720p",
+					Height:  489382,
+					Bitrate: 3000000,
+					Fps:     30,
+					FpsDen:  livepeergo.Int64(1),
+					Quality: livepeergo.Int64(23),
+					Gop:     livepeergo.String("2"),
+					Profile: components.ProfileH264Baseline.ToPointer(),
+				},
+			},
+		},
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
@@ -327,6 +342,21 @@ func main() {
 			},
 		},
 		Record: livepeergo.Bool(false),
+		RecordingSpec: &components.RecordingSpec{
+			Profiles: []components.FfmpegProfile{
+				components.FfmpegProfile{
+					Width:   1280,
+					Name:    "720p",
+					Height:  489382,
+					Bitrate: 3000000,
+					Fps:     30,
+					FpsDen:  livepeergo.Int64(1),
+					Quality: livepeergo.Int64(23),
+					Gop:     livepeergo.String("2"),
+					Profile: components.ProfileH264Baseline.ToPointer(),
+				},
+			},
+		},
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
@@ -443,6 +473,21 @@ func main() {
 			},
 		},
 		Record: livepeergo.Bool(false),
+		RecordingSpec: &components.RecordingSpec{
+			Profiles: []components.FfmpegProfile{
+				components.FfmpegProfile{
+					Width:   1280,
+					Name:    "720p",
+					Height:  489382,
+					Bitrate: 3000000,
+					Fps:     30,
+					FpsDen:  livepeergo.Int64(1),
+					Quality: livepeergo.Int64(23),
+					Gop:     livepeergo.String("2"),
+					Profile: components.ProfileH264Baseline.ToPointer(),
+				},
+			},
+		},
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
@@ -537,6 +582,21 @@ func main() {
 			},
 		},
 		Record: livepeergo.Bool(false),
+		RecordingSpec: &components.RecordingSpec{
+			Profiles: []components.FfmpegProfile{
+				components.FfmpegProfile{
+					Width:   1280,
+					Name:    "720p",
+					Height:  489382,
+					Bitrate: 3000000,
+					Fps:     30,
+					FpsDen:  livepeergo.Int64(1),
+					Quality: livepeergo.Int64(23),
+					Gop:     livepeergo.String("2"),
+					Profile: components.ProfileH264Baseline.ToPointer(),
+				},
+			},
+		},
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{

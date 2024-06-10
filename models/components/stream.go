@@ -319,6 +319,23 @@ func (o *StreamPull) GetLocation() *StreamLocation {
 	return o.Location
 }
 
+// StreamRecordingSpec - Configuration for recording the stream. This can only be set if
+// `record` is true.
+type StreamRecordingSpec struct {
+	// Profiles to record the stream in. If not specified, the stream
+	// will be recorded in the same profiles as the stream itself. Keep
+	// in mind that the source rendition will always be recorded.
+	//
+	Profiles []FfmpegProfile `json:"profiles,omitempty"`
+}
+
+func (o *StreamRecordingSpec) GetProfiles() []FfmpegProfile {
+	if o == nil {
+		return nil
+	}
+	return o.Profiles
+}
+
 type StreamMultistream struct {
 	// References to targets where this stream will be simultaneously
 	// streamed to
@@ -380,11 +397,17 @@ type Stream struct {
 	// Whether the playback policy for an asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
 	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
+	// The ID of the project
+	ProjectID *string `json:"projectId,omitempty"`
 	// Should this stream be recorded? Uses default settings. For more
 	// customization, create and configure an object store.
 	//
-	Record      *bool              `json:"record,omitempty"`
-	Multistream *StreamMultistream `json:"multistream,omitempty"`
+	Record *bool `json:"record,omitempty"`
+	// Configuration for recording the stream. This can only be set if
+	// `record` is true.
+	//
+	RecordingSpec *StreamRecordingSpec `json:"recordingSpec,omitempty"`
+	Multistream   *StreamMultistream   `json:"multistream,omitempty"`
 	// If currently suspended
 	Suspended *bool `json:"suspended,omitempty"`
 	// Timestamp (in milliseconds) when the stream was last terminated
@@ -569,11 +592,25 @@ func (o *Stream) GetProfiles() []FfmpegProfile {
 	return o.Profiles
 }
 
+func (o *Stream) GetProjectID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProjectID
+}
+
 func (o *Stream) GetRecord() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.Record
+}
+
+func (o *Stream) GetRecordingSpec() *StreamRecordingSpec {
+	if o == nil {
+		return nil
+	}
+	return o.RecordingSpec
 }
 
 func (o *Stream) GetMultistream() *StreamMultistream {
