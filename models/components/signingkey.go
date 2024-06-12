@@ -15,6 +15,8 @@ type SigningKey struct {
 	PublicKey string   `json:"publicKey"`
 	// Disable the signing key to allow rotation safely
 	Disabled *bool `json:"disabled,omitempty"`
+	// The ID of the project
+	ProjectID *string `json:"projectId,omitempty"`
 }
 
 func (o *SigningKey) GetID() *string {
@@ -64,4 +66,11 @@ func (o *SigningKey) GetDisabled() *bool {
 		return nil
 	}
 	return o.Disabled
+}
+
+func (o *SigningKey) GetProjectID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProjectID
 }
