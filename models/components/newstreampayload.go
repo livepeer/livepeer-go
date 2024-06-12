@@ -15,8 +15,12 @@ type NewStreamPayload struct {
 	// Should this stream be recorded? Uses default settings. For more
 	// customization, create and configure an object store.
 	//
-	Record      *bool        `json:"record,omitempty"`
-	Multistream *Multistream `json:"multistream,omitempty"`
+	Record *bool `json:"record,omitempty"`
+	// Configuration for recording the stream. This can only be set if
+	// `record` is true.
+	//
+	RecordingSpec *RecordingSpec `json:"recordingSpec,omitempty"`
+	Multistream   *Multistream   `json:"multistream,omitempty"`
 	// User input tags associated with the stream
 	UserTags map[string]UserTags `json:"userTags,omitempty"`
 }
@@ -61,6 +65,13 @@ func (o *NewStreamPayload) GetRecord() *bool {
 		return nil
 	}
 	return o.Record
+}
+
+func (o *NewStreamPayload) GetRecordingSpec() *RecordingSpec {
+	if o == nil {
+		return nil
+	}
+	return o.RecordingSpec
 }
 
 func (o *NewStreamPayload) GetMultistream() *Multistream {

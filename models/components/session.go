@@ -68,6 +68,8 @@ type Session struct {
 	CreatedAt *float64 `json:"createdAt,omitempty"`
 	// Points to parent stream object
 	ParentID *string `json:"parentId,omitempty"`
+	// The ID of the project
+	ProjectID *string `json:"projectId,omitempty"`
 	// Whether the stream should be recorded. Uses default settings. For more customization, create and configure an object store.
 	//
 	Record *bool `json:"record,omitempty"`
@@ -80,6 +82,10 @@ type Session struct {
 	// The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
 	PlaybackID *string         `json:"playbackId,omitempty"`
 	Profiles   []FfmpegProfile `json:"profiles,omitempty"`
+	// Configuration for recording the stream. This can only be set if
+	// `record` is true.
+	//
+	RecordingSpec *RecordingSpec `json:"recordingSpec,omitempty"`
 }
 
 func (o *Session) GetID() *string {
@@ -201,6 +207,13 @@ func (o *Session) GetParentID() *string {
 	return o.ParentID
 }
 
+func (o *Session) GetProjectID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProjectID
+}
+
 func (o *Session) GetRecord() *bool {
 	if o == nil {
 		return nil
@@ -241,4 +254,11 @@ func (o *Session) GetProfiles() []FfmpegProfile {
 		return nil
 	}
 	return o.Profiles
+}
+
+func (o *Session) GetRecordingSpec() *RecordingSpec {
+	if o == nil {
+		return nil
+	}
+	return o.RecordingSpec
 }
