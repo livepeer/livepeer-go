@@ -3,41 +3,20 @@
 package components
 
 type SigningKey struct {
-	ID *string `json:"id,omitempty"`
-	// Name of the signing key
-	Name *string `json:"name,omitempty"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-	UserID *string `json:"userId,omitempty"`
 	// Timestamp (in milliseconds) at which the signing-key was created
 	CreatedAt *float64 `json:"createdAt,omitempty"`
-	// Timestamp (in milliseconds) at which the signing-key was last used
-	LastSeen  *float64 `json:"lastSeen,omitempty"`
-	PublicKey string   `json:"publicKey"`
 	// Disable the signing key to allow rotation safely
-	Disabled *bool `json:"disabled,omitempty"`
+	Disabled *bool   `json:"disabled,omitempty"`
+	ID       *string `json:"id,omitempty"`
+	// Timestamp (in milliseconds) at which the signing-key was last used
+	LastSeen *float64 `json:"lastSeen,omitempty"`
+	// Name of the signing key
+	Name *string `json:"name,omitempty"`
 	// The ID of the project
 	ProjectID *string `json:"projectId,omitempty"`
-}
-
-func (o *SigningKey) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *SigningKey) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *SigningKey) GetUserID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.UserID
+	PublicKey string  `json:"publicKey"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	UserID *string `json:"userId,omitempty"`
 }
 
 func (o *SigningKey) GetCreatedAt() *float64 {
@@ -47,11 +26,39 @@ func (o *SigningKey) GetCreatedAt() *float64 {
 	return o.CreatedAt
 }
 
+func (o *SigningKey) GetDisabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Disabled
+}
+
+func (o *SigningKey) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
 func (o *SigningKey) GetLastSeen() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.LastSeen
+}
+
+func (o *SigningKey) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
+}
+
+func (o *SigningKey) GetProjectID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProjectID
 }
 
 func (o *SigningKey) GetPublicKey() string {
@@ -61,16 +68,9 @@ func (o *SigningKey) GetPublicKey() string {
 	return o.PublicKey
 }
 
-func (o *SigningKey) GetDisabled() *bool {
+func (o *SigningKey) GetUserID() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Disabled
-}
-
-func (o *SigningKey) GetProjectID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ProjectID
+	return o.UserID
 }

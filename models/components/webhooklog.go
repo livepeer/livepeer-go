@@ -3,28 +3,21 @@
 package components
 
 type Request struct {
-	// URL used for the request
-	URL *string `json:"url,omitempty"`
-	// HTTP request method
-	Method *string `json:"method,omitempty"`
-	// HTTP request headers
-	Headers map[string]string `json:"headers,omitempty"`
 	// request body
 	Body *string `json:"body,omitempty"`
+	// HTTP request headers
+	Headers map[string]string `json:"headers,omitempty"`
+	// HTTP request method
+	Method *string `json:"method,omitempty"`
+	// URL used for the request
+	URL *string `json:"url,omitempty"`
 }
 
-func (o *Request) GetURL() *string {
+func (o *Request) GetBody() *string {
 	if o == nil {
 		return nil
 	}
-	return o.URL
-}
-
-func (o *Request) GetMethod() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Method
+	return o.Body
 }
 
 func (o *Request) GetHeaders() map[string]string {
@@ -34,11 +27,18 @@ func (o *Request) GetHeaders() map[string]string {
 	return o.Headers
 }
 
-func (o *Request) GetBody() *string {
+func (o *Request) GetMethod() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Body
+	return o.Method
+}
+
+func (o *Request) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
 }
 
 type Response struct {
@@ -72,42 +72,21 @@ func (o *Response) GetStatusText() *string {
 }
 
 type WebhookLog struct {
-	ID string `json:"id"`
-	// ID of the webhook this request was made for
-	WebhookID string `json:"webhookId"`
-	// The event type that triggered the webhook request
-	Event *string `json:"event,omitempty"`
 	// Timestamp (in milliseconds) at which webhook request object was
 	// created
 	//
 	CreatedAt *float64 `json:"createdAt,omitempty"`
 	// The time taken (in seconds) to make the webhook request
 	Duration *float64 `json:"duration,omitempty"`
-	// Whether the webhook request was successful
-	Success  *bool     `json:"success,omitempty"`
+	// The event type that triggered the webhook request
+	Event    *string   `json:"event,omitempty"`
+	ID       string    `json:"id"`
 	Request  *Request  `json:"request,omitempty"`
 	Response *Response `json:"response,omitempty"`
-}
-
-func (o *WebhookLog) GetID() string {
-	if o == nil {
-		return ""
-	}
-	return o.ID
-}
-
-func (o *WebhookLog) GetWebhookID() string {
-	if o == nil {
-		return ""
-	}
-	return o.WebhookID
-}
-
-func (o *WebhookLog) GetEvent() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Event
+	// Whether the webhook request was successful
+	Success *bool `json:"success,omitempty"`
+	// ID of the webhook this request was made for
+	WebhookID string `json:"webhookId"`
 }
 
 func (o *WebhookLog) GetCreatedAt() *float64 {
@@ -124,11 +103,18 @@ func (o *WebhookLog) GetDuration() *float64 {
 	return o.Duration
 }
 
-func (o *WebhookLog) GetSuccess() *bool {
+func (o *WebhookLog) GetEvent() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Success
+	return o.Event
+}
+
+func (o *WebhookLog) GetID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ID
 }
 
 func (o *WebhookLog) GetRequest() *Request {
@@ -143,4 +129,18 @@ func (o *WebhookLog) GetResponse() *Response {
 		return nil
 	}
 	return o.Response
+}
+
+func (o *WebhookLog) GetSuccess() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Success
+}
+
+func (o *WebhookLog) GetWebhookID() string {
+	if o == nil {
+		return ""
+	}
+	return o.WebhookID
 }

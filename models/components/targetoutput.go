@@ -7,6 +7,8 @@ import (
 )
 
 type TargetOutput struct {
+	// ID of multistream target object where to push this stream
+	ID *string `json:"id,omitempty"`
 	// Name of transcoding profile that should be sent. Use
 	// "source" for pushing source stream data
 	//
@@ -15,8 +17,6 @@ type TargetOutput struct {
 	// video will be pushed to the target.
 	//
 	VideoOnly *bool `default:"false" json:"videoOnly"`
-	// ID of multistream target object where to push this stream
-	ID *string `json:"id,omitempty"`
 }
 
 func (t TargetOutput) MarshalJSON() ([]byte, error) {
@@ -28,6 +28,13 @@ func (t *TargetOutput) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (o *TargetOutput) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
 }
 
 func (o *TargetOutput) GetProfile() string {
@@ -42,11 +49,4 @@ func (o *TargetOutput) GetVideoOnly() *bool {
 		return nil
 	}
 	return o.VideoOnly
-}
-
-func (o *TargetOutput) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
 }

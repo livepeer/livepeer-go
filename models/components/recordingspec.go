@@ -5,14 +5,14 @@ package components
 // RecordingSpec - Configuration for recording the stream. This can only be set if
 // `record` is true.
 type RecordingSpec struct {
-	// Profiles to record the stream in. If not specified, the stream
-	// will be recorded in the same profiles as the stream itself. Keep
-	// in mind that the source rendition will always be recorded.
+	// Profiles to process the recording of this stream into. If not
+	// specified, default profiles will be derived based on the stream
+	// input. Keep in mind that the source rendition is always kept.
 	//
-	Profiles []FfmpegProfile `json:"profiles,omitempty"`
+	Profiles []TranscodeProfile `json:"profiles,omitempty"`
 }
 
-func (o *RecordingSpec) GetProfiles() []FfmpegProfile {
+func (o *RecordingSpec) GetProfiles() []TranscodeProfile {
 	if o == nil {
 		return nil
 	}

@@ -30,21 +30,21 @@ func (o *TargetAddPayloadSpec) GetURL() string {
 }
 
 type TargetAddPayload struct {
+	// ID of multistream target object where to push this stream
+	ID *string `json:"id,omitempty"`
 	// Name of transcoding profile that should be sent. Use
 	// "source" for pushing source stream data
 	//
 	Profile string `json:"profile"`
-	// If true, the stream audio will be muted and only silent
-	// video will be pushed to the target.
-	//
-	VideoOnly *bool `default:"false" json:"videoOnly"`
-	// ID of multistream target object where to push this stream
-	ID *string `json:"id,omitempty"`
 	// Inline multistream target object. Will automatically
 	// create the target resource to be used by the created
 	// stream.
 	//
 	Spec *TargetAddPayloadSpec `json:"spec,omitempty"`
+	// If true, the stream audio will be muted and only silent
+	// video will be pushed to the target.
+	//
+	VideoOnly *bool `default:"false" json:"videoOnly"`
 }
 
 func (t TargetAddPayload) MarshalJSON() ([]byte, error) {
@@ -58,20 +58,6 @@ func (t *TargetAddPayload) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *TargetAddPayload) GetProfile() string {
-	if o == nil {
-		return ""
-	}
-	return o.Profile
-}
-
-func (o *TargetAddPayload) GetVideoOnly() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.VideoOnly
-}
-
 func (o *TargetAddPayload) GetID() *string {
 	if o == nil {
 		return nil
@@ -79,9 +65,23 @@ func (o *TargetAddPayload) GetID() *string {
 	return o.ID
 }
 
+func (o *TargetAddPayload) GetProfile() string {
+	if o == nil {
+		return ""
+	}
+	return o.Profile
+}
+
 func (o *TargetAddPayload) GetSpec() *TargetAddPayloadSpec {
 	if o == nil {
 		return nil
 	}
 	return o.Spec
+}
+
+func (o *TargetAddPayload) GetVideoOnly() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VideoOnly
 }

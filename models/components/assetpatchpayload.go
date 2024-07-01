@@ -3,20 +3,13 @@
 package components
 
 type AssetPatchPayload struct {
+	CreatorID *InputCreatorID `json:"creatorId,omitempty"`
 	// The name of the asset. This is not necessarily the filename - it can be a custom name or title.
 	//
-	Name      *string         `json:"name,omitempty"`
-	CreatorID *InputCreatorID `json:"creatorId,omitempty"`
+	Name *string `json:"name,omitempty"`
 	// Whether the playback policy for an asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
 	Storage        *Storage        `json:"storage,omitempty"`
-}
-
-func (o *AssetPatchPayload) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
 }
 
 func (o *AssetPatchPayload) GetCreatorID() *InputCreatorID {
@@ -24,6 +17,13 @@ func (o *AssetPatchPayload) GetCreatorID() *InputCreatorID {
 		return nil
 	}
 	return o.CreatorID
+}
+
+func (o *AssetPatchPayload) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
 }
 
 func (o *AssetPatchPayload) GetPlaybackPolicy() *PlaybackPolicy {

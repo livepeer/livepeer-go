@@ -9,14 +9,14 @@ import (
 type GetRoomUserResponse struct {
 	// The ID of the user
 	ID *string `json:"id,omitempty"`
-	// Timestamp (in milliseconds) at which the user joined
-	JoinedAt *int64 `json:"joinedAt,omitempty"`
-	// The display name of the user
-	Name *string `json:"name,omitempty"`
 	// Whether a user is allowed to publish audio/video tracks
 	IsPublisher *bool `default:"true" json:"isPublisher"`
+	// Timestamp (in milliseconds) at which the user joined
+	JoinedAt *int64 `json:"joinedAt,omitempty"`
 	// User defined payload to store for the participant
 	Metadata *string `json:"metadata,omitempty"`
+	// The display name of the user
+	Name *string `json:"name,omitempty"`
 }
 
 func (g GetRoomUserResponse) MarshalJSON() ([]byte, error) {
@@ -37,20 +37,6 @@ func (o *GetRoomUserResponse) GetID() *string {
 	return o.ID
 }
 
-func (o *GetRoomUserResponse) GetJoinedAt() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.JoinedAt
-}
-
-func (o *GetRoomUserResponse) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
 func (o *GetRoomUserResponse) GetIsPublisher() *bool {
 	if o == nil {
 		return nil
@@ -58,9 +44,23 @@ func (o *GetRoomUserResponse) GetIsPublisher() *bool {
 	return o.IsPublisher
 }
 
+func (o *GetRoomUserResponse) GetJoinedAt() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.JoinedAt
+}
+
 func (o *GetRoomUserResponse) GetMetadata() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Metadata
+}
+
+func (o *GetRoomUserResponse) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
 }

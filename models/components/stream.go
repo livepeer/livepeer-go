@@ -9,6 +9,202 @@ import (
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
+type StreamMultistream struct {
+	// References to targets where this stream will be simultaneously
+	// streamed to
+	//
+	Targets []TargetOutput `json:"targets,omitempty"`
+}
+
+func (o *StreamMultistream) GetTargets() []TargetOutput {
+	if o == nil {
+		return nil
+	}
+	return o.Targets
+}
+
+// StreamIsMobile1 - 0: not mobile, 1: mobile screen share, 2: mobile camera.
+type StreamIsMobile1 int64
+
+const (
+	StreamIsMobile1Zero StreamIsMobile1 = 0
+	StreamIsMobile1One  StreamIsMobile1 = 1
+	StreamIsMobile1Two  StreamIsMobile1 = 2
+)
+
+func (e StreamIsMobile1) ToPointer() *StreamIsMobile1 {
+	return &e
+}
+func (e *StreamIsMobile1) UnmarshalJSON(data []byte) error {
+	var v int64
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case 0:
+		fallthrough
+	case 1:
+		fallthrough
+	case 2:
+		*e = StreamIsMobile1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for StreamIsMobile1: %v", v)
+	}
+}
+
+type StreamIsMobileType string
+
+const (
+	StreamIsMobileTypeStreamIsMobile1 StreamIsMobileType = "stream_isMobile_1"
+	StreamIsMobileTypeBoolean         StreamIsMobileType = "boolean"
+)
+
+// StreamIsMobile - Indicates whether the stream will be pulled from a mobile source.
+type StreamIsMobile struct {
+	StreamIsMobile1 *StreamIsMobile1
+	Boolean         *bool
+
+	Type StreamIsMobileType
+}
+
+func CreateStreamIsMobileStreamIsMobile1(streamIsMobile1 StreamIsMobile1) StreamIsMobile {
+	typ := StreamIsMobileTypeStreamIsMobile1
+
+	return StreamIsMobile{
+		StreamIsMobile1: &streamIsMobile1,
+		Type:            typ,
+	}
+}
+
+func CreateStreamIsMobileBoolean(boolean bool) StreamIsMobile {
+	typ := StreamIsMobileTypeBoolean
+
+	return StreamIsMobile{
+		Boolean: &boolean,
+		Type:    typ,
+	}
+}
+
+func (u *StreamIsMobile) UnmarshalJSON(data []byte) error {
+
+	var streamIsMobile1 StreamIsMobile1 = StreamIsMobile1(0)
+	if err := utils.UnmarshalJSON(data, &streamIsMobile1, "", true, true); err == nil {
+		u.StreamIsMobile1 = &streamIsMobile1
+		u.Type = StreamIsMobileTypeStreamIsMobile1
+		return nil
+	}
+
+	var boolean bool = false
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
+		u.Boolean = &boolean
+		u.Type = StreamIsMobileTypeBoolean
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for StreamIsMobile", string(data))
+}
+
+func (u StreamIsMobile) MarshalJSON() ([]byte, error) {
+	if u.StreamIsMobile1 != nil {
+		return utils.MarshalJSON(u.StreamIsMobile1, "", true)
+	}
+
+	if u.Boolean != nil {
+		return utils.MarshalJSON(u.Boolean, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type StreamIsMobile: all fields are null")
+}
+
+// StreamLocation - Approximate location of the pull source. The location is used to
+// determine the closest Livepeer region to pull the stream from.
+type StreamLocation struct {
+	// Latitude of the pull source in degrees. North is positive,
+	// south is negative.
+	Lat float64 `json:"lat"`
+	// Longitude of the pull source in degrees. East is positive,
+	// west is negative.
+	Lon float64 `json:"lon"`
+}
+
+func (o *StreamLocation) GetLat() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.Lat
+}
+
+func (o *StreamLocation) GetLon() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.Lon
+}
+
+// StreamPull - Configuration for a stream that should be actively pulled from an
+// external source, rather than pushed to Livepeer. If specified, the
+// stream will not have a streamKey.
+type StreamPull struct {
+	// Headers to be sent with the request to the pull source.
+	Headers map[string]string `json:"headers,omitempty"`
+	// Indicates whether the stream will be pulled from a mobile source.
+	IsMobile *StreamIsMobile `json:"isMobile,omitempty"`
+	// Approximate location of the pull source. The location is used to
+	// determine the closest Livepeer region to pull the stream from.
+	Location *StreamLocation `json:"location,omitempty"`
+	// URL from which to pull from.
+	Source string `json:"source"`
+}
+
+func (o *StreamPull) GetHeaders() map[string]string {
+	if o == nil {
+		return nil
+	}
+	return o.Headers
+}
+
+func (o *StreamPull) GetIsMobile() *StreamIsMobile {
+	if o == nil {
+		return nil
+	}
+	return o.IsMobile
+}
+
+func (o *StreamPull) GetLocation() *StreamLocation {
+	if o == nil {
+		return nil
+	}
+	return o.Location
+}
+
+func (o *StreamPull) GetSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.Source
+}
+
+// StreamRecordingSpec - Configuration for recording the stream. This can only be set if
+// `record` is true.
+type StreamRecordingSpec struct {
+	// Profiles to process the recording of this stream into. If not
+	// specified, default profiles will be derived based on the stream
+	// input. Keep in mind that the source rendition is always kept.
+	//
+	Profiles []TranscodeProfile `json:"profiles,omitempty"`
+}
+
+func (o *StreamRecordingSpec) GetProfiles() []TranscodeProfile {
+	if o == nil {
+		return nil
+	}
+	return o.Profiles
+}
+
+type Renditions struct {
+}
+
 type ThreeType string
 
 const (
@@ -157,248 +353,47 @@ func (u StreamUserTags) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type StreamUserTags: all fields are null")
 }
 
-// IsMobile1 - 0: not mobile, 1: mobile screen share, 2: mobile camera.
-type IsMobile1 int64
-
-const (
-	IsMobile1Zero IsMobile1 = 0
-	IsMobile1One  IsMobile1 = 1
-	IsMobile1Two  IsMobile1 = 2
-)
-
-func (e IsMobile1) ToPointer() *IsMobile1 {
-	return &e
-}
-func (e *IsMobile1) UnmarshalJSON(data []byte) error {
-	var v int64
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case 0:
-		fallthrough
-	case 1:
-		fallthrough
-	case 2:
-		*e = IsMobile1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for IsMobile1: %v", v)
-	}
-}
-
-type StreamIsMobileType string
-
-const (
-	StreamIsMobileTypeIsMobile1 StreamIsMobileType = "isMobile_1"
-	StreamIsMobileTypeBoolean   StreamIsMobileType = "boolean"
-)
-
-// StreamIsMobile - Indicates whether the stream will be pulled from a mobile source.
-type StreamIsMobile struct {
-	IsMobile1 *IsMobile1
-	Boolean   *bool
-
-	Type StreamIsMobileType
-}
-
-func CreateStreamIsMobileIsMobile1(isMobile1 IsMobile1) StreamIsMobile {
-	typ := StreamIsMobileTypeIsMobile1
-
-	return StreamIsMobile{
-		IsMobile1: &isMobile1,
-		Type:      typ,
-	}
-}
-
-func CreateStreamIsMobileBoolean(boolean bool) StreamIsMobile {
-	typ := StreamIsMobileTypeBoolean
-
-	return StreamIsMobile{
-		Boolean: &boolean,
-		Type:    typ,
-	}
-}
-
-func (u *StreamIsMobile) UnmarshalJSON(data []byte) error {
-
-	var isMobile1 IsMobile1 = IsMobile1(0)
-	if err := utils.UnmarshalJSON(data, &isMobile1, "", true, true); err == nil {
-		u.IsMobile1 = &isMobile1
-		u.Type = StreamIsMobileTypeIsMobile1
-		return nil
-	}
-
-	var boolean bool = false
-	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
-		u.Boolean = &boolean
-		u.Type = StreamIsMobileTypeBoolean
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for StreamIsMobile", string(data))
-}
-
-func (u StreamIsMobile) MarshalJSON() ([]byte, error) {
-	if u.IsMobile1 != nil {
-		return utils.MarshalJSON(u.IsMobile1, "", true)
-	}
-
-	if u.Boolean != nil {
-		return utils.MarshalJSON(u.Boolean, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type StreamIsMobile: all fields are null")
-}
-
-// StreamLocation - Approximate location of the pull source. The location is used to
-// determine the closest Livepeer region to pull the stream from.
-type StreamLocation struct {
-	// Latitude of the pull source in degrees. North is positive,
-	// south is negative.
-	Lat float64 `json:"lat"`
-	// Longitude of the pull source in degrees. East is positive,
-	// west is negative.
-	Lon float64 `json:"lon"`
-}
-
-func (o *StreamLocation) GetLat() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.Lat
-}
-
-func (o *StreamLocation) GetLon() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.Lon
-}
-
-// StreamPull - Configuration for a stream that should be actively pulled from an
-// external source, rather than pushed to Livepeer. If specified, the
-// stream will not have a streamKey.
-type StreamPull struct {
-	// URL from which to pull from.
-	Source string `json:"source"`
-	// Headers to be sent with the request to the pull source.
-	Headers map[string]string `json:"headers,omitempty"`
-	// Indicates whether the stream will be pulled from a mobile source.
-	IsMobile *StreamIsMobile `json:"isMobile,omitempty"`
-	// Approximate location of the pull source. The location is used to
-	// determine the closest Livepeer region to pull the stream from.
-	Location *StreamLocation `json:"location,omitempty"`
-}
-
-func (o *StreamPull) GetSource() string {
-	if o == nil {
-		return ""
-	}
-	return o.Source
-}
-
-func (o *StreamPull) GetHeaders() map[string]string {
-	if o == nil {
-		return nil
-	}
-	return o.Headers
-}
-
-func (o *StreamPull) GetIsMobile() *StreamIsMobile {
-	if o == nil {
-		return nil
-	}
-	return o.IsMobile
-}
-
-func (o *StreamPull) GetLocation() *StreamLocation {
-	if o == nil {
-		return nil
-	}
-	return o.Location
-}
-
-// StreamRecordingSpec - Configuration for recording the stream. This can only be set if
-// `record` is true.
-type StreamRecordingSpec struct {
-	// Profiles to record the stream in. If not specified, the stream
-	// will be recorded in the same profiles as the stream itself. Keep
-	// in mind that the source rendition will always be recorded.
-	//
-	Profiles []FfmpegProfile `json:"profiles,omitempty"`
-}
-
-func (o *StreamRecordingSpec) GetProfiles() []FfmpegProfile {
-	if o == nil {
-		return nil
-	}
-	return o.Profiles
-}
-
-type StreamMultistream struct {
-	// References to targets where this stream will be simultaneously
-	// streamed to
-	//
-	Targets []TargetOutput `json:"targets,omitempty"`
-}
-
-func (o *StreamMultistream) GetTargets() []TargetOutput {
-	if o == nil {
-		return nil
-	}
-	return o.Targets
-}
-
-type Renditions struct {
-}
-
 type Stream struct {
-	ID   *string `json:"id,omitempty"`
-	Name string  `json:"name"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-	Kind      *string    `json:"kind,omitempty"`
-	CreatorID *CreatorID `json:"creatorId,omitempty"`
-	// User input tags associated with the stream
-	UserTags           map[string]StreamUserTags `json:"userTags,omitempty"`
-	LastSeen           *float64                  `json:"lastSeen,omitempty"`
-	SourceSegments     *float64                  `json:"sourceSegments,omitempty"`
-	TranscodedSegments *float64                  `json:"transcodedSegments,omitempty"`
-	// Duration of all the source segments, sec
-	SourceSegmentsDuration *float64 `json:"sourceSegmentsDuration,omitempty"`
-	// Duration of all the transcoded segments, sec
-	TranscodedSegmentsDuration *float64 `json:"transcodedSegmentsDuration,omitempty"`
-	SourceBytes                *float64 `json:"sourceBytes,omitempty"`
-	TranscodedBytes            *float64 `json:"transcodedBytes,omitempty"`
+	// Timestamp (in milliseconds) at which stream object was created
+	CreatedAt *float64 `json:"createdAt,omitempty"`
+	// Name of the token used to create this object
+	CreatedByTokenName *string    `json:"createdByTokenName,omitempty"`
+	CreatorID          *CreatorID `json:"creatorId,omitempty"`
+	ID                 *string    `json:"id,omitempty"`
 	// Rate at which sourceBytes increases (bytes/second)
 	IngestRate *float64 `json:"ingestRate,omitempty"`
-	// Rate at which transcodedBytes increases (bytes/second)
-	OutgoingRate *float64 `json:"outgoingRate,omitempty"`
 	// If currently active
 	IsActive *bool `json:"isActive,omitempty"`
 	// Indicates whether the stream is healthy or not.
 	IsHealthy *bool `json:"isHealthy,omitempty"`
 	// A string array of human-readable errors describing issues affecting the stream, if any.
 	Issues []string `json:"issues,omitempty"`
-	// Name of the token used to create this object
-	CreatedByTokenName *string `json:"createdByTokenName,omitempty"`
-	// Timestamp (in milliseconds) at which stream object was created
-	CreatedAt *float64 `json:"createdAt,omitempty"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	Kind     *string  `json:"kind,omitempty"`
+	LastSeen *float64 `json:"lastSeen,omitempty"`
+	// Timestamp (in milliseconds) when the stream was last terminated
+	LastTerminatedAt *float64           `json:"lastTerminatedAt,omitempty"`
+	Multistream      *StreamMultistream `json:"multistream,omitempty"`
+	Name             string             `json:"name"`
+	// Rate at which transcodedBytes increases (bytes/second)
+	OutgoingRate *float64 `json:"outgoingRate,omitempty"`
 	// Points to parent stream object
 	ParentID *string `json:"parentId,omitempty"`
-	// Used to form RTMP ingest URL
-	StreamKey *string `json:"streamKey,omitempty"`
-	// Configuration for a stream that should be actively pulled from an
-	// external source, rather than pushed to Livepeer. If specified, the
-	// stream will not have a streamKey.
-	Pull *StreamPull `json:"pull,omitempty"`
 	// The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
 	PlaybackID *string `json:"playbackId,omitempty"`
 	// Whether the playback policy for an asset or stream is public or signed
 	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
-	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
+	// Profiles to transcode the stream into. If not specified, a default
+	// set of profiles will be used with 240p, 360p, 480p and 720p
+	// resolutions. Keep in mind that the source rendition is always kept.
+	//
+	Profiles []FfmpegProfile `json:"profiles,omitempty"`
 	// The ID of the project
 	ProjectID *string `json:"projectId,omitempty"`
+	// Configuration for a stream that should be actively pulled from an
+	// external source, rather than pushed to Livepeer. If specified, the
+	// stream will not have a streamKey.
+	Pull *StreamPull `json:"pull,omitempty"`
 	// Should this stream be recorded? Uses default settings. For more
 	// customization, create and configure an object store.
 	//
@@ -406,36 +401,38 @@ type Stream struct {
 	// Configuration for recording the stream. This can only be set if
 	// `record` is true.
 	//
-	RecordingSpec *StreamRecordingSpec `json:"recordingSpec,omitempty"`
-	Multistream   *StreamMultistream   `json:"multistream,omitempty"`
+	RecordingSpec  *StreamRecordingSpec `json:"recordingSpec,omitempty"`
+	Renditions     *Renditions          `json:"renditions,omitempty"`
+	SourceBytes    *float64             `json:"sourceBytes,omitempty"`
+	SourceSegments *float64             `json:"sourceSegments,omitempty"`
+	// Duration of all the source segments, sec
+	SourceSegmentsDuration *float64 `json:"sourceSegmentsDuration,omitempty"`
+	// Used to form RTMP ingest URL
+	StreamKey *string `json:"streamKey,omitempty"`
 	// If currently suspended
-	Suspended *bool `json:"suspended,omitempty"`
-	// Timestamp (in milliseconds) when the stream was last terminated
-	LastTerminatedAt *float64 `json:"lastTerminatedAt,omitempty"`
+	Suspended          *bool    `json:"suspended,omitempty"`
+	TranscodedBytes    *float64 `json:"transcodedBytes,omitempty"`
+	TranscodedSegments *float64 `json:"transcodedSegments,omitempty"`
+	// Duration of all the transcoded segments, sec
+	TranscodedSegmentsDuration *float64 `json:"transcodedSegmentsDuration,omitempty"`
 	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-	UserID     *string     `json:"userId,omitempty"`
-	Renditions *Renditions `json:"renditions,omitempty"`
+	UserID *string `json:"userId,omitempty"`
+	// User input tags associated with the stream
+	UserTags map[string]StreamUserTags `json:"userTags,omitempty"`
 }
 
-func (o *Stream) GetID() *string {
+func (o *Stream) GetCreatedAt() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.ID
+	return o.CreatedAt
 }
 
-func (o *Stream) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *Stream) GetKind() *string {
+func (o *Stream) GetCreatedByTokenName() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Kind
+	return o.CreatedByTokenName
 }
 
 func (o *Stream) GetCreatorID() *CreatorID {
@@ -445,60 +442,11 @@ func (o *Stream) GetCreatorID() *CreatorID {
 	return o.CreatorID
 }
 
-func (o *Stream) GetUserTags() map[string]StreamUserTags {
+func (o *Stream) GetID() *string {
 	if o == nil {
 		return nil
 	}
-	return o.UserTags
-}
-
-func (o *Stream) GetLastSeen() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.LastSeen
-}
-
-func (o *Stream) GetSourceSegments() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.SourceSegments
-}
-
-func (o *Stream) GetTranscodedSegments() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TranscodedSegments
-}
-
-func (o *Stream) GetSourceSegmentsDuration() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.SourceSegmentsDuration
-}
-
-func (o *Stream) GetTranscodedSegmentsDuration() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TranscodedSegmentsDuration
-}
-
-func (o *Stream) GetSourceBytes() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.SourceBytes
-}
-
-func (o *Stream) GetTranscodedBytes() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TranscodedBytes
+	return o.ID
 }
 
 func (o *Stream) GetIngestRate() *float64 {
@@ -506,13 +454,6 @@ func (o *Stream) GetIngestRate() *float64 {
 		return nil
 	}
 	return o.IngestRate
-}
-
-func (o *Stream) GetOutgoingRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.OutgoingRate
 }
 
 func (o *Stream) GetIsActive() *bool {
@@ -536,18 +477,46 @@ func (o *Stream) GetIssues() []string {
 	return o.Issues
 }
 
-func (o *Stream) GetCreatedByTokenName() *string {
+func (o *Stream) GetKind() *string {
 	if o == nil {
 		return nil
 	}
-	return o.CreatedByTokenName
+	return o.Kind
 }
 
-func (o *Stream) GetCreatedAt() *float64 {
+func (o *Stream) GetLastSeen() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return o.LastSeen
+}
+
+func (o *Stream) GetLastTerminatedAt() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LastTerminatedAt
+}
+
+func (o *Stream) GetMultistream() *StreamMultistream {
+	if o == nil {
+		return nil
+	}
+	return o.Multistream
+}
+
+func (o *Stream) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *Stream) GetOutgoingRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.OutgoingRate
 }
 
 func (o *Stream) GetParentID() *string {
@@ -555,20 +524,6 @@ func (o *Stream) GetParentID() *string {
 		return nil
 	}
 	return o.ParentID
-}
-
-func (o *Stream) GetStreamKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.StreamKey
-}
-
-func (o *Stream) GetPull() *StreamPull {
-	if o == nil {
-		return nil
-	}
-	return o.Pull
 }
 
 func (o *Stream) GetPlaybackID() *string {
@@ -599,6 +554,13 @@ func (o *Stream) GetProjectID() *string {
 	return o.ProjectID
 }
 
+func (o *Stream) GetPull() *StreamPull {
+	if o == nil {
+		return nil
+	}
+	return o.Pull
+}
+
 func (o *Stream) GetRecord() *bool {
 	if o == nil {
 		return nil
@@ -613,11 +575,39 @@ func (o *Stream) GetRecordingSpec() *StreamRecordingSpec {
 	return o.RecordingSpec
 }
 
-func (o *Stream) GetMultistream() *StreamMultistream {
+func (o *Stream) GetRenditions() *Renditions {
 	if o == nil {
 		return nil
 	}
-	return o.Multistream
+	return o.Renditions
+}
+
+func (o *Stream) GetSourceBytes() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.SourceBytes
+}
+
+func (o *Stream) GetSourceSegments() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.SourceSegments
+}
+
+func (o *Stream) GetSourceSegmentsDuration() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.SourceSegmentsDuration
+}
+
+func (o *Stream) GetStreamKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StreamKey
 }
 
 func (o *Stream) GetSuspended() *bool {
@@ -627,11 +617,25 @@ func (o *Stream) GetSuspended() *bool {
 	return o.Suspended
 }
 
-func (o *Stream) GetLastTerminatedAt() *float64 {
+func (o *Stream) GetTranscodedBytes() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.LastTerminatedAt
+	return o.TranscodedBytes
+}
+
+func (o *Stream) GetTranscodedSegments() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TranscodedSegments
+}
+
+func (o *Stream) GetTranscodedSegmentsDuration() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TranscodedSegmentsDuration
 }
 
 func (o *Stream) GetUserID() *string {
@@ -641,9 +645,9 @@ func (o *Stream) GetUserID() *string {
 	return o.UserID
 }
 
-func (o *Stream) GetRenditions() *Renditions {
+func (o *Stream) GetUserTags() map[string]StreamUserTags {
 	if o == nil {
 		return nil
 	}
-	return o.Renditions
+	return o.UserTags
 }

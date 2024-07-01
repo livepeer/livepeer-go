@@ -9,6 +9,28 @@ import (
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
+// Credentials for the private input video storage
+type Credentials struct {
+	// Access Key ID
+	AccessKeyID string `json:"accessKeyId"`
+	// Secret Access Key
+	SecretAccessKey string `json:"secretAccessKey"`
+}
+
+func (o *Credentials) GetAccessKeyID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccessKeyID
+}
+
+func (o *Credentials) GetSecretAccessKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.SecretAccessKey
+}
+
 // InputType - Type of service. This is optional and defaults to `url` if
 // ŚURL field is provided.
 type InputType string
@@ -34,56 +56,20 @@ func (e *InputType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Credentials for the private input video storage
-type Credentials struct {
-	// Access Key ID
-	AccessKeyID string `json:"accessKeyId"`
-	// Secret Access Key
-	SecretAccessKey string `json:"secretAccessKey"`
-}
-
-func (o *Credentials) GetAccessKeyID() string {
-	if o == nil {
-		return ""
-	}
-	return o.AccessKeyID
-}
-
-func (o *Credentials) GetSecretAccessKey() string {
-	if o == nil {
-		return ""
-	}
-	return o.SecretAccessKey
-}
-
 // Input2 - S3-like storage input video
 type Input2 struct {
+	// Bucket with input file
+	Bucket string `json:"bucket"`
+	// Credentials for the private input video storage
+	Credentials Credentials `json:"credentials"`
+	// Service endpoint URL (AWS S3 endpoint list: https://docs.aws.amazon.com/general/latest/gr/s3.html, GCP S3 endpoint: https://storage.googleapis.com, Storj: https://gateway.storjshare.io)
+	Endpoint string `json:"endpoint"`
+	// Path to the input file inside the bucket
+	Path string `json:"path"`
 	// Type of service. This is optional and defaults to `url` if
 	// ŚURL field is provided.
 	//
 	Type InputType `json:"type"`
-	// Service endpoint URL (AWS S3 endpoint list: https://docs.aws.amazon.com/general/latest/gr/s3.html, GCP S3 endpoint: https://storage.googleapis.com, Storj: https://gateway.storjshare.io)
-	Endpoint string `json:"endpoint"`
-	// Bucket with input file
-	Bucket string `json:"bucket"`
-	// Path to the input file inside the bucket
-	Path string `json:"path"`
-	// Credentials for the private input video storage
-	Credentials Credentials `json:"credentials"`
-}
-
-func (o *Input2) GetType() InputType {
-	if o == nil {
-		return InputType("")
-	}
-	return o.Type
-}
-
-func (o *Input2) GetEndpoint() string {
-	if o == nil {
-		return ""
-	}
-	return o.Endpoint
 }
 
 func (o *Input2) GetBucket() string {
@@ -93,6 +79,20 @@ func (o *Input2) GetBucket() string {
 	return o.Bucket
 }
 
+func (o *Input2) GetCredentials() Credentials {
+	if o == nil {
+		return Credentials{}
+	}
+	return o.Credentials
+}
+
+func (o *Input2) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
 func (o *Input2) GetPath() string {
 	if o == nil {
 		return ""
@@ -100,11 +100,11 @@ func (o *Input2) GetPath() string {
 	return o.Path
 }
 
-func (o *Input2) GetCredentials() Credentials {
+func (o *Input2) GetType() InputType {
 	if o == nil {
-		return Credentials{}
+		return InputType("")
 	}
-	return o.Credentials
+	return o.Type
 }
 
 // Input1 - URL input video
@@ -183,6 +183,90 @@ func (u Input) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Input: all fields are null")
 }
 
+// Fmp4 - FMP4 output format
+type Fmp4 struct {
+	// Path for the FMP4 output
+	Path string `json:"path"`
+}
+
+func (o *Fmp4) GetPath() string {
+	if o == nil {
+		return ""
+	}
+	return o.Path
+}
+
+// Hls - HLS output format
+type Hls struct {
+	// Path for the HLS output
+	Path string `json:"path"`
+}
+
+func (o *Hls) GetPath() string {
+	if o == nil {
+		return ""
+	}
+	return o.Path
+}
+
+// Mp4 - MP4 output format
+type Mp4 struct {
+	// Path for the MP4 output
+	Path string `json:"path"`
+}
+
+func (o *Mp4) GetPath() string {
+	if o == nil {
+		return ""
+	}
+	return o.Path
+}
+
+// Outputs - Output formats
+type Outputs struct {
+	// FMP4 output format
+	Fmp4 *Fmp4 `json:"fmp4,omitempty"`
+	// HLS output format
+	Hls *Hls `json:"hls,omitempty"`
+	// MP4 output format
+	Mp4 *Mp4 `json:"mp4,omitempty"`
+}
+
+func (o *Outputs) GetFmp4() *Fmp4 {
+	if o == nil {
+		return nil
+	}
+	return o.Fmp4
+}
+
+func (o *Outputs) GetHls() *Hls {
+	if o == nil {
+		return nil
+	}
+	return o.Hls
+}
+
+func (o *Outputs) GetMp4() *Mp4 {
+	if o == nil {
+		return nil
+	}
+	return o.Mp4
+}
+
+// TranscodePayloadStorageCredentials - Delegation proof for Livepeer to be able to upload to
+// web3.storage
+type TranscodePayloadStorageCredentials struct {
+	// Base64 encoded UCAN delegation proof
+	Proof string `json:"proof"`
+}
+
+func (o *TranscodePayloadStorageCredentials) GetProof() string {
+	if o == nil {
+		return ""
+	}
+	return o.Proof
+}
+
 // TranscodePayloadStorageType - Type of service used for output files
 type TranscodePayloadStorageType string
 
@@ -207,28 +291,21 @@ func (e *TranscodePayloadStorageType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// TranscodePayloadStorageCredentials - Delegation proof for Livepeer to be able to upload to
-// web3.storage
-type TranscodePayloadStorageCredentials struct {
-	// Base64 encoded UCAN delegation proof
-	Proof string `json:"proof"`
-}
-
-func (o *TranscodePayloadStorageCredentials) GetProof() string {
-	if o == nil {
-		return ""
-	}
-	return o.Proof
-}
-
 // Storage2 - Storage for the output files
 type Storage2 struct {
-	// Type of service used for output files
-	Type TranscodePayloadStorageType `json:"type"`
 	// Delegation proof for Livepeer to be able to upload to
 	// web3.storage
 	//
 	Credentials TranscodePayloadStorageCredentials `json:"credentials"`
+	// Type of service used for output files
+	Type TranscodePayloadStorageType `json:"type"`
+}
+
+func (o *Storage2) GetCredentials() TranscodePayloadStorageCredentials {
+	if o == nil {
+		return TranscodePayloadStorageCredentials{}
+	}
+	return o.Credentials
 }
 
 func (o *Storage2) GetType() TranscodePayloadStorageType {
@@ -238,11 +315,26 @@ func (o *Storage2) GetType() TranscodePayloadStorageType {
 	return o.Type
 }
 
-func (o *Storage2) GetCredentials() TranscodePayloadStorageCredentials {
+// StorageCredentials - Credentials for the output video storage
+type StorageCredentials struct {
+	// Access Key ID
+	AccessKeyID string `json:"accessKeyId"`
+	// Secret Access Key
+	SecretAccessKey string `json:"secretAccessKey"`
+}
+
+func (o *StorageCredentials) GetAccessKeyID() string {
 	if o == nil {
-		return TranscodePayloadStorageCredentials{}
+		return ""
 	}
-	return o.Credentials
+	return o.AccessKeyID
+}
+
+func (o *StorageCredentials) GetSecretAccessKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.SecretAccessKey
 }
 
 // StorageType - Type of service used for output files
@@ -269,52 +361,16 @@ func (e *StorageType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// StorageCredentials - Credentials for the output video storage
-type StorageCredentials struct {
-	// Access Key ID
-	AccessKeyID string `json:"accessKeyId"`
-	// Secret Access Key
-	SecretAccessKey string `json:"secretAccessKey"`
-}
-
-func (o *StorageCredentials) GetAccessKeyID() string {
-	if o == nil {
-		return ""
-	}
-	return o.AccessKeyID
-}
-
-func (o *StorageCredentials) GetSecretAccessKey() string {
-	if o == nil {
-		return ""
-	}
-	return o.SecretAccessKey
-}
-
 // Storage1 - Storage for the output files
 type Storage1 struct {
-	// Type of service used for output files
-	Type StorageType `json:"type"`
-	// Service endpoint URL (AWS S3 endpoint list: https://docs.aws.amazon.com/general/latest/gr/s3.html, GCP S3 endpoint: https://storage.googleapis.com, Storj: https://gateway.storjshare.io)
-	Endpoint string `json:"endpoint"`
 	// Bucket with output files
 	Bucket string `json:"bucket"`
 	// Credentials for the output video storage
 	Credentials StorageCredentials `json:"credentials"`
-}
-
-func (o *Storage1) GetType() StorageType {
-	if o == nil {
-		return StorageType("")
-	}
-	return o.Type
-}
-
-func (o *Storage1) GetEndpoint() string {
-	if o == nil {
-		return ""
-	}
-	return o.Endpoint
+	// Service endpoint URL (AWS S3 endpoint list: https://docs.aws.amazon.com/general/latest/gr/s3.html, GCP S3 endpoint: https://storage.googleapis.com, Storj: https://gateway.storjshare.io)
+	Endpoint string `json:"endpoint"`
+	// Type of service used for output files
+	Type StorageType `json:"type"`
 }
 
 func (o *Storage1) GetBucket() string {
@@ -329,6 +385,20 @@ func (o *Storage1) GetCredentials() StorageCredentials {
 		return StorageCredentials{}
 	}
 	return o.Credentials
+}
+
+func (o *Storage1) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *Storage1) GetType() StorageType {
+	if o == nil {
+		return StorageType("")
+	}
+	return o.Type
 }
 
 type TranscodePayloadStorageUnionType string
@@ -394,87 +464,31 @@ func (u TranscodePayloadStorage) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type TranscodePayloadStorage: all fields are null")
 }
 
-// Hls - HLS output format
-type Hls struct {
-	// Path for the HLS output
-	Path string `json:"path"`
-}
-
-func (o *Hls) GetPath() string {
-	if o == nil {
-		return ""
-	}
-	return o.Path
-}
-
-// Mp4 - MP4 output format
-type Mp4 struct {
-	// Path for the MP4 output
-	Path string `json:"path"`
-}
-
-func (o *Mp4) GetPath() string {
-	if o == nil {
-		return ""
-	}
-	return o.Path
-}
-
-// Fmp4 - FMP4 output format
-type Fmp4 struct {
-	// Path for the FMP4 output
-	Path string `json:"path"`
-}
-
-func (o *Fmp4) GetPath() string {
-	if o == nil {
-		return ""
-	}
-	return o.Path
-}
-
-// Outputs - Output formats
-type Outputs struct {
-	// HLS output format
-	Hls *Hls `json:"hls,omitempty"`
-	// MP4 output format
-	Mp4 *Mp4 `json:"mp4,omitempty"`
-	// FMP4 output format
-	Fmp4 *Fmp4 `json:"fmp4,omitempty"`
-}
-
-func (o *Outputs) GetHls() *Hls {
-	if o == nil {
-		return nil
-	}
-	return o.Hls
-}
-
-func (o *Outputs) GetMp4() *Mp4 {
-	if o == nil {
-		return nil
-	}
-	return o.Mp4
-}
-
-func (o *Outputs) GetFmp4() *Fmp4 {
-	if o == nil {
-		return nil
-	}
-	return o.Fmp4
-}
-
 type TranscodePayload struct {
-	Input   Input                   `json:"input"`
-	Storage TranscodePayloadStorage `json:"storage"`
-	// Output formats
-	Outputs  Outputs            `json:"outputs"`
-	Profiles []TranscodeProfile `json:"profiles,omitempty"`
-	// How many seconds the duration of each output segment should be
-	TargetSegmentSizeSecs *float64        `json:"targetSegmentSizeSecs,omitempty"`
-	CreatorID             *InputCreatorID `json:"creatorId,omitempty"`
 	// Decides if the output video should include C2PA signature
-	C2pa *bool `json:"c2pa,omitempty"`
+	C2pa      *bool           `json:"c2pa,omitempty"`
+	CreatorID *InputCreatorID `json:"creatorId,omitempty"`
+	Input     Input           `json:"input"`
+	// Output formats
+	Outputs  Outputs                 `json:"outputs"`
+	Profiles []TranscodeProfile      `json:"profiles,omitempty"`
+	Storage  TranscodePayloadStorage `json:"storage"`
+	// How many seconds the duration of each output segment should be
+	TargetSegmentSizeSecs *float64 `json:"targetSegmentSizeSecs,omitempty"`
+}
+
+func (o *TranscodePayload) GetC2pa() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.C2pa
+}
+
+func (o *TranscodePayload) GetCreatorID() *InputCreatorID {
+	if o == nil {
+		return nil
+	}
+	return o.CreatorID
 }
 
 func (o *TranscodePayload) GetInput() Input {
@@ -482,13 +496,6 @@ func (o *TranscodePayload) GetInput() Input {
 		return Input{}
 	}
 	return o.Input
-}
-
-func (o *TranscodePayload) GetStorage() TranscodePayloadStorage {
-	if o == nil {
-		return TranscodePayloadStorage{}
-	}
-	return o.Storage
 }
 
 func (o *TranscodePayload) GetOutputs() Outputs {
@@ -505,23 +512,16 @@ func (o *TranscodePayload) GetProfiles() []TranscodeProfile {
 	return o.Profiles
 }
 
+func (o *TranscodePayload) GetStorage() TranscodePayloadStorage {
+	if o == nil {
+		return TranscodePayloadStorage{}
+	}
+	return o.Storage
+}
+
 func (o *TranscodePayload) GetTargetSegmentSizeSecs() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TargetSegmentSizeSecs
-}
-
-func (o *TranscodePayload) GetCreatorID() *InputCreatorID {
-	if o == nil {
-		return nil
-	}
-	return o.CreatorID
-}
-
-func (o *TranscodePayload) GetC2pa() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.C2pa
 }

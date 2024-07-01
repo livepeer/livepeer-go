@@ -8,6 +8,12 @@ import (
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
+// NftMetadata - Additional data to add to the NFT metadata exported to
+// IPFS. Will be deep merged with the default metadata
+// exported.
+type NftMetadata struct {
+}
+
 // NftMetadataTemplate - Name of the NFT metadata template to export. 'player'
 // will embed the Livepeer Player on the NFT while 'file'
 // will reference only the immutable MP4 files.
@@ -37,23 +43,17 @@ func (e *NftMetadataTemplate) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// NftMetadata - Additional data to add to the NFT metadata exported to
-// IPFS. Will be deep merged with the default metadata
-// exported.
-type NftMetadata struct {
-}
-
 type Spec struct {
-	// Name of the NFT metadata template to export. 'player'
-	// will embed the Livepeer Player on the NFT while 'file'
-	// will reference only the immutable MP4 files.
-	//
-	NftMetadataTemplate *NftMetadataTemplate `default:"file" json:"nftMetadataTemplate"`
 	// Additional data to add to the NFT metadata exported to
 	// IPFS. Will be deep merged with the default metadata
 	// exported.
 	//
 	NftMetadata *NftMetadata `json:"nftMetadata,omitempty"`
+	// Name of the NFT metadata template to export. 'player'
+	// will embed the Livepeer Player on the NFT while 'file'
+	// will reference only the immutable MP4 files.
+	//
+	NftMetadataTemplate *NftMetadataTemplate `default:"file" json:"nftMetadataTemplate"`
 }
 
 func (s Spec) MarshalJSON() ([]byte, error) {
@@ -67,16 +67,16 @@ func (s *Spec) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *Spec) GetNftMetadataTemplate() *NftMetadataTemplate {
-	if o == nil {
-		return nil
-	}
-	return o.NftMetadataTemplate
-}
-
 func (o *Spec) GetNftMetadata() *NftMetadata {
 	if o == nil {
 		return nil
 	}
 	return o.NftMetadata
+}
+
+func (o *Spec) GetNftMetadataTemplate() *NftMetadataTemplate {
+	if o == nil {
+		return nil
+	}
+	return o.NftMetadataTemplate
 }

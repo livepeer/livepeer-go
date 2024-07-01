@@ -140,21 +140,21 @@ func (u To) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type To: all fields are null")
 }
 
-// TimeStep - The time step to aggregate viewership metrics by
-type TimeStep string
+// QueryParamTimeStep - The time step to aggregate viewership metrics by
+type QueryParamTimeStep string
 
 const (
-	TimeStepHour  TimeStep = "hour"
-	TimeStepDay   TimeStep = "day"
-	TimeStepWeek  TimeStep = "week"
-	TimeStepMonth TimeStep = "month"
-	TimeStepYear  TimeStep = "year"
+	QueryParamTimeStepHour  QueryParamTimeStep = "hour"
+	QueryParamTimeStepDay   QueryParamTimeStep = "day"
+	QueryParamTimeStepWeek  QueryParamTimeStep = "week"
+	QueryParamTimeStepMonth QueryParamTimeStep = "month"
+	QueryParamTimeStepYear  QueryParamTimeStep = "year"
 )
 
-func (e TimeStep) ToPointer() *TimeStep {
+func (e QueryParamTimeStep) ToPointer() *QueryParamTimeStep {
 	return &e
 }
-func (e *TimeStep) UnmarshalJSON(data []byte) error {
+func (e *QueryParamTimeStep) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -169,36 +169,36 @@ func (e *TimeStep) UnmarshalJSON(data []byte) error {
 	case "month":
 		fallthrough
 	case "year":
-		*e = TimeStep(v)
+		*e = QueryParamTimeStep(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TimeStep: %v", v)
+		return fmt.Errorf("invalid value for QueryParamTimeStep: %v", v)
 	}
 }
 
-type BreakdownBy string
+type QueryParamBreakdownBy string
 
 const (
-	BreakdownByPlaybackID    BreakdownBy = "playbackId"
-	BreakdownByDeviceType    BreakdownBy = "deviceType"
-	BreakdownByDevice        BreakdownBy = "device"
-	BreakdownByCPU           BreakdownBy = "cpu"
-	BreakdownByOs            BreakdownBy = "os"
-	BreakdownByBrowser       BreakdownBy = "browser"
-	BreakdownByBrowserEngine BreakdownBy = "browserEngine"
-	BreakdownByContinent     BreakdownBy = "continent"
-	BreakdownByCountry       BreakdownBy = "country"
-	BreakdownBySubdivision   BreakdownBy = "subdivision"
-	BreakdownByTimezone      BreakdownBy = "timezone"
-	BreakdownByGeohash       BreakdownBy = "geohash"
-	BreakdownByViewerID      BreakdownBy = "viewerId"
-	BreakdownByCreatorID     BreakdownBy = "creatorId"
+	QueryParamBreakdownByPlaybackID    QueryParamBreakdownBy = "playbackId"
+	QueryParamBreakdownByDeviceType    QueryParamBreakdownBy = "deviceType"
+	QueryParamBreakdownByDevice        QueryParamBreakdownBy = "device"
+	QueryParamBreakdownByCPU           QueryParamBreakdownBy = "cpu"
+	QueryParamBreakdownByOs            QueryParamBreakdownBy = "os"
+	QueryParamBreakdownByBrowser       QueryParamBreakdownBy = "browser"
+	QueryParamBreakdownByBrowserEngine QueryParamBreakdownBy = "browserEngine"
+	QueryParamBreakdownByContinent     QueryParamBreakdownBy = "continent"
+	QueryParamBreakdownByCountry       QueryParamBreakdownBy = "country"
+	QueryParamBreakdownBySubdivision   QueryParamBreakdownBy = "subdivision"
+	QueryParamBreakdownByTimezone      QueryParamBreakdownBy = "timezone"
+	QueryParamBreakdownByGeohash       QueryParamBreakdownBy = "geohash"
+	QueryParamBreakdownByViewerID      QueryParamBreakdownBy = "viewerId"
+	QueryParamBreakdownByCreatorID     QueryParamBreakdownBy = "creatorId"
 )
 
-func (e BreakdownBy) ToPointer() *BreakdownBy {
+func (e QueryParamBreakdownBy) ToPointer() *QueryParamBreakdownBy {
 	return &e
 }
-func (e *BreakdownBy) UnmarshalJSON(data []byte) error {
+func (e *QueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -231,10 +231,10 @@ func (e *BreakdownBy) UnmarshalJSON(data []byte) error {
 	case "viewerId":
 		fallthrough
 	case "creatorId":
-		*e = BreakdownBy(v)
+		*e = QueryParamBreakdownBy(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for BreakdownBy: %v", v)
+		return fmt.Errorf("invalid value for QueryParamBreakdownBy: %v", v)
 	}
 }
 
@@ -249,7 +249,7 @@ type GetViewershipMetricsRequest struct {
 	// End timestamp for the query range (exclusive)
 	To *To `queryParam:"style=form,explode=true,name=to"`
 	// The time step to aggregate viewership metrics by
-	TimeStep *TimeStep `queryParam:"style=form,explode=true,name=timeStep"`
+	TimeStep *QueryParamTimeStep `queryParam:"style=form,explode=true,name=timeStep"`
 	// The asset ID to filter metrics for
 	AssetID *string `queryParam:"style=form,explode=true,name=assetId"`
 	// The stream ID to filter metrics for
@@ -259,7 +259,7 @@ type GetViewershipMetricsRequest struct {
 	// The list of fields to break down the query results. Specify this
 	// query-string multiple times to break down by multiple fields.
 	//
-	BreakdownBy []BreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
+	BreakdownBy []QueryParamBreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
 }
 
 func (o *GetViewershipMetricsRequest) GetPlaybackID() *string {
@@ -283,7 +283,7 @@ func (o *GetViewershipMetricsRequest) GetTo() *To {
 	return o.To
 }
 
-func (o *GetViewershipMetricsRequest) GetTimeStep() *TimeStep {
+func (o *GetViewershipMetricsRequest) GetTimeStep() *QueryParamTimeStep {
 	if o == nil {
 		return nil
 	}
@@ -311,7 +311,7 @@ func (o *GetViewershipMetricsRequest) GetCreatorID() *string {
 	return o.CreatorID
 }
 
-func (o *GetViewershipMetricsRequest) GetBreakdownBy() []BreakdownBy {
+func (o *GetViewershipMetricsRequest) GetBreakdownBy() []QueryParamBreakdownBy {
 	if o == nil {
 		return nil
 	}

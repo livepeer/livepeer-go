@@ -7,30 +7,6 @@ import (
 	"fmt"
 )
 
-// PrimaryType - Video Metadata EIP-712 primaryType
-type PrimaryType string
-
-const (
-	PrimaryTypeVideoAttestation PrimaryType = "VideoAttestation"
-)
-
-func (e PrimaryType) ToPointer() *PrimaryType {
-	return &e
-}
-func (e *PrimaryType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "VideoAttestation":
-		*e = PrimaryType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for PrimaryType: %v", v)
-	}
-}
-
 type Name string
 
 const (
@@ -98,15 +74,8 @@ func (o *Domain) GetVersion() Version {
 }
 
 type Attestations struct {
-	Role    string `json:"role"`
 	Address string `json:"address"`
-}
-
-func (o *Attestations) GetRole() string {
-	if o == nil {
-		return ""
-	}
-	return o.Role
+	Role    string `json:"role"`
 }
 
 func (o *Attestations) GetAddress() string {
@@ -116,19 +85,19 @@ func (o *Attestations) GetAddress() string {
 	return o.Address
 }
 
-// Message - Video Metadata EIP-712 message content
-type Message struct {
-	Video        string         `json:"video"`
-	Attestations []Attestations `json:"attestations"`
-	Signer       string         `json:"signer"`
-	Timestamp    float64        `json:"timestamp"`
-}
-
-func (o *Message) GetVideo() string {
+func (o *Attestations) GetRole() string {
 	if o == nil {
 		return ""
 	}
-	return o.Video
+	return o.Role
+}
+
+// Message - Video Metadata EIP-712 message content
+type Message struct {
+	Attestations []Attestations `json:"attestations"`
+	Signer       string         `json:"signer"`
+	Timestamp    float64        `json:"timestamp"`
+	Video        string         `json:"video"`
 }
 
 func (o *Message) GetAttestations() []Attestations {
@@ -150,6 +119,37 @@ func (o *Message) GetTimestamp() float64 {
 		return 0.0
 	}
 	return o.Timestamp
+}
+
+func (o *Message) GetVideo() string {
+	if o == nil {
+		return ""
+	}
+	return o.Video
+}
+
+// PrimaryType - Video Metadata EIP-712 primaryType
+type PrimaryType string
+
+const (
+	PrimaryTypeVideoAttestation PrimaryType = "VideoAttestation"
+)
+
+func (e PrimaryType) ToPointer() *PrimaryType {
+	return &e
+}
+func (e *PrimaryType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "VideoAttestation":
+		*e = PrimaryType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PrimaryType: %v", v)
+	}
 }
 
 type SignatureType string
@@ -219,33 +219,26 @@ func (o *AttestationStorage) GetStatus() *StorageStatus {
 }
 
 type Attestation struct {
-	ID *string `json:"id,omitempty"`
-	// Video Metadata EIP-712 primaryType
-	PrimaryType PrimaryType `json:"primaryType"`
+	// Timestamp (in milliseconds) at which the object was created
+	CreatedAt *float64 `json:"createdAt,omitempty"`
 	// Video Metadata EIP-712 domain
-	Domain Domain `json:"domain"`
+	Domain Domain  `json:"domain"`
+	ID     *string `json:"id,omitempty"`
 	// Video Metadata EIP-712 message content
 	Message Message `json:"message"`
+	// Video Metadata EIP-712 primaryType
+	PrimaryType PrimaryType `json:"primaryType"`
 	// Video Metadata EIP-712 message signature
-	Signature string `json:"signature"`
-	// Timestamp (in milliseconds) at which the object was created
-	CreatedAt     *float64            `json:"createdAt,omitempty"`
+	Signature     string              `json:"signature"`
 	SignatureType *SignatureType      `json:"signatureType,omitempty"`
 	Storage       *AttestationStorage `json:"storage,omitempty"`
 }
 
-func (o *Attestation) GetID() *string {
+func (o *Attestation) GetCreatedAt() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.ID
-}
-
-func (o *Attestation) GetPrimaryType() PrimaryType {
-	if o == nil {
-		return PrimaryType("")
-	}
-	return o.PrimaryType
+	return o.CreatedAt
 }
 
 func (o *Attestation) GetDomain() Domain {
@@ -255,6 +248,13 @@ func (o *Attestation) GetDomain() Domain {
 	return o.Domain
 }
 
+func (o *Attestation) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
 func (o *Attestation) GetMessage() Message {
 	if o == nil {
 		return Message{}
@@ -262,18 +262,18 @@ func (o *Attestation) GetMessage() Message {
 	return o.Message
 }
 
+func (o *Attestation) GetPrimaryType() PrimaryType {
+	if o == nil {
+		return PrimaryType("")
+	}
+	return o.PrimaryType
+}
+
 func (o *Attestation) GetSignature() string {
 	if o == nil {
 		return ""
 	}
 	return o.Signature
-}
-
-func (o *Attestation) GetCreatedAt() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.CreatedAt
 }
 
 func (o *Attestation) GetSignatureType() *SignatureType {

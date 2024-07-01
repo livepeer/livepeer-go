@@ -3,21 +3,14 @@
 package components
 
 type RoomUserPayload struct {
-	// Display name
-	Name string `json:"name"`
 	// Whether a user is allowed to publish audio/video tracks
 	CanPublish *bool `json:"canPublish,omitempty"`
 	// Whether a user is allowed to publish data messages to the room
 	CanPublishData *bool `json:"canPublishData,omitempty"`
 	// User defined payload to store for the participant
 	Metadata *string `json:"metadata,omitempty"`
-}
-
-func (o *RoomUserPayload) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
+	// Display name
+	Name string `json:"name"`
 }
 
 func (o *RoomUserPayload) GetCanPublish() *bool {
@@ -39,4 +32,11 @@ func (o *RoomUserPayload) GetMetadata() *string {
 		return nil
 	}
 	return o.Metadata
+}
+
+func (o *RoomUserPayload) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
 }
