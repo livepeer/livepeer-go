@@ -8,11 +8,11 @@ Operations related to asset/vod api
 ### Available Operations
 
 * [GetAll](#getall) - Retrieve assets
-* [Create](#create) - Upload an asset
-* [CreateViaURL](#createviaurl) - Upload asset via URL
+* [Delete](#delete) - Delete an asset
 * [Get](#get) - Retrieves an asset
 * [Update](#update) - Patch an asset
-* [Delete](#delete) - Delete an asset
+* [Create](#create) - Upload an asset
+* [CreateViaURL](#createviaurl) - Upload asset via URL
 
 ## GetAll
 
@@ -55,6 +55,158 @@ func main() {
 ### Response
 
 **[*operations.GetAssetsResponse](../../models/operations/getassetsresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
+
+## Delete
+
+Delete an asset
+
+### Example Usage
+
+```go
+package main
+
+import(
+	livepeergo "github.com/livepeer/livepeer-go"
+	"context"
+	"log"
+)
+
+func main() {
+    s := livepeergo.New(
+        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    )
+    var assetID string = "<value>"
+    ctx := context.Background()
+    res, err := s.Asset.Delete(ctx, assetID)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
+| `assetID`                                             | *string*                                              | :heavy_check_mark:                                    | ID of the asset                                       |
+
+
+### Response
+
+**[*operations.DeleteAssetResponse](../../models/operations/deleteassetresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
+
+## Get
+
+Retrieves an asset
+
+### Example Usage
+
+```go
+package main
+
+import(
+	livepeergo "github.com/livepeer/livepeer-go"
+	"context"
+	"log"
+)
+
+func main() {
+    s := livepeergo.New(
+        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    )
+    var assetID string = "<value>"
+    ctx := context.Background()
+    res, err := s.Asset.Get(ctx, assetID)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Asset != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
+| `assetID`                                             | *string*                                              | :heavy_check_mark:                                    | ID of the asset                                       |
+
+
+### Response
+
+**[*operations.GetAssetResponse](../../models/operations/getassetresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
+
+## Update
+
+Patch an asset
+
+### Example Usage
+
+```go
+package main
+
+import(
+	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
+	"context"
+	"log"
+)
+
+func main() {
+    s := livepeergo.New(
+        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    )
+    var assetID string = "<value>"
+
+    assetPatchPayload := components.AssetPatchPayload{
+        Name: livepeergo.String("filename.mp4"),
+        PlaybackPolicy: &components.PlaybackPolicy{
+            RefreshInterval: livepeergo.Float64(600),
+            Type: components.TypeWebhook,
+            WebhookContext: map[string]any{
+                "streamerId": "my-custom-id",
+            },
+            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+        },
+    }
+    ctx := context.Background()
+    res, err := s.Asset.Update(ctx, assetID, assetPatchPayload)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Asset != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `ctx`                                                                        | [context.Context](https://pkg.go.dev/context#Context)                        | :heavy_check_mark:                                                           | The context to use for the request.                                          |
+| `assetID`                                                                    | *string*                                                                     | :heavy_check_mark:                                                           | ID of the asset                                                              |
+| `assetPatchPayload`                                                          | [components.AssetPatchPayload](../../models/components/assetpatchpayload.md) | :heavy_check_mark:                                                           | N/A                                                                          |
+
+
+### Response
+
+**[*operations.UpdateAssetResponse](../../models/operations/updateassetresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
@@ -152,28 +304,28 @@ func main() {
     )
     request := components.NewAssetPayload{
         Name: "filename.mp4",
-        StaticMp4: livepeergo.Bool(true),
         PlaybackPolicy: &components.PlaybackPolicy{
+            RefreshInterval: livepeergo.Float64(600),
             Type: components.TypeWebhook,
-            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
             WebhookContext: map[string]any{
                 "streamerId": "my-custom-id",
             },
-            RefreshInterval: livepeergo.Float64(600),
+            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
         },
         Profiles: []components.TranscodeProfile{
             components.TranscodeProfile{
-                Width: livepeergo.Int64(1280),
-                Name: livepeergo.String("720p"),
                 Bitrate: 3000000,
-                Quality: livepeergo.Int64(23),
+                Encoder: components.EncoderH264.ToPointer(),
                 Fps: livepeergo.Int64(30),
                 FpsDen: livepeergo.Int64(1),
                 Gop: livepeergo.String("2"),
-                Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
-                Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
+                Name: livepeergo.String("720p"),
+                Profile: components.ProfileH264Baseline.ToPointer(),
+                Quality: livepeergo.Int64(23),
+                Width: livepeergo.Int64(1280),
             },
         },
+        StaticMp4: livepeergo.Bool(true),
     }
     ctx := context.Background()
     res, err := s.Asset.Create(ctx, request)
@@ -223,29 +375,29 @@ func main() {
     )
     request := components.NewAssetFromURLPayload{
         Name: "filename.mp4",
-        StaticMp4: livepeergo.Bool(true),
         PlaybackPolicy: &components.PlaybackPolicy{
+            RefreshInterval: livepeergo.Float64(600),
             Type: components.TypeWebhook,
-            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
             WebhookContext: map[string]any{
                 "streamerId": "my-custom-id",
             },
-            RefreshInterval: livepeergo.Float64(600),
+            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
         },
-        URL: "https://s3.amazonaws.com/my-bucket/path/filename.mp4",
         Profiles: []components.TranscodeProfile{
             components.TranscodeProfile{
-                Width: livepeergo.Int64(1280),
-                Name: livepeergo.String("720p"),
                 Bitrate: 3000000,
-                Quality: livepeergo.Int64(23),
+                Encoder: components.EncoderH264.ToPointer(),
                 Fps: livepeergo.Int64(30),
                 FpsDen: livepeergo.Int64(1),
                 Gop: livepeergo.String("2"),
-                Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
-                Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
+                Name: livepeergo.String("720p"),
+                Profile: components.ProfileH264Baseline.ToPointer(),
+                Quality: livepeergo.Int64(23),
+                Width: livepeergo.Int64(1280),
             },
         },
+        StaticMp4: livepeergo.Bool(true),
+        URL: "https://s3.amazonaws.com/my-bucket/path/filename.mp4",
     }
     ctx := context.Background()
     res, err := s.Asset.CreateViaURL(ctx, request)
@@ -269,158 +421,6 @@ func main() {
 ### Response
 
 **[*operations.UploadAssetResponse](../../models/operations/uploadassetresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
-## Get
-
-Retrieves an asset
-
-### Example Usage
-
-```go
-package main
-
-import(
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
-)
-
-func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-    )
-    var assetID string = "<value>"
-    ctx := context.Background()
-    res, err := s.Asset.Get(ctx, assetID)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Asset != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `assetID`                                             | *string*                                              | :heavy_check_mark:                                    | ID of the asset                                       |
-
-
-### Response
-
-**[*operations.GetAssetResponse](../../models/operations/getassetresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
-## Update
-
-Patch an asset
-
-### Example Usage
-
-```go
-package main
-
-import(
-	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
-	"context"
-	"log"
-)
-
-func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-    )
-    var assetID string = "<value>"
-
-    assetPatchPayload := components.AssetPatchPayload{
-        Name: livepeergo.String("filename.mp4"),
-        PlaybackPolicy: &components.PlaybackPolicy{
-            Type: components.TypeWebhook,
-            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
-            WebhookContext: map[string]any{
-                "streamerId": "my-custom-id",
-            },
-            RefreshInterval: livepeergo.Float64(600),
-        },
-    }
-    ctx := context.Background()
-    res, err := s.Asset.Update(ctx, assetID, assetPatchPayload)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Asset != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `ctx`                                                                        | [context.Context](https://pkg.go.dev/context#Context)                        | :heavy_check_mark:                                                           | The context to use for the request.                                          |
-| `assetID`                                                                    | *string*                                                                     | :heavy_check_mark:                                                           | ID of the asset                                                              |
-| `assetPatchPayload`                                                          | [components.AssetPatchPayload](../../models/components/assetpatchpayload.md) | :heavy_check_mark:                                                           | N/A                                                                          |
-
-
-### Response
-
-**[*operations.UpdateAssetResponse](../../models/operations/updateassetresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
-## Delete
-
-Delete an asset
-
-### Example Usage
-
-```go
-package main
-
-import(
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
-)
-
-func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-    )
-    var assetID string = "<value>"
-    ctx := context.Background()
-    res, err := s.Asset.Delete(ctx, assetID)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `assetID`                                             | *string*                                              | :heavy_check_mark:                                    | ID of the asset                                       |
-
-
-### Response
-
-**[*operations.DeleteAssetResponse](../../models/operations/deleteassetresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |

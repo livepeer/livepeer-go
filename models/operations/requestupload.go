@@ -20,26 +20,12 @@ func (o *Task) GetID() string {
 
 // RequestUploadData - Success
 type RequestUploadData struct {
+	Asset components.Asset `json:"asset"`
+	Task  Task             `json:"task"`
+	// The [Tus-compatible](https://tus.io/) endpoint for resumable uploads. **This is the recommended way to upload assets.** See the [Tus-js](https://github.com/tus/tus-js-client) client for more information.
+	TusEndpoint string `json:"tusEndpoint"`
 	// The direct upload endpoint for which supports PUT requests. **It is recommended to use the Tus endpoint for a better upload experience.**
 	URL string `json:"url"`
-	// The [Tus-compatible](https://tus.io/) endpoint for resumable uploads. **This is the recommended way to upload assets.** See the [Tus-js](https://github.com/tus/tus-js-client) client for more information.
-	TusEndpoint string           `json:"tusEndpoint"`
-	Asset       components.Asset `json:"asset"`
-	Task        Task             `json:"task"`
-}
-
-func (o *RequestUploadData) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-func (o *RequestUploadData) GetTusEndpoint() string {
-	if o == nil {
-		return ""
-	}
-	return o.TusEndpoint
 }
 
 func (o *RequestUploadData) GetAsset() components.Asset {
@@ -54,6 +40,20 @@ func (o *RequestUploadData) GetTask() Task {
 		return Task{}
 	}
 	return o.Task
+}
+
+func (o *RequestUploadData) GetTusEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.TusEndpoint
+}
+
+func (o *RequestUploadData) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
 }
 
 type RequestUploadResponse struct {

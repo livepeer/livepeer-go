@@ -7,51 +7,19 @@ import (
 	"fmt"
 )
 
-type TranscodeProfileProfile string
+type Encoder string
 
 const (
-	TranscodeProfileProfileH264Baseline        TranscodeProfileProfile = "H264Baseline"
-	TranscodeProfileProfileH264Main            TranscodeProfileProfile = "H264Main"
-	TranscodeProfileProfileH264High            TranscodeProfileProfile = "H264High"
-	TranscodeProfileProfileH264ConstrainedHigh TranscodeProfileProfile = "H264ConstrainedHigh"
+	EncoderH264 Encoder = "H.264"
+	EncoderHevc Encoder = "HEVC"
+	EncoderVp8  Encoder = "VP8"
+	EncoderVp9  Encoder = "VP9"
 )
 
-func (e TranscodeProfileProfile) ToPointer() *TranscodeProfileProfile {
+func (e Encoder) ToPointer() *Encoder {
 	return &e
 }
-func (e *TranscodeProfileProfile) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "H264Baseline":
-		fallthrough
-	case "H264Main":
-		fallthrough
-	case "H264High":
-		fallthrough
-	case "H264ConstrainedHigh":
-		*e = TranscodeProfileProfile(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TranscodeProfileProfile: %v", v)
-	}
-}
-
-type TranscodeProfileEncoder string
-
-const (
-	TranscodeProfileEncoderH264 TranscodeProfileEncoder = "H.264"
-	TranscodeProfileEncoderHevc TranscodeProfileEncoder = "HEVC"
-	TranscodeProfileEncoderVp8  TranscodeProfileEncoder = "VP8"
-	TranscodeProfileEncoderVp9  TranscodeProfileEncoder = "VP9"
-)
-
-func (e TranscodeProfileEncoder) ToPointer() *TranscodeProfileEncoder {
-	return &e
-}
-func (e *TranscodeProfileEncoder) UnmarshalJSON(data []byte) error {
+func (e *Encoder) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -64,48 +32,59 @@ func (e *TranscodeProfileEncoder) UnmarshalJSON(data []byte) error {
 	case "VP8":
 		fallthrough
 	case "VP9":
-		*e = TranscodeProfileEncoder(v)
+		*e = Encoder(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TranscodeProfileEncoder: %v", v)
+		return fmt.Errorf("invalid value for Encoder: %v", v)
+	}
+}
+
+type Profile string
+
+const (
+	ProfileH264Baseline        Profile = "H264Baseline"
+	ProfileH264Main            Profile = "H264Main"
+	ProfileH264High            Profile = "H264High"
+	ProfileH264ConstrainedHigh Profile = "H264ConstrainedHigh"
+)
+
+func (e Profile) ToPointer() *Profile {
+	return &e
+}
+func (e *Profile) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "H264Baseline":
+		fallthrough
+	case "H264Main":
+		fallthrough
+	case "H264High":
+		fallthrough
+	case "H264ConstrainedHigh":
+		*e = Profile(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for Profile: %v", v)
 	}
 }
 
 // TranscodeProfile - Transcode API profile
 type TranscodeProfile struct {
-	Width   *int64  `json:"width,omitempty"`
-	Name    *string `json:"name,omitempty"`
-	Height  *int64  `json:"height,omitempty"`
-	Bitrate int64   `json:"bitrate"`
+	Bitrate int64    `json:"bitrate"`
+	Encoder *Encoder `json:"encoder,omitempty"`
+	Fps     *int64   `json:"fps,omitempty"`
+	FpsDen  *int64   `json:"fpsDen,omitempty"`
+	Gop     *string  `json:"gop,omitempty"`
+	Height  *int64   `json:"height,omitempty"`
+	Name    *string  `json:"name,omitempty"`
+	Profile *Profile `json:"profile,omitempty"`
 	// Restricts the size of the output video using the constant quality feature. Increasing this value will result in a lower quality video. Note that this parameter might not work if the transcoder lacks support for it.
 	//
-	Quality *int64                   `json:"quality,omitempty"`
-	Fps     *int64                   `json:"fps,omitempty"`
-	FpsDen  *int64                   `json:"fpsDen,omitempty"`
-	Gop     *string                  `json:"gop,omitempty"`
-	Profile *TranscodeProfileProfile `json:"profile,omitempty"`
-	Encoder *TranscodeProfileEncoder `json:"encoder,omitempty"`
-}
-
-func (o *TranscodeProfile) GetWidth() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.Width
-}
-
-func (o *TranscodeProfile) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *TranscodeProfile) GetHeight() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.Height
+	Quality *int64 `json:"quality,omitempty"`
+	Width   *int64 `json:"width,omitempty"`
 }
 
 func (o *TranscodeProfile) GetBitrate() int64 {
@@ -115,11 +94,11 @@ func (o *TranscodeProfile) GetBitrate() int64 {
 	return o.Bitrate
 }
 
-func (o *TranscodeProfile) GetQuality() *int64 {
+func (o *TranscodeProfile) GetEncoder() *Encoder {
 	if o == nil {
 		return nil
 	}
-	return o.Quality
+	return o.Encoder
 }
 
 func (o *TranscodeProfile) GetFps() *int64 {
@@ -143,16 +122,37 @@ func (o *TranscodeProfile) GetGop() *string {
 	return o.Gop
 }
 
-func (o *TranscodeProfile) GetProfile() *TranscodeProfileProfile {
+func (o *TranscodeProfile) GetHeight() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.Height
+}
+
+func (o *TranscodeProfile) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
+}
+
+func (o *TranscodeProfile) GetProfile() *Profile {
 	if o == nil {
 		return nil
 	}
 	return o.Profile
 }
 
-func (o *TranscodeProfile) GetEncoder() *TranscodeProfileEncoder {
+func (o *TranscodeProfile) GetQuality() *int64 {
 	if o == nil {
 		return nil
 	}
-	return o.Encoder
+	return o.Quality
+}
+
+func (o *TranscodeProfile) GetWidth() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.Width
 }

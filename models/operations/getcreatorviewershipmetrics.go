@@ -140,21 +140,21 @@ func (u QueryParamTo) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type QueryParamTo: all fields are null")
 }
 
-// QueryParamTimeStep - The time step to aggregate viewership metrics by
-type QueryParamTimeStep string
+// GetCreatorViewershipMetricsQueryParamTimeStep - The time step to aggregate viewership metrics by
+type GetCreatorViewershipMetricsQueryParamTimeStep string
 
 const (
-	QueryParamTimeStepHour  QueryParamTimeStep = "hour"
-	QueryParamTimeStepDay   QueryParamTimeStep = "day"
-	QueryParamTimeStepWeek  QueryParamTimeStep = "week"
-	QueryParamTimeStepMonth QueryParamTimeStep = "month"
-	QueryParamTimeStepYear  QueryParamTimeStep = "year"
+	GetCreatorViewershipMetricsQueryParamTimeStepHour  GetCreatorViewershipMetricsQueryParamTimeStep = "hour"
+	GetCreatorViewershipMetricsQueryParamTimeStepDay   GetCreatorViewershipMetricsQueryParamTimeStep = "day"
+	GetCreatorViewershipMetricsQueryParamTimeStepWeek  GetCreatorViewershipMetricsQueryParamTimeStep = "week"
+	GetCreatorViewershipMetricsQueryParamTimeStepMonth GetCreatorViewershipMetricsQueryParamTimeStep = "month"
+	GetCreatorViewershipMetricsQueryParamTimeStepYear  GetCreatorViewershipMetricsQueryParamTimeStep = "year"
 )
 
-func (e QueryParamTimeStep) ToPointer() *QueryParamTimeStep {
+func (e GetCreatorViewershipMetricsQueryParamTimeStep) ToPointer() *GetCreatorViewershipMetricsQueryParamTimeStep {
 	return &e
 }
-func (e *QueryParamTimeStep) UnmarshalJSON(data []byte) error {
+func (e *GetCreatorViewershipMetricsQueryParamTimeStep) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -169,33 +169,33 @@ func (e *QueryParamTimeStep) UnmarshalJSON(data []byte) error {
 	case "month":
 		fallthrough
 	case "year":
-		*e = QueryParamTimeStep(v)
+		*e = GetCreatorViewershipMetricsQueryParamTimeStep(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for QueryParamTimeStep: %v", v)
+		return fmt.Errorf("invalid value for GetCreatorViewershipMetricsQueryParamTimeStep: %v", v)
 	}
 }
 
-type QueryParamBreakdownBy string
+type GetCreatorViewershipMetricsQueryParamBreakdownBy string
 
 const (
-	QueryParamBreakdownByDeviceType    QueryParamBreakdownBy = "deviceType"
-	QueryParamBreakdownByDevice        QueryParamBreakdownBy = "device"
-	QueryParamBreakdownByCPU           QueryParamBreakdownBy = "cpu"
-	QueryParamBreakdownByOs            QueryParamBreakdownBy = "os"
-	QueryParamBreakdownByBrowser       QueryParamBreakdownBy = "browser"
-	QueryParamBreakdownByBrowserEngine QueryParamBreakdownBy = "browserEngine"
-	QueryParamBreakdownByContinent     QueryParamBreakdownBy = "continent"
-	QueryParamBreakdownByCountry       QueryParamBreakdownBy = "country"
-	QueryParamBreakdownBySubdivision   QueryParamBreakdownBy = "subdivision"
-	QueryParamBreakdownByTimezone      QueryParamBreakdownBy = "timezone"
-	QueryParamBreakdownByViewerID      QueryParamBreakdownBy = "viewerId"
+	GetCreatorViewershipMetricsQueryParamBreakdownByDeviceType    GetCreatorViewershipMetricsQueryParamBreakdownBy = "deviceType"
+	GetCreatorViewershipMetricsQueryParamBreakdownByDevice        GetCreatorViewershipMetricsQueryParamBreakdownBy = "device"
+	GetCreatorViewershipMetricsQueryParamBreakdownByCPU           GetCreatorViewershipMetricsQueryParamBreakdownBy = "cpu"
+	GetCreatorViewershipMetricsQueryParamBreakdownByOs            GetCreatorViewershipMetricsQueryParamBreakdownBy = "os"
+	GetCreatorViewershipMetricsQueryParamBreakdownByBrowser       GetCreatorViewershipMetricsQueryParamBreakdownBy = "browser"
+	GetCreatorViewershipMetricsQueryParamBreakdownByBrowserEngine GetCreatorViewershipMetricsQueryParamBreakdownBy = "browserEngine"
+	GetCreatorViewershipMetricsQueryParamBreakdownByContinent     GetCreatorViewershipMetricsQueryParamBreakdownBy = "continent"
+	GetCreatorViewershipMetricsQueryParamBreakdownByCountry       GetCreatorViewershipMetricsQueryParamBreakdownBy = "country"
+	GetCreatorViewershipMetricsQueryParamBreakdownBySubdivision   GetCreatorViewershipMetricsQueryParamBreakdownBy = "subdivision"
+	GetCreatorViewershipMetricsQueryParamBreakdownByTimezone      GetCreatorViewershipMetricsQueryParamBreakdownBy = "timezone"
+	GetCreatorViewershipMetricsQueryParamBreakdownByViewerID      GetCreatorViewershipMetricsQueryParamBreakdownBy = "viewerId"
 )
 
-func (e QueryParamBreakdownBy) ToPointer() *QueryParamBreakdownBy {
+func (e GetCreatorViewershipMetricsQueryParamBreakdownBy) ToPointer() *GetCreatorViewershipMetricsQueryParamBreakdownBy {
 	return &e
 }
-func (e *QueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
+func (e *GetCreatorViewershipMetricsQueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -222,10 +222,10 @@ func (e *QueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
 	case "timezone":
 		fallthrough
 	case "viewerId":
-		*e = QueryParamBreakdownBy(v)
+		*e = GetCreatorViewershipMetricsQueryParamBreakdownBy(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for QueryParamBreakdownBy: %v", v)
+		return fmt.Errorf("invalid value for GetCreatorViewershipMetricsQueryParamBreakdownBy: %v", v)
 	}
 }
 
@@ -235,7 +235,7 @@ type GetCreatorViewershipMetricsRequest struct {
 	// End timestamp for the query range (exclusive)
 	To *QueryParamTo `queryParam:"style=form,explode=true,name=to"`
 	// The time step to aggregate viewership metrics by
-	TimeStep *QueryParamTimeStep `queryParam:"style=form,explode=true,name=timeStep"`
+	TimeStep *GetCreatorViewershipMetricsQueryParamTimeStep `queryParam:"style=form,explode=true,name=timeStep"`
 	// The asset ID to filter metrics for
 	AssetID *string `queryParam:"style=form,explode=true,name=assetId"`
 	// The stream ID to filter metrics for
@@ -245,7 +245,7 @@ type GetCreatorViewershipMetricsRequest struct {
 	// The list of fields to break down the query results. Specify this
 	// query-string multiple times to break down by multiple fields.
 	//
-	BreakdownBy []QueryParamBreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
+	BreakdownBy []GetCreatorViewershipMetricsQueryParamBreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
 }
 
 func (o *GetCreatorViewershipMetricsRequest) GetFrom() *QueryParamFrom {
@@ -262,7 +262,7 @@ func (o *GetCreatorViewershipMetricsRequest) GetTo() *QueryParamTo {
 	return o.To
 }
 
-func (o *GetCreatorViewershipMetricsRequest) GetTimeStep() *QueryParamTimeStep {
+func (o *GetCreatorViewershipMetricsRequest) GetTimeStep() *GetCreatorViewershipMetricsQueryParamTimeStep {
 	if o == nil {
 		return nil
 	}
@@ -290,7 +290,7 @@ func (o *GetCreatorViewershipMetricsRequest) GetCreatorID() *string {
 	return o.CreatorID
 }
 
-func (o *GetCreatorViewershipMetricsRequest) GetBreakdownBy() []QueryParamBreakdownBy {
+func (o *GetCreatorViewershipMetricsRequest) GetBreakdownBy() []GetCreatorViewershipMetricsQueryParamBreakdownBy {
 	if o == nil {
 		return nil
 	}

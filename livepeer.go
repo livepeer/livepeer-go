@@ -66,28 +66,28 @@ func (c *sdkConfiguration) GetServerDetails() (string, map[string]string) {
 // endpoints exposed on the standard Livepeer API, learn how to use them and
 // what they return.
 type Livepeer struct {
-	// Operations related to livestream api
-	Stream *Stream
-	// Operations related to multistream api
-	Multistream *Multistream
-	// Operations related to webhook api
-	Webhook *Webhook
-	// Operations related to asset/vod api
-	Asset *Asset
-	// Operations related to session api
-	Session *Session
-	// Operations related to rooms api
-	Room *Room
-	// Operations related to metrics api
-	Metrics *Metrics
 	// Operations related to access control/signing keys api
 	AccessControl *AccessControl
+	// Operations related to asset/vod api
+	Asset *Asset
+	// Operations related to livestream api
+	Stream *Stream
+	// Operations related to metrics api
+	Metrics *Metrics
+	// Operations related to multistream api
+	Multistream *Multistream
+	// Operations related to playback api
+	Playback *Playback
+	// Operations related to rooms api
+	Room *Room
+	// Operations related to session api
+	Session *Session
 	// Operations related to tasks api
 	Task *Task
 	// Operations related to transcode api
 	Transcode *Transcode
-	// Operations related to playback api
-	Playback *Playback
+	// Operations related to webhook api
+	Webhook *Webhook
 
 	sdkConfiguration sdkConfiguration
 }
@@ -159,9 +159,9 @@ func New(opts ...SDKOption) *Livepeer {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "1.0.0",
-			SDKVersion:        "0.1.11",
-			GenVersion:        "2.340.3",
-			UserAgent:         "speakeasy-sdk/go 0.1.11 2.340.3 1.0.0 github.com/livepeer/livepeer-go",
+			SDKVersion:        "0.1.12",
+			GenVersion:        "2.354.2",
+			UserAgent:         "speakeasy-sdk/go 0.1.12 2.354.2 1.0.0 github.com/livepeer/livepeer-go",
 			Hooks:             hooks.New(),
 		},
 	}
@@ -181,27 +181,27 @@ func New(opts ...SDKOption) *Livepeer {
 		sdk.sdkConfiguration.ServerURL = serverURL
 	}
 
-	sdk.Stream = newStream(sdk.sdkConfiguration)
-
-	sdk.Multistream = newMultistream(sdk.sdkConfiguration)
-
-	sdk.Webhook = newWebhook(sdk.sdkConfiguration)
+	sdk.AccessControl = newAccessControl(sdk.sdkConfiguration)
 
 	sdk.Asset = newAsset(sdk.sdkConfiguration)
 
-	sdk.Session = newSession(sdk.sdkConfiguration)
-
-	sdk.Room = newRoom(sdk.sdkConfiguration)
+	sdk.Stream = newStream(sdk.sdkConfiguration)
 
 	sdk.Metrics = newMetrics(sdk.sdkConfiguration)
 
-	sdk.AccessControl = newAccessControl(sdk.sdkConfiguration)
+	sdk.Multistream = newMultistream(sdk.sdkConfiguration)
+
+	sdk.Playback = newPlayback(sdk.sdkConfiguration)
+
+	sdk.Room = newRoom(sdk.sdkConfiguration)
+
+	sdk.Session = newSession(sdk.sdkConfiguration)
 
 	sdk.Task = newTask(sdk.sdkConfiguration)
 
 	sdk.Transcode = newTranscode(sdk.sdkConfiguration)
 
-	sdk.Playback = newPlayback(sdk.sdkConfiguration)
+	sdk.Webhook = newWebhook(sdk.sdkConfiguration)
 
 	return sdk
 }

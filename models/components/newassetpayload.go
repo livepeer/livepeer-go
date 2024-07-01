@@ -8,11 +8,23 @@ import (
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
-type NewAssetPayloadIpfs1 struct {
+type NewAssetPayloadEncryption struct {
+	// Encryption key used to encrypt the asset. Only writable in the upload asset endpoints and cannot be retrieved back.
+	EncryptedKey string `json:"encryptedKey"`
+}
+
+func (o *NewAssetPayloadEncryption) GetEncryptedKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.EncryptedKey
+}
+
+type Ipfs1 struct {
 	Spec *Spec `json:"spec,omitempty"`
 }
 
-func (o *NewAssetPayloadIpfs1) GetSpec() *Spec {
+func (o *Ipfs1) GetSpec() *Spec {
 	if o == nil {
 		return nil
 	}
@@ -22,26 +34,26 @@ func (o *NewAssetPayloadIpfs1) GetSpec() *Spec {
 type NewAssetPayloadIpfsType string
 
 const (
-	NewAssetPayloadIpfsTypeNewAssetPayloadIpfs1 NewAssetPayloadIpfsType = "new-asset-payload_ipfs_1"
-	NewAssetPayloadIpfsTypeBoolean              NewAssetPayloadIpfsType = "boolean"
+	NewAssetPayloadIpfsTypeIpfs1   NewAssetPayloadIpfsType = "ipfs_1"
+	NewAssetPayloadIpfsTypeBoolean NewAssetPayloadIpfsType = "boolean"
 )
 
 // NewAssetPayloadIpfs - Set to true to make default export to IPFS. To customize the
 // pinned files, specify an object with a spec field. False or null
 // means to unpin from IPFS, but it's unsupported right now.
 type NewAssetPayloadIpfs struct {
-	NewAssetPayloadIpfs1 *NewAssetPayloadIpfs1
-	Boolean              *bool
+	Ipfs1   *Ipfs1
+	Boolean *bool
 
 	Type NewAssetPayloadIpfsType
 }
 
-func CreateNewAssetPayloadIpfsNewAssetPayloadIpfs1(newAssetPayloadIpfs1 NewAssetPayloadIpfs1) NewAssetPayloadIpfs {
-	typ := NewAssetPayloadIpfsTypeNewAssetPayloadIpfs1
+func CreateNewAssetPayloadIpfsIpfs1(ipfs1 Ipfs1) NewAssetPayloadIpfs {
+	typ := NewAssetPayloadIpfsTypeIpfs1
 
 	return NewAssetPayloadIpfs{
-		NewAssetPayloadIpfs1: &newAssetPayloadIpfs1,
-		Type:                 typ,
+		Ipfs1: &ipfs1,
+		Type:  typ,
 	}
 }
 
@@ -56,10 +68,10 @@ func CreateNewAssetPayloadIpfsBoolean(boolean bool) NewAssetPayloadIpfs {
 
 func (u *NewAssetPayloadIpfs) UnmarshalJSON(data []byte) error {
 
-	var newAssetPayloadIpfs1 NewAssetPayloadIpfs1 = NewAssetPayloadIpfs1{}
-	if err := utils.UnmarshalJSON(data, &newAssetPayloadIpfs1, "", true, true); err == nil {
-		u.NewAssetPayloadIpfs1 = &newAssetPayloadIpfs1
-		u.Type = NewAssetPayloadIpfsTypeNewAssetPayloadIpfs1
+	var ipfs1 Ipfs1 = Ipfs1{}
+	if err := utils.UnmarshalJSON(data, &ipfs1, "", true, true); err == nil {
+		u.Ipfs1 = &ipfs1
+		u.Type = NewAssetPayloadIpfsTypeIpfs1
 		return nil
 	}
 
@@ -74,8 +86,8 @@ func (u *NewAssetPayloadIpfs) UnmarshalJSON(data []byte) error {
 }
 
 func (u NewAssetPayloadIpfs) MarshalJSON() ([]byte, error) {
-	if u.NewAssetPayloadIpfs1 != nil {
-		return utils.MarshalJSON(u.NewAssetPayloadIpfs1, "", true)
+	if u.Ipfs1 != nil {
+		return utils.MarshalJSON(u.Ipfs1, "", true)
 	}
 
 	if u.Boolean != nil {
@@ -100,76 +112,22 @@ func (o *NewAssetPayloadStorage) GetIpfs() *NewAssetPayloadIpfs {
 	return o.Ipfs
 }
 
-type NewAssetPayloadEncryption struct {
-	// Encryption key used to encrypt the asset. Only writable in the upload asset endpoints and cannot be retrieved back.
-	EncryptedKey string `json:"encryptedKey"`
-}
-
-func (o *NewAssetPayloadEncryption) GetEncryptedKey() string {
-	if o == nil {
-		return ""
-	}
-	return o.EncryptedKey
-}
-
 type NewAssetPayload struct {
+	// Decides if the output video should include C2PA signature
+	C2pa       *bool                      `json:"c2pa,omitempty"`
+	CreatorID  *InputCreatorID            `json:"creatorId,omitempty"`
+	Encryption *NewAssetPayloadEncryption `json:"encryption,omitempty"`
 	// The name of the asset. This is not necessarily the filename - it can be a custom name or title.
 	//
 	Name string `json:"name"`
-	// Whether to generate MP4s for the asset.
-	StaticMp4 *bool `json:"staticMp4,omitempty"`
 	// Whether the playback policy for an asset or stream is public or signed
-	PlaybackPolicy *PlaybackPolicy            `json:"playbackPolicy,omitempty"`
-	CreatorID      *InputCreatorID            `json:"creatorId,omitempty"`
-	Storage        *NewAssetPayloadStorage    `json:"storage,omitempty"`
-	Encryption     *NewAssetPayloadEncryption `json:"encryption,omitempty"`
-	// Decides if the output video should include C2PA signature
-	C2pa     *bool              `json:"c2pa,omitempty"`
-	Profiles []TranscodeProfile `json:"profiles,omitempty"`
+	PlaybackPolicy *PlaybackPolicy    `json:"playbackPolicy,omitempty"`
+	Profiles       []TranscodeProfile `json:"profiles,omitempty"`
+	// Whether to generate MP4s for the asset.
+	StaticMp4 *bool                   `json:"staticMp4,omitempty"`
+	Storage   *NewAssetPayloadStorage `json:"storage,omitempty"`
 	// How many seconds the duration of each output segment should be
 	TargetSegmentSizeSecs *float64 `json:"targetSegmentSizeSecs,omitempty"`
-}
-
-func (o *NewAssetPayload) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *NewAssetPayload) GetStaticMp4() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.StaticMp4
-}
-
-func (o *NewAssetPayload) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
-		return nil
-	}
-	return o.PlaybackPolicy
-}
-
-func (o *NewAssetPayload) GetCreatorID() *InputCreatorID {
-	if o == nil {
-		return nil
-	}
-	return o.CreatorID
-}
-
-func (o *NewAssetPayload) GetStorage() *NewAssetPayloadStorage {
-	if o == nil {
-		return nil
-	}
-	return o.Storage
-}
-
-func (o *NewAssetPayload) GetEncryption() *NewAssetPayloadEncryption {
-	if o == nil {
-		return nil
-	}
-	return o.Encryption
 }
 
 func (o *NewAssetPayload) GetC2pa() *bool {
@@ -179,11 +137,53 @@ func (o *NewAssetPayload) GetC2pa() *bool {
 	return o.C2pa
 }
 
+func (o *NewAssetPayload) GetCreatorID() *InputCreatorID {
+	if o == nil {
+		return nil
+	}
+	return o.CreatorID
+}
+
+func (o *NewAssetPayload) GetEncryption() *NewAssetPayloadEncryption {
+	if o == nil {
+		return nil
+	}
+	return o.Encryption
+}
+
+func (o *NewAssetPayload) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *NewAssetPayload) GetPlaybackPolicy() *PlaybackPolicy {
+	if o == nil {
+		return nil
+	}
+	return o.PlaybackPolicy
+}
+
 func (o *NewAssetPayload) GetProfiles() []TranscodeProfile {
 	if o == nil {
 		return nil
 	}
 	return o.Profiles
+}
+
+func (o *NewAssetPayload) GetStaticMp4() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.StaticMp4
+}
+
+func (o *NewAssetPayload) GetStorage() *NewAssetPayloadStorage {
+	if o == nil {
+		return nil
+	}
+	return o.Storage
 }
 
 func (o *NewAssetPayload) GetTargetSegmentSizeSecs() *float64 {

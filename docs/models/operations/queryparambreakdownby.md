@@ -5,6 +5,7 @@
 
 | Name                                 | Value                                |
 | ------------------------------------ | ------------------------------------ |
+| `QueryParamBreakdownByPlaybackID`    | playbackId                           |
 | `QueryParamBreakdownByDeviceType`    | deviceType                           |
 | `QueryParamBreakdownByDevice`        | device                               |
 | `QueryParamBreakdownByCPU`           | cpu                                  |
@@ -15,4 +16,6 @@
 | `QueryParamBreakdownByCountry`       | country                              |
 | `QueryParamBreakdownBySubdivision`   | subdivision                          |
 | `QueryParamBreakdownByTimezone`      | timezone                             |
+| `QueryParamBreakdownByGeohash`       | geohash                              |
 | `QueryParamBreakdownByViewerID`      | viewerId                             |
+| `QueryParamBreakdownByCreatorID`     | creatorId                            |

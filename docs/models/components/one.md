@@ -1,12 +1,8 @@
 # One
 
-0: not mobile, 1: mobile screen share, 2: mobile camera.
 
+## Fields
 
-## Values
-
-| Name      | Value     |
-| --------- | --------- |
-| `OneZero` | 0         |
-| `OneOne`  | 1         |
-| `OneTwo`  | 2         |
+| Field                                               | Type                                                | Required                                            | Description                                         |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| `Spec`                                              | [*components.Spec](../../models/components/spec.md) | :heavy_minus_sign:                                  | N/A                                                 |

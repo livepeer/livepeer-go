@@ -9,18 +9,18 @@ import (
 	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
-// GetUsageMetricsQueryParamTimeStep - The time step to aggregate viewership metrics by
-type GetUsageMetricsQueryParamTimeStep string
+// TimeStep - The time step to aggregate viewership metrics by
+type TimeStep string
 
 const (
-	GetUsageMetricsQueryParamTimeStepHour GetUsageMetricsQueryParamTimeStep = "hour"
-	GetUsageMetricsQueryParamTimeStepDay  GetUsageMetricsQueryParamTimeStep = "day"
+	TimeStepHour TimeStep = "hour"
+	TimeStepDay  TimeStep = "day"
 )
 
-func (e GetUsageMetricsQueryParamTimeStep) ToPointer() *GetUsageMetricsQueryParamTimeStep {
+func (e TimeStep) ToPointer() *TimeStep {
 	return &e
 }
-func (e *GetUsageMetricsQueryParamTimeStep) UnmarshalJSON(data []byte) error {
+func (e *TimeStep) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -29,33 +29,33 @@ func (e *GetUsageMetricsQueryParamTimeStep) UnmarshalJSON(data []byte) error {
 	case "hour":
 		fallthrough
 	case "day":
-		*e = GetUsageMetricsQueryParamTimeStep(v)
+		*e = TimeStep(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for GetUsageMetricsQueryParamTimeStep: %v", v)
+		return fmt.Errorf("invalid value for TimeStep: %v", v)
 	}
 }
 
-type GetUsageMetricsQueryParamBreakdownBy string
+type BreakdownBy string
 
 const (
-	GetUsageMetricsQueryParamBreakdownByCreatorID GetUsageMetricsQueryParamBreakdownBy = "creatorId"
+	BreakdownByCreatorID BreakdownBy = "creatorId"
 )
 
-func (e GetUsageMetricsQueryParamBreakdownBy) ToPointer() *GetUsageMetricsQueryParamBreakdownBy {
+func (e BreakdownBy) ToPointer() *BreakdownBy {
 	return &e
 }
-func (e *GetUsageMetricsQueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
+func (e *BreakdownBy) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "creatorId":
-		*e = GetUsageMetricsQueryParamBreakdownBy(v)
+		*e = BreakdownBy(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for GetUsageMetricsQueryParamBreakdownBy: %v", v)
+		return fmt.Errorf("invalid value for BreakdownBy: %v", v)
 	}
 }
 
@@ -68,14 +68,14 @@ type GetUsageMetricsRequest struct {
 	To *int64 `queryParam:"style=form,explode=true,name=to"`
 	// The time step to aggregate viewership metrics by
 	//
-	TimeStep *GetUsageMetricsQueryParamTimeStep `queryParam:"style=form,explode=true,name=timeStep"`
+	TimeStep *TimeStep `queryParam:"style=form,explode=true,name=timeStep"`
 	// The creator ID to filter the query results
 	//
 	CreatorID *string `queryParam:"style=form,explode=true,name=creatorId"`
 	// The list of fields to break down the query results. Currently the
 	// only supported breakdown is by `creatorId`.
 	//
-	BreakdownBy []GetUsageMetricsQueryParamBreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
+	BreakdownBy []BreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
 }
 
 func (o *GetUsageMetricsRequest) GetFrom() *int64 {
@@ -92,7 +92,7 @@ func (o *GetUsageMetricsRequest) GetTo() *int64 {
 	return o.To
 }
 
-func (o *GetUsageMetricsRequest) GetTimeStep() *GetUsageMetricsQueryParamTimeStep {
+func (o *GetUsageMetricsRequest) GetTimeStep() *TimeStep {
 	if o == nil {
 		return nil
 	}
@@ -106,7 +106,7 @@ func (o *GetUsageMetricsRequest) GetCreatorID() *string {
 	return o.CreatorID
 }
 
-func (o *GetUsageMetricsRequest) GetBreakdownBy() []GetUsageMetricsQueryParamBreakdownBy {
+func (o *GetUsageMetricsRequest) GetBreakdownBy() []BreakdownBy {
 	if o == nil {
 		return nil
 	}

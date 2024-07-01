@@ -156,41 +156,41 @@ func main() {
                     URL: "https://s3.amazonaws.com/bucket/file.mp4",
                 },
         ),
-        Storage: components.CreateTranscodePayloadStorageStorage1(
-                components.Storage1{
-                    Type: components.StorageTypeS3,
-                    Endpoint: "https://gateway.storjshare.io",
-                    Bucket: "outputbucket",
-                    Credentials: components.StorageCredentials{
-                        AccessKeyID: "AKIAIOSFODNN7EXAMPLE",
-                        SecretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-                    },
-                },
-        ),
         Outputs: components.Outputs{
+            Fmp4: &components.Fmp4{
+                Path: "/samplevideo/fmp4",
+            },
             Hls: &components.Hls{
                 Path: "/samplevideo/hls",
             },
             Mp4: &components.Mp4{
                 Path: "/samplevideo/mp4",
             },
-            Fmp4: &components.Fmp4{
-                Path: "/samplevideo/fmp4",
-            },
         },
         Profiles: []components.TranscodeProfile{
             components.TranscodeProfile{
-                Width: livepeergo.Int64(1280),
-                Name: livepeergo.String("720p"),
                 Bitrate: 3000000,
-                Quality: livepeergo.Int64(23),
+                Encoder: components.EncoderH264.ToPointer(),
                 Fps: livepeergo.Int64(30),
                 FpsDen: livepeergo.Int64(1),
                 Gop: livepeergo.String("2"),
-                Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
-                Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
+                Name: livepeergo.String("720p"),
+                Profile: components.ProfileH264Baseline.ToPointer(),
+                Quality: livepeergo.Int64(23),
+                Width: livepeergo.Int64(1280),
             },
         },
+        Storage: components.CreateTranscodePayloadStorageStorage1(
+                components.Storage1{
+                    Bucket: "outputbucket",
+                    Credentials: components.StorageCredentials{
+                        AccessKeyID: "AKIAIOSFODNN7EXAMPLE",
+                        SecretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+                    },
+                    Endpoint: "https://gateway.storjshare.io",
+                    Type: components.StorageTypeS3,
+                },
+        ),
     }
     ctx := context.Background()
     res, err := s.Transcode.Create(ctx, request)

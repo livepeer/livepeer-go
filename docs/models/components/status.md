@@ -1,11 +1,13 @@
 # Status
 
-status of webhook
+Status of the asset
 
 
 ## Fields
 
-| Field                                                                | Type                                                                 | Required                                                             | Description                                                          | Example                                                              |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `LastFailure`                                                        | [*components.LastFailure](../../models/components/lastfailure.md)    | :heavy_minus_sign:                                                   | failure timestamp and error message with status code                 |                                                                      |
-| `LastTriggeredAt`                                                    | **float64*                                                           | :heavy_minus_sign:                                                   | Timestamp (in milliseconds) at which the webhook last was<br/>triggered<br/> | 1587667174725                                                        |
+| Field                                                           | Type                                                            | Required                                                        | Description                                                     | Example                                                         |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| `ErrorMessage`                                                  | **string*                                                       | :heavy_minus_sign:                                              | Error message if the asset creation failed.                     |                                                                 |
+| `Phase`                                                         | [components.AssetPhase](../../models/components/assetphase.md)  | :heavy_check_mark:                                              | Phase of the asset                                              |                                                                 |
+| `Progress`                                                      | **float64*                                                      | :heavy_minus_sign:                                              | Current progress of the task creating this asset.               |                                                                 |
+| `UpdatedAt`                                                     | *float64*                                                       | :heavy_check_mark:                                              | Timestamp (in milliseconds) at which the asset was last updated | 1587667174725                                                   |

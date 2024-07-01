@@ -1,11 +1,14 @@
 # TaskUpload
 
-Output of the upload task
+Parameters for the upload task
 
 
 ## Fields
 
-| Field                                                 | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `AssetSpec`                                           | [*components.Asset](../../models/components/asset.md) | :heavy_minus_sign:                                    | N/A                                                   |
-| `AdditionalProperties`                                | map[string]*any*                                      | :heavy_minus_sign:                                    | N/A                                                   |
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `C2pa`                                                                       | **bool*                                                                      | :heavy_minus_sign:                                                           | Decides if the output video should include C2PA signature                    | true                                                                         |
+| `Encryption`                                                                 | [*components.EncryptionOutput](../../models/components/encryptionoutput.md)  | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |
+| `Profiles`                                                                   | [][components.TranscodeProfile](../../models/components/transcodeprofile.md) | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |
+| `TargetSegmentSizeSecs`                                                      | **float64*                                                                   | :heavy_minus_sign:                                                           | How many seconds the duration of each output segment should be               | 6                                                                            |
+| `URL`                                                                        | **string*                                                                    | :heavy_minus_sign:                                                           | URL of the asset to "upload"                                                 | https://cdn.livepeer.com/ABC123/filename.mp4                                 |

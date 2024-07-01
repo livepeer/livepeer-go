@@ -7,56 +7,10 @@ Operations related to session api
 
 ### Available Operations
 
-* [GetClips](#getclips) - Retrieve clips of a session
 * [GetAll](#getall) - Retrieve sessions
 * [Get](#get) - Retrieve a session
+* [GetClips](#getclips) - Retrieve clips of a session
 * [GetRecorded](#getrecorded) - Retrieve Recorded Sessions
-
-## GetClips
-
-Retrieve clips of a session
-
-### Example Usage
-
-```go
-package main
-
-import(
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
-)
-
-func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-    )
-    var id string = "<value>"
-    ctx := context.Background()
-    res, err := s.Session.GetClips(ctx, id)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Data != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the parent session                              |
-
-
-### Response
-
-**[*operations.GetSessionClipsResponse](../../models/operations/getsessionclipsresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
 
 ## GetAll
 
@@ -145,6 +99,52 @@ func main() {
 ### Response
 
 **[*operations.GetSessionResponse](../../models/operations/getsessionresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
+
+## GetClips
+
+Retrieve clips of a session
+
+### Example Usage
+
+```go
+package main
+
+import(
+	livepeergo "github.com/livepeer/livepeer-go"
+	"context"
+	"log"
+)
+
+func main() {
+    s := livepeergo.New(
+        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    )
+    var id string = "<value>"
+    ctx := context.Background()
+    res, err := s.Session.GetClips(ctx, id)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Data != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | ID of the parent session                              |
+
+
+### Response
+
+**[*operations.GetSessionClipsResponse](../../models/operations/getsessionclipsresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |

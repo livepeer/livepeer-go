@@ -8,10 +8,10 @@ means to unpin from IPFS, but it's unsupported right now.
 
 ## Supported Types
 
-### Ipfs1
+### One
 
 ```go
-ipfs := components.CreateIpfsIpfs1(components.Ipfs1{/* values here */})
+ipfs := components.CreateIpfsOne(components.One{/* values here */})
 ```
 
 ### 

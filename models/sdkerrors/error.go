@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 )
 
+// Error
 type Error struct {
 	Errors []string `json:"errors,omitempty"`
 }
