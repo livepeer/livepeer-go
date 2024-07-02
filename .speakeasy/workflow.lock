@@ -1,9 +1,9 @@
-speakeasyVersion: 1.322.3
+speakeasyVersion: 1.325.0
 sources:
     livepeer-studio-api:
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:dd6b8ce115fbfee43ddf568035ef70313a0c689bed06b61226dae1648e253115
-        sourceBlobDigest: sha256:63e4974701821fc5b4e707c5eeb7666335e0ebe8ca208c64892ca6f53db7926d
+        sourceRevisionDigest: sha256:c9277840067f4231581fcb974accc8084435e1e2ae2eadc5f3b907224fec619d
+        sourceBlobDigest: sha256:f3717f21c929515a9b4b04df327272e60b1220a4ef35272ca6338956a48482a3
         tags:
             - latest
             - main
@@ -11,8 +11,8 @@ targets:
     livepeer-go:
         source: livepeer-studio-api
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:dd6b8ce115fbfee43ddf568035ef70313a0c689bed06b61226dae1648e253115
-        sourceBlobDigest: sha256:63e4974701821fc5b4e707c5eeb7666335e0ebe8ca208c64892ca6f53db7926d
+        sourceRevisionDigest: sha256:c9277840067f4231581fcb974accc8084435e1e2ae2eadc5f3b907224fec619d
+        sourceBlobDigest: sha256:f3717f21c929515a9b4b04df327272e60b1220a4ef35272ca6338956a48482a3
         outLocation: /github/workspace/repo
 workflow:
     workflowVersion: 1.0.0
