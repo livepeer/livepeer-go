@@ -49,3 +49,13 @@ Based on:
 - [go v0.1.12] .
 ### Releases
 - [Go v0.1.12] https://github.com/livepeer/livepeer-go/releases/tag/v0.1.12 - .
+
+## 2024-07-04 00:24:47
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.326.0 (2.359.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.1.12] .
+### Releases
+- [Go v0.1.12] https://github.com/livepeer/livepeer-go/releases/tag/v0.1.12 - .
