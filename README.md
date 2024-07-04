@@ -409,6 +409,7 @@ func main() {
 ### [Metrics](docs/sdks/metrics/README.md)
 
 * [GetUsage](docs/sdks/metrics/README.md#getusage) - Query usage metrics
+* [GetRealtimeViewership](docs/sdks/metrics/README.md#getrealtimeviewership) - Query realtime viewership
 * [GetViewership](docs/sdks/metrics/README.md#getviewership) - Query viewership metrics
 * [GetCreatorViewership](docs/sdks/metrics/README.md#getcreatorviewership) - Query creator viewership metrics
 * [GetPublicViewership](docs/sdks/metrics/README.md#getpublicviewership) - Query public total views metrics

@@ -2,7 +2,7 @@
 
 package components
 
-// ViewershipMetric - An individual metric about viewership of an asset. Necessarily, at least
+// ViewershipMetric - An individual metric about viewership of a stream/asset. Necessarily, at least
 // 1 of playbackId and dStorageUrl will be present, depending on the query.
 type ViewershipMetric struct {
 	// The browser used by the viewer.
@@ -23,7 +23,7 @@ type ViewershipMetric struct {
 	Device *string `json:"device,omitempty"`
 	// The type of the device used by the viewer.
 	DeviceType *string `json:"deviceType,omitempty"`
-	// The error rate for the asset.
+	// The error rate for the stream/asset.
 	ErrorRate *float64 `json:"errorRate,omitempty"`
 	// The percentage of sessions that existed before the asset started
 	// playing.
@@ -35,7 +35,7 @@ type ViewershipMetric struct {
 	Os *string `json:"os,omitempty"`
 	// The playback ID associated with the metric.
 	PlaybackID *string `json:"playbackId,omitempty"`
-	// The total playtime in minutes for the asset.
+	// The total playtime in minutes for the stream/asset.
 	PlaytimeMins float64 `json:"playtimeMins"`
 	// The rebuffering ratio for the asset.
 	RebufferRatio *float64 `json:"rebufferRatio,omitempty"`
@@ -52,7 +52,7 @@ type ViewershipMetric struct {
 	Timezone *string `json:"timezone,omitempty"`
 	// The time-to-first-frame (TTFF) in milliseconds.
 	TtffMs *float64 `json:"ttffMs,omitempty"`
-	// The number of views for the asset.
+	// The number of views for the stream/asset.
 	ViewCount int64 `json:"viewCount"`
 	// The ID of the viewer associated with the metric.
 	ViewerID *string `json:"viewerId,omitempty"`

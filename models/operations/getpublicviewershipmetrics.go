@@ -29,9 +29,9 @@ type GetPublicViewershipMetricsData struct {
 	DStorageURL *string `json:"dStorageUrl,omitempty"`
 	// The playback ID associated with the metric.
 	PlaybackID *string `json:"playbackId,omitempty"`
-	// The total playtime in minutes for the asset.
+	// The total playtime in minutes for the stream/asset.
 	PlaytimeMins *float64 `json:"playtimeMins,omitempty"`
-	// The number of views for the asset.
+	// The number of views for the stream/asset.
 	ViewCount *int64 `json:"viewCount,omitempty"`
 }
 

@@ -176,29 +176,29 @@ func (e *QueryParamTimeStep) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type QueryParamBreakdownBy string
+type GetViewershipMetricsQueryParamBreakdownBy string
 
 const (
-	QueryParamBreakdownByPlaybackID    QueryParamBreakdownBy = "playbackId"
-	QueryParamBreakdownByDeviceType    QueryParamBreakdownBy = "deviceType"
-	QueryParamBreakdownByDevice        QueryParamBreakdownBy = "device"
-	QueryParamBreakdownByCPU           QueryParamBreakdownBy = "cpu"
-	QueryParamBreakdownByOs            QueryParamBreakdownBy = "os"
-	QueryParamBreakdownByBrowser       QueryParamBreakdownBy = "browser"
-	QueryParamBreakdownByBrowserEngine QueryParamBreakdownBy = "browserEngine"
-	QueryParamBreakdownByContinent     QueryParamBreakdownBy = "continent"
-	QueryParamBreakdownByCountry       QueryParamBreakdownBy = "country"
-	QueryParamBreakdownBySubdivision   QueryParamBreakdownBy = "subdivision"
-	QueryParamBreakdownByTimezone      QueryParamBreakdownBy = "timezone"
-	QueryParamBreakdownByGeohash       QueryParamBreakdownBy = "geohash"
-	QueryParamBreakdownByViewerID      QueryParamBreakdownBy = "viewerId"
-	QueryParamBreakdownByCreatorID     QueryParamBreakdownBy = "creatorId"
+	GetViewershipMetricsQueryParamBreakdownByPlaybackID    GetViewershipMetricsQueryParamBreakdownBy = "playbackId"
+	GetViewershipMetricsQueryParamBreakdownByDeviceType    GetViewershipMetricsQueryParamBreakdownBy = "deviceType"
+	GetViewershipMetricsQueryParamBreakdownByDevice        GetViewershipMetricsQueryParamBreakdownBy = "device"
+	GetViewershipMetricsQueryParamBreakdownByCPU           GetViewershipMetricsQueryParamBreakdownBy = "cpu"
+	GetViewershipMetricsQueryParamBreakdownByOs            GetViewershipMetricsQueryParamBreakdownBy = "os"
+	GetViewershipMetricsQueryParamBreakdownByBrowser       GetViewershipMetricsQueryParamBreakdownBy = "browser"
+	GetViewershipMetricsQueryParamBreakdownByBrowserEngine GetViewershipMetricsQueryParamBreakdownBy = "browserEngine"
+	GetViewershipMetricsQueryParamBreakdownByContinent     GetViewershipMetricsQueryParamBreakdownBy = "continent"
+	GetViewershipMetricsQueryParamBreakdownByCountry       GetViewershipMetricsQueryParamBreakdownBy = "country"
+	GetViewershipMetricsQueryParamBreakdownBySubdivision   GetViewershipMetricsQueryParamBreakdownBy = "subdivision"
+	GetViewershipMetricsQueryParamBreakdownByTimezone      GetViewershipMetricsQueryParamBreakdownBy = "timezone"
+	GetViewershipMetricsQueryParamBreakdownByGeohash       GetViewershipMetricsQueryParamBreakdownBy = "geohash"
+	GetViewershipMetricsQueryParamBreakdownByViewerID      GetViewershipMetricsQueryParamBreakdownBy = "viewerId"
+	GetViewershipMetricsQueryParamBreakdownByCreatorID     GetViewershipMetricsQueryParamBreakdownBy = "creatorId"
 )
 
-func (e QueryParamBreakdownBy) ToPointer() *QueryParamBreakdownBy {
+func (e GetViewershipMetricsQueryParamBreakdownBy) ToPointer() *GetViewershipMetricsQueryParamBreakdownBy {
 	return &e
 }
-func (e *QueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
+func (e *GetViewershipMetricsQueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -231,10 +231,10 @@ func (e *QueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
 	case "viewerId":
 		fallthrough
 	case "creatorId":
-		*e = QueryParamBreakdownBy(v)
+		*e = GetViewershipMetricsQueryParamBreakdownBy(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for QueryParamBreakdownBy: %v", v)
+		return fmt.Errorf("invalid value for GetViewershipMetricsQueryParamBreakdownBy: %v", v)
 	}
 }
 
@@ -259,7 +259,7 @@ type GetViewershipMetricsRequest struct {
 	// The list of fields to break down the query results. Specify this
 	// query-string multiple times to break down by multiple fields.
 	//
-	BreakdownBy []QueryParamBreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
+	BreakdownBy []GetViewershipMetricsQueryParamBreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
 }
 
 func (o *GetViewershipMetricsRequest) GetPlaybackID() *string {
@@ -311,7 +311,7 @@ func (o *GetViewershipMetricsRequest) GetCreatorID() *string {
 	return o.CreatorID
 }
 
-func (o *GetViewershipMetricsRequest) GetBreakdownBy() []QueryParamBreakdownBy {
+func (o *GetViewershipMetricsRequest) GetBreakdownBy() []GetViewershipMetricsQueryParamBreakdownBy {
 	if o == nil {
 		return nil
 	}

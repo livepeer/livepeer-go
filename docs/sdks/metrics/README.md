@@ -8,6 +8,7 @@ Operations related to metrics api
 ### Available Operations
 
 * [GetUsage](#getusage) - Query usage metrics
+* [GetRealtimeViewership](#getrealtimeviewership) - Query realtime viewership
 * [GetViewership](#getviewership) - Query viewership metrics
 * [GetCreatorViewership](#getcreatorviewership) - Query creator viewership metrics
 * [GetPublicViewership](#getpublicviewership) - Query public total views metrics
@@ -55,6 +56,62 @@ func main() {
 ### Response
 
 **[*operations.GetUsageMetricsResponse](../../models/operations/getusagemetricsresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
+
+## GetRealtimeViewership
+
+Requires a private (non-CORS) API key to be used.
+
+
+### Example Usage
+
+```go
+package main
+
+import(
+	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/operations"
+	"context"
+	"log"
+)
+
+func main() {
+    s := livepeergo.New(
+        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    )
+    var playbackID *string = livepeergo.String("<value>")
+
+    var creatorID *string = livepeergo.String("<value>")
+
+    var breakdownBy []operations.QueryParamBreakdownBy = []operations.QueryParamBreakdownBy{
+        operations.QueryParamBreakdownByPlaybackID,
+    }
+    ctx := context.Background()
+    res, err := s.Metrics.GetRealtimeViewership(ctx, playbackID, creatorID, breakdownBy)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Data != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                                                                                 | :heavy_check_mark:                                                                                                                                    | The context to use for the request.                                                                                                                   |
+| `playbackID`                                                                                                                                          | **string*                                                                                                                                             | :heavy_minus_sign:                                                                                                                                    | The playback ID to filter the query results. This can be a canonical<br/>playback ID from Livepeer assets or streams, or dStorage identifiers<br/>for assets<br/> |
+| `creatorID`                                                                                                                                           | **string*                                                                                                                                             | :heavy_minus_sign:                                                                                                                                    | The creator ID to filter the query results                                                                                                            |
+| `breakdownBy`                                                                                                                                         | [][operations.QueryParamBreakdownBy](../../models/operations/queryparambreakdownby.md)                                                                | :heavy_minus_sign:                                                                                                                                    | The list of fields to break down the query results. Specify this<br/>query-string multiple times to break down by multiple fields.<br/>               |
+
+
+### Response
+
+**[*operations.GetRealtimeViewershipNowResponse](../../models/operations/getrealtimeviewershipnowresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
