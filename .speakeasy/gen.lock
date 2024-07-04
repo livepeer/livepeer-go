@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
-  docChecksum: 6c59d7f1dd85a77d4179f4842fe6f332
+  docChecksum: c60a9c53ed5d7e9929597ea583b273bf
   docVersion: 1.0.0
-  speakeasyVersion: 1.322.3
-  generationVersion: 2.354.2
-  releaseVersion: 0.1.12
-  configChecksum: 2a12c51e224949245969932308d35510
+  speakeasyVersion: 1.326.2
+  generationVersion: 2.359.1
+  releaseVersion: 0.1.13
+  configChecksum: 41068dc9c451a95b6c79bc0bf891df6b
   repoURL: https://github.com/livepeer/livepeer-go.git
   installationURL: https://github.com/livepeer/livepeer-go
 features:
@@ -43,6 +43,7 @@ generatedFiles:
   - livepeer.go
   - go.mod
   - models/sdkerrors/sdkerror.go
+  - retry/config.go
   - types/bigint.go
   - types/date.go
   - types/datetime.go
@@ -81,6 +82,7 @@ generatedFiles:
   - /models/operations/startpullstream.go
   - /models/operations/terminatestream.go
   - /models/operations/getusagemetrics.go
+  - /models/operations/getrealtimeviewershipnow.go
   - /models/operations/getviewershipmetrics.go
   - /models/operations/getcreatorviewershipmetrics.go
   - /models/operations/getpublicviewershipmetrics.go
@@ -144,6 +146,7 @@ generatedFiles:
   - /models/components/recordingspec.go
   - /models/components/targetaddpayload.go
   - /models/components/usagemetric.go
+  - /models/components/realtimeviewershipmetric.go
   - /models/components/viewershipmetric.go
   - /models/components/multistreamtarget.go
   - /models/components/multistreamtargetinput.go
@@ -215,10 +218,13 @@ generatedFiles:
   - docs/models/operations/breakdownby.md
   - docs/models/operations/getusagemetricsrequest.md
   - docs/models/operations/getusagemetricsresponse.md
+  - docs/models/operations/queryparambreakdownby.md
+  - docs/models/operations/getrealtimeviewershipnowrequest.md
+  - docs/models/operations/getrealtimeviewershipnowresponse.md
   - docs/models/operations/from.md
   - docs/models/operations/to.md
   - docs/models/operations/queryparamtimestep.md
-  - docs/models/operations/queryparambreakdownby.md
+  - docs/models/operations/getviewershipmetricsqueryparambreakdownby.md
   - docs/models/operations/getviewershipmetricsrequest.md
   - docs/models/operations/getviewershipmetricsresponse.md
   - docs/models/operations/queryparamfrom.md
@@ -367,6 +373,7 @@ generatedFiles:
   - docs/models/components/targetaddpayloadspec.md
   - docs/models/components/targetaddpayload.md
   - docs/models/components/usagemetric.md
+  - docs/models/components/realtimeviewershipmetric.md
   - docs/models/components/viewershipmetric.md
   - docs/models/components/multistreamtarget.md
   - docs/models/components/multistreamtargetinput.md

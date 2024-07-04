@@ -8,6 +8,7 @@ import (
 	"github.com/livepeer/livepeer-go/internal/hooks"
 	"github.com/livepeer/livepeer-go/internal/utils"
 	"github.com/livepeer/livepeer-go/models/components"
+	"github.com/livepeer/livepeer-go/retry"
 	"net/http"
 	"time"
 )
@@ -50,7 +51,7 @@ type sdkConfiguration struct {
 	SDKVersion        string
 	GenVersion        string
 	UserAgent         string
-	RetryConfig       *utils.RetryConfig
+	RetryConfig       *retry.Config
 	Hooks             *hooks.Hooks
 }
 
@@ -147,7 +148,7 @@ func WithSecuritySource(security func(context.Context) (components.Security, err
 	}
 }
 
-func WithRetryConfig(retryConfig utils.RetryConfig) SDKOption {
+func WithRetryConfig(retryConfig retry.Config) SDKOption {
 	return func(sdk *Livepeer) {
 		sdk.sdkConfiguration.RetryConfig = &retryConfig
 	}
@@ -159,9 +160,9 @@ func New(opts ...SDKOption) *Livepeer {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "1.0.0",
-			SDKVersion:        "0.1.12",
-			GenVersion:        "2.354.2",
-			UserAgent:         "speakeasy-sdk/go 0.1.12 2.354.2 1.0.0 github.com/livepeer/livepeer-go",
+			SDKVersion:        "0.1.13",
+			GenVersion:        "2.359.1",
+			UserAgent:         "speakeasy-sdk/go 0.1.13 2.359.1 1.0.0 github.com/livepeer/livepeer-go",
 			Hooks:             hooks.New(),
 		},
 	}
