@@ -4,18 +4,32 @@ package components
 
 // RealtimeViewershipMetric - An individual metric about realtime viewership of a stream/asset.
 type RealtimeViewershipMetric struct {
+	// The playback ID associated with the metric.
+	PlaybackID *string `json:"playbackId,omitempty"`
+	// The device used by the viewer.
+	Device *string `json:"device,omitempty"`
 	// The browser used by the viewer.
 	Browser *string `json:"browser,omitempty"`
 	// The country where the viewer is located.
 	Country *string `json:"country,omitempty"`
-	// The device used by the viewer.
-	Device *string `json:"device,omitempty"`
-	// The error rate for the stream/asset.
-	ErrorRate float64 `json:"errorRate"`
-	// The playback ID associated with the metric.
-	PlaybackID *string `json:"playbackId,omitempty"`
 	// The number of views for the stream/asset.
 	ViewCount int64 `json:"viewCount"`
+	// The error rate for the stream/asset.
+	ErrorRate float64 `json:"errorRate"`
+}
+
+func (o *RealtimeViewershipMetric) GetPlaybackID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PlaybackID
+}
+
+func (o *RealtimeViewershipMetric) GetDevice() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Device
 }
 
 func (o *RealtimeViewershipMetric) GetBrowser() *string {
@@ -32,11 +46,11 @@ func (o *RealtimeViewershipMetric) GetCountry() *string {
 	return o.Country
 }
 
-func (o *RealtimeViewershipMetric) GetDevice() *string {
+func (o *RealtimeViewershipMetric) GetViewCount() int64 {
 	if o == nil {
-		return nil
+		return 0
 	}
-	return o.Device
+	return o.ViewCount
 }
 
 func (o *RealtimeViewershipMetric) GetErrorRate() float64 {
@@ -44,18 +58,4 @@ func (o *RealtimeViewershipMetric) GetErrorRate() float64 {
 		return 0.0
 	}
 	return o.ErrorRate
-}
-
-func (o *RealtimeViewershipMetric) GetPlaybackID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PlaybackID
-}
-
-func (o *RealtimeViewershipMetric) GetViewCount() int64 {
-	if o == nil {
-		return 0
-	}
-	return o.ViewCount
 }

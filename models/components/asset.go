@@ -9,25 +9,31 @@ import (
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
-type Hash struct {
-	// Hash algorithm used to compute the hash
-	Algorithm *string `json:"algorithm,omitempty"`
-	// Hash of the asset
-	Hash *string `json:"hash,omitempty"`
-}
+// AssetType - Type of the asset.
+type AssetType string
 
-func (o *Hash) GetAlgorithm() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Algorithm
-}
+const (
+	AssetTypeVideo AssetType = "video"
+	AssetTypeAudio AssetType = "audio"
+)
 
-func (o *Hash) GetHash() *string {
-	if o == nil {
-		return nil
+func (e AssetType) ToPointer() *AssetType {
+	return &e
+}
+func (e *AssetType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return o.Hash
+	switch v {
+	case "video":
+		fallthrough
+	case "audio":
+		*e = AssetType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for AssetType: %v", v)
+	}
 }
 
 type AssetSource3Type string
@@ -57,25 +63,25 @@ func (e *AssetSource3Type) UnmarshalJSON(data []byte) error {
 }
 
 type Source3 struct {
-	// ID of the asset from which this asset was created.
-	AssetID    *string           `json:"assetId,omitempty"`
+	Type       AssetSource3Type  `json:"type"`
 	Encryption *EncryptionOutput `json:"encryption,omitempty"`
+	// ID of the asset or stream from which this asset was created.
+	SourceID *string `json:"sourceId,omitempty"`
+	// ID of the session from which this asset was created.
+	SessionID *string `json:"sessionId,omitempty"`
 	// Playback ID of the asset or stream from which this asset was created.
 	PlaybackID *string `json:"playbackId,omitempty"`
 	// ID of the requester from which this asset was created.
 	RequesterID *string `json:"requesterId,omitempty"`
-	// ID of the session from which this asset was created.
-	SessionID *string `json:"sessionId,omitempty"`
-	// ID of the asset or stream from which this asset was created.
-	SourceID *string          `json:"sourceId,omitempty"`
-	Type     AssetSource3Type `json:"type"`
+	// ID of the asset from which this asset was created.
+	AssetID *string `json:"assetId,omitempty"`
 }
 
-func (o *Source3) GetAssetID() *string {
+func (o *Source3) GetType() AssetSource3Type {
 	if o == nil {
-		return nil
+		return AssetSource3Type("")
 	}
-	return o.AssetID
+	return o.Type
 }
 
 func (o *Source3) GetEncryption() *EncryptionOutput {
@@ -83,6 +89,20 @@ func (o *Source3) GetEncryption() *EncryptionOutput {
 		return nil
 	}
 	return o.Encryption
+}
+
+func (o *Source3) GetSourceID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceID
+}
+
+func (o *Source3) GetSessionID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SessionID
 }
 
 func (o *Source3) GetPlaybackID() *string {
@@ -99,25 +119,11 @@ func (o *Source3) GetRequesterID() *string {
 	return o.RequesterID
 }
 
-func (o *Source3) GetSessionID() *string {
+func (o *Source3) GetAssetID() *string {
 	if o == nil {
 		return nil
 	}
-	return o.SessionID
-}
-
-func (o *Source3) GetSourceID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SourceID
-}
-
-func (o *Source3) GetType() AssetSource3Type {
-	if o == nil {
-		return AssetSource3Type("")
-	}
-	return o.Type
+	return o.AssetID
 }
 
 type AssetSourceType string
@@ -144,16 +150,9 @@ func (e *AssetSourceType) UnmarshalJSON(data []byte) error {
 }
 
 type Two struct {
+	Type AssetSourceType `json:"type"`
 	// ID of the session from which this asset was created
-	SessionID string          `json:"sessionId"`
-	Type      AssetSourceType `json:"type"`
-}
-
-func (o *Two) GetSessionID() string {
-	if o == nil {
-		return ""
-	}
-	return o.SessionID
+	SessionID string `json:"sessionId"`
 }
 
 func (o *Two) GetType() AssetSourceType {
@@ -161,6 +160,13 @@ func (o *Two) GetType() AssetSourceType {
 		return AssetSourceType("")
 	}
 	return o.Type
+}
+
+func (o *Two) GetSessionID() string {
+	if o == nil {
+		return ""
+	}
+	return o.SessionID
 }
 
 type SourceType string
@@ -187,26 +193,12 @@ func (e *SourceType) UnmarshalJSON(data []byte) error {
 }
 
 type Source1 struct {
-	Encryption *EncryptionOutput `json:"encryption,omitempty"`
-	// Gateway URL from asset if parsed from provided URL on upload.
-	GatewayURL *string    `json:"gatewayUrl,omitempty"`
-	Type       SourceType `json:"type"`
+	Type SourceType `json:"type"`
 	// URL from which the asset was uploaded.
 	URL string `json:"url"`
-}
-
-func (o *Source1) GetEncryption() *EncryptionOutput {
-	if o == nil {
-		return nil
-	}
-	return o.Encryption
-}
-
-func (o *Source1) GetGatewayURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.GatewayURL
+	// Gateway URL from asset if parsed from provided URL on upload.
+	GatewayURL *string           `json:"gatewayUrl,omitempty"`
+	Encryption *EncryptionOutput `json:"encryption,omitempty"`
 }
 
 func (o *Source1) GetType() SourceType {
@@ -221,6 +213,20 @@ func (o *Source1) GetURL() string {
 		return ""
 	}
 	return o.URL
+}
+
+func (o *Source1) GetGatewayURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.GatewayURL
+}
+
+func (o *Source1) GetEncryption() *EncryptionOutput {
+	if o == nil {
+		return nil
+	}
+	return o.Encryption
 }
 
 type SourceUnionType string
@@ -308,6 +314,136 @@ func (u Source) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Source: all fields are null")
 }
 
+// AssetNftMetadataTemplate - Name of the NFT metadata template to export. 'player'
+// will embed the Livepeer Player on the NFT while 'file'
+// will reference only the immutable MP4 files.
+type AssetNftMetadataTemplate string
+
+const (
+	AssetNftMetadataTemplateFile   AssetNftMetadataTemplate = "file"
+	AssetNftMetadataTemplatePlayer AssetNftMetadataTemplate = "player"
+)
+
+func (e AssetNftMetadataTemplate) ToPointer() *AssetNftMetadataTemplate {
+	return &e
+}
+func (e *AssetNftMetadataTemplate) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "file":
+		fallthrough
+	case "player":
+		*e = AssetNftMetadataTemplate(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for AssetNftMetadataTemplate: %v", v)
+	}
+}
+
+// AssetNftMetadata - Additional data to add to the NFT metadata exported to
+// IPFS. Will be deep merged with the default metadata
+// exported.
+type AssetNftMetadata struct {
+}
+
+type AssetSpec struct {
+	// Name of the NFT metadata template to export. 'player'
+	// will embed the Livepeer Player on the NFT while 'file'
+	// will reference only the immutable MP4 files.
+	//
+	NftMetadataTemplate *AssetNftMetadataTemplate `default:"file" json:"nftMetadataTemplate"`
+	// Additional data to add to the NFT metadata exported to
+	// IPFS. Will be deep merged with the default metadata
+	// exported.
+	//
+	NftMetadata *AssetNftMetadata `json:"nftMetadata,omitempty"`
+}
+
+func (a AssetSpec) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AssetSpec) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, false); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *AssetSpec) GetNftMetadataTemplate() *AssetNftMetadataTemplate {
+	if o == nil {
+		return nil
+	}
+	return o.NftMetadataTemplate
+}
+
+func (o *AssetSpec) GetNftMetadata() *AssetNftMetadata {
+	if o == nil {
+		return nil
+	}
+	return o.NftMetadata
+}
+
+type AssetIpfs struct {
+	Spec        *AssetSpec    `json:"spec,omitempty"`
+	DollarRef   any           `json:"$ref,omitempty"`
+	NftMetadata *IpfsFileInfo `json:"nftMetadata,omitempty"`
+	// Timestamp (in milliseconds) at which IPFS export task was
+	// updated
+	//
+	UpdatedAt *float64 `json:"updatedAt,omitempty"`
+}
+
+func (o *AssetIpfs) GetSpec() *AssetSpec {
+	if o == nil {
+		return nil
+	}
+	return o.Spec
+}
+
+func (o *AssetIpfs) GetDollarRef() any {
+	if o == nil {
+		return nil
+	}
+	return o.DollarRef
+}
+
+func (o *AssetIpfs) GetNftMetadata() *IpfsFileInfo {
+	if o == nil {
+		return nil
+	}
+	return o.NftMetadata
+}
+
+func (o *AssetIpfs) GetUpdatedAt() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.UpdatedAt
+}
+
+type AssetStorage struct {
+	Ipfs   *AssetIpfs     `json:"ipfs,omitempty"`
+	Status *StorageStatus `json:"status,omitempty"`
+}
+
+func (o *AssetStorage) GetIpfs() *AssetIpfs {
+	if o == nil {
+		return nil
+	}
+	return o.Ipfs
+}
+
+func (o *AssetStorage) GetStatus() *StorageStatus {
+	if o == nil {
+		return nil
+	}
+	return o.Status
+}
+
 // AssetPhase - Phase of the asset
 type AssetPhase string
 
@@ -350,201 +486,65 @@ func (e *AssetPhase) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Status of the asset
-type Status struct {
-	// Error message if the asset creation failed.
-	ErrorMessage *string `json:"errorMessage,omitempty"`
+// AssetStatus - Status of the asset
+type AssetStatus struct {
 	// Phase of the asset
 	Phase AssetPhase `json:"phase"`
-	// Current progress of the task creating this asset.
-	Progress *float64 `json:"progress,omitempty"`
 	// Timestamp (in milliseconds) at which the asset was last updated
 	UpdatedAt float64 `json:"updatedAt"`
+	// Current progress of the task creating this asset.
+	Progress *float64 `json:"progress,omitempty"`
+	// Error message if the asset creation failed.
+	ErrorMessage *string `json:"errorMessage,omitempty"`
 }
 
-func (o *Status) GetErrorMessage() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ErrorMessage
-}
-
-func (o *Status) GetPhase() AssetPhase {
+func (o *AssetStatus) GetPhase() AssetPhase {
 	if o == nil {
 		return AssetPhase("")
 	}
 	return o.Phase
 }
 
-func (o *Status) GetProgress() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Progress
-}
-
-func (o *Status) GetUpdatedAt() float64 {
+func (o *AssetStatus) GetUpdatedAt() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.UpdatedAt
 }
 
-// AssetNftMetadata - Additional data to add to the NFT metadata exported to
-// IPFS. Will be deep merged with the default metadata
-// exported.
-type AssetNftMetadata struct {
-}
-
-// AssetNftMetadataTemplate - Name of the NFT metadata template to export. 'player'
-// will embed the Livepeer Player on the NFT while 'file'
-// will reference only the immutable MP4 files.
-type AssetNftMetadataTemplate string
-
-const (
-	AssetNftMetadataTemplateFile   AssetNftMetadataTemplate = "file"
-	AssetNftMetadataTemplatePlayer AssetNftMetadataTemplate = "player"
-)
-
-func (e AssetNftMetadataTemplate) ToPointer() *AssetNftMetadataTemplate {
-	return &e
-}
-func (e *AssetNftMetadataTemplate) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "file":
-		fallthrough
-	case "player":
-		*e = AssetNftMetadataTemplate(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for AssetNftMetadataTemplate: %v", v)
-	}
-}
-
-type AssetSpec struct {
-	// Additional data to add to the NFT metadata exported to
-	// IPFS. Will be deep merged with the default metadata
-	// exported.
-	//
-	NftMetadata *AssetNftMetadata `json:"nftMetadata,omitempty"`
-	// Name of the NFT metadata template to export. 'player'
-	// will embed the Livepeer Player on the NFT while 'file'
-	// will reference only the immutable MP4 files.
-	//
-	NftMetadataTemplate *AssetNftMetadataTemplate `default:"file" json:"nftMetadataTemplate"`
-}
-
-func (a AssetSpec) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AssetSpec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *AssetSpec) GetNftMetadata() *AssetNftMetadata {
+func (o *AssetStatus) GetProgress() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.NftMetadata
+	return o.Progress
 }
 
-func (o *AssetSpec) GetNftMetadataTemplate() *AssetNftMetadataTemplate {
+func (o *AssetStatus) GetErrorMessage() *string {
 	if o == nil {
 		return nil
 	}
-	return o.NftMetadataTemplate
+	return o.ErrorMessage
 }
 
-type AssetIpfs struct {
-	DollarRef   any           `json:"$ref,omitempty"`
-	NftMetadata *IpfsFileInfo `json:"nftMetadata,omitempty"`
-	Spec        *AssetSpec    `json:"spec,omitempty"`
-	// Timestamp (in milliseconds) at which IPFS export task was
-	// updated
-	//
-	UpdatedAt *float64 `json:"updatedAt,omitempty"`
+type Hash struct {
+	// Hash of the asset
+	Hash *string `json:"hash,omitempty"`
+	// Hash algorithm used to compute the hash
+	Algorithm *string `json:"algorithm,omitempty"`
 }
 
-func (o *AssetIpfs) GetDollarRef() any {
+func (o *Hash) GetHash() *string {
 	if o == nil {
 		return nil
 	}
-	return o.DollarRef
+	return o.Hash
 }
 
-func (o *AssetIpfs) GetNftMetadata() *IpfsFileInfo {
+func (o *Hash) GetAlgorithm() *string {
 	if o == nil {
 		return nil
 	}
-	return o.NftMetadata
-}
-
-func (o *AssetIpfs) GetSpec() *AssetSpec {
-	if o == nil {
-		return nil
-	}
-	return o.Spec
-}
-
-func (o *AssetIpfs) GetUpdatedAt() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.UpdatedAt
-}
-
-type AssetStorage struct {
-	Ipfs   *AssetIpfs     `json:"ipfs,omitempty"`
-	Status *StorageStatus `json:"status,omitempty"`
-}
-
-func (o *AssetStorage) GetIpfs() *AssetIpfs {
-	if o == nil {
-		return nil
-	}
-	return o.Ipfs
-}
-
-func (o *AssetStorage) GetStatus() *StorageStatus {
-	if o == nil {
-		return nil
-	}
-	return o.Status
-}
-
-// AssetType - Type of the asset.
-type AssetType string
-
-const (
-	AssetTypeVideo AssetType = "video"
-	AssetTypeAudio AssetType = "audio"
-)
-
-func (e AssetType) ToPointer() *AssetType {
-	return &e
-}
-func (e *AssetType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "video":
-		fallthrough
-	case "audio":
-		*e = AssetType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for AssetType: %v", v)
-	}
+	return o.Algorithm
 }
 
 // AssetVideoSpecType - type of track
@@ -575,53 +575,39 @@ func (e *AssetVideoSpecType) UnmarshalJSON(data []byte) error {
 }
 
 type Tracks struct {
-	// Bit depth of the track - only for audio tracks
-	BitDepth *float64 `json:"bitDepth,omitempty"`
-	// Bitrate of the track in bits per second
-	Bitrate *float64 `json:"bitrate,omitempty"`
-	// Amount of audio channels in the track
-	Channels *float64 `json:"channels,omitempty"`
+	// type of track
+	Type AssetVideoSpecType `json:"type"`
 	// Codec of the track
 	Codec string `json:"codec"`
+	// Start time of the track in seconds
+	StartTime *float64 `json:"startTime,omitempty"`
 	// Duration of the track in seconds
 	Duration *float64 `json:"duration,omitempty"`
-	// Frame rate of the track - only for video tracks
-	Fps *float64 `json:"fps,omitempty"`
+	// Bitrate of the track in bits per second
+	Bitrate *float64 `json:"bitrate,omitempty"`
+	// Width of the track - only for video tracks
+	Width *float64 `json:"width,omitempty"`
 	// Height of the track - only for video tracks
 	Height *float64 `json:"height,omitempty"`
 	// Pixel format of the track - only for video tracks
 	PixelFormat *string `json:"pixelFormat,omitempty"`
+	// Frame rate of the track - only for video tracks
+	Fps *float64 `json:"fps,omitempty"`
+	// Amount of audio channels in the track
+	Channels *float64 `json:"channels,omitempty"`
 	// Sample rate of the track in samples per second - only for
 	// audio tracks
 	//
 	SampleRate *float64 `json:"sampleRate,omitempty"`
-	// Start time of the track in seconds
-	StartTime *float64 `json:"startTime,omitempty"`
-	// type of track
-	Type AssetVideoSpecType `json:"type"`
-	// Width of the track - only for video tracks
-	Width *float64 `json:"width,omitempty"`
+	// Bit depth of the track - only for audio tracks
+	BitDepth *float64 `json:"bitDepth,omitempty"`
 }
 
-func (o *Tracks) GetBitDepth() *float64 {
+func (o *Tracks) GetType() AssetVideoSpecType {
 	if o == nil {
-		return nil
+		return AssetVideoSpecType("")
 	}
-	return o.BitDepth
-}
-
-func (o *Tracks) GetBitrate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Bitrate
-}
-
-func (o *Tracks) GetChannels() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Channels
+	return o.Type
 }
 
 func (o *Tracks) GetCodec() string {
@@ -631,6 +617,13 @@ func (o *Tracks) GetCodec() string {
 	return o.Codec
 }
 
+func (o *Tracks) GetStartTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.StartTime
+}
+
 func (o *Tracks) GetDuration() *float64 {
 	if o == nil {
 		return nil
@@ -638,11 +631,18 @@ func (o *Tracks) GetDuration() *float64 {
 	return o.Duration
 }
 
-func (o *Tracks) GetFps() *float64 {
+func (o *Tracks) GetBitrate() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.Fps
+	return o.Bitrate
+}
+
+func (o *Tracks) GetWidth() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Width
 }
 
 func (o *Tracks) GetHeight() *float64 {
@@ -659,6 +659,20 @@ func (o *Tracks) GetPixelFormat() *string {
 	return o.PixelFormat
 }
 
+func (o *Tracks) GetFps() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Fps
+}
+
+func (o *Tracks) GetChannels() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Channels
+}
+
 func (o *Tracks) GetSampleRate() *float64 {
 	if o == nil {
 		return nil
@@ -666,46 +680,32 @@ func (o *Tracks) GetSampleRate() *float64 {
 	return o.SampleRate
 }
 
-func (o *Tracks) GetStartTime() *float64 {
+func (o *Tracks) GetBitDepth() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.StartTime
-}
-
-func (o *Tracks) GetType() AssetVideoSpecType {
-	if o == nil {
-		return AssetVideoSpecType("")
-	}
-	return o.Type
-}
-
-func (o *Tracks) GetWidth() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Width
+	return o.BitDepth
 }
 
 // VideoSpec - Video metadata
 type VideoSpec struct {
-	// Bitrate of the video in bits per second
-	Bitrate *float64 `json:"bitrate,omitempty"`
-	// Duration of the asset in seconds (float)
-	Duration *float64 `json:"duration,omitempty"`
 	// Format of the asset
 	Format *string `json:"format,omitempty"`
+	// Duration of the asset in seconds (float)
+	Duration *float64 `json:"duration,omitempty"`
+	// Bitrate of the video in bits per second
+	Bitrate *float64 `json:"bitrate,omitempty"`
 	// List of tracks associated with the asset when the format
 	// contemplates them (e.g. mp4)
 	//
 	Tracks []Tracks `json:"tracks,omitempty"`
 }
 
-func (o *VideoSpec) GetBitrate() *float64 {
+func (o *VideoSpec) GetFormat() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Bitrate
+	return o.Format
 }
 
 func (o *VideoSpec) GetDuration() *float64 {
@@ -715,11 +715,11 @@ func (o *VideoSpec) GetDuration() *float64 {
 	return o.Duration
 }
 
-func (o *VideoSpec) GetFormat() *string {
+func (o *VideoSpec) GetBitrate() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.Format
+	return o.Bitrate
 }
 
 func (o *VideoSpec) GetTracks() []Tracks {
@@ -730,25 +730,21 @@ func (o *VideoSpec) GetTracks() []Tracks {
 }
 
 type Asset struct {
-	// Timestamp (in milliseconds) at which asset was created
-	CreatedAt *float64 `json:"createdAt,omitempty"`
-	// Name of the token used to create this object
-	CreatedByTokenName *string    `json:"createdByTokenName,omitempty"`
-	CreatorID          *CreatorID `json:"creatorId,omitempty"`
-	// The URL to directly download the asset, e.g. `https://livepeercdn.com/asset/eawrrk06ts2d0mzb/video`. It is not recommended to use this for playback.
-	DownloadURL *string `json:"downloadUrl,omitempty"`
-	// Hash of the asset
-	Hash []Hash `json:"hash,omitempty"`
-	ID   string `json:"id"`
-	// The name of the asset. This is not necessarily the filename - it can be a custom name or title.
-	//
-	Name string `json:"name"`
+	ID string `json:"id"`
+	// Type of the asset.
+	Type *AssetType `json:"type,omitempty"`
 	// The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
 	PlaybackID *string `json:"playbackId,omitempty"`
-	// Whether the playback policy for an asset or stream is public or signed
-	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	UserID *string `json:"userId,omitempty"`
 	// URL for HLS playback. **It is recommended to not use this URL**, and instead use playback IDs with the Playback Info endpoint to retrieve the playback URLs - this URL format is subject to change (e.g. https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8).
 	PlaybackURL *string `json:"playbackUrl,omitempty"`
+	// The URL to directly download the asset, e.g. `https://livepeercdn.com/asset/eawrrk06ts2d0mzb/video`. It is not recommended to use this for playback.
+	DownloadURL *string `json:"downloadUrl,omitempty"`
+	// Whether the playback policy for an asset or stream is public or signed
+	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
+	Source         Source          `json:"source"`
+	CreatorID      *CreatorID      `json:"creatorId,omitempty"`
 	// Requested profiles for the asset to be transcoded into. Configured
 	// on the upload APIs payload or through the `stream.recordingSpec`
 	// field for recordings. If not specified, default profiles are derived
@@ -756,20 +752,122 @@ type Asset struct {
 	// not be present in this list but will be available for playback.
 	//
 	Profiles []TranscodeProfile `json:"profiles,omitempty"`
+	Storage  *AssetStorage      `json:"storage,omitempty"`
+	// Status of the asset
+	Status *AssetStatus `json:"status,omitempty"`
+	// The name of the asset. This is not necessarily the filename - it can be a custom name or title.
+	//
+	Name string `json:"name"`
 	// The ID of the project
 	ProjectID *string `json:"projectId,omitempty"`
+	// Timestamp (in milliseconds) at which asset was created
+	CreatedAt *float64 `json:"createdAt,omitempty"`
+	// Name of the token used to create this object
+	CreatedByTokenName *string `json:"createdByTokenName,omitempty"`
 	// Size of the asset in bytes
-	Size   *float64 `json:"size,omitempty"`
-	Source Source   `json:"source"`
-	// Status of the asset
-	Status  *Status       `json:"status,omitempty"`
-	Storage *AssetStorage `json:"storage,omitempty"`
-	// Type of the asset.
-	Type *AssetType `json:"type,omitempty"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-	UserID *string `json:"userId,omitempty"`
+	Size *float64 `json:"size,omitempty"`
+	// Hash of the asset
+	Hash []Hash `json:"hash,omitempty"`
 	// Video metadata
 	VideoSpec *VideoSpec `json:"videoSpec,omitempty"`
+}
+
+func (o *Asset) GetID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ID
+}
+
+func (o *Asset) GetType() *AssetType {
+	if o == nil {
+		return nil
+	}
+	return o.Type
+}
+
+func (o *Asset) GetPlaybackID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PlaybackID
+}
+
+func (o *Asset) GetUserID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserID
+}
+
+func (o *Asset) GetPlaybackURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PlaybackURL
+}
+
+func (o *Asset) GetDownloadURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DownloadURL
+}
+
+func (o *Asset) GetPlaybackPolicy() *PlaybackPolicy {
+	if o == nil {
+		return nil
+	}
+	return o.PlaybackPolicy
+}
+
+func (o *Asset) GetSource() Source {
+	if o == nil {
+		return Source{}
+	}
+	return o.Source
+}
+
+func (o *Asset) GetCreatorID() *CreatorID {
+	if o == nil {
+		return nil
+	}
+	return o.CreatorID
+}
+
+func (o *Asset) GetProfiles() []TranscodeProfile {
+	if o == nil {
+		return nil
+	}
+	return o.Profiles
+}
+
+func (o *Asset) GetStorage() *AssetStorage {
+	if o == nil {
+		return nil
+	}
+	return o.Storage
+}
+
+func (o *Asset) GetStatus() *AssetStatus {
+	if o == nil {
+		return nil
+	}
+	return o.Status
+}
+
+func (o *Asset) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *Asset) GetProjectID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProjectID
 }
 
 func (o *Asset) GetCreatedAt() *float64 {
@@ -786,76 +884,6 @@ func (o *Asset) GetCreatedByTokenName() *string {
 	return o.CreatedByTokenName
 }
 
-func (o *Asset) GetCreatorID() *CreatorID {
-	if o == nil {
-		return nil
-	}
-	return o.CreatorID
-}
-
-func (o *Asset) GetDownloadURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.DownloadURL
-}
-
-func (o *Asset) GetHash() []Hash {
-	if o == nil {
-		return nil
-	}
-	return o.Hash
-}
-
-func (o *Asset) GetID() string {
-	if o == nil {
-		return ""
-	}
-	return o.ID
-}
-
-func (o *Asset) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *Asset) GetPlaybackID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PlaybackID
-}
-
-func (o *Asset) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
-		return nil
-	}
-	return o.PlaybackPolicy
-}
-
-func (o *Asset) GetPlaybackURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PlaybackURL
-}
-
-func (o *Asset) GetProfiles() []TranscodeProfile {
-	if o == nil {
-		return nil
-	}
-	return o.Profiles
-}
-
-func (o *Asset) GetProjectID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ProjectID
-}
-
 func (o *Asset) GetSize() *float64 {
 	if o == nil {
 		return nil
@@ -863,39 +891,11 @@ func (o *Asset) GetSize() *float64 {
 	return o.Size
 }
 
-func (o *Asset) GetSource() Source {
-	if o == nil {
-		return Source{}
-	}
-	return o.Source
-}
-
-func (o *Asset) GetStatus() *Status {
+func (o *Asset) GetHash() []Hash {
 	if o == nil {
 		return nil
 	}
-	return o.Status
-}
-
-func (o *Asset) GetStorage() *AssetStorage {
-	if o == nil {
-		return nil
-	}
-	return o.Storage
-}
-
-func (o *Asset) GetType() *AssetType {
-	if o == nil {
-		return nil
-	}
-	return o.Type
-}
-
-func (o *Asset) GetUserID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.UserID
+	return o.Hash
 }
 
 func (o *Asset) GetVideoSpec() *VideoSpec {

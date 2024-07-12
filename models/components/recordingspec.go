@@ -2,13 +2,7 @@
 
 package components
 
-// RecordingSpec - Configuration for recording the stream. This can only be set if
-// `record` is true.
 type RecordingSpec struct {
-	// Profiles to process the recording of this stream into. If not
-	// specified, default profiles will be derived based on the stream
-	// input. Keep in mind that the source rendition is always kept.
-	//
 	Profiles []TranscodeProfile `json:"profiles,omitempty"`
 }
 

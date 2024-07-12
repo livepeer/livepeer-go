@@ -3,32 +3,18 @@
 package components
 
 type MultistreamTarget struct {
+	ID   *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	UserID *string `json:"userId,omitempty"`
+	// If true then this multistream target will not be used for pushing
+	// even if it is configured in a stream object.
+	//
+	Disabled *bool `json:"disabled,omitempty"`
 	// Timestamp (in milliseconds) at which multistream target object was
 	// created
 	//
 	CreatedAt *float64 `json:"createdAt,omitempty"`
-	// If true then this multistream target will not be used for pushing
-	// even if it is configured in a stream object.
-	//
-	Disabled *bool   `json:"disabled,omitempty"`
-	ID       *string `json:"id,omitempty"`
-	Name     *string `json:"name,omitempty"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-	UserID *string `json:"userId,omitempty"`
-}
-
-func (o *MultistreamTarget) GetCreatedAt() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.CreatedAt
-}
-
-func (o *MultistreamTarget) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
 }
 
 func (o *MultistreamTarget) GetID() *string {
@@ -50,4 +36,18 @@ func (o *MultistreamTarget) GetUserID() *string {
 		return nil
 	}
 	return o.UserID
+}
+
+func (o *MultistreamTarget) GetDisabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Disabled
+}
+
+func (o *MultistreamTarget) GetCreatedAt() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.CreatedAt
 }

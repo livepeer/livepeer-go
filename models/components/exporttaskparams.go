@@ -21,12 +21,12 @@ func (o *ExportTaskParams2) GetIpfs() IpfsExportParams {
 
 // Custom - custom URL parameters for the export task
 type Custom struct {
-	// Headers to add to the export request
-	Headers map[string]string `json:"headers,omitempty"`
-	// Method to use on the export request
-	Method *string `default:"PUT" json:"method"`
 	// URL where to export the asset
 	URL string `json:"url"`
+	// Method to use on the export request
+	Method *string `default:"PUT" json:"method"`
+	// Headers to add to the export request
+	Headers map[string]string `json:"headers,omitempty"`
 }
 
 func (c Custom) MarshalJSON() ([]byte, error) {
@@ -40,11 +40,11 @@ func (c *Custom) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *Custom) GetHeaders() map[string]string {
+func (o *Custom) GetURL() string {
 	if o == nil {
-		return nil
+		return ""
 	}
-	return o.Headers
+	return o.URL
 }
 
 func (o *Custom) GetMethod() *string {
@@ -54,11 +54,11 @@ func (o *Custom) GetMethod() *string {
 	return o.Method
 }
 
-func (o *Custom) GetURL() string {
+func (o *Custom) GetHeaders() map[string]string {
 	if o == nil {
-		return ""
+		return nil
 	}
-	return o.URL
+	return o.Headers
 }
 
 type ExportTaskParams1 struct {

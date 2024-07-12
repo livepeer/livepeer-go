@@ -5,12 +5,12 @@ package components
 type Participants struct {
 	// participant ID
 	Identity *string `json:"identity,omitempty"`
+	// user defined participant name
+	Name *string `json:"name,omitempty"`
 	// the time the participant joined
 	JoinedAt *int64 `json:"joinedAt,omitempty"`
 	// the time the participant left
 	LeftAt *int64 `json:"leftAt,omitempty"`
-	// user defined participant name
-	Name *string `json:"name,omitempty"`
 }
 
 func (o *Participants) GetIdentity() *string {
@@ -18,6 +18,13 @@ func (o *Participants) GetIdentity() *string {
 		return nil
 	}
 	return o.Identity
+}
+
+func (o *Participants) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
 }
 
 func (o *Participants) GetJoinedAt() *int64 {
@@ -34,37 +41,16 @@ func (o *Participants) GetLeftAt() *int64 {
 	return o.LeftAt
 }
 
-func (o *Participants) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
 type Room struct {
+	// room ID
+	ID string `json:"id"`
 	// Timestamp (in milliseconds) at which the room was created
 	CreatedAt *float64 `json:"createdAt,omitempty"`
-	// internal ID for egress output
-	EgressID *string `json:"egressId,omitempty"`
-	// room ID
-	ID           string                  `json:"id"`
-	Participants map[string]Participants `json:"participants"`
 	// Timestamp (in milliseconds) at which room was updated
 	UpdatedAt *float64 `json:"updatedAt,omitempty"`
-}
-
-func (o *Room) GetCreatedAt() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.CreatedAt
-}
-
-func (o *Room) GetEgressID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.EgressID
+	// internal ID for egress output
+	EgressID     *string                 `json:"egressId,omitempty"`
+	Participants map[string]Participants `json:"participants"`
 }
 
 func (o *Room) GetID() string {
@@ -74,11 +60,11 @@ func (o *Room) GetID() string {
 	return o.ID
 }
 
-func (o *Room) GetParticipants() map[string]Participants {
+func (o *Room) GetCreatedAt() *float64 {
 	if o == nil {
-		return map[string]Participants{}
+		return nil
 	}
-	return o.Participants
+	return o.CreatedAt
 }
 
 func (o *Room) GetUpdatedAt() *float64 {
@@ -86,4 +72,18 @@ func (o *Room) GetUpdatedAt() *float64 {
 		return nil
 	}
 	return o.UpdatedAt
+}
+
+func (o *Room) GetEgressID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EgressID
+}
+
+func (o *Room) GetParticipants() map[string]Participants {
+	if o == nil {
+		return map[string]Participants{}
+	}
+	return o.Participants
 }

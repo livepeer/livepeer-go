@@ -140,21 +140,21 @@ func (u QueryParamTo) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type QueryParamTo: all fields are null")
 }
 
-// GetCreatorViewershipMetricsQueryParamTimeStep - The time step to aggregate viewership metrics by
-type GetCreatorViewershipMetricsQueryParamTimeStep string
+// QueryParamTimeStep - The time step to aggregate viewership metrics by
+type QueryParamTimeStep string
 
 const (
-	GetCreatorViewershipMetricsQueryParamTimeStepHour  GetCreatorViewershipMetricsQueryParamTimeStep = "hour"
-	GetCreatorViewershipMetricsQueryParamTimeStepDay   GetCreatorViewershipMetricsQueryParamTimeStep = "day"
-	GetCreatorViewershipMetricsQueryParamTimeStepWeek  GetCreatorViewershipMetricsQueryParamTimeStep = "week"
-	GetCreatorViewershipMetricsQueryParamTimeStepMonth GetCreatorViewershipMetricsQueryParamTimeStep = "month"
-	GetCreatorViewershipMetricsQueryParamTimeStepYear  GetCreatorViewershipMetricsQueryParamTimeStep = "year"
+	QueryParamTimeStepHour  QueryParamTimeStep = "hour"
+	QueryParamTimeStepDay   QueryParamTimeStep = "day"
+	QueryParamTimeStepWeek  QueryParamTimeStep = "week"
+	QueryParamTimeStepMonth QueryParamTimeStep = "month"
+	QueryParamTimeStepYear  QueryParamTimeStep = "year"
 )
 
-func (e GetCreatorViewershipMetricsQueryParamTimeStep) ToPointer() *GetCreatorViewershipMetricsQueryParamTimeStep {
+func (e QueryParamTimeStep) ToPointer() *QueryParamTimeStep {
 	return &e
 }
-func (e *GetCreatorViewershipMetricsQueryParamTimeStep) UnmarshalJSON(data []byte) error {
+func (e *QueryParamTimeStep) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -169,10 +169,10 @@ func (e *GetCreatorViewershipMetricsQueryParamTimeStep) UnmarshalJSON(data []byt
 	case "month":
 		fallthrough
 	case "year":
-		*e = GetCreatorViewershipMetricsQueryParamTimeStep(v)
+		*e = QueryParamTimeStep(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for GetCreatorViewershipMetricsQueryParamTimeStep: %v", v)
+		return fmt.Errorf("invalid value for QueryParamTimeStep: %v", v)
 	}
 }
 
@@ -235,7 +235,7 @@ type GetCreatorViewershipMetricsRequest struct {
 	// End timestamp for the query range (exclusive)
 	To *QueryParamTo `queryParam:"style=form,explode=true,name=to"`
 	// The time step to aggregate viewership metrics by
-	TimeStep *GetCreatorViewershipMetricsQueryParamTimeStep `queryParam:"style=form,explode=true,name=timeStep"`
+	TimeStep *QueryParamTimeStep `queryParam:"style=form,explode=true,name=timeStep"`
 	// The asset ID to filter metrics for
 	AssetID *string `queryParam:"style=form,explode=true,name=assetId"`
 	// The stream ID to filter metrics for
@@ -262,7 +262,7 @@ func (o *GetCreatorViewershipMetricsRequest) GetTo() *QueryParamTo {
 	return o.To
 }
 
-func (o *GetCreatorViewershipMetricsRequest) GetTimeStep() *GetCreatorViewershipMetricsQueryParamTimeStep {
+func (o *GetCreatorViewershipMetricsRequest) GetTimeStep() *QueryParamTimeStep {
 	if o == nil {
 		return nil
 	}

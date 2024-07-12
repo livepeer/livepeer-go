@@ -3,6 +3,9 @@
 
 ## Values
 
-| Name                   | Value                  |
-| ---------------------- | ---------------------- |
-| `BreakdownByCreatorID` | creatorId              |
+| Name                    | Value                   |
+| ----------------------- | ----------------------- |
+| `BreakdownByPlaybackID` | playbackId              |
+| `BreakdownByDevice`     | device                  |
+| `BreakdownByBrowser`    | browser                 |
+| `BreakdownByCountry`    | country                 |

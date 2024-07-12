@@ -8,11 +8,11 @@ import (
 	"github.com/livepeer/livepeer-go/internal/utils"
 )
 
-type One struct {
+type Ipfs1 struct {
 	Spec *Spec `json:"spec,omitempty"`
 }
 
-func (o *One) GetSpec() *Spec {
+func (o *Ipfs1) GetSpec() *Spec {
 	if o == nil {
 		return nil
 	}
@@ -22,7 +22,7 @@ func (o *One) GetSpec() *Spec {
 type IpfsType string
 
 const (
-	IpfsTypeOne     IpfsType = "1"
+	IpfsTypeIpfs1   IpfsType = "ipfs_1"
 	IpfsTypeBoolean IpfsType = "boolean"
 )
 
@@ -30,18 +30,18 @@ const (
 // pinned files, specify an object with a spec field. False or null
 // means to unpin from IPFS, but it's unsupported right now.
 type Ipfs struct {
-	One     *One
+	Ipfs1   *Ipfs1
 	Boolean *bool
 
 	Type IpfsType
 }
 
-func CreateIpfsOne(one One) Ipfs {
-	typ := IpfsTypeOne
+func CreateIpfsIpfs1(ipfs1 Ipfs1) Ipfs {
+	typ := IpfsTypeIpfs1
 
 	return Ipfs{
-		One:  &one,
-		Type: typ,
+		Ipfs1: &ipfs1,
+		Type:  typ,
 	}
 }
 
@@ -56,10 +56,10 @@ func CreateIpfsBoolean(boolean bool) Ipfs {
 
 func (u *Ipfs) UnmarshalJSON(data []byte) error {
 
-	var one One = One{}
-	if err := utils.UnmarshalJSON(data, &one, "", true, true); err == nil {
-		u.One = &one
-		u.Type = IpfsTypeOne
+	var ipfs1 Ipfs1 = Ipfs1{}
+	if err := utils.UnmarshalJSON(data, &ipfs1, "", true, true); err == nil {
+		u.Ipfs1 = &ipfs1
+		u.Type = IpfsTypeIpfs1
 		return nil
 	}
 
@@ -74,8 +74,8 @@ func (u *Ipfs) UnmarshalJSON(data []byte) error {
 }
 
 func (u Ipfs) MarshalJSON() ([]byte, error) {
-	if u.One != nil {
-		return utils.MarshalJSON(u.One, "", true)
+	if u.Ipfs1 != nil {
+		return utils.MarshalJSON(u.Ipfs1, "", true)
 	}
 
 	if u.Boolean != nil {

@@ -7,56 +7,11 @@ Operations related to access control/signing keys api
 
 ### Available Operations
 
-* [GetAll](#getall) - Retrieves signing keys
 * [Create](#create) - Create a signing key
+* [GetAll](#getall) - Retrieves signing keys
 * [Delete](#delete) - Delete Signing Key
 * [Get](#get) - Retrieves a signing key
 * [Update](#update) - Update a signing key
-
-## GetAll
-
-Retrieves signing keys
-
-### Example Usage
-
-```go
-package main
-
-import(
-	livepeergo "github.com/livepeer/livepeer-go"
-	"context"
-	"log"
-)
-
-func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-    )
-
-    ctx := context.Background()
-    res, err := s.AccessControl.GetAll(ctx)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Data != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-
-
-### Response
-
-**[*operations.GetSigningKeysResponse](../../models/operations/getsigningkeysresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
 
 ## Create
 
@@ -93,14 +48,61 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 
 ### Response
 
 **[*operations.CreateSigningKeyResponse](../../models/operations/createsigningkeyresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
+
+## GetAll
+
+Retrieves signing keys
+
+### Example Usage
+
+```go
+package main
+
+import(
+	livepeergo "github.com/livepeer/livepeer-go"
+	"context"
+	"log"
+)
+
+func main() {
+    s := livepeergo.New(
+        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    )
+
+    ctx := context.Background()
+    res, err := s.AccessControl.GetAll(ctx)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Data != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+
+### Response
+
+**[*operations.GetSigningKeysResponse](../../models/operations/getsigningkeysresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
@@ -138,10 +140,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `keyID`                                               | *string*                                              | :heavy_check_mark:                                    | ID of the signing key                                 |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `keyID`                                                  | *string*                                                 | :heavy_check_mark:                                       | ID of the signing key                                    |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 
 ### Response
@@ -184,10 +187,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
-| `keyID`                                               | *string*                                              | :heavy_check_mark:                                    | ID of the signing key                                 |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `keyID`                                                  | *string*                                                 | :heavy_check_mark:                                       | ID of the signing key                                    |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 
 ### Response
@@ -238,6 +242,7 @@ func main() {
 | `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
 | `keyID`                                                                                          | *string*                                                                                         | :heavy_check_mark:                                                                               | ID of the signing key                                                                            |
 | `requestBody`                                                                                    | [operations.UpdateSigningKeyRequestBody](../../models/operations/updatesigningkeyrequestbody.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `opts`                                                                                           | [][operations.Option](../../models/operations/option.md)                                         | :heavy_minus_sign:                                                                               | The options for this request.                                                                    |
 
 
 ### Response

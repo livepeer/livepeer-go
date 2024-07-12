@@ -44,30 +44,16 @@ func (e *Phase) UnmarshalJSON(data []byte) error {
 }
 
 type Tasks struct {
-	// ID of the last task to fail execution.
-	Failed *string `json:"failed,omitempty"`
-	// ID of the last task to run successfully, that created
-	// the currently saved data.
-	//
-	Last *string `json:"last,omitempty"`
 	// ID of any currently running task that is exporting this
 	// asset to IPFS.
 	//
 	Pending *string `json:"pending,omitempty"`
-}
-
-func (o *Tasks) GetFailed() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Failed
-}
-
-func (o *Tasks) GetLast() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Last
+	// ID of the last task to run successfully, that created
+	// the currently saved data.
+	//
+	Last *string `json:"last,omitempty"`
+	// ID of the last task to fail execution.
+	Failed *string `json:"failed,omitempty"`
 }
 
 func (o *Tasks) GetPending() *string {
@@ -77,21 +63,28 @@ func (o *Tasks) GetPending() *string {
 	return o.Pending
 }
 
+func (o *Tasks) GetLast() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Last
+}
+
+func (o *Tasks) GetFailed() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Failed
+}
+
 type StorageStatus struct {
-	// Error message if the last storage changed failed.
-	ErrorMessage *string `json:"errorMessage,omitempty"`
 	// Phase of the asset storage
 	Phase Phase `json:"phase"`
 	// Current progress of the task updating the storage.
 	Progress *float64 `json:"progress,omitempty"`
-	Tasks    Tasks    `json:"tasks"`
-}
-
-func (o *StorageStatus) GetErrorMessage() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ErrorMessage
+	// Error message if the last storage changed failed.
+	ErrorMessage *string `json:"errorMessage,omitempty"`
+	Tasks        Tasks   `json:"tasks"`
 }
 
 func (o *StorageStatus) GetPhase() Phase {
@@ -106,6 +99,13 @@ func (o *StorageStatus) GetProgress() *float64 {
 		return nil
 	}
 	return o.Progress
+}
+
+func (o *StorageStatus) GetErrorMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ErrorMessage
 }
 
 func (o *StorageStatus) GetTasks() Tasks {
