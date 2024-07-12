@@ -14,37 +14,23 @@ func (o *NewStreamPayloadRecordingSpec) GetProfiles() []TranscodeProfile {
 }
 
 type NewStreamPayload struct {
-	CreatorID   *InputCreatorID `json:"creatorId,omitempty"`
-	Multistream *Multistream    `json:"multistream,omitempty"`
-	Name        string          `json:"name"`
-	// Whether the playback policy for an asset or stream is public or signed
-	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
-	Profiles       []FfmpegProfile `json:"profiles"`
+	Name string `json:"name"`
 	// Configuration for a stream that should be actively pulled from an
 	// external source, rather than pushed to Livepeer. If specified, the
 	// stream will not have a streamKey.
-	Pull *Pull `json:"pull,omitempty"`
+	Pull      *Pull           `json:"pull,omitempty"`
+	CreatorID *InputCreatorID `json:"creatorId,omitempty"`
+	// Whether the playback policy for an asset or stream is public or signed
+	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
+	Profiles       []FfmpegProfile `json:"profiles"`
 	// Should this stream be recorded? Uses default settings. For more
 	// customization, create and configure an object store.
 	//
 	Record        *bool                          `json:"record,omitempty"`
 	RecordingSpec *NewStreamPayloadRecordingSpec `json:"recordingSpec,omitempty"`
+	Multistream   *Multistream                   `json:"multistream,omitempty"`
 	// User input tags associated with the stream
 	UserTags map[string]UserTags `json:"userTags,omitempty"`
-}
-
-func (o *NewStreamPayload) GetCreatorID() *InputCreatorID {
-	if o == nil {
-		return nil
-	}
-	return o.CreatorID
-}
-
-func (o *NewStreamPayload) GetMultistream() *Multistream {
-	if o == nil {
-		return nil
-	}
-	return o.Multistream
 }
 
 func (o *NewStreamPayload) GetName() string {
@@ -52,6 +38,20 @@ func (o *NewStreamPayload) GetName() string {
 		return ""
 	}
 	return o.Name
+}
+
+func (o *NewStreamPayload) GetPull() *Pull {
+	if o == nil {
+		return nil
+	}
+	return o.Pull
+}
+
+func (o *NewStreamPayload) GetCreatorID() *InputCreatorID {
+	if o == nil {
+		return nil
+	}
+	return o.CreatorID
 }
 
 func (o *NewStreamPayload) GetPlaybackPolicy() *PlaybackPolicy {
@@ -68,13 +68,6 @@ func (o *NewStreamPayload) GetProfiles() []FfmpegProfile {
 	return o.Profiles
 }
 
-func (o *NewStreamPayload) GetPull() *Pull {
-	if o == nil {
-		return nil
-	}
-	return o.Pull
-}
-
 func (o *NewStreamPayload) GetRecord() *bool {
 	if o == nil {
 		return nil
@@ -87,6 +80,13 @@ func (o *NewStreamPayload) GetRecordingSpec() *NewStreamPayloadRecordingSpec {
 		return nil
 	}
 	return o.RecordingSpec
+}
+
+func (o *NewStreamPayload) GetMultistream() *Multistream {
+	if o == nil {
+		return nil
+	}
+	return o.Multistream
 }
 
 func (o *NewStreamPayload) GetUserTags() map[string]UserTags {

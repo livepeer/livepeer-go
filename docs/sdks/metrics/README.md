@@ -7,58 +7,11 @@ Operations related to metrics api
 
 ### Available Operations
 
-* [GetUsage](#getusage) - Query usage metrics
 * [GetRealtimeViewership](#getrealtimeviewership) - Query realtime viewership
 * [GetViewership](#getviewership) - Query viewership metrics
 * [GetCreatorViewership](#getcreatorviewership) - Query creator viewership metrics
 * [GetPublicViewership](#getpublicviewership) - Query public total views metrics
-
-## GetUsage
-
-Query usage metrics
-
-### Example Usage
-
-```go
-package main
-
-import(
-	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/operations"
-	"context"
-	"log"
-)
-
-func main() {
-    s := livepeergo.New(
-        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-    )
-    request := operations.GetUsageMetricsRequest{}
-    ctx := context.Background()
-    res, err := s.Metrics.GetUsage(ctx, request)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.UsageMetric != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
-| `request`                                                                              | [operations.GetUsageMetricsRequest](../../models/operations/getusagemetricsrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
-
-
-### Response
-
-**[*operations.GetUsageMetricsResponse](../../models/operations/getusagemetricsresponse.md), error**
-| Error Object       | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+* [GetUsage](#getusage) - Query usage metrics
 
 ## GetRealtimeViewership
 
@@ -85,8 +38,8 @@ func main() {
 
     var creatorID *string = livepeergo.String("<value>")
 
-    var breakdownBy []operations.QueryParamBreakdownBy = []operations.QueryParamBreakdownBy{
-        operations.QueryParamBreakdownByPlaybackID,
+    var breakdownBy []operations.BreakdownBy = []operations.BreakdownBy{
+        operations.BreakdownByPlaybackID,
     }
     ctx := context.Background()
     res, err := s.Metrics.GetRealtimeViewership(ctx, playbackID, creatorID, breakdownBy)
@@ -106,7 +59,8 @@ func main() {
 | `ctx`                                                                                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                                                                                 | :heavy_check_mark:                                                                                                                                    | The context to use for the request.                                                                                                                   |
 | `playbackID`                                                                                                                                          | **string*                                                                                                                                             | :heavy_minus_sign:                                                                                                                                    | The playback ID to filter the query results. This can be a canonical<br/>playback ID from Livepeer assets or streams, or dStorage identifiers<br/>for assets<br/> |
 | `creatorID`                                                                                                                                           | **string*                                                                                                                                             | :heavy_minus_sign:                                                                                                                                    | The creator ID to filter the query results                                                                                                            |
-| `breakdownBy`                                                                                                                                         | [][operations.QueryParamBreakdownBy](../../models/operations/queryparambreakdownby.md)                                                                | :heavy_minus_sign:                                                                                                                                    | The list of fields to break down the query results. Specify this<br/>query-string multiple times to break down by multiple fields.<br/>               |
+| `breakdownBy`                                                                                                                                         | [][operations.BreakdownBy](../../models/operations/breakdownby.md)                                                                                    | :heavy_minus_sign:                                                                                                                                    | The list of fields to break down the query results. Specify this<br/>query-string multiple times to break down by multiple fields.<br/>               |
+| `opts`                                                                                                                                                | [][operations.Option](../../models/operations/option.md)                                                                                              | :heavy_minus_sign:                                                                                                                                    | The options for this request.                                                                                                                         |
 
 
 ### Response
@@ -155,6 +109,7 @@ func main() {
 | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
 | `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
 | `request`                                                                                        | [operations.GetViewershipMetricsRequest](../../models/operations/getviewershipmetricsrequest.md) | :heavy_check_mark:                                                                               | The request object to use for the request.                                                       |
+| `opts`                                                                                           | [][operations.Option](../../models/operations/option.md)                                         | :heavy_minus_sign:                                                                               | The options for this request.                                                                    |
 
 
 ### Response
@@ -203,6 +158,7 @@ func main() {
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                          | :heavy_check_mark:                                                                                             | The context to use for the request.                                                                            |
 | `request`                                                                                                      | [operations.GetCreatorViewershipMetricsRequest](../../models/operations/getcreatorviewershipmetricsrequest.md) | :heavy_check_mark:                                                                                             | The request object to use for the request.                                                                     |
+| `opts`                                                                                                         | [][operations.Option](../../models/operations/option.md)                                                       | :heavy_minus_sign:                                                                                             | The options for this request.                                                                                  |
 
 
 ### Response
@@ -252,11 +208,60 @@ func main() {
 | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                                                                                 | :heavy_check_mark:                                                                                                                                    | The context to use for the request.                                                                                                                   |
 | `playbackID`                                                                                                                                          | *string*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The playback ID to filter the query results. This can be a canonical<br/>playback ID from Livepeer assets or streams, or dStorage identifiers<br/>for assets<br/> |
+| `opts`                                                                                                                                                | [][operations.Option](../../models/operations/option.md)                                                                                              | :heavy_minus_sign:                                                                                                                                    | The options for this request.                                                                                                                         |
 
 
 ### Response
 
 **[*operations.GetPublicViewershipMetricsResponse](../../models/operations/getpublicviewershipmetricsresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
+
+## GetUsage
+
+Query usage metrics
+
+### Example Usage
+
+```go
+package main
+
+import(
+	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/operations"
+	"context"
+	"log"
+)
+
+func main() {
+    s := livepeergo.New(
+        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    )
+    request := operations.GetUsageMetricsRequest{}
+    ctx := context.Background()
+    res, err := s.Metrics.GetUsage(ctx, request)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.UsageMetric != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
+| `request`                                                                              | [operations.GetUsageMetricsRequest](../../models/operations/getusagemetricsrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `opts`                                                                                 | [][operations.Option](../../models/operations/option.md)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
+
+
+### Response
+
+**[*operations.GetUsageMetricsResponse](../../models/operations/getusagemetricsresponse.md), error**
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |

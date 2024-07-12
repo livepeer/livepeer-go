@@ -3,47 +3,26 @@
 package components
 
 type NewAssetFromURLPayload struct {
-	// Decides if the output video should include C2PA signature
-	C2pa       *bool           `json:"c2pa,omitempty"`
-	CreatorID  *InputCreatorID `json:"creatorId,omitempty"`
-	Encryption *Encryption     `json:"encryption,omitempty"`
 	// The name of the asset. This is not necessarily the filename - it can be a custom name or title.
 	//
 	Name string `json:"name"`
-	// Whether the playback policy for an asset or stream is public or signed
-	PlaybackPolicy *PlaybackPolicy    `json:"playbackPolicy,omitempty"`
-	Profiles       []TranscodeProfile `json:"profiles,omitempty"`
 	// Whether to generate MP4s for the asset.
-	StaticMp4 *bool    `json:"staticMp4,omitempty"`
-	Storage   *Storage `json:"storage,omitempty"`
-	// How many seconds the duration of each output segment should be
-	TargetSegmentSizeSecs *float64 `json:"targetSegmentSizeSecs,omitempty"`
+	StaticMp4 *bool `json:"staticMp4,omitempty"`
+	// Whether the playback policy for an asset or stream is public or signed
+	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
+	CreatorID      *InputCreatorID `json:"creatorId,omitempty"`
+	Storage        *Storage        `json:"storage,omitempty"`
 	// URL where the asset contents can be retrieved, e.g. `https://s3.amazonaws.com/my-bucket/path/filename.mp4`.
 	// For an IPFS source, this should be similar to: `ipfs://{CID}`. For an Arweave
 	// source: `ar://{CID}`.
 	//
-	URL string `json:"url"`
-}
-
-func (o *NewAssetFromURLPayload) GetC2pa() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.C2pa
-}
-
-func (o *NewAssetFromURLPayload) GetCreatorID() *InputCreatorID {
-	if o == nil {
-		return nil
-	}
-	return o.CreatorID
-}
-
-func (o *NewAssetFromURLPayload) GetEncryption() *Encryption {
-	if o == nil {
-		return nil
-	}
-	return o.Encryption
+	URL        string      `json:"url"`
+	Encryption *Encryption `json:"encryption,omitempty"`
+	// Decides if the output video should include C2PA signature
+	C2pa     *bool              `json:"c2pa,omitempty"`
+	Profiles []TranscodeProfile `json:"profiles,omitempty"`
+	// How many seconds the duration of each output segment should be
+	TargetSegmentSizeSecs *float64 `json:"targetSegmentSizeSecs,omitempty"`
 }
 
 func (o *NewAssetFromURLPayload) GetName() string {
@@ -53,6 +32,13 @@ func (o *NewAssetFromURLPayload) GetName() string {
 	return o.Name
 }
 
+func (o *NewAssetFromURLPayload) GetStaticMp4() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.StaticMp4
+}
+
 func (o *NewAssetFromURLPayload) GetPlaybackPolicy() *PlaybackPolicy {
 	if o == nil {
 		return nil
@@ -60,18 +46,11 @@ func (o *NewAssetFromURLPayload) GetPlaybackPolicy() *PlaybackPolicy {
 	return o.PlaybackPolicy
 }
 
-func (o *NewAssetFromURLPayload) GetProfiles() []TranscodeProfile {
+func (o *NewAssetFromURLPayload) GetCreatorID() *InputCreatorID {
 	if o == nil {
 		return nil
 	}
-	return o.Profiles
-}
-
-func (o *NewAssetFromURLPayload) GetStaticMp4() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.StaticMp4
+	return o.CreatorID
 }
 
 func (o *NewAssetFromURLPayload) GetStorage() *Storage {
@@ -81,16 +60,37 @@ func (o *NewAssetFromURLPayload) GetStorage() *Storage {
 	return o.Storage
 }
 
-func (o *NewAssetFromURLPayload) GetTargetSegmentSizeSecs() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TargetSegmentSizeSecs
-}
-
 func (o *NewAssetFromURLPayload) GetURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.URL
+}
+
+func (o *NewAssetFromURLPayload) GetEncryption() *Encryption {
+	if o == nil {
+		return nil
+	}
+	return o.Encryption
+}
+
+func (o *NewAssetFromURLPayload) GetC2pa() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.C2pa
+}
+
+func (o *NewAssetFromURLPayload) GetProfiles() []TranscodeProfile {
+	if o == nil {
+		return nil
+	}
+	return o.Profiles
+}
+
+func (o *NewAssetFromURLPayload) GetTargetSegmentSizeSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TargetSegmentSizeSecs
 }

@@ -53,6 +53,7 @@ type sdkConfiguration struct {
 	UserAgent         string
 	RetryConfig       *retry.Config
 	Hooks             *hooks.Hooks
+	Timeout           *time.Duration
 }
 
 func (c *sdkConfiguration) GetServerDetails() (string, map[string]string) {
@@ -67,28 +68,28 @@ func (c *sdkConfiguration) GetServerDetails() (string, map[string]string) {
 // endpoints exposed on the standard Livepeer API, learn how to use them and
 // what they return.
 type Livepeer struct {
-	// Operations related to access control/signing keys api
-	AccessControl *AccessControl
-	// Operations related to asset/vod api
-	Asset *Asset
 	// Operations related to livestream api
 	Stream *Stream
-	// Operations related to metrics api
-	Metrics *Metrics
 	// Operations related to multistream api
 	Multistream *Multistream
-	// Operations related to playback api
-	Playback *Playback
-	// Operations related to rooms api
-	Room *Room
+	// Operations related to webhook api
+	Webhook *Webhook
+	// Operations related to asset/vod api
+	Asset *Asset
 	// Operations related to session api
 	Session *Session
+	// Operations related to rooms api
+	Room *Room
+	// Operations related to metrics api
+	Metrics *Metrics
+	// Operations related to access control/signing keys api
+	AccessControl *AccessControl
 	// Operations related to tasks api
 	Task *Task
 	// Operations related to transcode api
 	Transcode *Transcode
-	// Operations related to webhook api
-	Webhook *Webhook
+	// Operations related to playback api
+	Playback *Playback
 
 	sdkConfiguration sdkConfiguration
 }
@@ -154,15 +155,22 @@ func WithRetryConfig(retryConfig retry.Config) SDKOption {
 	}
 }
 
+// WithTimeout Optional request timeout applied to each operation
+func WithTimeout(timeout time.Duration) SDKOption {
+	return func(sdk *Livepeer) {
+		sdk.sdkConfiguration.Timeout = &timeout
+	}
+}
+
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *Livepeer {
 	sdk := &Livepeer{
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "1.0.0",
-			SDKVersion:        "0.1.13",
-			GenVersion:        "2.359.1",
-			UserAgent:         "speakeasy-sdk/go 0.1.13 2.359.1 1.0.0 github.com/livepeer/livepeer-go",
+			SDKVersion:        "0.2.0",
+			GenVersion:        "2.366.1",
+			UserAgent:         "speakeasy-sdk/go 0.2.0 2.366.1 1.0.0 github.com/livepeer/livepeer-go",
 			Hooks:             hooks.New(),
 		},
 	}
@@ -182,27 +190,27 @@ func New(opts ...SDKOption) *Livepeer {
 		sdk.sdkConfiguration.ServerURL = serverURL
 	}
 
-	sdk.AccessControl = newAccessControl(sdk.sdkConfiguration)
-
-	sdk.Asset = newAsset(sdk.sdkConfiguration)
-
 	sdk.Stream = newStream(sdk.sdkConfiguration)
-
-	sdk.Metrics = newMetrics(sdk.sdkConfiguration)
 
 	sdk.Multistream = newMultistream(sdk.sdkConfiguration)
 
-	sdk.Playback = newPlayback(sdk.sdkConfiguration)
+	sdk.Webhook = newWebhook(sdk.sdkConfiguration)
+
+	sdk.Asset = newAsset(sdk.sdkConfiguration)
+
+	sdk.Session = newSession(sdk.sdkConfiguration)
 
 	sdk.Room = newRoom(sdk.sdkConfiguration)
 
-	sdk.Session = newSession(sdk.sdkConfiguration)
+	sdk.Metrics = newMetrics(sdk.sdkConfiguration)
+
+	sdk.AccessControl = newAccessControl(sdk.sdkConfiguration)
 
 	sdk.Task = newTask(sdk.sdkConfiguration)
 
 	sdk.Transcode = newTranscode(sdk.sdkConfiguration)
 
-	sdk.Webhook = newWebhook(sdk.sdkConfiguration)
+	sdk.Playback = newPlayback(sdk.sdkConfiguration)
 
 	return sdk
 }

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
-  docChecksum: c60a9c53ed5d7e9929597ea583b273bf
+  docChecksum: f3bffafa3d73c8850f9e4ad4a49e0094
   docVersion: 1.0.0
-  speakeasyVersion: 1.326.2
-  generationVersion: 2.359.1
-  releaseVersion: 0.1.13
-  configChecksum: 41068dc9c451a95b6c79bc0bf891df6b
+  speakeasyVersion: 1.332.1
+  generationVersion: 2.366.1
+  releaseVersion: 0.2.0
+  configChecksum: b99cdeec0fdd49fb2e4899103b1bc25e
   repoURL: https://github.com/livepeer/livepeer-go.git
   installationURL: https://github.com/livepeer/livepeer-go
 features:
@@ -14,7 +14,8 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.4
-    core: 3.4.14
+    core: 3.4.15
+    defaultEnabledRetries: 0.2.0
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.82.9
@@ -26,20 +27,21 @@ features:
     nameOverrides: 2.81.2
     nullables: 0.1.0
     responseFormat: 0.1.2
+    retries: 2.83.0
     sdkHooks: 0.1.0
     unions: 2.85.8
 generatedFiles:
-  - accesscontrol.go
-  - asset.go
   - stream.go
-  - metrics.go
   - multistream.go
-  - playback.go
-  - room.go
+  - webhook.go
+  - asset.go
   - session.go
+  - room.go
+  - metrics.go
+  - accesscontrol.go
   - task.go
   - transcode.go
-  - webhook.go
+  - playback.go
   - livepeer.go
   - go.mod
   - models/sdkerrors/sdkerror.go
@@ -59,100 +61,97 @@ generatedFiles:
   - internal/utils/retries.go
   - internal/utils/security.go
   - internal/utils/utils.go
-  - /models/operations/getsigningkeys.go
-  - /models/operations/createsigningkey.go
-  - /models/operations/deletesigningkey.go
-  - /models/operations/getsigningkey.go
-  - /models/operations/updatesigningkey.go
-  - /models/operations/getassets.go
-  - /models/operations/deleteasset.go
-  - /models/operations/getasset.go
-  - /models/operations/updateasset.go
-  - /models/operations/requestupload.go
-  - /models/operations/uploadasset.go
-  - /models/operations/createclip.go
-  - /models/operations/getstreams.go
   - /models/operations/createstream.go
-  - /models/operations/deletestream.go
+  - /models/operations/getstreams.go
   - /models/operations/getstream.go
   - /models/operations/updatestream.go
+  - /models/operations/deletestream.go
+  - /models/operations/terminatestream.go
+  - /models/operations/startpullstream.go
+  - /models/operations/createclip.go
   - /models/operations/getclips.go
   - /models/operations/addmultistreamtarget.go
   - /models/operations/removemultistreamtarget.go
-  - /models/operations/startpullstream.go
-  - /models/operations/terminatestream.go
-  - /models/operations/getusagemetrics.go
+  - /models/operations/getmultistreamtargets.go
+  - /models/operations/createmultistreamtarget.go
+  - /models/operations/getmultistreamtarget.go
+  - /models/operations/updatemultistreamtarget.go
+  - /models/operations/deletemultistreamtarget.go
+  - /models/operations/getwebhooks.go
+  - /models/operations/createwebhook.go
+  - /models/operations/getwebhook.go
+  - /models/operations/updatewebhook.go
+  - /models/operations/deletewebhook.go
+  - /models/operations/getwebhooklogs.go
+  - /models/operations/getwebhooklog.go
+  - /models/operations/resendwebhook.go
+  - /models/operations/getassets.go
+  - /models/operations/requestupload.go
+  - /models/operations/uploadasset.go
+  - /models/operations/getasset.go
+  - /models/operations/updateasset.go
+  - /models/operations/deleteasset.go
+  - /models/operations/getsessionclips.go
+  - /models/operations/getsessions.go
+  - /models/operations/getsession.go
+  - /models/operations/getrecordedsessions.go
+  - /models/operations/createroom.go
+  - /models/operations/getroom.go
+  - /models/operations/deleteroom.go
+  - /models/operations/startroomegress.go
+  - /models/operations/stoproomegress.go
+  - /models/operations/createroomuser.go
+  - /models/operations/getroomuser.go
+  - /models/operations/updateroomuser.go
+  - /models/operations/deleteroomuser.go
   - /models/operations/getrealtimeviewershipnow.go
   - /models/operations/getviewershipmetrics.go
   - /models/operations/getcreatorviewershipmetrics.go
   - /models/operations/getpublicviewershipmetrics.go
-  - /models/operations/getmultistreamtargets.go
-  - /models/operations/createmultistreamtarget.go
-  - /models/operations/deletemultistreamtarget.go
-  - /models/operations/getmultistreamtarget.go
-  - /models/operations/updatemultistreamtarget.go
-  - /models/operations/getplaybackinfo.go
-  - /models/operations/createroom.go
-  - /models/operations/deleteroom.go
-  - /models/operations/getroom.go
-  - /models/operations/stoproomegress.go
-  - /models/operations/startroomegress.go
-  - /models/operations/createroomuser.go
-  - /models/operations/deleteroomuser.go
-  - /models/operations/getroomuser.go
-  - /models/operations/updateroomuser.go
-  - /models/operations/getsessions.go
-  - /models/operations/getsession.go
-  - /models/operations/getsessionclips.go
-  - /models/operations/getrecordedsessions.go
+  - /models/operations/getusagemetrics.go
+  - /models/operations/createsigningkey.go
+  - /models/operations/getsigningkeys.go
+  - /models/operations/deletesigningkey.go
+  - /models/operations/getsigningkey.go
+  - /models/operations/updatesigningkey.go
   - /models/operations/gettasks.go
   - /models/operations/gettask.go
   - /models/operations/transcodevideo.go
-  - /models/operations/getwebhooks.go
-  - /models/operations/createwebhook.go
-  - /models/operations/deletewebhook.go
-  - /models/operations/getwebhook.go
-  - /models/operations/updatewebhook.go
-  - /models/operations/getwebhooklogs.go
-  - /models/operations/getwebhooklog.go
-  - /models/operations/resendwebhook.go
+  - /models/operations/getplaybackinfo.go
   - /models/sdkerrors/error.go
-  - /models/components/signingkey.go
+  - /models/components/stream.go
+  - /models/components/targetoutput.go
+  - /models/components/transcodeprofile.go
+  - /models/components/ffmpegprofile.go
+  - /models/components/playbackpolicy.go
+  - /models/components/creatorid.go
   - /models/components/httpmetadata.go
+  - /models/components/newstreampayload.go
+  - /models/components/usertags.go
+  - /models/components/multistream.go
+  - /models/components/target.go
+  - /models/components/inputcreatorid.go
+  - /models/components/pull.go
+  - /models/components/streampatchpayload.go
+  - /models/components/recordingspec.go
   - /models/components/asset.go
   - /models/components/storagestatus.go
   - /models/components/ipfsfileinfo.go
   - /models/components/encryptionoutput.go
-  - /models/components/transcodeprofile.go
-  - /models/components/playbackpolicy.go
-  - /models/components/creatorid.go
-  - /models/components/assetpatchpayload.go
-  - /models/components/storage.go
-  - /models/components/spec.go
-  - /models/components/inputcreatorid.go
-  - /models/components/newassetpayload.go
-  - /models/components/newassetfromurlpayload.go
-  - /models/components/encryption.go
   - /models/components/clippayload.go
-  - /models/components/stream.go
-  - /models/components/ffmpegprofile.go
-  - /models/components/targetoutput.go
-  - /models/components/newstreampayload.go
-  - /models/components/usertags.go
-  - /models/components/pull.go
-  - /models/components/multistream.go
-  - /models/components/target.go
-  - /models/components/streampatchpayload.go
-  - /models/components/recordingspec.go
   - /models/components/targetaddpayload.go
-  - /models/components/usagemetric.go
-  - /models/components/realtimeviewershipmetric.go
-  - /models/components/viewershipmetric.go
   - /models/components/multistreamtarget.go
   - /models/components/multistreamtargetinput.go
   - /models/components/multistreamtargetpatchpayload.go
-  - /models/components/playbackinfo.go
-  - /models/components/attestation.go
+  - /models/components/webhook.go
+  - /models/components/webhooklog.go
+  - /models/components/newassetpayload.go
+  - /models/components/spec.go
+  - /models/components/newassetfromurlpayload.go
+  - /models/components/encryption.go
+  - /models/components/storage.go
+  - /models/components/assetpatchpayload.go
+  - /models/components/session.go
   - /models/components/createroomresponse.go
   - /models/components/room.go
   - /models/components/roomegresspayload.go
@@ -160,30 +159,62 @@ generatedFiles:
   - /models/components/roomuserpayload.go
   - /models/components/getroomuserresponse.go
   - /models/components/roomuserupdatepayload.go
-  - /models/components/session.go
+  - /models/components/realtimeviewershipmetric.go
+  - /models/components/viewershipmetric.go
+  - /models/components/usagemetric.go
+  - /models/components/signingkey.go
   - /models/components/task.go
   - /models/components/ipfsexportparams.go
   - /models/components/exporttaskparams.go
   - /models/components/transcodepayload.go
-  - /models/components/webhook.go
-  - /models/components/webhooklog.go
+  - /models/components/playbackinfo.go
+  - /models/components/attestation.go
   - /models/components/security.go
-  - docs/models/operations/getsigningkeysresponse.md
-  - docs/models/operations/createsigningkeyresponse.md
-  - docs/models/operations/deletesigningkeyrequest.md
-  - docs/models/operations/deletesigningkeyresponse.md
-  - docs/models/operations/getsigningkeyrequest.md
-  - docs/models/operations/getsigningkeyresponse.md
-  - docs/models/operations/updatesigningkeyrequestbody.md
-  - docs/models/operations/updatesigningkeyrequest.md
-  - docs/models/operations/updatesigningkeyresponse.md
+  - docs/models/operations/createstreamresponse.md
+  - docs/models/operations/getstreamsrequest.md
+  - docs/models/operations/getstreamsresponse.md
+  - docs/models/operations/getstreamrequest.md
+  - docs/models/operations/getstreamresponse.md
+  - docs/models/operations/updatestreamrequest.md
+  - docs/models/operations/updatestreamresponse.md
+  - docs/models/operations/deletestreamrequest.md
+  - docs/models/operations/deletestreamresponse.md
+  - docs/models/operations/terminatestreamrequest.md
+  - docs/models/operations/terminatestreamresponse.md
+  - docs/models/operations/startpullstreamrequest.md
+  - docs/models/operations/startpullstreamresponse.md
+  - docs/models/operations/createcliptask.md
+  - docs/models/operations/createclipdata.md
+  - docs/models/operations/createclipresponse.md
+  - docs/models/operations/getclipsrequest.md
+  - docs/models/operations/getclipsresponse.md
+  - docs/models/operations/addmultistreamtargetrequest.md
+  - docs/models/operations/addmultistreamtargetresponse.md
+  - docs/models/operations/removemultistreamtargetrequest.md
+  - docs/models/operations/removemultistreamtargetresponse.md
+  - docs/models/operations/getmultistreamtargetsresponse.md
+  - docs/models/operations/createmultistreamtargetresponse.md
+  - docs/models/operations/getmultistreamtargetrequest.md
+  - docs/models/operations/getmultistreamtargetresponse.md
+  - docs/models/operations/updatemultistreamtargetrequest.md
+  - docs/models/operations/updatemultistreamtargetresponse.md
+  - docs/models/operations/deletemultistreamtargetrequest.md
+  - docs/models/operations/deletemultistreamtargetresponse.md
+  - docs/models/operations/getwebhooksresponse.md
+  - docs/models/operations/createwebhookresponse.md
+  - docs/models/operations/getwebhookrequest.md
+  - docs/models/operations/getwebhookresponse.md
+  - docs/models/operations/updatewebhookrequest.md
+  - docs/models/operations/updatewebhookresponse.md
+  - docs/models/operations/deletewebhookrequest.md
+  - docs/models/operations/deletewebhookresponse.md
+  - docs/models/operations/getwebhooklogsrequest.md
+  - docs/models/operations/getwebhooklogsresponse.md
+  - docs/models/operations/getwebhooklogrequest.md
+  - docs/models/operations/getwebhooklogresponse.md
+  - docs/models/operations/resendwebhookrequest.md
+  - docs/models/operations/resendwebhookresponse.md
   - docs/models/operations/getassetsresponse.md
-  - docs/models/operations/deleteassetrequest.md
-  - docs/models/operations/deleteassetresponse.md
-  - docs/models/operations/getassetrequest.md
-  - docs/models/operations/getassetresponse.md
-  - docs/models/operations/updateassetrequest.md
-  - docs/models/operations/updateassetresponse.md
   - docs/models/operations/task.md
   - docs/models/operations/requestuploaddata.md
   - docs/models/operations/requestuploadresponse.md
@@ -192,107 +223,115 @@ generatedFiles:
   - docs/models/operations/uploadassettask.md
   - docs/models/operations/uploadassetdata.md
   - docs/models/operations/uploadassetresponse.md
-  - docs/models/operations/createcliptask.md
-  - docs/models/operations/createclipdata.md
-  - docs/models/operations/createclipresponse.md
-  - docs/models/operations/getstreamsrequest.md
-  - docs/models/operations/getstreamsresponse.md
-  - docs/models/operations/createstreamresponse.md
-  - docs/models/operations/deletestreamrequest.md
-  - docs/models/operations/deletestreamresponse.md
-  - docs/models/operations/getstreamrequest.md
-  - docs/models/operations/getstreamresponse.md
-  - docs/models/operations/updatestreamrequest.md
-  - docs/models/operations/updatestreamresponse.md
-  - docs/models/operations/getclipsrequest.md
-  - docs/models/operations/getclipsresponse.md
-  - docs/models/operations/addmultistreamtargetrequest.md
-  - docs/models/operations/addmultistreamtargetresponse.md
-  - docs/models/operations/removemultistreamtargetrequest.md
-  - docs/models/operations/removemultistreamtargetresponse.md
-  - docs/models/operations/startpullstreamrequest.md
-  - docs/models/operations/startpullstreamresponse.md
-  - docs/models/operations/terminatestreamrequest.md
-  - docs/models/operations/terminatestreamresponse.md
-  - docs/models/operations/timestep.md
+  - docs/models/operations/getassetrequest.md
+  - docs/models/operations/getassetresponse.md
+  - docs/models/operations/updateassetrequest.md
+  - docs/models/operations/updateassetresponse.md
+  - docs/models/operations/deleteassetrequest.md
+  - docs/models/operations/deleteassetresponse.md
+  - docs/models/operations/getsessionclipsrequest.md
+  - docs/models/operations/getsessionclipsresponse.md
+  - docs/models/operations/getsessionsresponse.md
+  - docs/models/operations/getsessionrequest.md
+  - docs/models/operations/getsessionresponse.md
+  - docs/models/operations/record.md
+  - docs/models/operations/getrecordedsessionsrequest.md
+  - docs/models/operations/getrecordedsessionsresponse.md
+  - docs/models/operations/createroomresponse.md
+  - docs/models/operations/getroomrequest.md
+  - docs/models/operations/getroomresponse.md
+  - docs/models/operations/deleteroomrequest.md
+  - docs/models/operations/deleteroomresponse.md
+  - docs/models/operations/startroomegressrequest.md
+  - docs/models/operations/startroomegressresponse.md
+  - docs/models/operations/stoproomegressrequest.md
+  - docs/models/operations/stoproomegressresponse.md
+  - docs/models/operations/createroomuserrequest.md
+  - docs/models/operations/createroomuserresponse.md
+  - docs/models/operations/getroomuserrequest.md
+  - docs/models/operations/getroomuserresponse.md
+  - docs/models/operations/updateroomuserrequest.md
+  - docs/models/operations/updateroomuserresponse.md
+  - docs/models/operations/deleteroomuserrequest.md
+  - docs/models/operations/deleteroomuserresponse.md
   - docs/models/operations/breakdownby.md
-  - docs/models/operations/getusagemetricsrequest.md
-  - docs/models/operations/getusagemetricsresponse.md
-  - docs/models/operations/queryparambreakdownby.md
   - docs/models/operations/getrealtimeviewershipnowrequest.md
   - docs/models/operations/getrealtimeviewershipnowresponse.md
   - docs/models/operations/from.md
   - docs/models/operations/to.md
-  - docs/models/operations/queryparamtimestep.md
-  - docs/models/operations/getviewershipmetricsqueryparambreakdownby.md
+  - docs/models/operations/timestep.md
+  - docs/models/operations/queryparambreakdownby.md
   - docs/models/operations/getviewershipmetricsrequest.md
   - docs/models/operations/getviewershipmetricsresponse.md
   - docs/models/operations/queryparamfrom.md
   - docs/models/operations/queryparamto.md
-  - docs/models/operations/getcreatorviewershipmetricsqueryparamtimestep.md
+  - docs/models/operations/queryparamtimestep.md
   - docs/models/operations/getcreatorviewershipmetricsqueryparambreakdownby.md
   - docs/models/operations/getcreatorviewershipmetricsrequest.md
   - docs/models/operations/getcreatorviewershipmetricsresponse.md
   - docs/models/operations/getpublicviewershipmetricsrequest.md
   - docs/models/operations/getpublicviewershipmetricsdata.md
   - docs/models/operations/getpublicviewershipmetricsresponse.md
-  - docs/models/operations/getmultistreamtargetsresponse.md
-  - docs/models/operations/createmultistreamtargetresponse.md
-  - docs/models/operations/deletemultistreamtargetrequest.md
-  - docs/models/operations/deletemultistreamtargetresponse.md
-  - docs/models/operations/getmultistreamtargetrequest.md
-  - docs/models/operations/getmultistreamtargetresponse.md
-  - docs/models/operations/updatemultistreamtargetrequest.md
-  - docs/models/operations/updatemultistreamtargetresponse.md
-  - docs/models/operations/getplaybackinforequest.md
-  - docs/models/operations/getplaybackinforesponse.md
-  - docs/models/operations/createroomresponse.md
-  - docs/models/operations/deleteroomrequest.md
-  - docs/models/operations/deleteroomresponse.md
-  - docs/models/operations/getroomrequest.md
-  - docs/models/operations/getroomresponse.md
-  - docs/models/operations/stoproomegressrequest.md
-  - docs/models/operations/stoproomegressresponse.md
-  - docs/models/operations/startroomegressrequest.md
-  - docs/models/operations/startroomegressresponse.md
-  - docs/models/operations/createroomuserrequest.md
-  - docs/models/operations/createroomuserresponse.md
-  - docs/models/operations/deleteroomuserrequest.md
-  - docs/models/operations/deleteroomuserresponse.md
-  - docs/models/operations/getroomuserrequest.md
-  - docs/models/operations/getroomuserresponse.md
-  - docs/models/operations/updateroomuserrequest.md
-  - docs/models/operations/updateroomuserresponse.md
-  - docs/models/operations/getsessionsresponse.md
-  - docs/models/operations/getsessionrequest.md
-  - docs/models/operations/getsessionresponse.md
-  - docs/models/operations/getsessionclipsrequest.md
-  - docs/models/operations/getsessionclipsresponse.md
-  - docs/models/operations/record.md
-  - docs/models/operations/getrecordedsessionsrequest.md
-  - docs/models/operations/getrecordedsessionsresponse.md
+  - docs/models/operations/getusagemetricsqueryparamtimestep.md
+  - docs/models/operations/getusagemetricsqueryparambreakdownby.md
+  - docs/models/operations/getusagemetricsrequest.md
+  - docs/models/operations/getusagemetricsresponse.md
+  - docs/models/operations/createsigningkeyresponse.md
+  - docs/models/operations/getsigningkeysresponse.md
+  - docs/models/operations/deletesigningkeyrequest.md
+  - docs/models/operations/deletesigningkeyresponse.md
+  - docs/models/operations/getsigningkeyrequest.md
+  - docs/models/operations/getsigningkeyresponse.md
+  - docs/models/operations/updatesigningkeyrequestbody.md
+  - docs/models/operations/updatesigningkeyrequest.md
+  - docs/models/operations/updatesigningkeyresponse.md
   - docs/models/operations/gettasksresponse.md
   - docs/models/operations/gettaskrequest.md
   - docs/models/operations/gettaskresponse.md
   - docs/models/operations/transcodevideoresponse.md
-  - docs/models/operations/getwebhooksresponse.md
-  - docs/models/operations/createwebhookresponse.md
-  - docs/models/operations/deletewebhookrequest.md
-  - docs/models/operations/deletewebhookresponse.md
-  - docs/models/operations/getwebhookrequest.md
-  - docs/models/operations/getwebhookresponse.md
-  - docs/models/operations/updatewebhookrequest.md
-  - docs/models/operations/updatewebhookresponse.md
-  - docs/models/operations/getwebhooklogsrequest.md
-  - docs/models/operations/getwebhooklogsresponse.md
-  - docs/models/operations/getwebhooklogrequest.md
-  - docs/models/operations/getwebhooklogresponse.md
-  - docs/models/operations/resendwebhookrequest.md
-  - docs/models/operations/resendwebhookresponse.md
+  - docs/models/operations/getplaybackinforequest.md
+  - docs/models/operations/getplaybackinforesponse.md
   - docs/models/sdkerrors/error.md
-  - docs/models/components/signingkey.md
+  - docs/models/components/three.md
+  - docs/models/components/streamusertags.md
+  - docs/models/components/ismobile1.md
+  - docs/models/components/streamismobile.md
+  - docs/models/components/streamlocation.md
+  - docs/models/components/streampull.md
+  - docs/models/components/streamrecordingspec.md
+  - docs/models/components/streammultistream.md
+  - docs/models/components/renditions.md
+  - docs/models/components/stream.md
+  - docs/models/components/targetoutput.md
+  - docs/models/components/transcodeprofileprofile.md
+  - docs/models/components/transcodeprofileencoder.md
+  - docs/models/components/transcodeprofile.md
+  - docs/models/components/profile.md
+  - docs/models/components/encoder.md
+  - docs/models/components/ffmpegprofile.md
+  - docs/models/components/type.md
+  - docs/models/components/playbackpolicy.md
+  - docs/models/components/creatoridtype.md
+  - docs/models/components/creatorid1.md
+  - docs/models/components/creatorid.md
   - docs/models/components/httpmetadata.md
-  - docs/models/components/hash.md
+  - docs/models/components/newstreampayloadrecordingspec.md
+  - docs/models/components/newstreampayload.md
+  - docs/models/components/usertags3.md
+  - docs/models/components/usertags.md
+  - docs/models/components/multistream.md
+  - docs/models/components/targetspec.md
+  - docs/models/components/target.md
+  - docs/models/components/inputcreatoridtype.md
+  - docs/models/components/inputcreatorid1.md
+  - docs/models/components/inputcreatorid.md
+  - docs/models/components/one.md
+  - docs/models/components/ismobile.md
+  - docs/models/components/location.md
+  - docs/models/components/pull.md
+  - docs/models/components/streampatchpayload.md
+  - docs/models/components/recordingspec.md
+  - docs/models/components/assettype.md
   - docs/models/components/assetsource3type.md
   - docs/models/components/source3.md
   - docs/models/components/assetsourcetype.md
@@ -300,14 +339,14 @@ generatedFiles:
   - docs/models/components/sourcetype.md
   - docs/models/components/source1.md
   - docs/models/components/source.md
-  - docs/models/components/assetphase.md
-  - docs/models/components/status.md
-  - docs/models/components/assetnftmetadata.md
   - docs/models/components/assetnftmetadatatemplate.md
+  - docs/models/components/assetnftmetadata.md
   - docs/models/components/assetspec.md
   - docs/models/components/assetipfs.md
   - docs/models/components/assetstorage.md
-  - docs/models/components/assettype.md
+  - docs/models/components/assetphase.md
+  - docs/models/components/assetstatus.md
+  - docs/models/components/hash.md
   - docs/models/components/assetvideospectype.md
   - docs/models/components/tracks.md
   - docs/models/components/videospec.md
@@ -317,87 +356,36 @@ generatedFiles:
   - docs/models/components/storagestatus.md
   - docs/models/components/ipfsfileinfo.md
   - docs/models/components/encryptionoutput.md
-  - docs/models/components/encoder.md
-  - docs/models/components/profile.md
-  - docs/models/components/transcodeprofile.md
-  - docs/models/components/type.md
-  - docs/models/components/playbackpolicy.md
-  - docs/models/components/creatoridtype.md
-  - docs/models/components/creatorid1.md
-  - docs/models/components/creatorid.md
-  - docs/models/components/assetpatchpayload.md
-  - docs/models/components/one.md
-  - docs/models/components/ipfs.md
-  - docs/models/components/storage.md
-  - docs/models/components/nftmetadata.md
-  - docs/models/components/nftmetadatatemplate.md
-  - docs/models/components/spec.md
-  - docs/models/components/inputcreatoridtype.md
-  - docs/models/components/inputcreatorid1.md
-  - docs/models/components/inputcreatorid.md
-  - docs/models/components/newassetpayloadencryption.md
-  - docs/models/components/ipfs1.md
-  - docs/models/components/newassetpayloadipfs.md
-  - docs/models/components/newassetpayloadstorage.md
-  - docs/models/components/newassetpayload.md
-  - docs/models/components/newassetfromurlpayload.md
-  - docs/models/components/encryption.md
   - docs/models/components/clippayload.md
-  - docs/models/components/streammultistream.md
-  - docs/models/components/streamismobile1.md
-  - docs/models/components/streamismobile.md
-  - docs/models/components/streamlocation.md
-  - docs/models/components/streampull.md
-  - docs/models/components/streamrecordingspec.md
-  - docs/models/components/renditions.md
-  - docs/models/components/three.md
-  - docs/models/components/streamusertags.md
-  - docs/models/components/stream.md
-  - docs/models/components/ffmpegprofileencoder.md
-  - docs/models/components/ffmpegprofileprofile.md
-  - docs/models/components/ffmpegprofile.md
-  - docs/models/components/targetoutput.md
-  - docs/models/components/newstreampayloadrecordingspec.md
-  - docs/models/components/newstreampayload.md
-  - docs/models/components/usertags3.md
-  - docs/models/components/usertags.md
-  - docs/models/components/ismobile1.md
-  - docs/models/components/ismobile.md
-  - docs/models/components/location.md
-  - docs/models/components/pull.md
-  - docs/models/components/multistream.md
-  - docs/models/components/targetspec.md
-  - docs/models/components/target.md
-  - docs/models/components/streampatchpayload.md
-  - docs/models/components/recordingspec.md
   - docs/models/components/targetaddpayloadspec.md
   - docs/models/components/targetaddpayload.md
-  - docs/models/components/usagemetric.md
-  - docs/models/components/realtimeviewershipmetric.md
-  - docs/models/components/viewershipmetric.md
   - docs/models/components/multistreamtarget.md
   - docs/models/components/multistreamtargetinput.md
   - docs/models/components/multistreamtargetpatchpayload.md
-  - docs/models/components/hrn.md
-  - docs/models/components/playbackinfometadvrplaybacktype.md
-  - docs/models/components/dvrplayback.md
-  - docs/models/components/live.md
-  - docs/models/components/playbackinfohrn.md
-  - docs/models/components/playbackinfometatype.md
-  - docs/models/components/playbackinfosource.md
-  - docs/models/components/meta.md
-  - docs/models/components/playbackinfotype.md
-  - docs/models/components/playbackinfo.md
-  - docs/models/components/name.md
-  - docs/models/components/version.md
-  - docs/models/components/domain.md
-  - docs/models/components/attestations.md
-  - docs/models/components/message.md
-  - docs/models/components/primarytype.md
-  - docs/models/components/signaturetype.md
-  - docs/models/components/attestationipfs.md
-  - docs/models/components/attestationstorage.md
-  - docs/models/components/attestation.md
+  - docs/models/components/events.md
+  - docs/models/components/lastfailure.md
+  - docs/models/components/status.md
+  - docs/models/components/webhook.md
+  - docs/models/components/webhookinput.md
+  - docs/models/components/request.md
+  - docs/models/components/response.md
+  - docs/models/components/webhooklog.md
+  - docs/models/components/newassetpayloadipfs1.md
+  - docs/models/components/newassetpayloadipfs.md
+  - docs/models/components/newassetpayloadstorage.md
+  - docs/models/components/newassetpayloadencryption.md
+  - docs/models/components/newassetpayload.md
+  - docs/models/components/nftmetadatatemplate.md
+  - docs/models/components/nftmetadata.md
+  - docs/models/components/spec.md
+  - docs/models/components/newassetfromurlpayload.md
+  - docs/models/components/encryption.md
+  - docs/models/components/ipfs1.md
+  - docs/models/components/ipfs.md
+  - docs/models/components/storage.md
+  - docs/models/components/assetpatchpayload.md
+  - docs/models/components/recordingstatus.md
+  - docs/models/components/session.md
   - docs/models/components/createroomresponse.md
   - docs/models/components/participants.md
   - docs/models/components/room.md
@@ -406,30 +394,32 @@ generatedFiles:
   - docs/models/components/roomuserpayload.md
   - docs/models/components/getroomuserresponse.md
   - docs/models/components/roomuserupdatepayload.md
-  - docs/models/components/recordingstatus.md
-  - docs/models/components/session.md
+  - docs/models/components/realtimeviewershipmetric.md
+  - docs/models/components/viewershipmetric.md
+  - docs/models/components/usagemetric.md
+  - docs/models/components/signingkey.md
+  - docs/models/components/tasktype.md
+  - docs/models/components/upload.md
+  - docs/models/components/content.md
+  - docs/models/components/taskexportdata.md
+  - docs/models/components/taskinput.md
+  - docs/models/components/taskstorage.md
+  - docs/models/components/taskhls.md
+  - docs/models/components/taskmp4.md
+  - docs/models/components/taskoutputs.md
+  - docs/models/components/transcodefile.md
+  - docs/models/components/clipstrategy.md
+  - docs/models/components/catalystpipelinestrategy.md
+  - docs/models/components/clip.md
+  - docs/models/components/params.md
+  - docs/models/components/taskphase.md
+  - docs/models/components/taskstatus.md
+  - docs/models/components/taskupload.md
   - docs/models/components/taskipfs.md
   - docs/models/components/export.md
   - docs/models/components/taskoutputipfs.md
   - docs/models/components/exportdata.md
-  - docs/models/components/upload.md
   - docs/models/components/output.md
-  - docs/models/components/catalystpipelinestrategy.md
-  - docs/models/components/clipstrategy.md
-  - docs/models/components/clip.md
-  - docs/models/components/content.md
-  - docs/models/components/taskexportdata.md
-  - docs/models/components/taskinput.md
-  - docs/models/components/taskhls.md
-  - docs/models/components/taskmp4.md
-  - docs/models/components/taskoutputs.md
-  - docs/models/components/taskstorage.md
-  - docs/models/components/transcodefile.md
-  - docs/models/components/taskupload.md
-  - docs/models/components/params.md
-  - docs/models/components/taskphase.md
-  - docs/models/components/taskstatus.md
-  - docs/models/components/tasktype.md
   - docs/models/components/task.md
   - docs/models/components/pinata2.md
   - docs/models/components/pinata1.md
@@ -439,44 +429,58 @@ generatedFiles:
   - docs/models/components/custom.md
   - docs/models/components/exporttaskparams1.md
   - docs/models/components/exporttaskparams.md
-  - docs/models/components/credentials.md
   - docs/models/components/inputtype.md
+  - docs/models/components/credentials.md
   - docs/models/components/input2.md
   - docs/models/components/input1.md
   - docs/models/components/input.md
-  - docs/models/components/fmp4.md
-  - docs/models/components/hls.md
-  - docs/models/components/mp4.md
-  - docs/models/components/outputs.md
-  - docs/models/components/transcodepayloadstoragecredentials.md
   - docs/models/components/transcodepayloadstoragetype.md
+  - docs/models/components/transcodepayloadstoragecredentials.md
   - docs/models/components/storage2.md
-  - docs/models/components/storagecredentials.md
   - docs/models/components/storagetype.md
+  - docs/models/components/storagecredentials.md
   - docs/models/components/storage1.md
   - docs/models/components/transcodepayloadstorage.md
+  - docs/models/components/hls.md
+  - docs/models/components/mp4.md
+  - docs/models/components/fmp4.md
+  - docs/models/components/outputs.md
   - docs/models/components/transcodepayload.md
-  - docs/models/components/events.md
-  - docs/models/components/lastfailure.md
-  - docs/models/components/webhookstatus.md
-  - docs/models/components/webhook.md
-  - docs/models/components/webhookinput.md
-  - docs/models/components/request.md
-  - docs/models/components/response.md
-  - docs/models/components/webhooklog.md
+  - docs/models/components/playbackinfotype.md
+  - docs/models/components/live.md
+  - docs/models/components/hrn.md
+  - docs/models/components/playbackinfometatype.md
+  - docs/models/components/playbackinfosource.md
+  - docs/models/components/playbackinfohrn.md
+  - docs/models/components/playbackinfometadvrplaybacktype.md
+  - docs/models/components/dvrplayback.md
+  - docs/models/components/meta.md
+  - docs/models/components/playbackinfo.md
+  - docs/models/components/primarytype.md
+  - docs/models/components/name.md
+  - docs/models/components/version.md
+  - docs/models/components/domain.md
+  - docs/models/components/attestations.md
+  - docs/models/components/message.md
+  - docs/models/components/signaturetype.md
+  - docs/models/components/attestationipfs.md
+  - docs/models/components/attestationstorage.md
+  - docs/models/components/attestation.md
   - docs/models/components/security.md
   - docs/sdks/livepeer/README.md
-  - docs/sdks/accesscontrol/README.md
-  - docs/sdks/asset/README.md
+  - docs/models/operations/option.md
   - docs/sdks/stream/README.md
-  - docs/sdks/metrics/README.md
   - docs/sdks/multistream/README.md
-  - docs/sdks/playback/README.md
-  - docs/sdks/room/README.md
+  - docs/sdks/webhook/README.md
+  - docs/sdks/asset/README.md
   - docs/sdks/session/README.md
+  - docs/sdks/room/README.md
+  - docs/sdks/metrics/README.md
+  - docs/sdks/accesscontrol/README.md
   - docs/sdks/task/README.md
   - docs/sdks/transcode/README.md
-  - docs/sdks/webhook/README.md
+  - docs/sdks/playback/README.md
   - USAGE.md
+  - models/operations/options.go
   - .gitattributes
   - internal/hooks/hooks.go

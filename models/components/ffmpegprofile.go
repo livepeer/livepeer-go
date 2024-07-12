@@ -7,42 +7,19 @@ import (
 	"fmt"
 )
 
-type FfmpegProfileEncoder string
+type Profile string
 
 const (
-	FfmpegProfileEncoderH264 FfmpegProfileEncoder = "H.264"
+	ProfileH264Baseline        Profile = "H264Baseline"
+	ProfileH264Main            Profile = "H264Main"
+	ProfileH264High            Profile = "H264High"
+	ProfileH264ConstrainedHigh Profile = "H264ConstrainedHigh"
 )
 
-func (e FfmpegProfileEncoder) ToPointer() *FfmpegProfileEncoder {
+func (e Profile) ToPointer() *Profile {
 	return &e
 }
-func (e *FfmpegProfileEncoder) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "H.264":
-		*e = FfmpegProfileEncoder(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for FfmpegProfileEncoder: %v", v)
-	}
-}
-
-type FfmpegProfileProfile string
-
-const (
-	FfmpegProfileProfileH264Baseline        FfmpegProfileProfile = "H264Baseline"
-	FfmpegProfileProfileH264Main            FfmpegProfileProfile = "H264Main"
-	FfmpegProfileProfileH264High            FfmpegProfileProfile = "H264High"
-	FfmpegProfileProfileH264ConstrainedHigh FfmpegProfileProfile = "H264ConstrainedHigh"
-)
-
-func (e FfmpegProfileProfile) ToPointer() *FfmpegProfileProfile {
-	return &e
-}
-func (e *FfmpegProfileProfile) UnmarshalJSON(data []byte) error {
+func (e *Profile) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -55,27 +32,71 @@ func (e *FfmpegProfileProfile) UnmarshalJSON(data []byte) error {
 	case "H264High":
 		fallthrough
 	case "H264ConstrainedHigh":
-		*e = FfmpegProfileProfile(v)
+		*e = Profile(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for FfmpegProfileProfile: %v", v)
+		return fmt.Errorf("invalid value for Profile: %v", v)
+	}
+}
+
+type Encoder string
+
+const (
+	EncoderH264 Encoder = "H.264"
+)
+
+func (e Encoder) ToPointer() *Encoder {
+	return &e
+}
+func (e *Encoder) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "H.264":
+		*e = Encoder(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for Encoder: %v", v)
 	}
 }
 
 // FfmpegProfile - Transcode profile
 type FfmpegProfile struct {
-	Bitrate int64                 `json:"bitrate"`
-	Encoder *FfmpegProfileEncoder `json:"encoder,omitempty"`
-	Fps     int64                 `json:"fps"`
-	FpsDen  *int64                `json:"fpsDen,omitempty"`
-	Gop     *string               `json:"gop,omitempty"`
-	Height  int64                 `json:"height"`
-	Name    string                `json:"name"`
-	Profile *FfmpegProfileProfile `json:"profile,omitempty"`
+	Width   int64  `json:"width"`
+	Name    string `json:"name"`
+	Height  int64  `json:"height"`
+	Bitrate int64  `json:"bitrate"`
+	Fps     int64  `json:"fps"`
+	FpsDen  *int64 `json:"fpsDen,omitempty"`
 	// Restricts the size of the output video using the constant quality feature. Increasing this value will result in a lower quality video. Note that this parameter might not work if the transcoder lacks support for it.
 	//
-	Quality *int64 `json:"quality,omitempty"`
-	Width   int64  `json:"width"`
+	Quality *int64   `json:"quality,omitempty"`
+	Gop     *string  `json:"gop,omitempty"`
+	Profile *Profile `json:"profile,omitempty"`
+	Encoder *Encoder `json:"encoder,omitempty"`
+}
+
+func (o *FfmpegProfile) GetWidth() int64 {
+	if o == nil {
+		return 0
+	}
+	return o.Width
+}
+
+func (o *FfmpegProfile) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *FfmpegProfile) GetHeight() int64 {
+	if o == nil {
+		return 0
+	}
+	return o.Height
 }
 
 func (o *FfmpegProfile) GetBitrate() int64 {
@@ -83,13 +104,6 @@ func (o *FfmpegProfile) GetBitrate() int64 {
 		return 0
 	}
 	return o.Bitrate
-}
-
-func (o *FfmpegProfile) GetEncoder() *FfmpegProfileEncoder {
-	if o == nil {
-		return nil
-	}
-	return o.Encoder
 }
 
 func (o *FfmpegProfile) GetFps() int64 {
@@ -106,34 +120,6 @@ func (o *FfmpegProfile) GetFpsDen() *int64 {
 	return o.FpsDen
 }
 
-func (o *FfmpegProfile) GetGop() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Gop
-}
-
-func (o *FfmpegProfile) GetHeight() int64 {
-	if o == nil {
-		return 0
-	}
-	return o.Height
-}
-
-func (o *FfmpegProfile) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *FfmpegProfile) GetProfile() *FfmpegProfileProfile {
-	if o == nil {
-		return nil
-	}
-	return o.Profile
-}
-
 func (o *FfmpegProfile) GetQuality() *int64 {
 	if o == nil {
 		return nil
@@ -141,9 +127,23 @@ func (o *FfmpegProfile) GetQuality() *int64 {
 	return o.Quality
 }
 
-func (o *FfmpegProfile) GetWidth() int64 {
+func (o *FfmpegProfile) GetGop() *string {
 	if o == nil {
-		return 0
+		return nil
 	}
-	return o.Width
+	return o.Gop
+}
+
+func (o *FfmpegProfile) GetProfile() *Profile {
+	if o == nil {
+		return nil
+	}
+	return o.Profile
+}
+
+func (o *FfmpegProfile) GetEncoder() *Encoder {
+	if o == nil {
+		return nil
+	}
+	return o.Encoder
 }

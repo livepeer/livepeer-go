@@ -9,19 +9,19 @@ import (
 	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
-type QueryParamBreakdownBy string
+type BreakdownBy string
 
 const (
-	QueryParamBreakdownByPlaybackID QueryParamBreakdownBy = "playbackId"
-	QueryParamBreakdownByDevice     QueryParamBreakdownBy = "device"
-	QueryParamBreakdownByBrowser    QueryParamBreakdownBy = "browser"
-	QueryParamBreakdownByCountry    QueryParamBreakdownBy = "country"
+	BreakdownByPlaybackID BreakdownBy = "playbackId"
+	BreakdownByDevice     BreakdownBy = "device"
+	BreakdownByBrowser    BreakdownBy = "browser"
+	BreakdownByCountry    BreakdownBy = "country"
 )
 
-func (e QueryParamBreakdownBy) ToPointer() *QueryParamBreakdownBy {
+func (e BreakdownBy) ToPointer() *BreakdownBy {
 	return &e
 }
-func (e *QueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
+func (e *BreakdownBy) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -34,10 +34,10 @@ func (e *QueryParamBreakdownBy) UnmarshalJSON(data []byte) error {
 	case "browser":
 		fallthrough
 	case "country":
-		*e = QueryParamBreakdownBy(v)
+		*e = BreakdownBy(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for QueryParamBreakdownBy: %v", v)
+		return fmt.Errorf("invalid value for BreakdownBy: %v", v)
 	}
 }
 
@@ -52,7 +52,7 @@ type GetRealtimeViewershipNowRequest struct {
 	// The list of fields to break down the query results. Specify this
 	// query-string multiple times to break down by multiple fields.
 	//
-	BreakdownBy []QueryParamBreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
+	BreakdownBy []BreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
 }
 
 func (o *GetRealtimeViewershipNowRequest) GetPlaybackID() *string {
@@ -69,7 +69,7 @@ func (o *GetRealtimeViewershipNowRequest) GetCreatorID() *string {
 	return o.CreatorID
 }
 
-func (o *GetRealtimeViewershipNowRequest) GetBreakdownBy() []QueryParamBreakdownBy {
+func (o *GetRealtimeViewershipNowRequest) GetBreakdownBy() []BreakdownBy {
 	if o == nil {
 		return nil
 	}

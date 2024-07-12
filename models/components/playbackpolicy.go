@@ -38,31 +38,17 @@ func (e *Type) UnmarshalJSON(data []byte) error {
 
 // PlaybackPolicy - Whether the playback policy for an asset or stream is public or signed
 type PlaybackPolicy struct {
-	// List of allowed origins for CORS playback (<scheme>://<hostname>:<port>, <scheme>://<hostname>)
-	AllowedOrigins []string `json:"allowedOrigins,omitempty"`
+	Type Type `json:"type"`
+	// ID of the webhook to use for playback policy
+	WebhookID *string `json:"webhookId,omitempty"`
+	// User-defined webhook context
+	WebhookContext map[string]any `json:"webhookContext,omitempty"`
 	// Interval (in seconds) at which the playback policy should be
 	// refreshed (default 600 seconds)
 	//
 	RefreshInterval *float64 `json:"refreshInterval,omitempty"`
-	Type            Type     `json:"type"`
-	// User-defined webhook context
-	WebhookContext map[string]any `json:"webhookContext,omitempty"`
-	// ID of the webhook to use for playback policy
-	WebhookID *string `json:"webhookId,omitempty"`
-}
-
-func (o *PlaybackPolicy) GetAllowedOrigins() []string {
-	if o == nil {
-		return nil
-	}
-	return o.AllowedOrigins
-}
-
-func (o *PlaybackPolicy) GetRefreshInterval() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.RefreshInterval
+	// List of allowed origins for CORS playback (<scheme>://<hostname>:<port>, <scheme>://<hostname>)
+	AllowedOrigins []string `json:"allowedOrigins,omitempty"`
 }
 
 func (o *PlaybackPolicy) GetType() Type {
@@ -72,6 +58,13 @@ func (o *PlaybackPolicy) GetType() Type {
 	return o.Type
 }
 
+func (o *PlaybackPolicy) GetWebhookID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.WebhookID
+}
+
 func (o *PlaybackPolicy) GetWebhookContext() map[string]any {
 	if o == nil {
 		return nil
@@ -79,9 +72,16 @@ func (o *PlaybackPolicy) GetWebhookContext() map[string]any {
 	return o.WebhookContext
 }
 
-func (o *PlaybackPolicy) GetWebhookID() *string {
+func (o *PlaybackPolicy) GetRefreshInterval() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.WebhookID
+	return o.RefreshInterval
+}
+
+func (o *PlaybackPolicy) GetAllowedOrigins() []string {
+	if o == nil {
+		return nil
+	}
+	return o.AllowedOrigins
 }

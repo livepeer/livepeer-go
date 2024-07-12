@@ -25,21 +25,14 @@ func (o *GetPublicViewershipMetricsRequest) GetPlaybackID() string {
 // GetPublicViewershipMetricsData - A simplified metric object about aggregate viewership of an
 // asset. Either playbackId or dStorageUrl will be set.
 type GetPublicViewershipMetricsData struct {
-	// The URL of the distributed storage used for the asset
-	DStorageURL *string `json:"dStorageUrl,omitempty"`
 	// The playback ID associated with the metric.
 	PlaybackID *string `json:"playbackId,omitempty"`
-	// The total playtime in minutes for the stream/asset.
-	PlaytimeMins *float64 `json:"playtimeMins,omitempty"`
+	// The URL of the distributed storage used for the asset
+	DStorageURL *string `json:"dStorageUrl,omitempty"`
 	// The number of views for the stream/asset.
 	ViewCount *int64 `json:"viewCount,omitempty"`
-}
-
-func (o *GetPublicViewershipMetricsData) GetDStorageURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.DStorageURL
+	// The total playtime in minutes for the stream/asset.
+	PlaytimeMins *float64 `json:"playtimeMins,omitempty"`
 }
 
 func (o *GetPublicViewershipMetricsData) GetPlaybackID() *string {
@@ -49,11 +42,11 @@ func (o *GetPublicViewershipMetricsData) GetPlaybackID() *string {
 	return o.PlaybackID
 }
 
-func (o *GetPublicViewershipMetricsData) GetPlaytimeMins() *float64 {
+func (o *GetPublicViewershipMetricsData) GetDStorageURL() *string {
 	if o == nil {
 		return nil
 	}
-	return o.PlaytimeMins
+	return o.DStorageURL
 }
 
 func (o *GetPublicViewershipMetricsData) GetViewCount() *int64 {
@@ -61,6 +54,13 @@ func (o *GetPublicViewershipMetricsData) GetViewCount() *int64 {
 		return nil
 	}
 	return o.ViewCount
+}
+
+func (o *GetPublicViewershipMetricsData) GetPlaytimeMins() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PlaytimeMins
 }
 
 type GetPublicViewershipMetricsResponse struct {

@@ -5,10 +5,10 @@ Indicates whether the stream will be pulled from a mobile source.
 
 ## Supported Types
 
-### IsMobile1
+### One
 
 ```go
-isMobile := components.CreateIsMobileIsMobile1(components.IsMobile1{/* values here */})
+isMobile := components.CreateIsMobileOne(components.One{/* values here */})
 ```
 
 ### 

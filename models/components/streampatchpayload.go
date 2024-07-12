@@ -3,18 +3,18 @@
 package components
 
 type StreamPatchPayload struct {
-	CreatorID   *InputCreatorID `json:"creatorId,omitempty"`
-	Multistream *Multistream    `json:"multistream,omitempty"`
-	// Whether the playback policy for an asset or stream is public or signed
-	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
-	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
+	CreatorID *InputCreatorID `json:"creatorId,omitempty"`
 	// Should this stream be recorded? Uses default settings. For more
 	// customization, create and configure an object store.
 	//
-	Record        *bool          `json:"record,omitempty"`
-	RecordingSpec *RecordingSpec `json:"recordingSpec,omitempty"`
+	Record *bool `json:"record,omitempty"`
 	// If currently suspended
-	Suspended *bool `json:"suspended,omitempty"`
+	Suspended   *bool        `json:"suspended,omitempty"`
+	Multistream *Multistream `json:"multistream,omitempty"`
+	// Whether the playback policy for an asset or stream is public or signed
+	PlaybackPolicy *PlaybackPolicy `json:"playbackPolicy,omitempty"`
+	Profiles       []FfmpegProfile `json:"profiles,omitempty"`
+	RecordingSpec  *RecordingSpec  `json:"recordingSpec,omitempty"`
 	// User input tags associated with the stream
 	UserTags map[string]UserTags `json:"userTags,omitempty"`
 }
@@ -24,6 +24,20 @@ func (o *StreamPatchPayload) GetCreatorID() *InputCreatorID {
 		return nil
 	}
 	return o.CreatorID
+}
+
+func (o *StreamPatchPayload) GetRecord() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Record
+}
+
+func (o *StreamPatchPayload) GetSuspended() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Suspended
 }
 
 func (o *StreamPatchPayload) GetMultistream() *Multistream {
@@ -47,25 +61,11 @@ func (o *StreamPatchPayload) GetProfiles() []FfmpegProfile {
 	return o.Profiles
 }
 
-func (o *StreamPatchPayload) GetRecord() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Record
-}
-
 func (o *StreamPatchPayload) GetRecordingSpec() *RecordingSpec {
 	if o == nil {
 		return nil
 	}
 	return o.RecordingSpec
-}
-
-func (o *StreamPatchPayload) GetSuspended() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Suspended
 }
 
 func (o *StreamPatchPayload) GetUserTags() map[string]UserTags {

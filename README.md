@@ -205,6 +205,7 @@ package main
 import (
 	"context"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -213,13 +214,75 @@ func main() {
 		livepeergo.WithServerIndex(0),
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
-
+	request := components.NewStreamPayload{
+		Name: "test_stream",
+		Pull: &components.Pull{
+			Source: "https://myservice.com/live/stream.flv",
+			Headers: map[string]string{
+				"Authorization": "Bearer 123",
+			},
+			Location: &components.Location{
+				Lat: 39.739,
+				Lon: -104.988,
+			},
+		},
+		PlaybackPolicy: &components.PlaybackPolicy{
+			Type:      components.TypeWebhook,
+			WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+			WebhookContext: map[string]any{
+				"streamerId": "my-custom-id",
+			},
+			RefreshInterval: livepeergo.Float64(600),
+		},
+		Profiles: []components.FfmpegProfile{
+			components.FfmpegProfile{
+				Width:   1280,
+				Name:    "720p",
+				Height:  486589,
+				Bitrate: 3000000,
+				Fps:     30,
+				FpsDen:  livepeergo.Int64(1),
+				Quality: livepeergo.Int64(23),
+				Gop:     livepeergo.String("2"),
+				Profile: components.ProfileH264Baseline.ToPointer(),
+			},
+		},
+		Record: livepeergo.Bool(false),
+		RecordingSpec: &components.NewStreamPayloadRecordingSpec{
+			Profiles: []components.TranscodeProfile{
+				components.TranscodeProfile{
+					Width:   livepeergo.Int64(1280),
+					Name:    livepeergo.String("720p"),
+					Bitrate: 3000000,
+					Quality: livepeergo.Int64(23),
+					Fps:     livepeergo.Int64(30),
+					FpsDen:  livepeergo.Int64(1),
+					Gop:     livepeergo.String("2"),
+					Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
+					Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
+				},
+			},
+		},
+		Multistream: &components.Multistream{
+			Targets: []components.Target{
+				components.Target{
+					Profile:   "720p",
+					VideoOnly: livepeergo.Bool(false),
+					ID:        livepeergo.String("PUSH123"),
+					Spec: &components.TargetSpec{
+						Name: livepeergo.String("My target"),
+						URL:  "rtmps://live.my-service.tv/channel/secretKey",
+					},
+				},
+			},
+		},
+	}
 	ctx := context.Background()
-	res, err := s.AccessControl.GetAll(ctx)
+	res, err := s.Stream.Create(ctx, request)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.Data != nil {
+	if res.Stream != nil {
 		// handle response
 	}
 }
@@ -236,6 +299,7 @@ package main
 import (
 	"context"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -244,13 +308,75 @@ func main() {
 		livepeergo.WithServerURL("https://livepeer.studio/api"),
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
-
+	request := components.NewStreamPayload{
+		Name: "test_stream",
+		Pull: &components.Pull{
+			Source: "https://myservice.com/live/stream.flv",
+			Headers: map[string]string{
+				"Authorization": "Bearer 123",
+			},
+			Location: &components.Location{
+				Lat: 39.739,
+				Lon: -104.988,
+			},
+		},
+		PlaybackPolicy: &components.PlaybackPolicy{
+			Type:      components.TypeWebhook,
+			WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+			WebhookContext: map[string]any{
+				"streamerId": "my-custom-id",
+			},
+			RefreshInterval: livepeergo.Float64(600),
+		},
+		Profiles: []components.FfmpegProfile{
+			components.FfmpegProfile{
+				Width:   1280,
+				Name:    "720p",
+				Height:  486589,
+				Bitrate: 3000000,
+				Fps:     30,
+				FpsDen:  livepeergo.Int64(1),
+				Quality: livepeergo.Int64(23),
+				Gop:     livepeergo.String("2"),
+				Profile: components.ProfileH264Baseline.ToPointer(),
+			},
+		},
+		Record: livepeergo.Bool(false),
+		RecordingSpec: &components.NewStreamPayloadRecordingSpec{
+			Profiles: []components.TranscodeProfile{
+				components.TranscodeProfile{
+					Width:   livepeergo.Int64(1280),
+					Name:    livepeergo.String("720p"),
+					Bitrate: 3000000,
+					Quality: livepeergo.Int64(23),
+					Fps:     livepeergo.Int64(30),
+					FpsDen:  livepeergo.Int64(1),
+					Gop:     livepeergo.String("2"),
+					Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
+					Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
+				},
+			},
+		},
+		Multistream: &components.Multistream{
+			Targets: []components.Target{
+				components.Target{
+					Profile:   "720p",
+					VideoOnly: livepeergo.Bool(false),
+					ID:        livepeergo.String("PUSH123"),
+					Spec: &components.TargetSpec{
+						Name: livepeergo.String("My target"),
+						URL:  "rtmps://live.my-service.tv/channel/secretKey",
+					},
+				},
+			},
+		},
+	}
 	ctx := context.Background()
-	res, err := s.AccessControl.GetAll(ctx)
+	res, err := s.Stream.Create(ctx, request)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.Data != nil {
+	if res.Stream != nil {
 		// handle response
 	}
 }
@@ -305,6 +431,7 @@ package main
 import (
 	"context"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -312,13 +439,75 @@ func main() {
 	s := livepeergo.New(
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
-
+	request := components.NewStreamPayload{
+		Name: "test_stream",
+		Pull: &components.Pull{
+			Source: "https://myservice.com/live/stream.flv",
+			Headers: map[string]string{
+				"Authorization": "Bearer 123",
+			},
+			Location: &components.Location{
+				Lat: 39.739,
+				Lon: -104.988,
+			},
+		},
+		PlaybackPolicy: &components.PlaybackPolicy{
+			Type:      components.TypeWebhook,
+			WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+			WebhookContext: map[string]any{
+				"streamerId": "my-custom-id",
+			},
+			RefreshInterval: livepeergo.Float64(600),
+		},
+		Profiles: []components.FfmpegProfile{
+			components.FfmpegProfile{
+				Width:   1280,
+				Name:    "720p",
+				Height:  486589,
+				Bitrate: 3000000,
+				Fps:     30,
+				FpsDen:  livepeergo.Int64(1),
+				Quality: livepeergo.Int64(23),
+				Gop:     livepeergo.String("2"),
+				Profile: components.ProfileH264Baseline.ToPointer(),
+			},
+		},
+		Record: livepeergo.Bool(false),
+		RecordingSpec: &components.NewStreamPayloadRecordingSpec{
+			Profiles: []components.TranscodeProfile{
+				components.TranscodeProfile{
+					Width:   livepeergo.Int64(1280),
+					Name:    livepeergo.String("720p"),
+					Bitrate: 3000000,
+					Quality: livepeergo.Int64(23),
+					Fps:     livepeergo.Int64(30),
+					FpsDen:  livepeergo.Int64(1),
+					Gop:     livepeergo.String("2"),
+					Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
+					Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
+				},
+			},
+		},
+		Multistream: &components.Multistream{
+			Targets: []components.Target{
+				components.Target{
+					Profile:   "720p",
+					VideoOnly: livepeergo.Bool(false),
+					ID:        livepeergo.String("PUSH123"),
+					Spec: &components.TargetSpec{
+						Name: livepeergo.String("My target"),
+						URL:  "rtmps://live.my-service.tv/channel/secretKey",
+					},
+				},
+			},
+		},
+	}
 	ctx := context.Background()
-	res, err := s.AccessControl.GetAll(ctx)
+	res, err := s.Stream.Create(ctx, request)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.Data != nil {
+	if res.Stream != nil {
 		// handle response
 	}
 }
@@ -351,6 +540,7 @@ package main
 import (
 	"context"
 	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -358,13 +548,75 @@ func main() {
 	s := livepeergo.New(
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
-
+	request := components.NewStreamPayload{
+		Name: "test_stream",
+		Pull: &components.Pull{
+			Source: "https://myservice.com/live/stream.flv",
+			Headers: map[string]string{
+				"Authorization": "Bearer 123",
+			},
+			Location: &components.Location{
+				Lat: 39.739,
+				Lon: -104.988,
+			},
+		},
+		PlaybackPolicy: &components.PlaybackPolicy{
+			Type:      components.TypeWebhook,
+			WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+			WebhookContext: map[string]any{
+				"streamerId": "my-custom-id",
+			},
+			RefreshInterval: livepeergo.Float64(600),
+		},
+		Profiles: []components.FfmpegProfile{
+			components.FfmpegProfile{
+				Width:   1280,
+				Name:    "720p",
+				Height:  486589,
+				Bitrate: 3000000,
+				Fps:     30,
+				FpsDen:  livepeergo.Int64(1),
+				Quality: livepeergo.Int64(23),
+				Gop:     livepeergo.String("2"),
+				Profile: components.ProfileH264Baseline.ToPointer(),
+			},
+		},
+		Record: livepeergo.Bool(false),
+		RecordingSpec: &components.NewStreamPayloadRecordingSpec{
+			Profiles: []components.TranscodeProfile{
+				components.TranscodeProfile{
+					Width:   livepeergo.Int64(1280),
+					Name:    livepeergo.String("720p"),
+					Bitrate: 3000000,
+					Quality: livepeergo.Int64(23),
+					Fps:     livepeergo.Int64(30),
+					FpsDen:  livepeergo.Int64(1),
+					Gop:     livepeergo.String("2"),
+					Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
+					Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
+				},
+			},
+		},
+		Multistream: &components.Multistream{
+			Targets: []components.Target{
+				components.Target{
+					Profile:   "720p",
+					VideoOnly: livepeergo.Bool(false),
+					ID:        livepeergo.String("PUSH123"),
+					Spec: &components.TargetSpec{
+						Name: livepeergo.String("My target"),
+						URL:  "rtmps://live.my-service.tv/channel/secretKey",
+					},
+				},
+			},
+		},
+	}
 	ctx := context.Background()
-	res, err := s.AccessControl.GetAll(ctx)
+	res, err := s.Stream.Create(ctx, request)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.Data != nil {
+	if res.Stream != nil {
 		// handle response
 	}
 }
@@ -375,75 +627,82 @@ func main() {
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
-### [AccessControl](docs/sdks/accesscontrol/README.md)
-
-* [GetAll](docs/sdks/accesscontrol/README.md#getall) - Retrieves signing keys
-* [Create](docs/sdks/accesscontrol/README.md#create) - Create a signing key
-* [Delete](docs/sdks/accesscontrol/README.md#delete) - Delete Signing Key
-* [Get](docs/sdks/accesscontrol/README.md#get) - Retrieves a signing key
-* [Update](docs/sdks/accesscontrol/README.md#update) - Update a signing key
-
-### [Asset](docs/sdks/asset/README.md)
-
-* [GetAll](docs/sdks/asset/README.md#getall) - Retrieve assets
-* [Delete](docs/sdks/asset/README.md#delete) - Delete an asset
-* [Get](docs/sdks/asset/README.md#get) - Retrieves an asset
-* [Update](docs/sdks/asset/README.md#update) - Patch an asset
-* [Create](docs/sdks/asset/README.md#create) - Upload an asset
-* [CreateViaURL](docs/sdks/asset/README.md#createviaurl) - Upload asset via URL
-
 ### [Stream](docs/sdks/stream/README.md)
 
-* [CreateClip](docs/sdks/stream/README.md#createclip) - Create a clip
-* [GetAll](docs/sdks/stream/README.md#getall) - Retrieve streams
 * [Create](docs/sdks/stream/README.md#create) - Create a stream
-* [Delete](docs/sdks/stream/README.md#delete) - Delete a stream
+* [GetAll](docs/sdks/stream/README.md#getall) - Retrieve streams
 * [Get](docs/sdks/stream/README.md#get) - Retrieve a stream
 * [Update](docs/sdks/stream/README.md#update) - Update a stream
+* [Delete](docs/sdks/stream/README.md#delete) - Delete a stream
+* [Terminate](docs/sdks/stream/README.md#terminate) - Terminates a live stream
+* [StartPull](docs/sdks/stream/README.md#startpull) - Start ingest for a pull stream
+* [CreateClip](docs/sdks/stream/README.md#createclip) - Create a clip
 * [GetClips](docs/sdks/stream/README.md#getclips) - Retrieve clips of a livestream
 * [AddMultistreamTarget](docs/sdks/stream/README.md#addmultistreamtarget) - Add a multistream target
 * [RemoveMultistreamTarget](docs/sdks/stream/README.md#removemultistreamtarget) - Remove a multistream target
-* [StartPull](docs/sdks/stream/README.md#startpull) - Start ingest for a pull stream
-* [Terminate](docs/sdks/stream/README.md#terminate) - Terminates a live stream
-
-### [Metrics](docs/sdks/metrics/README.md)
-
-* [GetUsage](docs/sdks/metrics/README.md#getusage) - Query usage metrics
-* [GetRealtimeViewership](docs/sdks/metrics/README.md#getrealtimeviewership) - Query realtime viewership
-* [GetViewership](docs/sdks/metrics/README.md#getviewership) - Query viewership metrics
-* [GetCreatorViewership](docs/sdks/metrics/README.md#getcreatorviewership) - Query creator viewership metrics
-* [GetPublicViewership](docs/sdks/metrics/README.md#getpublicviewership) - Query public total views metrics
 
 ### [Multistream](docs/sdks/multistream/README.md)
 
 * [GetAll](docs/sdks/multistream/README.md#getall) - Retrieve Multistream Targets
 * [Create](docs/sdks/multistream/README.md#create) - Create a multistream target
-* [Delete](docs/sdks/multistream/README.md#delete) - Delete a multistream target
 * [Get](docs/sdks/multistream/README.md#get) - Retrieve a multistream target
 * [Update](docs/sdks/multistream/README.md#update) - Update Multistream Target
+* [Delete](docs/sdks/multistream/README.md#delete) - Delete a multistream target
 
-### [Playback](docs/sdks/playback/README.md)
+### [Webhook](docs/sdks/webhook/README.md)
 
-* [Get](docs/sdks/playback/README.md#get) - Retrieve Playback Info
+* [GetAll](docs/sdks/webhook/README.md#getall) - Retrieve a Webhook
+* [Create](docs/sdks/webhook/README.md#create) - Create a webhook
+* [Get](docs/sdks/webhook/README.md#get) - Retrieve a webhook
+* [Update](docs/sdks/webhook/README.md#update) - Update a webhook
+* [Delete](docs/sdks/webhook/README.md#delete) - Delete a webhook
+* [GetLogs](docs/sdks/webhook/README.md#getlogs) - Retrieve webhook logs
+* [GetLog](docs/sdks/webhook/README.md#getlog) - Retrieve a webhook log
+* [ResendLog](docs/sdks/webhook/README.md#resendlog) - Resend a webhook
+
+### [Asset](docs/sdks/asset/README.md)
+
+* [GetAll](docs/sdks/asset/README.md#getall) - Retrieve assets
+* [Create](docs/sdks/asset/README.md#create) - Upload an asset
+* [CreateViaURL](docs/sdks/asset/README.md#createviaurl) - Upload asset via URL
+* [Get](docs/sdks/asset/README.md#get) - Retrieves an asset
+* [Update](docs/sdks/asset/README.md#update) - Patch an asset
+* [Delete](docs/sdks/asset/README.md#delete) - Delete an asset
+
+### [Session](docs/sdks/session/README.md)
+
+* [GetClips](docs/sdks/session/README.md#getclips) - Retrieve clips of a session
+* [GetAll](docs/sdks/session/README.md#getall) - Retrieve sessions
+* [Get](docs/sdks/session/README.md#get) - Retrieve a session
+* [GetRecorded](docs/sdks/session/README.md#getrecorded) - Retrieve Recorded Sessions
 
 ### [Room](docs/sdks/room/README.md)
 
 * [~~Create~~](docs/sdks/room/README.md#create) - Create a room :warning: **Deprecated**
-* [~~Delete~~](docs/sdks/room/README.md#delete) - Delete a room :warning: **Deprecated**
 * [~~Get~~](docs/sdks/room/README.md#get) - Retrieve a room :warning: **Deprecated**
-* [~~StopEgress~~](docs/sdks/room/README.md#stopegress) - Stop room RTMP egress :warning: **Deprecated**
+* [~~Delete~~](docs/sdks/room/README.md#delete) - Delete a room :warning: **Deprecated**
 * [~~StartEgress~~](docs/sdks/room/README.md#startegress) - Start room RTMP egress :warning: **Deprecated**
+* [~~StopEgress~~](docs/sdks/room/README.md#stopegress) - Stop room RTMP egress :warning: **Deprecated**
 * [~~CreateUser~~](docs/sdks/room/README.md#createuser) - Create a room user :warning: **Deprecated**
-* [~~DeleteUser~~](docs/sdks/room/README.md#deleteuser) - Remove a user from the room :warning: **Deprecated**
 * [~~GetUser~~](docs/sdks/room/README.md#getuser) - Get user details :warning: **Deprecated**
 * [~~UpdateUser~~](docs/sdks/room/README.md#updateuser) - Update a room user :warning: **Deprecated**
+* [~~DeleteUser~~](docs/sdks/room/README.md#deleteuser) - Remove a user from the room :warning: **Deprecated**
 
-### [Session](docs/sdks/session/README.md)
+### [Metrics](docs/sdks/metrics/README.md)
 
-* [GetAll](docs/sdks/session/README.md#getall) - Retrieve sessions
-* [Get](docs/sdks/session/README.md#get) - Retrieve a session
-* [GetClips](docs/sdks/session/README.md#getclips) - Retrieve clips of a session
-* [GetRecorded](docs/sdks/session/README.md#getrecorded) - Retrieve Recorded Sessions
+* [GetRealtimeViewership](docs/sdks/metrics/README.md#getrealtimeviewership) - Query realtime viewership
+* [GetViewership](docs/sdks/metrics/README.md#getviewership) - Query viewership metrics
+* [GetCreatorViewership](docs/sdks/metrics/README.md#getcreatorviewership) - Query creator viewership metrics
+* [GetPublicViewership](docs/sdks/metrics/README.md#getpublicviewership) - Query public total views metrics
+* [GetUsage](docs/sdks/metrics/README.md#getusage) - Query usage metrics
+
+### [AccessControl](docs/sdks/accesscontrol/README.md)
+
+* [Create](docs/sdks/accesscontrol/README.md#create) - Create a signing key
+* [GetAll](docs/sdks/accesscontrol/README.md#getall) - Retrieves signing keys
+* [Delete](docs/sdks/accesscontrol/README.md#delete) - Delete Signing Key
+* [Get](docs/sdks/accesscontrol/README.md#get) - Retrieves a signing key
+* [Update](docs/sdks/accesscontrol/README.md#update) - Update a signing key
 
 ### [Task](docs/sdks/task/README.md)
 
@@ -454,17 +713,220 @@ func main() {
 
 * [Create](docs/sdks/transcode/README.md#create) - Transcode a video
 
-### [Webhook](docs/sdks/webhook/README.md)
+### [Playback](docs/sdks/playback/README.md)
 
-* [GetAll](docs/sdks/webhook/README.md#getall) - Retrieve a Webhook
-* [Create](docs/sdks/webhook/README.md#create) - Create a webhook
-* [Delete](docs/sdks/webhook/README.md#delete) - Delete a webhook
-* [Get](docs/sdks/webhook/README.md#get) - Retrieve a webhook
-* [Update](docs/sdks/webhook/README.md#update) - Update a webhook
-* [GetLogs](docs/sdks/webhook/README.md#getlogs) - Retrieve webhook logs
-* [GetLog](docs/sdks/webhook/README.md#getlog) - Retrieve a webhook log
-* [ResendLog](docs/sdks/webhook/README.md#resendlog) - Resend a webhook
+* [Get](docs/sdks/playback/README.md#get) - Retrieve Playback Info
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Retries [retries] -->
+## Retries
+
+Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, simply provide a `retry.Config` object to the call by using the `WithRetries` option:
+```go
+package main
+
+import (
+	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
+	"github.com/livepeer/livepeer-go/retry"
+	"log"
+	"models/operations"
+)
+
+func main() {
+	s := livepeergo.New(
+		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+	)
+	request := components.NewStreamPayload{
+		Name: "test_stream",
+		Pull: &components.Pull{
+			Source: "https://myservice.com/live/stream.flv",
+			Headers: map[string]string{
+				"Authorization": "Bearer 123",
+			},
+			Location: &components.Location{
+				Lat: 39.739,
+				Lon: -104.988,
+			},
+		},
+		PlaybackPolicy: &components.PlaybackPolicy{
+			Type:      components.TypeWebhook,
+			WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+			WebhookContext: map[string]any{
+				"streamerId": "my-custom-id",
+			},
+			RefreshInterval: livepeergo.Float64(600),
+		},
+		Profiles: []components.FfmpegProfile{
+			components.FfmpegProfile{
+				Width:   1280,
+				Name:    "720p",
+				Height:  486589,
+				Bitrate: 3000000,
+				Fps:     30,
+				FpsDen:  livepeergo.Int64(1),
+				Quality: livepeergo.Int64(23),
+				Gop:     livepeergo.String("2"),
+				Profile: components.ProfileH264Baseline.ToPointer(),
+			},
+		},
+		Record: livepeergo.Bool(false),
+		RecordingSpec: &components.NewStreamPayloadRecordingSpec{
+			Profiles: []components.TranscodeProfile{
+				components.TranscodeProfile{
+					Width:   livepeergo.Int64(1280),
+					Name:    livepeergo.String("720p"),
+					Bitrate: 3000000,
+					Quality: livepeergo.Int64(23),
+					Fps:     livepeergo.Int64(30),
+					FpsDen:  livepeergo.Int64(1),
+					Gop:     livepeergo.String("2"),
+					Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
+					Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
+				},
+			},
+		},
+		Multistream: &components.Multistream{
+			Targets: []components.Target{
+				components.Target{
+					Profile:   "720p",
+					VideoOnly: livepeergo.Bool(false),
+					ID:        livepeergo.String("PUSH123"),
+					Spec: &components.TargetSpec{
+						Name: livepeergo.String("My target"),
+						URL:  "rtmps://live.my-service.tv/channel/secretKey",
+					},
+				},
+			},
+		},
+	}
+	ctx := context.Background()
+	res, err := s.Stream.Create(ctx, request, operations.WithRetries(
+		retry.Config{
+			Strategy: "backoff",
+			Backoff: &retry.BackoffStrategy{
+				InitialInterval: 1,
+				MaxInterval:     50,
+				Exponent:        1.1,
+				MaxElapsedTime:  100,
+			},
+			RetryConnectionErrors: false,
+		}))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.Stream != nil {
+		// handle response
+	}
+}
+
+```
+
+If you'd like to override the default retry strategy for all operations that support retries, you can use the `WithRetryConfig` option at SDK initialization:
+```go
+package main
+
+import (
+	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
+	"github.com/livepeer/livepeer-go/models/components"
+	"github.com/livepeer/livepeer-go/retry"
+	"log"
+)
+
+func main() {
+	s := livepeergo.New(
+		livepeergo.WithRetryConfig(
+			retry.Config{
+				Strategy: "backoff",
+				Backoff: &retry.BackoffStrategy{
+					InitialInterval: 1,
+					MaxInterval:     50,
+					Exponent:        1.1,
+					MaxElapsedTime:  100,
+				},
+				RetryConnectionErrors: false,
+			}),
+		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+	)
+	request := components.NewStreamPayload{
+		Name: "test_stream",
+		Pull: &components.Pull{
+			Source: "https://myservice.com/live/stream.flv",
+			Headers: map[string]string{
+				"Authorization": "Bearer 123",
+			},
+			Location: &components.Location{
+				Lat: 39.739,
+				Lon: -104.988,
+			},
+		},
+		PlaybackPolicy: &components.PlaybackPolicy{
+			Type:      components.TypeWebhook,
+			WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+			WebhookContext: map[string]any{
+				"streamerId": "my-custom-id",
+			},
+			RefreshInterval: livepeergo.Float64(600),
+		},
+		Profiles: []components.FfmpegProfile{
+			components.FfmpegProfile{
+				Width:   1280,
+				Name:    "720p",
+				Height:  486589,
+				Bitrate: 3000000,
+				Fps:     30,
+				FpsDen:  livepeergo.Int64(1),
+				Quality: livepeergo.Int64(23),
+				Gop:     livepeergo.String("2"),
+				Profile: components.ProfileH264Baseline.ToPointer(),
+			},
+		},
+		Record: livepeergo.Bool(false),
+		RecordingSpec: &components.NewStreamPayloadRecordingSpec{
+			Profiles: []components.TranscodeProfile{
+				components.TranscodeProfile{
+					Width:   livepeergo.Int64(1280),
+					Name:    livepeergo.String("720p"),
+					Bitrate: 3000000,
+					Quality: livepeergo.Int64(23),
+					Fps:     livepeergo.Int64(30),
+					FpsDen:  livepeergo.Int64(1),
+					Gop:     livepeergo.String("2"),
+					Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
+					Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
+				},
+			},
+		},
+		Multistream: &components.Multistream{
+			Targets: []components.Target{
+				components.Target{
+					Profile:   "720p",
+					VideoOnly: livepeergo.Bool(false),
+					ID:        livepeergo.String("PUSH123"),
+					Spec: &components.TargetSpec{
+						Name: livepeergo.String("My target"),
+						URL:  "rtmps://live.my-service.tv/channel/secretKey",
+					},
+				},
+			},
+		},
+	}
+	ctx := context.Background()
+	res, err := s.Stream.Create(ctx, request)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.Stream != nil {
+		// handle response
+	}
+}
+
+```
+<!-- End Retries [retries] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 
