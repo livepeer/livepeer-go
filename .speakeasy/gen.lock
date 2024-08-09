@@ -1,24 +1,25 @@
 lockVersion: 2.0.0
 id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
-  docChecksum: f3bffafa3d73c8850f9e4ad4a49e0094
+  docChecksum: b07d9fb0472710366cb13f9d82d6f7e6
   docVersion: 1.0.0
-  speakeasyVersion: 1.332.1
-  generationVersion: 2.366.1
-  releaseVersion: 0.2.0
-  configChecksum: b99cdeec0fdd49fb2e4899103b1bc25e
+  speakeasyVersion: 1.358.0
+  generationVersion: 2.390.6
+  releaseVersion: 0.3.0
+  configChecksum: 4b28c370330d8627b2962f37996e4d43
   repoURL: https://github.com/livepeer/livepeer-go.git
   installationURL: https://github.com/livepeer/livepeer-go
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
-    constsAndDefaults: 0.1.4
-    core: 3.4.15
+    constsAndDefaults: 0.1.5
+    core: 3.5.3
     defaultEnabledRetries: 0.2.0
     deprecations: 2.81.1
+    envVarSecurityUsage: 0.3.0
     flattening: 2.81.1
-    globalSecurity: 2.82.9
+    globalSecurity: 2.82.10
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.2
@@ -484,3 +485,4 @@ generatedFiles:
   - models/operations/options.go
   - .gitattributes
   - internal/hooks/hooks.go
+  - CONTRIBUTING.md
