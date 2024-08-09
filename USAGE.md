@@ -37,7 +37,7 @@ func main() {
 			components.FfmpegProfile{
 				Width:   1280,
 				Name:    "720p",
-				Height:  486589,
+				Height:  720,
 				Bitrate: 3000000,
 				Fps:     30,
 				FpsDen:  livepeergo.Int64(1),
@@ -52,6 +52,7 @@ func main() {
 				components.TranscodeProfile{
 					Width:   livepeergo.Int64(1280),
 					Name:    livepeergo.String("720p"),
+					Height:  livepeergo.Int64(720),
 					Bitrate: 3000000,
 					Quality: livepeergo.Int64(23),
 					Fps:     livepeergo.Int64(30),
