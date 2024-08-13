@@ -76,7 +76,7 @@ func main() {
             components.FfmpegProfile{
                 Width: 1280,
                 Name: "720p",
-                Height: 486589,
+                Height: 720,
                 Bitrate: 3000000,
                 Fps: 30,
                 FpsDen: livepeergo.Int64(1),
@@ -91,6 +91,7 @@ func main() {
                 components.TranscodeProfile{
                     Width: livepeergo.Int64(1280),
                     Name: livepeergo.String("720p"),
+                    Height: livepeergo.Int64(720),
                     Bitrate: 3000000,
                     Quality: livepeergo.Int64(23),
                     Fps: livepeergo.Int64(30),
@@ -125,6 +126,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
@@ -161,9 +164,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var streamsonly *string = livepeergo.String("<value>")
+
     ctx := context.Background()
-    res, err := s.Stream.GetAll(ctx, streamsonly)
+    res, err := s.Stream.GetAll(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -172,6 +175,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
@@ -219,6 +224,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
@@ -285,7 +292,7 @@ func main() {
             components.FfmpegProfile{
                 Width: 1280,
                 Name: "720p",
-                Height: 857478,
+                Height: 720,
                 Bitrate: 3000000,
                 Fps: 30,
                 FpsDen: livepeergo.Int64(1),
@@ -299,6 +306,7 @@ func main() {
                 components.TranscodeProfile{
                     Width: livepeergo.Int64(1280),
                     Name: livepeergo.String("720p"),
+                    Height: livepeergo.Int64(720),
                     Bitrate: 3000000,
                     Quality: livepeergo.Int64(23),
                     Fps: livepeergo.Int64(30),
@@ -320,6 +328,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
@@ -372,6 +382,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
@@ -428,6 +440,8 @@ func main() {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -481,6 +495,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
@@ -536,6 +552,8 @@ func main() {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                        | Type                                                             | Required                                                         | Description                                                      |
@@ -582,6 +600,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
@@ -641,6 +661,8 @@ func main() {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
@@ -690,6 +712,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
