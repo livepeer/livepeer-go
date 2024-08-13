@@ -10,4 +10,5 @@
 | `PlaybackInfoMetaTypeHtml5VideoH264`                  | html5/video/h264                                      |
 | `PlaybackInfoMetaTypeVideoXFlv`                       | video/x-flv                                           |
 | `PlaybackInfoMetaTypeImageJpeg`                       | image/jpeg                                            |
+| `PlaybackInfoMetaTypeImagePng`                        | image/png                                             |
 | `PlaybackInfoMetaTypeTextVtt`                         | text/vtt                                              |

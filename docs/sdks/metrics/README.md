@@ -34,15 +34,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var playbackID *string = livepeergo.String("<value>")
 
-    var creatorID *string = livepeergo.String("<value>")
-
-    var breakdownBy []operations.BreakdownBy = []operations.BreakdownBy{
-        operations.BreakdownByPlaybackID,
-    }
     ctx := context.Background()
-    res, err := s.Metrics.GetRealtimeViewership(ctx, playbackID, creatorID, breakdownBy)
+    res, err := s.Metrics.GetRealtimeViewership(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -51,6 +45,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
@@ -103,6 +99,8 @@ func main() {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
@@ -151,6 +149,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
@@ -202,6 +202,8 @@ func main() {
 }
 ```
 
+
+
 ### Parameters
 
 | Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
@@ -249,6 +251,8 @@ func main() {
     }
 }
 ```
+
+
 
 ### Parameters
 
