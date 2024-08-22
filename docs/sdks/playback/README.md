@@ -40,8 +40,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                              | Type                                                                   | Required                                                               | Description                                                            |
@@ -50,10 +48,12 @@ func main() {
 | `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The playback ID from the asset or livestream, e.g. `eaw4nk06ts2d0mzb`. |
 | `opts`                                                                 | [][operations.Option](../../models/operations/option.md)               | :heavy_minus_sign:                                                     | The options for this request.                                          |
 
-
 ### Response
 
 **[*operations.GetPlaybackInfoResponse](../../models/operations/getplaybackinforesponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.Error    | 404                | application/json   |

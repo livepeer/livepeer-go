@@ -45,8 +45,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -54,13 +52,16 @@ func main() {
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetAssetsResponse](../../models/operations/getassetsresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Create
 
@@ -190,8 +191,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
@@ -200,13 +199,16 @@ func main() {
 | `request`                                                                | [components.NewAssetPayload](../../models/components/newassetpayload.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
 | `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
 
-
 ### Response
 
 **[*operations.RequestUploadResponse](../../models/operations/requestuploadresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## CreateViaURL
 
@@ -266,8 +268,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
@@ -276,13 +276,16 @@ func main() {
 | `request`                                                                              | [components.NewAssetFromURLPayload](../../models/components/newassetfromurlpayload.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
 | `opts`                                                                                 | [][operations.Option](../../models/operations/option.md)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
 
-
 ### Response
 
 **[*operations.UploadAssetResponse](../../models/operations/uploadassetresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Get
 
@@ -315,8 +318,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -325,13 +326,16 @@ func main() {
 | `assetID`                                                | *string*                                                 | :heavy_check_mark:                                       | ID of the asset                                          |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetAssetResponse](../../models/operations/getassetresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Update
 
@@ -377,8 +381,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
@@ -388,13 +390,16 @@ func main() {
 | `assetPatchPayload`                                                          | [components.AssetPatchPayload](../../models/components/assetpatchpayload.md) | :heavy_check_mark:                                                           | N/A                                                                          |
 | `opts`                                                                       | [][operations.Option](../../models/operations/option.md)                     | :heavy_minus_sign:                                                           | The options for this request.                                                |
 
-
 ### Response
 
 **[*operations.UpdateAssetResponse](../../models/operations/updateassetresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Delete
 
@@ -427,8 +432,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -437,10 +440,12 @@ func main() {
 | `assetID`                                                | *string*                                                 | :heavy_check_mark:                                       | ID of the asset                                          |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.DeleteAssetResponse](../../models/operations/deleteassetresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |

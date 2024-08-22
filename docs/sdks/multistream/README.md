@@ -44,8 +44,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -53,13 +51,16 @@ func main() {
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetMultistreamTargetsResponse](../../models/operations/getmultistreamtargetsresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Create
 
@@ -95,8 +96,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
@@ -105,13 +104,16 @@ func main() {
 | `request`                                                                              | [components.MultistreamTargetInput](../../models/components/multistreamtargetinput.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
 | `opts`                                                                                 | [][operations.Option](../../models/operations/option.md)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
 
-
 ### Response
 
 **[*operations.CreateMultistreamTargetResponse](../../models/operations/createmultistreamtargetresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Get
 
@@ -144,8 +146,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -154,13 +154,16 @@ func main() {
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | ID of the multistream target                             |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetMultistreamTargetResponse](../../models/operations/getmultistreamtargetresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Update
 
@@ -198,8 +201,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
@@ -209,13 +210,16 @@ func main() {
 | `multistreamTargetPatchPayload`                                                                      | [components.MultistreamTargetPatchPayload](../../models/components/multistreamtargetpatchpayload.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
 | `opts`                                                                                               | [][operations.Option](../../models/operations/option.md)                                             | :heavy_minus_sign:                                                                                   | The options for this request.                                                                        |
 
-
 ### Response
 
 **[*operations.UpdateMultistreamTargetResponse](../../models/operations/updatemultistreamtargetresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Delete
 
@@ -250,8 +254,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -260,10 +262,12 @@ func main() {
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | ID of the multistream target                             |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.DeleteMultistreamTargetResponse](../../models/operations/deletemultistreamtargetresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
