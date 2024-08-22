@@ -41,8 +41,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -50,13 +48,16 @@ func main() {
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetTasksResponse](../../models/operations/gettasksresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Get
 
@@ -89,8 +90,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -99,10 +98,12 @@ func main() {
 | `taskID`                                                 | *string*                                                 | :heavy_check_mark:                                       | ID of the task                                           |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetTaskResponse](../../models/operations/gettaskresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |

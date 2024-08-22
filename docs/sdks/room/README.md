@@ -51,8 +51,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -60,13 +58,16 @@ func main() {
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.CreateRoomResponse](../../models/operations/createroomresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## ~~Get~~
 
@@ -101,8 +102,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -111,13 +110,16 @@ func main() {
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | N/A                                                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetRoomResponse](../../models/operations/getroomresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## ~~Delete~~
 
@@ -152,8 +154,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -162,13 +162,16 @@ func main() {
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | N/A                                                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.DeleteRoomResponse](../../models/operations/deleteroomresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## ~~StartEgress~~
 
@@ -210,8 +213,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
@@ -221,13 +222,16 @@ func main() {
 | `roomEgressPayload`                                                          | [components.RoomEgressPayload](../../models/components/roomegresspayload.md) | :heavy_check_mark:                                                           | N/A                                                                          |
 | `opts`                                                                       | [][operations.Option](../../models/operations/option.md)                     | :heavy_minus_sign:                                                           | The options for this request.                                                |
 
-
 ### Response
 
 **[*operations.StartRoomEgressResponse](../../models/operations/startroomegressresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## ~~StopEgress~~
 
@@ -262,8 +266,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -272,13 +274,16 @@ func main() {
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | N/A                                                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.StopRoomEgressResponse](../../models/operations/stoproomegressresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## ~~CreateUser~~
 
@@ -323,8 +328,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
@@ -334,13 +337,16 @@ func main() {
 | `roomUserPayload`                                                        | [components.RoomUserPayload](../../models/components/roomuserpayload.md) | :heavy_check_mark:                                                       | N/A                                                                      |
 | `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
 
-
 ### Response
 
 **[*operations.CreateRoomUserResponse](../../models/operations/createroomuserresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## ~~GetUser~~
 
@@ -377,8 +383,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -388,13 +392,16 @@ func main() {
 | `userID`                                                 | *string*                                                 | :heavy_check_mark:                                       | N/A                                                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetRoomUserResponse](../../models/operations/getroomuserresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## ~~UpdateUser~~
 
@@ -437,8 +444,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
@@ -449,13 +454,16 @@ func main() {
 | `roomUserUpdatePayload`                                                              | [components.RoomUserUpdatePayload](../../models/components/roomuserupdatepayload.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |
 | `opts`                                                                               | [][operations.Option](../../models/operations/option.md)                             | :heavy_minus_sign:                                                                   | The options for this request.                                                        |
 
-
 ### Response
 
 **[*operations.UpdateRoomUserResponse](../../models/operations/updateroomuserresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## ~~DeleteUser~~
 
@@ -492,8 +500,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -503,10 +509,12 @@ func main() {
 | `userID`                                                 | *string*                                                 | :heavy_check_mark:                                       | N/A                                                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.DeleteRoomUserResponse](../../models/operations/deleteroomuserresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |

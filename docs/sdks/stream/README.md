@@ -127,8 +127,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
@@ -137,13 +135,16 @@ func main() {
 | `request`                                                                  | [components.NewStreamPayload](../../models/components/newstreampayload.md) | :heavy_check_mark:                                                         | The request object to use for the request.                                 |
 | `opts`                                                                     | [][operations.Option](../../models/operations/option.md)                   | :heavy_minus_sign:                                                         | The options for this request.                                              |
 
-
 ### Response
 
 **[*operations.CreateStreamResponse](../../models/operations/createstreamresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## GetAll
 
@@ -176,8 +177,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -186,13 +185,16 @@ func main() {
 | `streamsonly`                                            | **string*                                                | :heavy_minus_sign:                                       | N/A                                                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetStreamsResponse](../../models/operations/getstreamsresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Get
 
@@ -225,8 +227,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -235,13 +235,16 @@ func main() {
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | ID of the stream                                         |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetStreamResponse](../../models/operations/getstreamresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Update
 
@@ -329,8 +332,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
@@ -340,13 +341,16 @@ func main() {
 | `streamPatchPayload`                                                           | [components.StreamPatchPayload](../../models/components/streampatchpayload.md) | :heavy_check_mark:                                                             | N/A                                                                            |
 | `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
 
-
 ### Response
 
 **[*operations.UpdateStreamResponse](../../models/operations/updatestreamresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Delete
 
@@ -383,8 +387,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -393,13 +395,16 @@ func main() {
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | ID of the stream                                         |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.DeleteStreamResponse](../../models/operations/deletestreamresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## Terminate
 
@@ -440,8 +445,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -450,13 +453,16 @@ func main() {
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | ID of the stream                                         |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.TerminateStreamResponse](../../models/operations/terminatestreamresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## StartPull
 
@@ -496,8 +502,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -506,13 +510,16 @@ func main() {
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | ID of the stream                                         |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.StartPullStreamResponse](../../models/operations/startpullstreamresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## CreateClip
 
@@ -552,8 +559,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                        | Type                                                             | Required                                                         | Description                                                      |
@@ -562,13 +567,16 @@ func main() {
 | `request`                                                        | [components.ClipPayload](../../models/components/clippayload.md) | :heavy_check_mark:                                               | The request object to use for the request.                       |
 | `opts`                                                           | [][operations.Option](../../models/operations/option.md)         | :heavy_minus_sign:                                               | The options for this request.                                    |
 
-
 ### Response
 
 **[*operations.CreateClipResponse](../../models/operations/createclipresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## GetClips
 
@@ -601,8 +609,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -611,13 +617,16 @@ func main() {
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | ID of the parent stream or playbackId of parent stream   |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.GetClipsResponse](../../models/operations/getclipsresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## AddMultistreamTarget
 
@@ -661,8 +670,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
@@ -672,13 +679,16 @@ func main() {
 | `targetAddPayload`                                                         | [components.TargetAddPayload](../../models/components/targetaddpayload.md) | :heavy_check_mark:                                                         | N/A                                                                        |
 | `opts`                                                                     | [][operations.Option](../../models/operations/option.md)                   | :heavy_minus_sign:                                                         | The options for this request.                                              |
 
-
 ### Response
 
 **[*operations.AddMultistreamTargetResponse](../../models/operations/addmultistreamtargetresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
+
 
 ## RemoveMultistreamTarget
 
@@ -713,8 +723,6 @@ func main() {
 }
 ```
 
-
-
 ### Parameters
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
@@ -724,10 +732,12 @@ func main() {
 | `targetID`                                               | *string*                                                 | :heavy_check_mark:                                       | ID of the multistream target                             |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
-
 ### Response
 
 **[*operations.RemoveMultistreamTargetResponse](../../models/operations/removemultistreamtargetresponse.md), error**
+
+### Errors
+
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.SDKError | 4xx-5xx            | */*                |
