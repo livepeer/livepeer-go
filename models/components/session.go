@@ -14,6 +14,7 @@ const (
 	RecordingStatusWaiting RecordingStatus = "waiting"
 	RecordingStatusReady   RecordingStatus = "ready"
 	RecordingStatusFailed  RecordingStatus = "failed"
+	RecordingStatusDeleted RecordingStatus = "deleted"
 	RecordingStatusNone    RecordingStatus = "none"
 )
 
@@ -31,6 +32,8 @@ func (e *RecordingStatus) UnmarshalJSON(data []byte) error {
 	case "ready":
 		fallthrough
 	case "failed":
+		fallthrough
+	case "deleted":
 		fallthrough
 	case "none":
 		*e = RecordingStatus(v)

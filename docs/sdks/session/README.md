@@ -31,9 +31,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Session.GetClips(ctx, id)
+    res, err := s.Session.GetClips(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -130,9 +130,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Session.Get(ctx, id)
+    res, err := s.Session.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -172,7 +172,6 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/operations"
 	"context"
 	"log"
 )
@@ -181,13 +180,11 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var parentID string = "<value>"
 
-    var record *operations.Record = operations.CreateRecordBoolean(
-    true,
-    )
     ctx := context.Background()
-    res, err := s.Session.GetRecorded(ctx, parentID, record)
+    res, err := s.Session.GetRecorded(ctx, "<value>", livepeergo.Pointer(operations.CreateRecordBoolean(
+        true,
+    )))
     if err != nil {
         log.Fatal(err)
     }

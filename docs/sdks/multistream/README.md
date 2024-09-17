@@ -73,8 +73,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -82,11 +82,11 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    request := components.MultistreamTargetInput{
-        URL: "rtmps://live.my-service.tv/channel/secretKey",
-    }
+
     ctx := context.Background()
-    res, err := s.Multistream.Create(ctx, request)
+    res, err := s.Multistream.Create(ctx, components.MultistreamTargetInput{
+        URL: "rtmps://live.my-service.tv/channel/secretKey",
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -134,9 +134,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Multistream.Get(ctx, id)
+    res, err := s.Multistream.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -176,8 +176,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -185,13 +185,11 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
 
-    multistreamTargetPatchPayload := components.MultistreamTargetPatchPayload{
-        URL: "rtmps://live.my-service.tv/channel/secretKey",
-    }
     ctx := context.Background()
-    res, err := s.Multistream.Update(ctx, id, multistreamTargetPatchPayload)
+    res, err := s.Multistream.Update(ctx, "<id>", components.MultistreamTargetPatchPayload{
+        URL: "rtmps://live.my-service.tv/channel/secretKey",
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -242,9 +240,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Multistream.Delete(ctx, id)
+    res, err := s.Multistream.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
