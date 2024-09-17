@@ -90,9 +90,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Room.Get(ctx, id)
+    res, err := s.Room.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -142,9 +142,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Room.Delete(ctx, id)
+    res, err := s.Room.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -188,8 +188,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -197,13 +197,11 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
 
-    roomEgressPayload := components.RoomEgressPayload{
-        StreamID: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
-    }
     ctx := context.Background()
-    res, err := s.Room.StartEgress(ctx, id, roomEgressPayload)
+    res, err := s.Room.StartEgress(ctx, "<id>", components.RoomEgressPayload{
+        StreamID: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -254,9 +252,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Room.StopEgress(ctx, id)
+    res, err := s.Room.StopEgress(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -301,8 +299,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -310,15 +308,13 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
 
-    roomUserPayload := components.RoomUserPayload{
+    ctx := context.Background()
+    res, err := s.Room.CreateUser(ctx, "<id>", components.RoomUserPayload{
         Name: "name",
         CanPublish: livepeergo.Bool(true),
         CanPublishData: livepeergo.Bool(true),
-    }
-    ctx := context.Background()
-    res, err := s.Room.CreateUser(ctx, id, roomUserPayload)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -369,11 +365,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
 
-    var userID string = "<value>"
     ctx := context.Background()
-    res, err := s.Room.GetUser(ctx, id, userID)
+    res, err := s.Room.GetUser(ctx, "<id>", "<value>")
     if err != nil {
         log.Fatal(err)
     }
@@ -416,8 +410,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -425,16 +419,12 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
 
-    var userID string = "<value>"
-
-    roomUserUpdatePayload := components.RoomUserUpdatePayload{
+    ctx := context.Background()
+    res, err := s.Room.UpdateUser(ctx, "<id>", "<value>", components.RoomUserUpdatePayload{
         CanPublish: livepeergo.Bool(true),
         CanPublishData: livepeergo.Bool(true),
-    }
-    ctx := context.Background()
-    res, err := s.Room.UpdateUser(ctx, id, userID, roomUserUpdatePayload)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -486,11 +476,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
 
-    var userID string = "<value>"
     ctx := context.Background()
-    res, err := s.Room.DeleteUser(ctx, id, userID)
+    res, err := s.Room.DeleteUser(ctx, "<id>", "<value>")
     if err != nil {
         log.Fatal(err)
     }

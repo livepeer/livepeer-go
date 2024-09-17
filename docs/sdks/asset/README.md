@@ -145,8 +145,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -154,7 +154,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    request := components.NewAssetPayload{
+
+    ctx := context.Background()
+    res, err := s.Asset.Create(ctx, components.NewAssetPayload{
         Name: "filename.mp4",
         StaticMp4: livepeergo.Bool(true),
         PlaybackPolicy: &components.PlaybackPolicy{
@@ -179,9 +181,7 @@ func main() {
                 Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
             },
         },
-    }
-    ctx := context.Background()
-    res, err := s.Asset.Create(ctx, request)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -221,8 +221,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -230,7 +230,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    request := components.NewAssetFromURLPayload{
+
+    ctx := context.Background()
+    res, err := s.Asset.CreateViaURL(ctx, components.NewAssetFromURLPayload{
         Name: "filename.mp4",
         StaticMp4: livepeergo.Bool(true),
         PlaybackPolicy: &components.PlaybackPolicy{
@@ -256,9 +258,7 @@ func main() {
                 Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
             },
         },
-    }
-    ctx := context.Background()
-    res, err := s.Asset.CreateViaURL(ctx, request)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -306,9 +306,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var assetID string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Asset.Get(ctx, assetID)
+    res, err := s.Asset.Get(ctx, "<value>")
     if err != nil {
         log.Fatal(err)
     }
@@ -348,8 +348,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -357,9 +357,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var assetID string = "<value>"
 
-    assetPatchPayload := components.AssetPatchPayload{
+    ctx := context.Background()
+    res, err := s.Asset.Update(ctx, "<value>", components.AssetPatchPayload{
         Name: livepeergo.String("filename.mp4"),
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypeWebhook,
@@ -369,9 +369,7 @@ func main() {
             },
             RefreshInterval: livepeergo.Float64(600),
         },
-    }
-    ctx := context.Background()
-    res, err := s.Asset.Update(ctx, assetID, assetPatchPayload)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -420,9 +418,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var assetID string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Asset.Delete(ctx, assetID)
+    res, err := s.Asset.Delete(ctx, "<value>")
     if err != nil {
         log.Fatal(err)
     }

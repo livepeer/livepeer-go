@@ -132,9 +132,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var keyID string = "<value>"
+
     ctx := context.Background()
-    res, err := s.AccessControl.Delete(ctx, keyID)
+    res, err := s.AccessControl.Delete(ctx, "<value>")
     if err != nil {
         log.Fatal(err)
     }
@@ -182,9 +182,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var keyID string = "<value>"
+
     ctx := context.Background()
-    res, err := s.AccessControl.Get(ctx, keyID)
+    res, err := s.AccessControl.Get(ctx, "<value>")
     if err != nil {
         log.Fatal(err)
     }
@@ -224,8 +224,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/operations"
 	"context"
+	"github.com/livepeer/livepeer-go/models/operations"
 	"log"
 )
 
@@ -233,11 +233,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var keyID string = "<value>"
 
-    requestBody := operations.UpdateSigningKeyRequestBody{}
     ctx := context.Background()
-    res, err := s.AccessControl.Update(ctx, keyID, requestBody)
+    res, err := s.AccessControl.Update(ctx, "<value>", operations.UpdateSigningKeyRequestBody{})
     if err != nil {
         log.Fatal(err)
     }

@@ -141,8 +141,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -150,22 +150,24 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    request := components.TranscodePayload{
+
+    ctx := context.Background()
+    res, err := s.Transcode.Create(ctx, components.TranscodePayload{
         Input: components.CreateInputInput1(
-                components.Input1{
-                    URL: "https://s3.amazonaws.com/bucket/file.mp4",
-                },
+            components.Input1{
+                URL: "https://s3.amazonaws.com/bucket/file.mp4",
+            },
         ),
         Storage: components.CreateTranscodePayloadStorageStorage1(
-                components.Storage1{
-                    Type: components.StorageTypeS3,
-                    Endpoint: "https://gateway.storjshare.io",
-                    Bucket: "outputbucket",
-                    Credentials: components.StorageCredentials{
-                        AccessKeyID: "AKIAIOSFODNN7EXAMPLE",
-                        SecretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-                    },
+            components.Storage1{
+                Type: components.StorageTypeS3,
+                Endpoint: "https://gateway.storjshare.io",
+                Bucket: "outputbucket",
+                Credentials: components.StorageCredentials{
+                    AccessKeyID: "AKIAIOSFODNN7EXAMPLE",
+                    SecretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
                 },
+            },
         ),
         Outputs: components.Outputs{
             Hls: &components.Hls{
@@ -192,9 +194,7 @@ func main() {
                 Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
             },
         },
-    }
-    ctx := context.Background()
-    res, err := s.Transcode.Create(ctx, request)
+    })
     if err != nil {
         log.Fatal(err)
     }

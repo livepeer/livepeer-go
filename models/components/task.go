@@ -705,6 +705,8 @@ type Task struct {
 	InputAssetID *string `json:"inputAssetId,omitempty"`
 	// ID of the output asset
 	OutputAssetID *string `json:"outputAssetId,omitempty"`
+	// ID of the project
+	ProjectID *string `json:"projectId,omitempty"`
 	// ID of the requester hash(IP + SALT + PlaybackId)
 	RequesterID *string `json:"requesterId,omitempty"`
 	// Parameters of the task
@@ -755,6 +757,13 @@ func (o *Task) GetOutputAssetID() *string {
 		return nil
 	}
 	return o.OutputAssetID
+}
+
+func (o *Task) GetProjectID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProjectID
 }
 
 func (o *Task) GetRequesterID() *string {

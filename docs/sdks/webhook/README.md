@@ -77,8 +77,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -86,7 +86,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    request := components.WebhookInput{
+
+    ctx := context.Background()
+    res, err := s.Webhook.Create(ctx, components.WebhookInput{
         Name: "test_webhook",
         ProjectID: livepeergo.String("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
         Events: []components.Events{
@@ -96,9 +98,7 @@ func main() {
         URL: "https://my-service.com/webhook",
         SharedSecret: livepeergo.String("my-secret"),
         StreamID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
-    }
-    ctx := context.Background()
-    res, err := s.Webhook.Create(ctx, request)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -146,9 +146,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Webhook.Get(ctx, id)
+    res, err := s.Webhook.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -188,8 +188,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/components"
 	"context"
+	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
@@ -197,9 +197,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
 
-    webhook := components.WebhookInput{
+    ctx := context.Background()
+    res, err := s.Webhook.Update(ctx, "<id>", components.WebhookInput{
         Name: "test_webhook",
         ProjectID: livepeergo.String("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
         Events: []components.Events{
@@ -209,9 +209,7 @@ func main() {
         URL: "https://my-service.com/webhook",
         SharedSecret: livepeergo.String("my-secret"),
         StreamID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
-    }
-    ctx := context.Background()
-    res, err := s.Webhook.Update(ctx, id, webhook)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -260,9 +258,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Webhook.Delete(ctx, id)
+    res, err := s.Webhook.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -310,9 +308,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Webhook.GetLogs(ctx, id)
+    res, err := s.Webhook.GetLogs(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -360,11 +358,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
 
-    var logID string = "<value>"
     ctx := context.Background()
-    res, err := s.Webhook.GetLog(ctx, id, logID)
+    res, err := s.Webhook.GetLog(ctx, "<id>", "<value>")
     if err != nil {
         log.Fatal(err)
     }
@@ -416,11 +412,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var id string = "<value>"
 
-    var logID string = "<value>"
     ctx := context.Background()
-    res, err := s.Webhook.ResendLog(ctx, id, logID)
+    res, err := s.Webhook.ResendLog(ctx, "<id>", "<value>")
     if err != nil {
         log.Fatal(err)
     }

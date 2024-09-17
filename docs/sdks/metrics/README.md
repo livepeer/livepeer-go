@@ -25,7 +25,6 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/operations"
 	"context"
 	"log"
 )
@@ -79,8 +78,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/operations"
 	"context"
+	"github.com/livepeer/livepeer-go/models/operations"
 	"log"
 )
 
@@ -88,9 +87,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    request := operations.GetViewershipMetricsRequest{}
+
     ctx := context.Background()
-    res, err := s.Metrics.GetViewership(ctx, request)
+    res, err := s.Metrics.GetViewership(ctx, operations.GetViewershipMetricsRequest{})
     if err != nil {
         log.Fatal(err)
     }
@@ -131,8 +130,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/operations"
 	"context"
+	"github.com/livepeer/livepeer-go/models/operations"
 	"log"
 )
 
@@ -140,9 +139,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    request := operations.GetCreatorViewershipMetricsRequest{}
+
     ctx := context.Background()
-    res, err := s.Metrics.GetCreatorViewership(ctx, request)
+    res, err := s.Metrics.GetCreatorViewership(ctx, operations.GetCreatorViewershipMetricsRequest{})
     if err != nil {
         log.Fatal(err)
     }
@@ -193,9 +192,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    var playbackID string = "<value>"
+
     ctx := context.Background()
-    res, err := s.Metrics.GetPublicViewership(ctx, playbackID)
+    res, err := s.Metrics.GetPublicViewership(ctx, "<value>")
     if err != nil {
         log.Fatal(err)
     }
@@ -235,8 +234,8 @@ package main
 
 import(
 	livepeergo "github.com/livepeer/livepeer-go"
-	"github.com/livepeer/livepeer-go/models/operations"
 	"context"
+	"github.com/livepeer/livepeer-go/models/operations"
 	"log"
 )
 
@@ -244,9 +243,9 @@ func main() {
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
-    request := operations.GetUsageMetricsRequest{}
+
     ctx := context.Background()
-    res, err := s.Metrics.GetUsage(ctx, request)
+    res, err := s.Metrics.GetUsage(ctx, operations.GetUsageMetricsRequest{})
     if err != nil {
         log.Fatal(err)
     }
