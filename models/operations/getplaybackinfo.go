@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetPlaybackInfoRequest struct {
@@ -24,7 +23,7 @@ type GetPlaybackInfoResponse struct {
 	// Successful response
 	PlaybackInfo *components.PlaybackInfo
 	// Playback not found
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *GetPlaybackInfoResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -41,7 +40,7 @@ func (o *GetPlaybackInfoResponse) GetPlaybackInfo() *components.PlaybackInfo {
 	return o.PlaybackInfo
 }
 
-func (o *GetPlaybackInfoResponse) GetError() *sdkerrors.Error {
+func (o *GetPlaybackInfoResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

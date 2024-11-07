@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type CreateClipTask struct {
@@ -43,7 +42,7 @@ type CreateClipResponse struct {
 	// Success
 	Data *CreateClipData
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *CreateClipResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -60,7 +59,7 @@ func (o *CreateClipResponse) GetData() *CreateClipData {
 	return o.Data
 }
 
-func (o *CreateClipResponse) GetError() *sdkerrors.Error {
+func (o *CreateClipResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

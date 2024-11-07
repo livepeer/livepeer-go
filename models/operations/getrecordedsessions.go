@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/livepeer/livepeer-go/internal/utils"
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type RecordType string
@@ -103,7 +102,7 @@ type GetRecordedSessionsResponse struct {
 	// Success
 	Data []components.Session
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *GetRecordedSessionsResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -120,7 +119,7 @@ func (o *GetRecordedSessionsResponse) GetData() []components.Session {
 	return o.Data
 }
 
-func (o *GetRecordedSessionsResponse) GetError() *sdkerrors.Error {
+func (o *GetRecordedSessionsResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

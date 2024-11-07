@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"github.com/livepeer/livepeer-go/internal/utils"
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 	"time"
 )
 
@@ -323,7 +322,7 @@ type GetViewershipMetricsResponse struct {
 	// A list of Metric objects
 	Data []components.ViewershipMetric
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *GetViewershipMetricsResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -340,7 +339,7 @@ func (o *GetViewershipMetricsResponse) GetData() []components.ViewershipMetric {
 	return o.Data
 }
 
-func (o *GetViewershipMetricsResponse) GetError() *sdkerrors.Error {
+func (o *GetViewershipMetricsResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

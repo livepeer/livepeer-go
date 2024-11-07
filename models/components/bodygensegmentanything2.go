@@ -30,7 +30,7 @@ type BodyGenSegmentAnything2 struct {
 	// Image to segment.
 	Image BodyGenSegmentAnything2Image `multipartForm:"file"`
 	// Hugging Face model ID used for image generation.
-	ModelID *string `default:"facebook/sam2-hiera-large:" multipartForm:"name=model_id"`
+	ModelID *string `default:"facebook/sam2-hiera-large" multipartForm:"name=model_id"`
 	// Nx2 array of point prompts to the model, where each point is in (X,Y) in pixels.
 	PointCoords *string `multipartForm:"name=point_coords"`
 	// Labels for the point prompts, where 1 indicates a foreground point and 0 indicates a background point.

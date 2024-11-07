@@ -33,6 +33,8 @@ type BodyGenImageToImage struct {
 	Image Image `multipartForm:"file"`
 	// Hugging Face model ID used for image generation.
 	ModelID *string `default:"timbrooks/instruct-pix2pix" multipartForm:"name=model_id"`
+	// A LoRA (Low-Rank Adaptation) model and its corresponding weight for image generation. Example: { "latent-consistency/lcm-lora-sdxl": 1.0, "nerijs/pixel-art-xl": 1.2}.
+	Loras *string `default:"" multipartForm:"name=loras"`
 	// Degree of transformation applied to the reference image (0 to 1).
 	Strength *float64 `default:"0.8" multipartForm:"name=strength"`
 	// Encourages model to generate images closely linked to the text prompt (higher values may reduce image quality).
@@ -81,6 +83,13 @@ func (o *BodyGenImageToImage) GetModelID() *string {
 		return nil
 	}
 	return o.ModelID
+}
+
+func (o *BodyGenImageToImage) GetLoras() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Loras
 }
 
 func (o *BodyGenImageToImage) GetStrength() *float64 {

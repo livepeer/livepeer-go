@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type StartRoomEgressRequest struct {
@@ -29,7 +28,7 @@ func (o *StartRoomEgressRequest) GetRoomEgressPayload() components.RoomEgressPay
 type StartRoomEgressResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *StartRoomEgressResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -39,7 +38,7 @@ func (o *StartRoomEgressResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *StartRoomEgressResponse) GetError() *sdkerrors.Error {
+func (o *StartRoomEgressResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

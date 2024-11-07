@@ -68,7 +68,7 @@ func main() {
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
-					Profile:   "720p",
+					Profile:   "720p0",
 					VideoOnly: livepeergo.Bool(false),
 					ID:        livepeergo.String("PUSH123"),
 					Spec: &components.TargetSpec{

@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type DeleteWebhookRequest struct {
@@ -23,7 +22,7 @@ type DeleteWebhookResponse struct {
 	// Success
 	Webhook *components.Webhook
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *DeleteWebhookResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -40,7 +39,7 @@ func (o *DeleteWebhookResponse) GetWebhook() *components.Webhook {
 	return o.Webhook
 }
 
-func (o *DeleteWebhookResponse) GetError() *sdkerrors.Error {
+func (o *DeleteWebhookResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

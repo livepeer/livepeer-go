@@ -13,6 +13,7 @@ Operations related to AI generate api
 * [Upscale](#upscale) - Upscale
 * [AudioToText](#audiototext) - Audio To Text
 * [SegmentAnything2](#segmentanything2) - Segment Anything 2
+* [Llm](#llm) - LLM
 
 ## TextToImage
 
@@ -62,14 +63,13 @@ func main() {
 
 ### Errors
 
-| Error Object                                            | Status Code                                             | Content Type                                            |
+| Error Type                                              | Status Code                                             | Content Type                                            |
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | sdkerrors.GenTextToImageResponseBody                    | 400                                                     | application/json                                        |
 | sdkerrors.GenTextToImageGenerateResponseBody            | 401                                                     | application/json                                        |
 | sdkerrors.GenTextToImageGenerateResponseResponseBody    | 422                                                     | application/json                                        |
 | sdkerrors.GenTextToImageGenerateResponse500ResponseBody | 500                                                     | application/json                                        |
-| sdkerrors.SDKError                                      | 4xx-5xx                                                 | */*                                                     |
-
+| sdkerrors.SDKError                                      | 4XX, 5XX                                                | \*/\*                                                   |
 
 ## ImageToImage
 
@@ -129,14 +129,13 @@ func main() {
 
 ### Errors
 
-| Error Object                                             | Status Code                                              | Content Type                                             |
+| Error Type                                               | Status Code                                              | Content Type                                             |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | sdkerrors.GenImageToImageResponseBody                    | 400                                                      | application/json                                         |
 | sdkerrors.GenImageToImageGenerateResponseBody            | 401                                                      | application/json                                         |
 | sdkerrors.GenImageToImageGenerateResponseResponseBody    | 422                                                      | application/json                                         |
 | sdkerrors.GenImageToImageGenerateResponse500ResponseBody | 500                                                      | application/json                                         |
-| sdkerrors.SDKError                                       | 4xx-5xx                                                  | */*                                                      |
-
+| sdkerrors.SDKError                                       | 4XX, 5XX                                                 | \*/\*                                                    |
 
 ## ImageToVideo
 
@@ -195,14 +194,13 @@ func main() {
 
 ### Errors
 
-| Error Object                                             | Status Code                                              | Content Type                                             |
+| Error Type                                               | Status Code                                              | Content Type                                             |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | sdkerrors.GenImageToVideoResponseBody                    | 400                                                      | application/json                                         |
 | sdkerrors.GenImageToVideoGenerateResponseBody            | 401                                                      | application/json                                         |
 | sdkerrors.GenImageToVideoGenerateResponseResponseBody    | 422                                                      | application/json                                         |
 | sdkerrors.GenImageToVideoGenerateResponse500ResponseBody | 500                                                      | application/json                                         |
-| sdkerrors.SDKError                                       | 4xx-5xx                                                  | */*                                                      |
-
+| sdkerrors.SDKError                                       | 4XX, 5XX                                                 | \*/\*                                                    |
 
 ## Upscale
 
@@ -262,14 +260,13 @@ func main() {
 
 ### Errors
 
-| Error Object                                        | Status Code                                         | Content Type                                        |
+| Error Type                                          | Status Code                                         | Content Type                                        |
 | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
 | sdkerrors.GenUpscaleResponseBody                    | 400                                                 | application/json                                    |
 | sdkerrors.GenUpscaleGenerateResponseBody            | 401                                                 | application/json                                    |
 | sdkerrors.GenUpscaleGenerateResponseResponseBody    | 422                                                 | application/json                                    |
 | sdkerrors.GenUpscaleGenerateResponse500ResponseBody | 500                                                 | application/json                                    |
-| sdkerrors.SDKError                                  | 4xx-5xx                                             | */*                                                 |
-
+| sdkerrors.SDKError                                  | 4XX, 5XX                                            | \*/\*                                               |
 
 ## AudioToText
 
@@ -328,15 +325,14 @@ func main() {
 
 ### Errors
 
-| Error Object                                            | Status Code                                             | Content Type                                            |
+| Error Type                                              | Status Code                                             | Content Type                                            |
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | sdkerrors.GenAudioToTextResponseBody                    | 400                                                     | application/json                                        |
 | sdkerrors.GenAudioToTextGenerateResponseBody            | 401                                                     | application/json                                        |
 | sdkerrors.GenAudioToTextGenerateResponseResponseBody    | 413                                                     | application/json                                        |
 | sdkerrors.GenAudioToTextGenerateResponse422ResponseBody | 422                                                     | application/json                                        |
 | sdkerrors.GenAudioToTextGenerateResponse500ResponseBody | 500                                                     | application/json                                        |
-| sdkerrors.SDKError                                      | 4xx-5xx                                                 | */*                                                     |
-
+| sdkerrors.SDKError                                      | 4XX, 5XX                                                | \*/\*                                                   |
 
 ## SegmentAnything2
 
@@ -395,10 +391,66 @@ func main() {
 
 ### Errors
 
-| Error Object                                                 | Status Code                                                  | Content Type                                                 |
+| Error Type                                                   | Status Code                                                  | Content Type                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | sdkerrors.GenSegmentAnything2ResponseBody                    | 400                                                          | application/json                                             |
 | sdkerrors.GenSegmentAnything2GenerateResponseBody            | 401                                                          | application/json                                             |
 | sdkerrors.GenSegmentAnything2GenerateResponseResponseBody    | 422                                                          | application/json                                             |
 | sdkerrors.GenSegmentAnything2GenerateResponse500ResponseBody | 500                                                          | application/json                                             |
-| sdkerrors.SDKError                                           | 4xx-5xx                                                      | */*                                                          |
+| sdkerrors.SDKError                                           | 4XX, 5XX                                                     | \*/\*                                                        |
+
+## Llm
+
+Generate text using a language model.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	livepeergo "github.com/livepeer/livepeer-go"
+	"context"
+	"github.com/livepeer/livepeer-go/models/components"
+	"log"
+)
+
+func main() {
+    s := livepeergo.New(
+        livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+    )
+
+    ctx := context.Background()
+    res, err := s.Generate.Llm(ctx, components.BodyGenLLM{
+        Prompt: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.LLMResponse != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                      | Type                                                           | Required                                                       | Description                                                    |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `ctx`                                                          | [context.Context](https://pkg.go.dev/context#Context)          | :heavy_check_mark:                                             | The context to use for the request.                            |
+| `request`                                                      | [components.BodyGenLLM](../../models/components/bodygenllm.md) | :heavy_check_mark:                                             | The request object to use for the request.                     |
+| `opts`                                                         | [][operations.Option](../../models/operations/option.md)       | :heavy_minus_sign:                                             | The options for this request.                                  |
+
+### Response
+
+**[*operations.GenLLMResponse](../../models/operations/genllmresponse.md), error**
+
+### Errors
+
+| Error Type                                      | Status Code                                     | Content Type                                    |
+| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| sdkerrors.GenLLMResponseBody                    | 400                                             | application/json                                |
+| sdkerrors.GenLLMGenerateResponseBody            | 401                                             | application/json                                |
+| sdkerrors.GenLLMGenerateResponseResponseBody    | 422                                             | application/json                                |
+| sdkerrors.GenLLMGenerateResponse500ResponseBody | 500                                             | application/json                                |
+| sdkerrors.SDKError                              | 4XX, 5XX                                        | \*/\*                                           |

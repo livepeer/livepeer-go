@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetPublicViewershipMetricsRequest struct {
@@ -68,7 +67,7 @@ type GetPublicViewershipMetricsResponse struct {
 	// A single Metric object with the viewCount and playtimeMins metrics.
 	Data *GetPublicViewershipMetricsData
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *GetPublicViewershipMetricsResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -85,7 +84,7 @@ func (o *GetPublicViewershipMetricsResponse) GetData() *GetPublicViewershipMetri
 	return o.Data
 }
 
-func (o *GetPublicViewershipMetricsResponse) GetError() *sdkerrors.Error {
+func (o *GetPublicViewershipMetricsResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

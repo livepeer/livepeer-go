@@ -25,7 +25,6 @@ what they return.
 * [Server Selection](#server-selection)
 * [Custom HTTP Client](#custom-http-client)
 * [Authentication](#authentication)
-* [Special Types](#special-types)
 <!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
@@ -103,6 +102,7 @@ func main() {
 * [Upscale](docs/sdks/generate/README.md#upscale) - Upscale
 * [AudioToText](docs/sdks/generate/README.md#audiototext) - Audio To Text
 * [SegmentAnything2](docs/sdks/generate/README.md#segmentanything2) - Segment Anything 2
+* [Llm](docs/sdks/generate/README.md#llm) - LLM
 
 
 ### [Metrics](docs/sdks/metrics/README.md)
@@ -184,12 +184,16 @@ func main() {
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations.  All operations return a response object or an error, they will never return both.  When specified by the OpenAPI spec document, the SDK will return the appropriate subclass.
+Handling errors in this SDK should largely match your expectations. All operations return a response object or an error, they will never return both.
 
-| Error Object       | Status Code        | Content Type       |
+By Default, an API error will return `sdkerrors.SDKError`. When custom error responses are specified for an operation, the SDK may also return their associated error. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation.
+
+For example, the `Get` function may return the following errors:
+
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.Error    | 404                | application/json   |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ### Example
 
@@ -342,7 +346,7 @@ func main() {
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
-					Profile:   "720p",
+					Profile:   "720p0",
 					VideoOnly: livepeergo.Bool(false),
 					ID:        livepeergo.String("PUSH123"),
 					Spec: &components.TargetSpec{
@@ -363,12 +367,6 @@ func main() {
 
 ```
 <!-- End Authentication [security] -->
-
-<!-- Start Special Types [types] -->
-## Special Types
-
-
-<!-- End Special Types [types] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
@@ -447,7 +445,7 @@ func main() {
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
-					Profile:   "720p",
+					Profile:   "720p0",
 					VideoOnly: livepeergo.Bool(false),
 					ID:        livepeergo.String("PUSH123"),
 					Spec: &components.TargetSpec{
@@ -560,7 +558,7 @@ func main() {
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
-					Profile:   "720p",
+					Profile:   "720p0",
 					VideoOnly: livepeergo.Bool(false),
 					ID:        livepeergo.String("PUSH123"),
 					Spec: &components.TargetSpec{

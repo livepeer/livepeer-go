@@ -17,6 +17,7 @@ type StreamPatchPayload struct {
 	RecordingSpec  *RecordingSpec  `json:"recordingSpec,omitempty"`
 	// User input tags associated with the stream
 	UserTags map[string]UserTags `json:"userTags,omitempty"`
+	Name     *string             `json:"name,omitempty"`
 }
 
 func (o *StreamPatchPayload) GetCreatorID() *InputCreatorID {
@@ -73,4 +74,11 @@ func (o *StreamPatchPayload) GetUserTags() map[string]UserTags {
 		return nil
 	}
 	return o.UserTags
+}
+
+func (o *StreamPatchPayload) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
 }

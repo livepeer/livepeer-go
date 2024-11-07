@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type DeleteRoomRequest struct {
@@ -21,7 +20,7 @@ func (o *DeleteRoomRequest) GetID() string {
 type DeleteRoomResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *DeleteRoomResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -31,7 +30,7 @@ func (o *DeleteRoomResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *DeleteRoomResponse) GetError() *sdkerrors.Error {
+func (o *DeleteRoomResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

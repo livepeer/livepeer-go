@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 // GetUsageMetricsQueryParamTimeStep - The time step to aggregate viewership metrics by
@@ -118,7 +117,7 @@ type GetUsageMetricsResponse struct {
 	// A Usage Metric object
 	UsageMetric *components.UsageMetric
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *GetUsageMetricsResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -135,7 +134,7 @@ func (o *GetUsageMetricsResponse) GetUsageMetric() *components.UsageMetric {
 	return o.UsageMetric
 }
 
-func (o *GetUsageMetricsResponse) GetError() *sdkerrors.Error {
+func (o *GetUsageMetricsResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

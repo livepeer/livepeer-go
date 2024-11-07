@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type CreateMultistreamTargetResponse struct {
@@ -12,7 +11,7 @@ type CreateMultistreamTargetResponse struct {
 	// Success
 	MultistreamTarget *components.MultistreamTarget
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *CreateMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -29,7 +28,7 @@ func (o *CreateMultistreamTargetResponse) GetMultistreamTarget() *components.Mul
 	return o.MultistreamTarget
 }
 
-func (o *CreateMultistreamTargetResponse) GetError() *sdkerrors.Error {
+func (o *CreateMultistreamTargetResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

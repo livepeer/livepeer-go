@@ -9,6 +9,8 @@ import (
 type TextToImageParams struct {
 	// Hugging Face model ID used for image generation.
 	ModelID *string `default:"SG161222/RealVisXL_V4.0_Lightning" json:"model_id"`
+	// A LoRA (Low-Rank Adaptation) model and its corresponding weight for image generation. Example: { "latent-consistency/lcm-lora-sdxl": 1.0, "nerijs/pixel-art-xl": 1.2}.
+	Loras *string `default:"" json:"loras"`
 	// Text prompt(s) to guide image generation. Separate multiple prompts with '|' if supported by the model.
 	Prompt string `json:"prompt"`
 	// The height in pixels of the generated image.
@@ -45,6 +47,13 @@ func (o *TextToImageParams) GetModelID() *string {
 		return nil
 	}
 	return o.ModelID
+}
+
+func (o *TextToImageParams) GetLoras() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Loras
 }
 
 func (o *TextToImageParams) GetPrompt() string {

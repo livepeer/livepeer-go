@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type BreakdownBy string
@@ -81,7 +80,7 @@ type GetRealtimeViewershipNowResponse struct {
 	// A list of Metric objects
 	Data []components.RealtimeViewershipMetric
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *GetRealtimeViewershipNowResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -98,7 +97,7 @@ func (o *GetRealtimeViewershipNowResponse) GetData() []components.RealtimeViewer
 	return o.Data
 }
 
-func (o *GetRealtimeViewershipNowResponse) GetError() *sdkerrors.Error {
+func (o *GetRealtimeViewershipNowResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

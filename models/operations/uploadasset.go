@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type UploadAssetAssetTask struct {
@@ -76,7 +75,7 @@ type UploadAssetResponse struct {
 	// Upload started
 	TwoHundredAndOneApplicationJSONData *UploadAssetDataOutput
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *UploadAssetResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -100,7 +99,7 @@ func (o *UploadAssetResponse) GetTwoHundredAndOneApplicationJSONData() *UploadAs
 	return o.TwoHundredAndOneApplicationJSONData
 }
 
-func (o *UploadAssetResponse) GetError() *sdkerrors.Error {
+func (o *UploadAssetResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

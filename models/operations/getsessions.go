@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetSessionsResponse struct {
@@ -12,7 +11,7 @@ type GetSessionsResponse struct {
 	// Success
 	Data []components.Session
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *GetSessionsResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -29,7 +28,7 @@ func (o *GetSessionsResponse) GetData() []components.Session {
 	return o.Data
 }
 
-func (o *GetSessionsResponse) GetError() *sdkerrors.Error {
+func (o *GetSessionsResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

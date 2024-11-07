@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type CreateWebhookResponse struct {
@@ -12,7 +11,7 @@ type CreateWebhookResponse struct {
 	// Success
 	Webhook *components.Webhook
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *CreateWebhookResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -29,7 +28,7 @@ func (o *CreateWebhookResponse) GetWebhook() *components.Webhook {
 	return o.Webhook
 }
 
-func (o *CreateWebhookResponse) GetError() *sdkerrors.Error {
+func (o *CreateWebhookResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}

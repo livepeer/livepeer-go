@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type CreateSigningKeyResponse struct {
@@ -12,7 +11,7 @@ type CreateSigningKeyResponse struct {
 	// Success
 	SigningKey *components.SigningKey
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
 func (o *CreateSigningKeyResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -29,7 +28,7 @@ func (o *CreateSigningKeyResponse) GetSigningKey() *components.SigningKey {
 	return o.SigningKey
 }
 
-func (o *CreateSigningKeyResponse) GetError() *sdkerrors.Error {
+func (o *CreateSigningKeyResponse) GetError() *components.Error {
 	if o == nil {
 		return nil
 	}
