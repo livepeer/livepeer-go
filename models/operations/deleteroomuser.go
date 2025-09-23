@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type DeleteRoomUserRequest struct {
@@ -12,36 +11,36 @@ type DeleteRoomUserRequest struct {
 	UserID string `pathParam:"style=simple,explode=false,name=userId"`
 }
 
-func (o *DeleteRoomUserRequest) GetID() string {
-	if o == nil {
+func (d *DeleteRoomUserRequest) GetID() string {
+	if d == nil {
 		return ""
 	}
-	return o.ID
+	return d.ID
 }
 
-func (o *DeleteRoomUserRequest) GetUserID() string {
-	if o == nil {
+func (d *DeleteRoomUserRequest) GetUserID() string {
+	if d == nil {
 		return ""
 	}
-	return o.UserID
+	return d.UserID
 }
 
 type DeleteRoomUserResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *DeleteRoomUserResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeleteRoomUserResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeleteRoomUserResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (d *DeleteRoomUserResponse) GetError() *components.Error {
+	if d == nil {
 		return nil
 	}
-	return o.Error
+	return d.Error
 }

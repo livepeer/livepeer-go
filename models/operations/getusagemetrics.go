@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 // GetUsageMetricsQueryParamTimeStep - The time step to aggregate viewership metrics by
@@ -78,39 +77,39 @@ type GetUsageMetricsRequest struct {
 	BreakdownBy []GetUsageMetricsQueryParamBreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
 }
 
-func (o *GetUsageMetricsRequest) GetFrom() *int64 {
-	if o == nil {
+func (g *GetUsageMetricsRequest) GetFrom() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.From
+	return g.From
 }
 
-func (o *GetUsageMetricsRequest) GetTo() *int64 {
-	if o == nil {
+func (g *GetUsageMetricsRequest) GetTo() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.To
+	return g.To
 }
 
-func (o *GetUsageMetricsRequest) GetTimeStep() *GetUsageMetricsQueryParamTimeStep {
-	if o == nil {
+func (g *GetUsageMetricsRequest) GetTimeStep() *GetUsageMetricsQueryParamTimeStep {
+	if g == nil {
 		return nil
 	}
-	return o.TimeStep
+	return g.TimeStep
 }
 
-func (o *GetUsageMetricsRequest) GetCreatorID() *string {
-	if o == nil {
+func (g *GetUsageMetricsRequest) GetCreatorID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.CreatorID
+	return g.CreatorID
 }
 
-func (o *GetUsageMetricsRequest) GetBreakdownBy() []GetUsageMetricsQueryParamBreakdownBy {
-	if o == nil {
+func (g *GetUsageMetricsRequest) GetBreakdownBy() []GetUsageMetricsQueryParamBreakdownBy {
+	if g == nil {
 		return nil
 	}
-	return o.BreakdownBy
+	return g.BreakdownBy
 }
 
 type GetUsageMetricsResponse struct {
@@ -118,26 +117,26 @@ type GetUsageMetricsResponse struct {
 	// A Usage Metric object
 	UsageMetric *components.UsageMetric
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetUsageMetricsResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetUsageMetricsResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetUsageMetricsResponse) GetUsageMetric() *components.UsageMetric {
-	if o == nil {
+func (g *GetUsageMetricsResponse) GetUsageMetric() *components.UsageMetric {
+	if g == nil {
 		return nil
 	}
-	return o.UsageMetric
+	return g.UsageMetric
 }
 
-func (o *GetUsageMetricsResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetUsageMetricsResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

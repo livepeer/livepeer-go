@@ -12,30 +12,30 @@ type AssetPatchPayload struct {
 	Storage        *Storage        `json:"storage,omitempty"`
 }
 
-func (o *AssetPatchPayload) GetName() *string {
-	if o == nil {
+func (a *AssetPatchPayload) GetName() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Name
+	return a.Name
 }
 
-func (o *AssetPatchPayload) GetCreatorID() *InputCreatorID {
-	if o == nil {
+func (a *AssetPatchPayload) GetCreatorID() *InputCreatorID {
+	if a == nil {
 		return nil
 	}
-	return o.CreatorID
+	return a.CreatorID
 }
 
-func (o *AssetPatchPayload) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
+func (a *AssetPatchPayload) GetPlaybackPolicy() *PlaybackPolicy {
+	if a == nil {
 		return nil
 	}
-	return o.PlaybackPolicy
+	return a.PlaybackPolicy
 }
 
-func (o *AssetPatchPayload) GetStorage() *Storage {
-	if o == nil {
+func (a *AssetPatchPayload) GetStorage() *Storage {
+	if a == nil {
 		return nil
 	}
-	return o.Storage
+	return a.Storage
 }

@@ -56,25 +56,25 @@ type Tasks struct {
 	Failed *string `json:"failed,omitempty"`
 }
 
-func (o *Tasks) GetPending() *string {
-	if o == nil {
+func (t *Tasks) GetPending() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Pending
+	return t.Pending
 }
 
-func (o *Tasks) GetLast() *string {
-	if o == nil {
+func (t *Tasks) GetLast() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Last
+	return t.Last
 }
 
-func (o *Tasks) GetFailed() *string {
-	if o == nil {
+func (t *Tasks) GetFailed() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Failed
+	return t.Failed
 }
 
 type StorageStatus struct {
@@ -87,30 +87,30 @@ type StorageStatus struct {
 	Tasks        Tasks   `json:"tasks"`
 }
 
-func (o *StorageStatus) GetPhase() Phase {
-	if o == nil {
+func (s *StorageStatus) GetPhase() Phase {
+	if s == nil {
 		return Phase("")
 	}
-	return o.Phase
+	return s.Phase
 }
 
-func (o *StorageStatus) GetProgress() *float64 {
-	if o == nil {
+func (s *StorageStatus) GetProgress() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.Progress
+	return s.Progress
 }
 
-func (o *StorageStatus) GetErrorMessage() *string {
-	if o == nil {
+func (s *StorageStatus) GetErrorMessage() *string {
+	if s == nil {
 		return nil
 	}
-	return o.ErrorMessage
+	return s.ErrorMessage
 }
 
-func (o *StorageStatus) GetTasks() Tasks {
-	if o == nil {
+func (s *StorageStatus) GetTasks() Tasks {
+	if s == nil {
 		return Tasks{}
 	}
-	return o.Tasks
+	return s.Tasks
 }

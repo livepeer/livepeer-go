@@ -13,32 +13,32 @@ type Request struct {
 	Body *string `json:"body,omitempty"`
 }
 
-func (o *Request) GetURL() *string {
-	if o == nil {
+func (r *Request) GetURL() *string {
+	if r == nil {
 		return nil
 	}
-	return o.URL
+	return r.URL
 }
 
-func (o *Request) GetMethod() *string {
-	if o == nil {
+func (r *Request) GetMethod() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Method
+	return r.Method
 }
 
-func (o *Request) GetHeaders() map[string]string {
-	if o == nil {
+func (r *Request) GetHeaders() map[string]string {
+	if r == nil {
 		return nil
 	}
-	return o.Headers
+	return r.Headers
 }
 
-func (o *Request) GetBody() *string {
-	if o == nil {
+func (r *Request) GetBody() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Body
+	return r.Body
 }
 
 type Response struct {
@@ -50,25 +50,25 @@ type Response struct {
 	StatusText *string `json:"statusText,omitempty"`
 }
 
-func (o *Response) GetBody() *string {
-	if o == nil {
+func (r *Response) GetBody() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Body
+	return r.Body
 }
 
-func (o *Response) GetStatus() *float64 {
-	if o == nil {
+func (r *Response) GetStatus() *float64 {
+	if r == nil {
 		return nil
 	}
-	return o.Status
+	return r.Status
 }
 
-func (o *Response) GetStatusText() *string {
-	if o == nil {
+func (r *Response) GetStatusText() *string {
+	if r == nil {
 		return nil
 	}
-	return o.StatusText
+	return r.StatusText
 }
 
 type WebhookLog struct {
@@ -89,58 +89,58 @@ type WebhookLog struct {
 	Response *Response `json:"response,omitempty"`
 }
 
-func (o *WebhookLog) GetID() string {
-	if o == nil {
+func (w *WebhookLog) GetID() string {
+	if w == nil {
 		return ""
 	}
-	return o.ID
+	return w.ID
 }
 
-func (o *WebhookLog) GetWebhookID() string {
-	if o == nil {
+func (w *WebhookLog) GetWebhookID() string {
+	if w == nil {
 		return ""
 	}
-	return o.WebhookID
+	return w.WebhookID
 }
 
-func (o *WebhookLog) GetEvent() *string {
-	if o == nil {
+func (w *WebhookLog) GetEvent() *string {
+	if w == nil {
 		return nil
 	}
-	return o.Event
+	return w.Event
 }
 
-func (o *WebhookLog) GetCreatedAt() *float64 {
-	if o == nil {
+func (w *WebhookLog) GetCreatedAt() *float64 {
+	if w == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return w.CreatedAt
 }
 
-func (o *WebhookLog) GetDuration() *float64 {
-	if o == nil {
+func (w *WebhookLog) GetDuration() *float64 {
+	if w == nil {
 		return nil
 	}
-	return o.Duration
+	return w.Duration
 }
 
-func (o *WebhookLog) GetSuccess() *bool {
-	if o == nil {
+func (w *WebhookLog) GetSuccess() *bool {
+	if w == nil {
 		return nil
 	}
-	return o.Success
+	return w.Success
 }
 
-func (o *WebhookLog) GetRequest() *Request {
-	if o == nil {
+func (w *WebhookLog) GetRequest() *Request {
+	if w == nil {
 		return nil
 	}
-	return o.Request
+	return w.Request
 }
 
-func (o *WebhookLog) GetResponse() *Response {
-	if o == nil {
+func (w *WebhookLog) GetResponse() *Response {
+	if w == nil {
 		return nil
 	}
-	return o.Response
+	return w.Response
 }

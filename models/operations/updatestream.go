@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type UpdateStreamRequest struct {
@@ -13,36 +12,36 @@ type UpdateStreamRequest struct {
 	StreamPatchPayload components.StreamPatchPayload `request:"mediaType=application/json"`
 }
 
-func (o *UpdateStreamRequest) GetID() string {
-	if o == nil {
+func (u *UpdateStreamRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateStreamRequest) GetStreamPatchPayload() components.StreamPatchPayload {
-	if o == nil {
+func (u *UpdateStreamRequest) GetStreamPatchPayload() components.StreamPatchPayload {
+	if u == nil {
 		return components.StreamPatchPayload{}
 	}
-	return o.StreamPatchPayload
+	return u.StreamPatchPayload
 }
 
 type UpdateStreamResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *UpdateStreamResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateStreamResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateStreamResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (u *UpdateStreamResponse) GetError() *components.Error {
+	if u == nil {
 		return nil
 	}
-	return o.Error
+	return u.Error
 }

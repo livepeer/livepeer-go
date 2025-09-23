@@ -19,8 +19,8 @@ const (
 
 // GenUpscaleGenerateResponse500ResponseBody - Internal Server Error
 type GenUpscaleGenerateResponse500ResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenUpscaleGenerateResponse500ResponseBodyType
 
@@ -50,14 +50,14 @@ func CreateGenUpscaleGenerateResponse500ResponseBodyStudioAPIError(studioAPIErro
 func (u *GenUpscaleGenerateResponse500ResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenUpscaleGenerateResponse500ResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenUpscaleGenerateResponse500ResponseBodyTypeStudioAPIError
 		return nil
@@ -100,8 +100,8 @@ const (
 
 // GenUpscaleGenerateResponseResponseBody - Validation Error
 type GenUpscaleGenerateResponseResponseBody struct {
-	HTTPValidationError *components.HTTPValidationError
-	StudioAPIError      *components.StudioAPIError
+	HTTPValidationError *components.HTTPValidationError `queryParam:"inline" name:"responseBody"`
+	StudioAPIError      *components.StudioAPIError      `queryParam:"inline" name:"responseBody"`
 
 	Type GenUpscaleGenerateResponseResponseBodyType
 
@@ -131,14 +131,14 @@ func CreateGenUpscaleGenerateResponseResponseBodyStudioAPIError(studioAPIError c
 func (u *GenUpscaleGenerateResponseResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpValidationError components.HTTPValidationError = components.HTTPValidationError{}
-	if err := utils.UnmarshalJSON(data, &httpValidationError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpValidationError, "", true, nil); err == nil {
 		u.HTTPValidationError = &httpValidationError
 		u.Type = GenUpscaleGenerateResponseResponseBodyTypeHTTPValidationError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenUpscaleGenerateResponseResponseBodyTypeStudioAPIError
 		return nil
@@ -181,8 +181,8 @@ const (
 
 // GenUpscaleGenerateResponseBody - Unauthorized
 type GenUpscaleGenerateResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenUpscaleGenerateResponseBodyType
 
@@ -212,14 +212,14 @@ func CreateGenUpscaleGenerateResponseBodyStudioAPIError(studioAPIError component
 func (u *GenUpscaleGenerateResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenUpscaleGenerateResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenUpscaleGenerateResponseBodyTypeStudioAPIError
 		return nil
@@ -262,8 +262,8 @@ const (
 
 // GenUpscaleResponseBody - Bad Request
 type GenUpscaleResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenUpscaleResponseBodyType
 
@@ -293,14 +293,14 @@ func CreateGenUpscaleResponseBodyStudioAPIError(studioAPIError components.Studio
 func (u *GenUpscaleResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenUpscaleResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenUpscaleResponseBodyTypeStudioAPIError
 		return nil

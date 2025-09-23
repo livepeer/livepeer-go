@@ -11,23 +11,23 @@ type RoomUserResponse struct {
 	Token *string `json:"token,omitempty"`
 }
 
-func (o *RoomUserResponse) GetID() *string {
-	if o == nil {
+func (r *RoomUserResponse) GetID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ID
+	return r.ID
 }
 
-func (o *RoomUserResponse) GetJoinURL() *string {
-	if o == nil {
+func (r *RoomUserResponse) GetJoinURL() *string {
+	if r == nil {
 		return nil
 	}
-	return o.JoinURL
+	return r.JoinURL
 }
 
-func (o *RoomUserResponse) GetToken() *string {
-	if o == nil {
+func (r *RoomUserResponse) GetToken() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Token
+	return r.Token
 }

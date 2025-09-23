@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetAssetRequest struct {
@@ -12,11 +11,11 @@ type GetAssetRequest struct {
 	AssetID string `pathParam:"style=simple,explode=false,name=assetId"`
 }
 
-func (o *GetAssetRequest) GetAssetID() string {
-	if o == nil {
+func (g *GetAssetRequest) GetAssetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.AssetID
+	return g.AssetID
 }
 
 type GetAssetResponse struct {
@@ -24,26 +23,26 @@ type GetAssetResponse struct {
 	// Success
 	Asset *components.Asset
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetAssetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetAssetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetAssetResponse) GetAsset() *components.Asset {
-	if o == nil {
+func (g *GetAssetResponse) GetAsset() *components.Asset {
+	if g == nil {
 		return nil
 	}
-	return o.Asset
+	return g.Asset
 }
 
-func (o *GetAssetResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetAssetResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

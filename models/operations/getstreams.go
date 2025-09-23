@@ -4,18 +4,17 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetStreamsRequest struct {
 	Streamsonly *string `queryParam:"style=form,explode=true,name=streamsonly"`
 }
 
-func (o *GetStreamsRequest) GetStreamsonly() *string {
-	if o == nil {
+func (g *GetStreamsRequest) GetStreamsonly() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Streamsonly
+	return g.Streamsonly
 }
 
 type GetStreamsResponse struct {
@@ -23,26 +22,26 @@ type GetStreamsResponse struct {
 	// Success
 	Data []components.Stream
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetStreamsResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetStreamsResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetStreamsResponse) GetData() []components.Stream {
-	if o == nil {
+func (g *GetStreamsResponse) GetData() []components.Stream {
+	if g == nil {
 		return nil
 	}
-	return o.Data
+	return g.Data
 }
 
-func (o *GetStreamsResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetStreamsResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

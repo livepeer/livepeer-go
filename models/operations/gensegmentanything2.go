@@ -14,23 +14,23 @@ type GenSegmentAnything2Response struct {
 	StudioAPIError *components.StudioAPIError
 }
 
-func (o *GenSegmentAnything2Response) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GenSegmentAnything2Response) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GenSegmentAnything2Response) GetMasksResponse() *components.MasksResponse {
-	if o == nil {
+func (g *GenSegmentAnything2Response) GetMasksResponse() *components.MasksResponse {
+	if g == nil {
 		return nil
 	}
-	return o.MasksResponse
+	return g.MasksResponse
 }
 
-func (o *GenSegmentAnything2Response) GetStudioAPIError() *components.StudioAPIError {
-	if o == nil {
+func (g *GenSegmentAnything2Response) GetStudioAPIError() *components.StudioAPIError {
+	if g == nil {
 		return nil
 	}
-	return o.StudioAPIError
+	return g.StudioAPIError
 }

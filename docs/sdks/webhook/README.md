@@ -22,21 +22,23 @@ Retrieve a Webhook
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getWebhooks" method="get" path="/webhook" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Webhook.GetAll(ctx)
     if err != nil {
         log.Fatal(err)
@@ -60,10 +62,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Create
 
@@ -72,32 +73,34 @@ To create a new webhook, you need to make an API call with the events you want t
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createWebhook" method="post" path="/webhook" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Webhook.Create(ctx, components.WebhookInput{
         Name: "test_webhook",
-        ProjectID: livepeergo.String("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
+        ProjectID: livepeergo.Pointer("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
         Events: []components.Events{
             components.EventsStreamStarted,
             components.EventsStreamIdle,
         },
         URL: "https://my-service.com/webhook",
-        SharedSecret: livepeergo.String("my-secret"),
-        StreamID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
+        SharedSecret: livepeergo.Pointer("my-secret"),
+        StreamID: livepeergo.Pointer("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
     })
     if err != nil {
         log.Fatal(err)
@@ -122,10 +125,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Get
 
@@ -133,21 +135,23 @@ Retrieve a webhook
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getWebhook" method="get" path="/webhook/{id}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Webhook.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -172,10 +176,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Update
 
@@ -183,32 +186,34 @@ Update a webhook
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateWebhook" method="put" path="/webhook/{id}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Webhook.Update(ctx, "<id>", components.WebhookInput{
         Name: "test_webhook",
-        ProjectID: livepeergo.String("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
+        ProjectID: livepeergo.Pointer("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
         Events: []components.Events{
             components.EventsStreamStarted,
             components.EventsStreamIdle,
         },
         URL: "https://my-service.com/webhook",
-        SharedSecret: livepeergo.String("my-secret"),
-        StreamID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
+        SharedSecret: livepeergo.Pointer("my-secret"),
+        StreamID: livepeergo.Pointer("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
     })
     if err != nil {
         log.Fatal(err)
@@ -234,10 +239,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Delete
 
@@ -245,21 +249,23 @@ Delete a webhook
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteWebhook" method="delete" path="/webhook/{id}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Webhook.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -284,10 +290,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## GetLogs
 
@@ -295,21 +300,23 @@ Retrieve webhook logs
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getWebhookLogs" method="get" path="/webhook/{id}/log" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Webhook.GetLogs(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -334,10 +341,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## GetLog
 
@@ -345,22 +351,24 @@ Retrieve a webhook log
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getWebhookLog" method="get" path="/webhook/{id}/log/{logId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Webhook.GetLog(ctx, "<id>", "<value>")
+    res, err := s.Webhook.GetLog(ctx, "<id>", "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -385,10 +393,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## ResendLog
 
@@ -399,22 +406,24 @@ to check or fix the behaviour in your handler.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="resendWebhook" method="post" path="/webhook/{id}/log/{logId}/resend" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Webhook.ResendLog(ctx, "<id>", "<value>")
+    res, err := s.Webhook.ResendLog(ctx, "<id>", "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -439,6 +448,6 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |

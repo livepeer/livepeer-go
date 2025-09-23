@@ -7,9 +7,9 @@ type RoomEgressPayload struct {
 	StreamID string `json:"streamId"`
 }
 
-func (o *RoomEgressPayload) GetStreamID() string {
-	if o == nil {
+func (r *RoomEgressPayload) GetStreamID() string {
+	if r == nil {
 		return ""
 	}
-	return o.StreamID
+	return r.StreamID
 }

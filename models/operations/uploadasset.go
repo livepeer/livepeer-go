@@ -4,18 +4,17 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type UploadAssetAssetTask struct {
 	ID string `json:"id"`
 }
 
-func (o *UploadAssetAssetTask) GetID() string {
-	if o == nil {
+func (u *UploadAssetAssetTask) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
 // UploadAssetDataOutput - Upload started
@@ -24,29 +23,29 @@ type UploadAssetDataOutput struct {
 	Task  UploadAssetAssetTask `json:"task"`
 }
 
-func (o *UploadAssetDataOutput) GetAsset() components.Asset {
-	if o == nil {
+func (u *UploadAssetDataOutput) GetAsset() components.Asset {
+	if u == nil {
 		return components.Asset{}
 	}
-	return o.Asset
+	return u.Asset
 }
 
-func (o *UploadAssetDataOutput) GetTask() UploadAssetAssetTask {
-	if o == nil {
+func (u *UploadAssetDataOutput) GetTask() UploadAssetAssetTask {
+	if u == nil {
 		return UploadAssetAssetTask{}
 	}
-	return o.Task
+	return u.Task
 }
 
 type UploadAssetTask struct {
 	ID string `json:"id"`
 }
 
-func (o *UploadAssetTask) GetID() string {
-	if o == nil {
+func (u *UploadAssetTask) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
 // UploadAssetData - Upload in progress
@@ -55,18 +54,18 @@ type UploadAssetData struct {
 	Task  UploadAssetTask  `json:"task"`
 }
 
-func (o *UploadAssetData) GetAsset() components.Asset {
-	if o == nil {
+func (u *UploadAssetData) GetAsset() components.Asset {
+	if u == nil {
 		return components.Asset{}
 	}
-	return o.Asset
+	return u.Asset
 }
 
-func (o *UploadAssetData) GetTask() UploadAssetTask {
-	if o == nil {
+func (u *UploadAssetData) GetTask() UploadAssetTask {
+	if u == nil {
 		return UploadAssetTask{}
 	}
-	return o.Task
+	return u.Task
 }
 
 type UploadAssetResponse struct {
@@ -76,33 +75,33 @@ type UploadAssetResponse struct {
 	// Upload started
 	TwoHundredAndOneApplicationJSONData *UploadAssetDataOutput
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *UploadAssetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UploadAssetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UploadAssetResponse) GetTwoHundredApplicationJSONData() *UploadAssetData {
-	if o == nil {
+func (u *UploadAssetResponse) GetTwoHundredApplicationJSONData() *UploadAssetData {
+	if u == nil {
 		return nil
 	}
-	return o.TwoHundredApplicationJSONData
+	return u.TwoHundredApplicationJSONData
 }
 
-func (o *UploadAssetResponse) GetTwoHundredAndOneApplicationJSONData() *UploadAssetDataOutput {
-	if o == nil {
+func (u *UploadAssetResponse) GetTwoHundredAndOneApplicationJSONData() *UploadAssetDataOutput {
+	if u == nil {
 		return nil
 	}
-	return o.TwoHundredAndOneApplicationJSONData
+	return u.TwoHundredAndOneApplicationJSONData
 }
 
-func (o *UploadAssetResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (u *UploadAssetResponse) GetError() *components.Error {
+	if u == nil {
 		return nil
 	}
-	return o.Error
+	return u.Error
 }

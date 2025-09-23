@@ -19,8 +19,8 @@ const (
 
 // GenImageToImageGenerateResponse500ResponseBody - Internal Server Error
 type GenImageToImageGenerateResponse500ResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenImageToImageGenerateResponse500ResponseBodyType
 
@@ -50,14 +50,14 @@ func CreateGenImageToImageGenerateResponse500ResponseBodyStudioAPIError(studioAP
 func (u *GenImageToImageGenerateResponse500ResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenImageToImageGenerateResponse500ResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenImageToImageGenerateResponse500ResponseBodyTypeStudioAPIError
 		return nil
@@ -100,8 +100,8 @@ const (
 
 // GenImageToImageGenerateResponseResponseBody - Validation Error
 type GenImageToImageGenerateResponseResponseBody struct {
-	HTTPValidationError *components.HTTPValidationError
-	StudioAPIError      *components.StudioAPIError
+	HTTPValidationError *components.HTTPValidationError `queryParam:"inline" name:"responseBody"`
+	StudioAPIError      *components.StudioAPIError      `queryParam:"inline" name:"responseBody"`
 
 	Type GenImageToImageGenerateResponseResponseBodyType
 
@@ -131,14 +131,14 @@ func CreateGenImageToImageGenerateResponseResponseBodyStudioAPIError(studioAPIEr
 func (u *GenImageToImageGenerateResponseResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpValidationError components.HTTPValidationError = components.HTTPValidationError{}
-	if err := utils.UnmarshalJSON(data, &httpValidationError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpValidationError, "", true, nil); err == nil {
 		u.HTTPValidationError = &httpValidationError
 		u.Type = GenImageToImageGenerateResponseResponseBodyTypeHTTPValidationError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenImageToImageGenerateResponseResponseBodyTypeStudioAPIError
 		return nil
@@ -181,8 +181,8 @@ const (
 
 // GenImageToImageGenerateResponseBody - Unauthorized
 type GenImageToImageGenerateResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenImageToImageGenerateResponseBodyType
 
@@ -212,14 +212,14 @@ func CreateGenImageToImageGenerateResponseBodyStudioAPIError(studioAPIError comp
 func (u *GenImageToImageGenerateResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenImageToImageGenerateResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenImageToImageGenerateResponseBodyTypeStudioAPIError
 		return nil
@@ -262,8 +262,8 @@ const (
 
 // GenImageToImageResponseBody - Bad Request
 type GenImageToImageResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenImageToImageResponseBodyType
 
@@ -293,14 +293,14 @@ func CreateGenImageToImageResponseBodyStudioAPIError(studioAPIError components.S
 func (u *GenImageToImageResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenImageToImageResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenImageToImageResponseBodyTypeStudioAPIError
 		return nil

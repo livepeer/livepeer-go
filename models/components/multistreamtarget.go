@@ -5,7 +5,7 @@ package components
 type MultistreamTarget struct {
 	ID   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	UserID *string `json:"userId,omitempty"`
 	// If true then this multistream target will not be used for pushing
 	// even if it is configured in a stream object.
@@ -17,37 +17,37 @@ type MultistreamTarget struct {
 	CreatedAt *float64 `json:"createdAt,omitempty"`
 }
 
-func (o *MultistreamTarget) GetID() *string {
-	if o == nil {
+func (m *MultistreamTarget) GetID() *string {
+	if m == nil {
 		return nil
 	}
-	return o.ID
+	return m.ID
 }
 
-func (o *MultistreamTarget) GetName() *string {
-	if o == nil {
+func (m *MultistreamTarget) GetName() *string {
+	if m == nil {
 		return nil
 	}
-	return o.Name
+	return m.Name
 }
 
-func (o *MultistreamTarget) GetUserID() *string {
-	if o == nil {
+func (m *MultistreamTarget) GetUserID() *string {
+	if m == nil {
 		return nil
 	}
-	return o.UserID
+	return m.UserID
 }
 
-func (o *MultistreamTarget) GetDisabled() *bool {
-	if o == nil {
+func (m *MultistreamTarget) GetDisabled() *bool {
+	if m == nil {
 		return nil
 	}
-	return o.Disabled
+	return m.Disabled
 }
 
-func (o *MultistreamTarget) GetCreatedAt() *float64 {
-	if o == nil {
+func (m *MultistreamTarget) GetCreatedAt() *float64 {
+	if m == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return m.CreatedAt
 }

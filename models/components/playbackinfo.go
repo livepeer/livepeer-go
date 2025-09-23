@@ -156,53 +156,53 @@ type PlaybackInfoSource struct {
 	Bitrate *float64             `json:"bitrate,omitempty"`
 }
 
-func (o *PlaybackInfoSource) GetHrn() Hrn {
-	if o == nil {
+func (p *PlaybackInfoSource) GetHrn() Hrn {
+	if p == nil {
 		return Hrn("")
 	}
-	return o.Hrn
+	return p.Hrn
 }
 
-func (o *PlaybackInfoSource) GetType() PlaybackInfoMetaType {
-	if o == nil {
+func (p *PlaybackInfoSource) GetType() PlaybackInfoMetaType {
+	if p == nil {
 		return PlaybackInfoMetaType("")
 	}
-	return o.Type
+	return p.Type
 }
 
-func (o *PlaybackInfoSource) GetURL() string {
-	if o == nil {
+func (p *PlaybackInfoSource) GetURL() string {
+	if p == nil {
 		return ""
 	}
-	return o.URL
+	return p.URL
 }
 
-func (o *PlaybackInfoSource) GetSize() *float64 {
-	if o == nil {
+func (p *PlaybackInfoSource) GetSize() *float64 {
+	if p == nil {
 		return nil
 	}
-	return o.Size
+	return p.Size
 }
 
-func (o *PlaybackInfoSource) GetWidth() *float64 {
-	if o == nil {
+func (p *PlaybackInfoSource) GetWidth() *float64 {
+	if p == nil {
 		return nil
 	}
-	return o.Width
+	return p.Width
 }
 
-func (o *PlaybackInfoSource) GetHeight() *float64 {
-	if o == nil {
+func (p *PlaybackInfoSource) GetHeight() *float64 {
+	if p == nil {
 		return nil
 	}
-	return o.Height
+	return p.Height
 }
 
-func (o *PlaybackInfoSource) GetBitrate() *float64 {
-	if o == nil {
+func (p *PlaybackInfoSource) GetBitrate() *float64 {
+	if p == nil {
 		return nil
 	}
-	return o.Bitrate
+	return p.Bitrate
 }
 
 type PlaybackInfoHrn string
@@ -258,32 +258,32 @@ type DvrPlayback struct {
 	Error *string                          `json:"error,omitempty"`
 }
 
-func (o *DvrPlayback) GetHrn() *PlaybackInfoHrn {
-	if o == nil {
+func (d *DvrPlayback) GetHrn() *PlaybackInfoHrn {
+	if d == nil {
 		return nil
 	}
-	return o.Hrn
+	return d.Hrn
 }
 
-func (o *DvrPlayback) GetType() *PlaybackInfoMetaDvrPlaybackType {
-	if o == nil {
+func (d *DvrPlayback) GetType() *PlaybackInfoMetaDvrPlaybackType {
+	if d == nil {
 		return nil
 	}
-	return o.Type
+	return d.Type
 }
 
-func (o *DvrPlayback) GetURL() *string {
-	if o == nil {
+func (d *DvrPlayback) GetURL() *string {
+	if d == nil {
 		return nil
 	}
-	return o.URL
+	return d.URL
 }
 
-func (o *DvrPlayback) GetError() *string {
-	if o == nil {
+func (d *DvrPlayback) GetError() *string {
+	if d == nil {
 		return nil
 	}
-	return o.Error
+	return d.Error
 }
 
 type Meta struct {
@@ -295,39 +295,39 @@ type Meta struct {
 	Attestation    *Attestation         `json:"attestation,omitempty"`
 }
 
-func (o *Meta) GetLive() *Live {
-	if o == nil {
+func (m *Meta) GetLive() *Live {
+	if m == nil {
 		return nil
 	}
-	return o.Live
+	return m.Live
 }
 
-func (o *Meta) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
+func (m *Meta) GetPlaybackPolicy() *PlaybackPolicy {
+	if m == nil {
 		return nil
 	}
-	return o.PlaybackPolicy
+	return m.PlaybackPolicy
 }
 
-func (o *Meta) GetSource() []PlaybackInfoSource {
-	if o == nil {
+func (m *Meta) GetSource() []PlaybackInfoSource {
+	if m == nil {
 		return []PlaybackInfoSource{}
 	}
-	return o.Source
+	return m.Source
 }
 
-func (o *Meta) GetDvrPlayback() []DvrPlayback {
-	if o == nil {
+func (m *Meta) GetDvrPlayback() []DvrPlayback {
+	if m == nil {
 		return nil
 	}
-	return o.DvrPlayback
+	return m.DvrPlayback
 }
 
-func (o *Meta) GetAttestation() *Attestation {
-	if o == nil {
+func (m *Meta) GetAttestation() *Attestation {
+	if m == nil {
 		return nil
 	}
-	return o.Attestation
+	return m.Attestation
 }
 
 type PlaybackInfo struct {
@@ -335,16 +335,16 @@ type PlaybackInfo struct {
 	Meta Meta             `json:"meta"`
 }
 
-func (o *PlaybackInfo) GetType() PlaybackInfoType {
-	if o == nil {
+func (p *PlaybackInfo) GetType() PlaybackInfoType {
+	if p == nil {
 		return PlaybackInfoType("")
 	}
-	return o.Type
+	return p.Type
 }
 
-func (o *PlaybackInfo) GetMeta() Meta {
-	if o == nil {
+func (p *PlaybackInfo) GetMeta() Meta {
+	if p == nil {
 		return Meta{}
 	}
-	return o.Meta
+	return p.Meta
 }

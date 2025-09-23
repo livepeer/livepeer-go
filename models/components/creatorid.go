@@ -38,18 +38,29 @@ type CreatorID1 struct {
 	Value string `json:"value"`
 }
 
-func (o *CreatorID1) GetType() CreatorIDType {
-	if o == nil {
-		return CreatorIDType("")
-	}
-	return o.Type
+func (c CreatorID1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (o *CreatorID1) GetValue() string {
-	if o == nil {
+func (c *CreatorID1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreatorID1) GetType() CreatorIDType {
+	if c == nil {
+		return CreatorIDType("")
+	}
+	return c.Type
+}
+
+func (c *CreatorID1) GetValue() string {
+	if c == nil {
 		return ""
 	}
-	return o.Value
+	return c.Value
 }
 
 type CreatorIDUnionType string
@@ -59,7 +70,7 @@ const (
 )
 
 type CreatorID struct {
-	CreatorID1 *CreatorID1
+	CreatorID1 *CreatorID1 `queryParam:"inline" name:"creator_id"`
 
 	Type CreatorIDUnionType
 }
@@ -76,7 +87,7 @@ func CreateCreatorIDCreatorID1(creatorID1 CreatorID1) CreatorID {
 func (u *CreatorID) UnmarshalJSON(data []byte) error {
 
 	var creatorID1 CreatorID1 = CreatorID1{}
-	if err := utils.UnmarshalJSON(data, &creatorID1, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &creatorID1, "", true, nil); err == nil {
 		u.CreatorID1 = &creatorID1
 		u.Type = CreatorIDUnionTypeCreatorID1
 		return nil

@@ -15,21 +15,23 @@ Retrieve Playback Info
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getPlaybackInfo" method="get" path="/playback/{id}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Playback.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -54,7 +56,7 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.Error    | 404                | application/json   |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |

@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type BreakdownBy string
@@ -55,25 +54,25 @@ type GetRealtimeViewershipNowRequest struct {
 	BreakdownBy []BreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
 }
 
-func (o *GetRealtimeViewershipNowRequest) GetPlaybackID() *string {
-	if o == nil {
+func (g *GetRealtimeViewershipNowRequest) GetPlaybackID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.PlaybackID
+	return g.PlaybackID
 }
 
-func (o *GetRealtimeViewershipNowRequest) GetCreatorID() *string {
-	if o == nil {
+func (g *GetRealtimeViewershipNowRequest) GetCreatorID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.CreatorID
+	return g.CreatorID
 }
 
-func (o *GetRealtimeViewershipNowRequest) GetBreakdownBy() []BreakdownBy {
-	if o == nil {
+func (g *GetRealtimeViewershipNowRequest) GetBreakdownBy() []BreakdownBy {
+	if g == nil {
 		return nil
 	}
-	return o.BreakdownBy
+	return g.BreakdownBy
 }
 
 type GetRealtimeViewershipNowResponse struct {
@@ -81,26 +80,26 @@ type GetRealtimeViewershipNowResponse struct {
 	// A list of Metric objects
 	Data []components.RealtimeViewershipMetric
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetRealtimeViewershipNowResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetRealtimeViewershipNowResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetRealtimeViewershipNowResponse) GetData() []components.RealtimeViewershipMetric {
-	if o == nil {
+func (g *GetRealtimeViewershipNowResponse) GetData() []components.RealtimeViewershipMetric {
+	if g == nil {
 		return nil
 	}
-	return o.Data
+	return g.Data
 }
 
-func (o *GetRealtimeViewershipNowResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetRealtimeViewershipNowResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

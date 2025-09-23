@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetMultistreamTargetRequest struct {
@@ -12,11 +11,11 @@ type GetMultistreamTargetRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetMultistreamTargetRequest) GetID() string {
-	if o == nil {
+func (g *GetMultistreamTargetRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 type GetMultistreamTargetResponse struct {
@@ -24,26 +23,26 @@ type GetMultistreamTargetResponse struct {
 	// Success
 	MultistreamTarget *components.MultistreamTarget
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetMultistreamTargetResponse) GetMultistreamTarget() *components.MultistreamTarget {
-	if o == nil {
+func (g *GetMultistreamTargetResponse) GetMultistreamTarget() *components.MultistreamTarget {
+	if g == nil {
 		return nil
 	}
-	return o.MultistreamTarget
+	return g.MultistreamTarget
 }
 
-func (o *GetMultistreamTargetResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetMultistreamTargetResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

@@ -10,16 +10,16 @@ type Chunk struct {
 	Text string `json:"text"`
 }
 
-func (o *Chunk) GetTimestamp() []any {
-	if o == nil {
+func (c *Chunk) GetTimestamp() []any {
+	if c == nil {
 		return []any{}
 	}
-	return o.Timestamp
+	return c.Timestamp
 }
 
-func (o *Chunk) GetText() string {
-	if o == nil {
+func (c *Chunk) GetText() string {
+	if c == nil {
 		return ""
 	}
-	return o.Text
+	return c.Text
 }

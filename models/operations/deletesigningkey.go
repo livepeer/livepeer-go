@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type DeleteSigningKeyRequest struct {
@@ -12,29 +11,29 @@ type DeleteSigningKeyRequest struct {
 	KeyID string `pathParam:"style=simple,explode=false,name=keyId"`
 }
 
-func (o *DeleteSigningKeyRequest) GetKeyID() string {
-	if o == nil {
+func (d *DeleteSigningKeyRequest) GetKeyID() string {
+	if d == nil {
 		return ""
 	}
-	return o.KeyID
+	return d.KeyID
 }
 
 type DeleteSigningKeyResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *DeleteSigningKeyResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeleteSigningKeyResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeleteSigningKeyResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (d *DeleteSigningKeyResponse) GetError() *components.Error {
+	if d == nil {
 		return nil
 	}
-	return o.Error
+	return d.Error
 }

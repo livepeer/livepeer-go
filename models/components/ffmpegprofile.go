@@ -78,72 +78,72 @@ type FfmpegProfile struct {
 	Encoder *Encoder `json:"encoder,omitempty"`
 }
 
-func (o *FfmpegProfile) GetWidth() int64 {
-	if o == nil {
+func (f *FfmpegProfile) GetWidth() int64 {
+	if f == nil {
 		return 0
 	}
-	return o.Width
+	return f.Width
 }
 
-func (o *FfmpegProfile) GetName() string {
-	if o == nil {
+func (f *FfmpegProfile) GetName() string {
+	if f == nil {
 		return ""
 	}
-	return o.Name
+	return f.Name
 }
 
-func (o *FfmpegProfile) GetHeight() int64 {
-	if o == nil {
+func (f *FfmpegProfile) GetHeight() int64 {
+	if f == nil {
 		return 0
 	}
-	return o.Height
+	return f.Height
 }
 
-func (o *FfmpegProfile) GetBitrate() int64 {
-	if o == nil {
+func (f *FfmpegProfile) GetBitrate() int64 {
+	if f == nil {
 		return 0
 	}
-	return o.Bitrate
+	return f.Bitrate
 }
 
-func (o *FfmpegProfile) GetFps() int64 {
-	if o == nil {
+func (f *FfmpegProfile) GetFps() int64 {
+	if f == nil {
 		return 0
 	}
-	return o.Fps
+	return f.Fps
 }
 
-func (o *FfmpegProfile) GetFpsDen() *int64 {
-	if o == nil {
+func (f *FfmpegProfile) GetFpsDen() *int64 {
+	if f == nil {
 		return nil
 	}
-	return o.FpsDen
+	return f.FpsDen
 }
 
-func (o *FfmpegProfile) GetQuality() *int64 {
-	if o == nil {
+func (f *FfmpegProfile) GetQuality() *int64 {
+	if f == nil {
 		return nil
 	}
-	return o.Quality
+	return f.Quality
 }
 
-func (o *FfmpegProfile) GetGop() *string {
-	if o == nil {
+func (f *FfmpegProfile) GetGop() *string {
+	if f == nil {
 		return nil
 	}
-	return o.Gop
+	return f.Gop
 }
 
-func (o *FfmpegProfile) GetProfile() *Profile {
-	if o == nil {
+func (f *FfmpegProfile) GetProfile() *Profile {
+	if f == nil {
 		return nil
 	}
-	return o.Profile
+	return f.Profile
 }
 
-func (o *FfmpegProfile) GetEncoder() *Encoder {
-	if o == nil {
+func (f *FfmpegProfile) GetEncoder() *Encoder {
+	if f == nil {
 		return nil
 	}
-	return o.Encoder
+	return f.Encoder
 }

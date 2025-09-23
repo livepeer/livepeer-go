@@ -12,23 +12,23 @@ type Media struct {
 	Nsfw bool `json:"nsfw"`
 }
 
-func (o *Media) GetURL() string {
-	if o == nil {
+func (m *Media) GetURL() string {
+	if m == nil {
 		return ""
 	}
-	return o.URL
+	return m.URL
 }
 
-func (o *Media) GetSeed() int64 {
-	if o == nil {
+func (m *Media) GetSeed() int64 {
+	if m == nil {
 		return 0
 	}
-	return o.Seed
+	return m.Seed
 }
 
-func (o *Media) GetNsfw() bool {
-	if o == nil {
+func (m *Media) GetNsfw() bool {
+	if m == nil {
 		return false
 	}
-	return o.Nsfw
+	return m.Nsfw
 }

@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type UpdateSigningKeyRequestBody struct {
@@ -12,18 +11,18 @@ type UpdateSigningKeyRequestBody struct {
 	Name     *string `json:"name,omitempty"`
 }
 
-func (o *UpdateSigningKeyRequestBody) GetDisabled() *bool {
-	if o == nil {
+func (u *UpdateSigningKeyRequestBody) GetDisabled() *bool {
+	if u == nil {
 		return nil
 	}
-	return o.Disabled
+	return u.Disabled
 }
 
-func (o *UpdateSigningKeyRequestBody) GetName() *string {
-	if o == nil {
+func (u *UpdateSigningKeyRequestBody) GetName() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Name
+	return u.Name
 }
 
 type UpdateSigningKeyRequest struct {
@@ -32,36 +31,36 @@ type UpdateSigningKeyRequest struct {
 	RequestBody UpdateSigningKeyRequestBody `request:"mediaType=application/json"`
 }
 
-func (o *UpdateSigningKeyRequest) GetKeyID() string {
-	if o == nil {
+func (u *UpdateSigningKeyRequest) GetKeyID() string {
+	if u == nil {
 		return ""
 	}
-	return o.KeyID
+	return u.KeyID
 }
 
-func (o *UpdateSigningKeyRequest) GetRequestBody() UpdateSigningKeyRequestBody {
-	if o == nil {
+func (u *UpdateSigningKeyRequest) GetRequestBody() UpdateSigningKeyRequestBody {
+	if u == nil {
 		return UpdateSigningKeyRequestBody{}
 	}
-	return o.RequestBody
+	return u.RequestBody
 }
 
 type UpdateSigningKeyResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *UpdateSigningKeyResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateSigningKeyResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateSigningKeyResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (u *UpdateSigningKeyResponse) GetError() *components.Error {
+	if u == nil {
 		return nil
 	}
-	return o.Error
+	return u.Error
 }

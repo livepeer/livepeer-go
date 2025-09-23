@@ -4,36 +4,35 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type StopRoomEgressRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *StopRoomEgressRequest) GetID() string {
-	if o == nil {
+func (s *StopRoomEgressRequest) GetID() string {
+	if s == nil {
 		return ""
 	}
-	return o.ID
+	return s.ID
 }
 
 type StopRoomEgressResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *StopRoomEgressResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (s *StopRoomEgressResponse) GetHTTPMeta() components.HTTPMetadata {
+	if s == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return s.HTTPMeta
 }
 
-func (o *StopRoomEgressResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (s *StopRoomEgressResponse) GetError() *components.Error {
+	if s == nil {
 		return nil
 	}
-	return o.Error
+	return s.Error
 }

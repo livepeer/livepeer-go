@@ -4,18 +4,17 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type Task struct {
 	ID string `json:"id"`
 }
 
-func (o *Task) GetID() string {
-	if o == nil {
+func (t *Task) GetID() string {
+	if t == nil {
 		return ""
 	}
-	return o.ID
+	return t.ID
 }
 
 // RequestUploadData - Success
@@ -28,32 +27,32 @@ type RequestUploadData struct {
 	Task        Task             `json:"task"`
 }
 
-func (o *RequestUploadData) GetURL() string {
-	if o == nil {
+func (r *RequestUploadData) GetURL() string {
+	if r == nil {
 		return ""
 	}
-	return o.URL
+	return r.URL
 }
 
-func (o *RequestUploadData) GetTusEndpoint() string {
-	if o == nil {
+func (r *RequestUploadData) GetTusEndpoint() string {
+	if r == nil {
 		return ""
 	}
-	return o.TusEndpoint
+	return r.TusEndpoint
 }
 
-func (o *RequestUploadData) GetAsset() components.Asset {
-	if o == nil {
+func (r *RequestUploadData) GetAsset() components.Asset {
+	if r == nil {
 		return components.Asset{}
 	}
-	return o.Asset
+	return r.Asset
 }
 
-func (o *RequestUploadData) GetTask() Task {
-	if o == nil {
+func (r *RequestUploadData) GetTask() Task {
+	if r == nil {
 		return Task{}
 	}
-	return o.Task
+	return r.Task
 }
 
 type RequestUploadResponse struct {
@@ -61,26 +60,26 @@ type RequestUploadResponse struct {
 	// Success
 	Data *RequestUploadData
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *RequestUploadResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (r *RequestUploadResponse) GetHTTPMeta() components.HTTPMetadata {
+	if r == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return r.HTTPMeta
 }
 
-func (o *RequestUploadResponse) GetData() *RequestUploadData {
-	if o == nil {
+func (r *RequestUploadResponse) GetData() *RequestUploadData {
+	if r == nil {
 		return nil
 	}
-	return o.Data
+	return r.Data
 }
 
-func (o *RequestUploadResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (r *RequestUploadResponse) GetError() *components.Error {
+	if r == nil {
 		return nil
 	}
-	return o.Error
+	return r.Error
 }

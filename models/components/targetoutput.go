@@ -24,29 +24,29 @@ func (t TargetOutput) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TargetOutput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"profile"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *TargetOutput) GetProfile() string {
-	if o == nil {
+func (t *TargetOutput) GetProfile() string {
+	if t == nil {
 		return ""
 	}
-	return o.Profile
+	return t.Profile
 }
 
-func (o *TargetOutput) GetVideoOnly() *bool {
-	if o == nil {
+func (t *TargetOutput) GetVideoOnly() *bool {
+	if t == nil {
 		return nil
 	}
-	return o.VideoOnly
+	return t.VideoOnly
 }
 
-func (o *TargetOutput) GetID() *string {
-	if o == nil {
+func (t *TargetOutput) GetID() *string {
+	if t == nil {
 		return nil
 	}
-	return o.ID
+	return t.ID
 }

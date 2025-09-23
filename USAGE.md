@@ -10,11 +10,12 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := livepeergo.New(
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Stream.Create(ctx, components.NewStreamPayload{
 		Name: "test_stream",
 		Pull: &components.Pull{
@@ -29,37 +30,25 @@ func main() {
 		},
 		PlaybackPolicy: &components.PlaybackPolicy{
 			Type:      components.TypeWebhook,
-			WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+			WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
 			WebhookContext: map[string]any{
 				"streamerId": "my-custom-id",
 			},
-			RefreshInterval: livepeergo.Float64(600),
+			RefreshInterval: livepeergo.Pointer[float64](600),
 		},
-		Profiles: []components.FfmpegProfile{
-			components.FfmpegProfile{
-				Width:   1280,
-				Name:    "720p",
-				Height:  720,
-				Bitrate: 3000000,
-				Fps:     30,
-				FpsDen:  livepeergo.Int64(1),
-				Quality: livepeergo.Int64(23),
-				Gop:     livepeergo.String("2"),
-				Profile: components.ProfileH264Baseline.ToPointer(),
-			},
-		},
-		Record: livepeergo.Bool(false),
+		Profiles: []components.FfmpegProfile{},
+		Record:   livepeergo.Pointer(false),
 		RecordingSpec: &components.NewStreamPayloadRecordingSpec{
 			Profiles: []components.TranscodeProfile{
 				components.TranscodeProfile{
-					Width:   livepeergo.Int64(1280),
-					Name:    livepeergo.String("720p"),
-					Height:  livepeergo.Int64(720),
+					Width:   livepeergo.Pointer[int64](1280),
+					Name:    livepeergo.Pointer("720p"),
+					Height:  livepeergo.Pointer[int64](720),
 					Bitrate: 3000000,
-					Quality: livepeergo.Int64(23),
-					Fps:     livepeergo.Int64(30),
-					FpsDen:  livepeergo.Int64(1),
-					Gop:     livepeergo.String("2"),
+					Quality: livepeergo.Pointer[int64](23),
+					Fps:     livepeergo.Pointer[int64](30),
+					FpsDen:  livepeergo.Pointer[int64](1),
+					Gop:     livepeergo.Pointer("2"),
 					Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
 					Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
 				},
@@ -68,13 +57,8 @@ func main() {
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
-					Profile:   "720p",
-					VideoOnly: livepeergo.Bool(false),
-					ID:        livepeergo.String("PUSH123"),
-					Spec: &components.TargetSpec{
-						Name: livepeergo.String("My target"),
-						URL:  "rtmps://live.my-service.tv/channel/secretKey",
-					},
+					Profile: "720p",
+					ID:      livepeergo.Pointer("PUSH123"),
 				},
 			},
 		},

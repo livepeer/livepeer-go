@@ -12,17 +12,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.AccessControl.GetAll(ctx)
                 if err != nil {
                     log.Fatal(err)
@@ -40,17 +41,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.AccessControl.Create(ctx)
                 if err != nil {
                     log.Fatal(err)
@@ -68,18 +70,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.AccessControl.Delete(ctx, "<value>")
+                res, err := s.AccessControl.Delete(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
                 }
@@ -96,18 +99,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.AccessControl.Get(ctx, "<value>")
+                res, err := s.AccessControl.Get(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
                 }
@@ -124,19 +128,20 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/operations"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.AccessControl.Update(ctx, "<value>", operations.UpdateSigningKeyRequestBody{})
+                res, err := s.AccessControl.Update(ctx, "<id>", operations.UpdateSigningKeyRequestBody{})
                 if err != nil {
                     log.Fatal(err)
                 }
@@ -144,7 +149,7 @@ actions:
                     // handle response
                 }
             }
-  - target: $["paths"]["/api/beta/generate/audio-to-text"]["post"]
+  - target: $["paths"]["/api/generate/audio-to-text"]["post"]
     update:
       x-codeSamples:
         - lang: go
@@ -153,28 +158,29 @@ actions:
             package main
 
             import(
+            	"context"
             	livepeergo "github.com/livepeer/livepeer-go"
             	"os"
-            	"context"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                content, fileErr := os.Open("example.file")
+                example, fileErr := os.Open("example.file")
                 if fileErr != nil {
                     panic(fileErr)
                 }
 
-                ctx := context.Background()
                 res, err := s.Generate.AudioToText(ctx, components.BodyGenAudioToText{
                     Audio: components.Audio{
                         FileName: "example.file",
-                        Content: content,
+                        Content: example,
                     },
                 })
                 if err != nil {
@@ -184,7 +190,7 @@ actions:
                     // handle response
                 }
             }
-  - target: $["paths"]["/api/beta/generate/image-to-image"]["post"]
+  - target: $["paths"]["/api/generate/image-to-image"]["post"]
     update:
       x-codeSamples:
         - lang: go
@@ -193,29 +199,30 @@ actions:
             package main
 
             import(
+            	"context"
             	livepeergo "github.com/livepeer/livepeer-go"
             	"os"
-            	"context"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                content, fileErr := os.Open("example.file")
+                example, fileErr := os.Open("example.file")
                 if fileErr != nil {
                     panic(fileErr)
                 }
 
-                ctx := context.Background()
                 res, err := s.Generate.ImageToImage(ctx, components.BodyGenImageToImage{
                     Prompt: "<value>",
                     Image: components.Image{
                         FileName: "example.file",
-                        Content: content,
+                        Content: example,
                     },
                 })
                 if err != nil {
@@ -225,7 +232,7 @@ actions:
                     // handle response
                 }
             }
-  - target: $["paths"]["/api/beta/generate/image-to-video"]["post"]
+  - target: $["paths"]["/api/generate/image-to-video"]["post"]
     update:
       x-codeSamples:
         - lang: go
@@ -234,28 +241,29 @@ actions:
             package main
 
             import(
+            	"context"
             	livepeergo "github.com/livepeer/livepeer-go"
             	"os"
-            	"context"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                content, fileErr := os.Open("example.file")
+                example, fileErr := os.Open("example.file")
                 if fileErr != nil {
                     panic(fileErr)
                 }
 
-                ctx := context.Background()
                 res, err := s.Generate.ImageToVideo(ctx, components.BodyGenImageToVideo{
                     Image: components.BodyGenImageToVideoImage{
                         FileName: "example.file",
-                        Content: content,
+                        Content: example,
                     },
                 })
                 if err != nil {
@@ -265,7 +273,39 @@ actions:
                     // handle response
                 }
             }
-  - target: $["paths"]["/api/beta/generate/segment-anything-2"]["post"]
+  - target: $["paths"]["/api/generate/llm"]["post"]
+    update:
+      x-codeSamples:
+        - lang: go
+          label: genLLM
+          source: |-
+            package main
+
+            import(
+            	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
+            	"github.com/livepeer/livepeer-go/models/components"
+            	"log"
+            )
+
+            func main() {
+                ctx := context.Background()
+
+                s := livepeergo.New(
+                    livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
+                )
+
+                res, err := s.Generate.Llm(ctx, components.BodyGenLLM{
+                    Prompt: "<value>",
+                })
+                if err != nil {
+                    log.Fatal(err)
+                }
+                if res.LLMResponse != nil {
+                    // handle response
+                }
+            }
+  - target: $["paths"]["/api/generate/segment-anything-2"]["post"]
     update:
       x-codeSamples:
         - lang: go
@@ -274,28 +314,29 @@ actions:
             package main
 
             import(
+            	"context"
             	livepeergo "github.com/livepeer/livepeer-go"
             	"os"
-            	"context"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                content, fileErr := os.Open("example.file")
+                example, fileErr := os.Open("example.file")
                 if fileErr != nil {
                     panic(fileErr)
                 }
 
-                ctx := context.Background()
                 res, err := s.Generate.SegmentAnything2(ctx, components.BodyGenSegmentAnything2{
                     Image: components.BodyGenSegmentAnything2Image{
                         FileName: "example.file",
-                        Content: content,
+                        Content: example,
                     },
                 })
                 if err != nil {
@@ -305,7 +346,7 @@ actions:
                     // handle response
                 }
             }
-  - target: $["paths"]["/api/beta/generate/text-to-image"]["post"]
+  - target: $["paths"]["/api/generate/text-to-image"]["post"]
     update:
       x-codeSamples:
         - lang: go
@@ -314,18 +355,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Generate.TextToImage(ctx, components.TextToImageParams{
                     Prompt: "<value>",
                 })
@@ -336,7 +378,7 @@ actions:
                     // handle response
                 }
             }
-  - target: $["paths"]["/api/beta/generate/upscale"]["post"]
+  - target: $["paths"]["/api/generate/upscale"]["post"]
     update:
       x-codeSamples:
         - lang: go
@@ -345,29 +387,30 @@ actions:
             package main
 
             import(
+            	"context"
             	livepeergo "github.com/livepeer/livepeer-go"
             	"os"
-            	"context"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                content, fileErr := os.Open("example.file")
+                example, fileErr := os.Open("example.file")
                 if fileErr != nil {
                     panic(fileErr)
                 }
 
-                ctx := context.Background()
                 res, err := s.Generate.Upscale(ctx, components.BodyGenUpscale{
                     Prompt: "<value>",
                     Image: components.BodyGenUpscaleImage{
                         FileName: "example.file",
-                        Content: content,
+                        Content: example,
                     },
                 })
                 if err != nil {
@@ -386,17 +429,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Asset.GetAll(ctx)
                 if err != nil {
                     log.Fatal(err)
@@ -414,39 +458,40 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Asset.Create(ctx, components.NewAssetPayload{
                     Name: "filename.mp4",
-                    StaticMp4: livepeergo.Bool(true),
+                    StaticMp4: livepeergo.Pointer(true),
                     PlaybackPolicy: &components.PlaybackPolicy{
                         Type: components.TypeWebhook,
-                        WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+                        WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
                         WebhookContext: map[string]any{
                             "streamerId": "my-custom-id",
                         },
-                        RefreshInterval: livepeergo.Float64(600),
+                        RefreshInterval: livepeergo.Pointer[float64](600),
                     },
                     Profiles: []components.TranscodeProfile{
                         components.TranscodeProfile{
-                            Width: livepeergo.Int64(1280),
-                            Name: livepeergo.String("720p"),
-                            Height: livepeergo.Int64(720),
+                            Width: livepeergo.Pointer[int64](1280),
+                            Name: livepeergo.Pointer("720p"),
+                            Height: livepeergo.Pointer[int64](720),
                             Bitrate: 3000000,
-                            Quality: livepeergo.Int64(23),
-                            Fps: livepeergo.Int64(30),
-                            FpsDen: livepeergo.Int64(1),
-                            Gop: livepeergo.String("2"),
+                            Quality: livepeergo.Pointer[int64](23),
+                            Fps: livepeergo.Pointer[int64](30),
+                            FpsDen: livepeergo.Pointer[int64](1),
+                            Gop: livepeergo.Pointer("2"),
                             Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
                             Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
                         },
@@ -468,40 +513,34 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Asset.CreateViaURL(ctx, components.NewAssetFromURLPayload{
                     Name: "filename.mp4",
-                    StaticMp4: livepeergo.Bool(true),
-                    PlaybackPolicy: &components.PlaybackPolicy{
-                        Type: components.TypeWebhook,
-                        WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
-                        WebhookContext: map[string]any{
-                            "streamerId": "my-custom-id",
-                        },
-                        RefreshInterval: livepeergo.Float64(600),
-                    },
+                    StaticMp4: livepeergo.Pointer(true),
+                    PlaybackPolicy: nil,
                     URL: "https://s3.amazonaws.com/my-bucket/path/filename.mp4",
                     Profiles: []components.TranscodeProfile{
                         components.TranscodeProfile{
-                            Width: livepeergo.Int64(1280),
-                            Name: livepeergo.String("720p"),
-                            Height: livepeergo.Int64(720),
+                            Width: livepeergo.Pointer[int64](1280),
+                            Name: livepeergo.Pointer("720p"),
+                            Height: livepeergo.Pointer[int64](720),
                             Bitrate: 3000000,
-                            Quality: livepeergo.Int64(23),
-                            Fps: livepeergo.Int64(30),
-                            FpsDen: livepeergo.Int64(1),
-                            Gop: livepeergo.String("2"),
+                            Quality: livepeergo.Pointer[int64](23),
+                            Fps: livepeergo.Pointer[int64](30),
+                            FpsDen: livepeergo.Pointer[int64](1),
+                            Gop: livepeergo.Pointer("2"),
                             Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
                             Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
                         },
@@ -523,18 +562,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.Asset.Delete(ctx, "<value>")
+                res, err := s.Asset.Delete(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
                 }
@@ -551,18 +591,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.Asset.Get(ctx, "<value>")
+                res, err := s.Asset.Get(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
                 }
@@ -579,27 +620,28 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.Asset.Update(ctx, "<value>", components.AssetPatchPayload{
-                    Name: livepeergo.String("filename.mp4"),
+                res, err := s.Asset.Update(ctx, "<id>", components.AssetPatchPayload{
+                    Name: livepeergo.Pointer("filename.mp4"),
                     PlaybackPolicy: &components.PlaybackPolicy{
                         Type: components.TypeWebhook,
-                        WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+                        WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
                         WebhookContext: map[string]any{
                             "streamerId": "my-custom-id",
                         },
-                        RefreshInterval: livepeergo.Float64(600),
+                        RefreshInterval: livepeergo.Pointer[float64](600),
                     },
                 })
                 if err != nil {
@@ -618,24 +660,25 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Stream.CreateClip(ctx, components.ClipPayload{
                     PlaybackID: "eaw4nk06ts2d0mzb",
                     StartTime: 1587667174725,
-                    EndTime: livepeergo.Float64(1587667174725),
-                    Name: livepeergo.String("My Clip"),
-                    SessionID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
+                    EndTime: livepeergo.Pointer[float64](1587667174725),
+                    Name: livepeergo.Pointer("My Clip"),
+                    SessionID: livepeergo.Pointer("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
                 })
                 if err != nil {
                     log.Fatal(err)
@@ -653,18 +696,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/operations"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Metrics.GetUsage(ctx, operations.GetUsageMetricsRequest{})
                 if err != nil {
                     log.Fatal(err)
@@ -682,17 +726,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Metrics.GetRealtimeViewership(ctx, nil, nil, nil)
                 if err != nil {
                     log.Fatal(err)
@@ -710,18 +755,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/operations"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Metrics.GetViewership(ctx, operations.GetViewershipMetricsRequest{})
                 if err != nil {
                     log.Fatal(err)
@@ -739,18 +785,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/operations"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Metrics.GetCreatorViewership(ctx, operations.GetCreatorViewershipMetricsRequest{})
                 if err != nil {
                     log.Fatal(err)
@@ -768,18 +815,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.Metrics.GetPublicViewership(ctx, "<value>")
+                res, err := s.Metrics.GetPublicViewership(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
                 }
@@ -796,17 +844,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Multistream.GetAll(ctx)
                 if err != nil {
                     log.Fatal(err)
@@ -824,18 +873,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Multistream.Create(ctx, components.MultistreamTargetInput{
                     URL: "rtmps://live.my-service.tv/channel/secretKey",
                 })
@@ -855,17 +905,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Multistream.Delete(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -883,17 +934,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Multistream.Get(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -911,19 +963,20 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.Multistream.Update(ctx, "<id>", components.MultistreamTargetPatchPayload{
+                res, err := s.Multistream.Update(ctx, "<id>", components.MultistreamTargetInput{
                     URL: "rtmps://live.my-service.tv/channel/secretKey",
                 })
                 if err != nil {
@@ -942,286 +995,23 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Playback.Get(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
                 }
                 if res.PlaybackInfo != nil {
-                    // handle response
-                }
-            }
-  - target: $["paths"]["/room"]["post"]
-    update:
-      x-codeSamples:
-        - lang: go
-          label: createRoom
-          source: |-
-            package main
-
-            import(
-            	livepeergo "github.com/livepeer/livepeer-go"
-            	"context"
-            	"log"
-            )
-
-            func main() {
-                s := livepeergo.New(
-                    livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-                )
-
-                ctx := context.Background()
-                res, err := s.Room.Create(ctx)
-                if err != nil {
-                    log.Fatal(err)
-                }
-                if res.CreateRoomResponse != nil {
-                    // handle response
-                }
-            }
-  - target: $["paths"]["/room/{id}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: go
-          label: deleteRoom
-          source: |-
-            package main
-
-            import(
-            	livepeergo "github.com/livepeer/livepeer-go"
-            	"context"
-            	"log"
-            )
-
-            func main() {
-                s := livepeergo.New(
-                    livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-                )
-
-                ctx := context.Background()
-                res, err := s.Room.Delete(ctx, "<id>")
-                if err != nil {
-                    log.Fatal(err)
-                }
-                if res != nil {
-                    // handle response
-                }
-            }
-  - target: $["paths"]["/room/{id}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: go
-          label: getRoom
-          source: |-
-            package main
-
-            import(
-            	livepeergo "github.com/livepeer/livepeer-go"
-            	"context"
-            	"log"
-            )
-
-            func main() {
-                s := livepeergo.New(
-                    livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-                )
-
-                ctx := context.Background()
-                res, err := s.Room.Get(ctx, "<id>")
-                if err != nil {
-                    log.Fatal(err)
-                }
-                if res.Room != nil {
-                    // handle response
-                }
-            }
-  - target: $["paths"]["/room/{id}/egress"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: go
-          label: stopRoomEgress
-          source: |-
-            package main
-
-            import(
-            	livepeergo "github.com/livepeer/livepeer-go"
-            	"context"
-            	"log"
-            )
-
-            func main() {
-                s := livepeergo.New(
-                    livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-                )
-
-                ctx := context.Background()
-                res, err := s.Room.StopEgress(ctx, "<id>")
-                if err != nil {
-                    log.Fatal(err)
-                }
-                if res != nil {
-                    // handle response
-                }
-            }
-  - target: $["paths"]["/room/{id}/egress"]["post"]
-    update:
-      x-codeSamples:
-        - lang: go
-          label: startRoomEgress
-          source: |-
-            package main
-
-            import(
-            	livepeergo "github.com/livepeer/livepeer-go"
-            	"context"
-            	"github.com/livepeer/livepeer-go/models/components"
-            	"log"
-            )
-
-            func main() {
-                s := livepeergo.New(
-                    livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-                )
-
-                ctx := context.Background()
-                res, err := s.Room.StartEgress(ctx, "<id>", components.RoomEgressPayload{
-                    StreamID: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
-                })
-                if err != nil {
-                    log.Fatal(err)
-                }
-                if res != nil {
-                    // handle response
-                }
-            }
-  - target: $["paths"]["/room/{id}/user"]["post"]
-    update:
-      x-codeSamples:
-        - lang: go
-          label: createRoomUser
-          source: |-
-            package main
-
-            import(
-            	livepeergo "github.com/livepeer/livepeer-go"
-            	"context"
-            	"github.com/livepeer/livepeer-go/models/components"
-            	"log"
-            )
-
-            func main() {
-                s := livepeergo.New(
-                    livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-                )
-
-                ctx := context.Background()
-                res, err := s.Room.CreateUser(ctx, "<id>", components.RoomUserPayload{
-                    Name: "name",
-                    CanPublish: livepeergo.Bool(true),
-                    CanPublishData: livepeergo.Bool(true),
-                })
-                if err != nil {
-                    log.Fatal(err)
-                }
-                if res.RoomUserResponse != nil {
-                    // handle response
-                }
-            }
-  - target: $["paths"]["/room/{id}/user/{userId}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: go
-          label: deleteRoomUser
-          source: |-
-            package main
-
-            import(
-            	livepeergo "github.com/livepeer/livepeer-go"
-            	"context"
-            	"log"
-            )
-
-            func main() {
-                s := livepeergo.New(
-                    livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-                )
-
-                ctx := context.Background()
-                res, err := s.Room.DeleteUser(ctx, "<id>", "<value>")
-                if err != nil {
-                    log.Fatal(err)
-                }
-                if res != nil {
-                    // handle response
-                }
-            }
-  - target: $["paths"]["/room/{id}/user/{userId}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: go
-          label: getRoomUser
-          source: |-
-            package main
-
-            import(
-            	livepeergo "github.com/livepeer/livepeer-go"
-            	"context"
-            	"log"
-            )
-
-            func main() {
-                s := livepeergo.New(
-                    livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-                )
-
-                ctx := context.Background()
-                res, err := s.Room.GetUser(ctx, "<id>", "<value>")
-                if err != nil {
-                    log.Fatal(err)
-                }
-                if res.GetRoomUserResponse != nil {
-                    // handle response
-                }
-            }
-  - target: $["paths"]["/room/{id}/user/{userId}"]["put"]
-    update:
-      x-codeSamples:
-        - lang: go
-          label: updateRoomUser
-          source: |-
-            package main
-
-            import(
-            	livepeergo "github.com/livepeer/livepeer-go"
-            	"context"
-            	"github.com/livepeer/livepeer-go/models/components"
-            	"log"
-            )
-
-            func main() {
-                s := livepeergo.New(
-                    livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
-                )
-
-                ctx := context.Background()
-                res, err := s.Room.UpdateUser(ctx, "<id>", "<value>", components.RoomUserUpdatePayload{
-                    CanPublish: livepeergo.Bool(true),
-                    CanPublishData: livepeergo.Bool(true),
-                })
-                if err != nil {
-                    log.Fatal(err)
-                }
-                if res != nil {
                     // handle response
                 }
             }
@@ -1234,17 +1024,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Session.GetAll(ctx)
                 if err != nil {
                     log.Fatal(err)
@@ -1262,17 +1053,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Session.Get(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -1290,17 +1082,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Session.GetClips(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -1318,17 +1111,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Stream.GetAll(ctx, nil)
                 if err != nil {
                     log.Fatal(err)
@@ -1346,18 +1140,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Stream.Create(ctx, components.NewStreamPayload{
                     Name: "test_stream",
                     Pull: &components.Pull{
@@ -1372,37 +1167,25 @@ actions:
                     },
                     PlaybackPolicy: &components.PlaybackPolicy{
                         Type: components.TypeWebhook,
-                        WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+                        WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
                         WebhookContext: map[string]any{
                             "streamerId": "my-custom-id",
                         },
-                        RefreshInterval: livepeergo.Float64(600),
+                        RefreshInterval: livepeergo.Pointer[float64](600),
                     },
-                    Profiles: []components.FfmpegProfile{
-                        components.FfmpegProfile{
-                            Width: 1280,
-                            Name: "720p",
-                            Height: 720,
-                            Bitrate: 3000000,
-                            Fps: 30,
-                            FpsDen: livepeergo.Int64(1),
-                            Quality: livepeergo.Int64(23),
-                            Gop: livepeergo.String("2"),
-                            Profile: components.ProfileH264Baseline.ToPointer(),
-                        },
-                    },
-                    Record: livepeergo.Bool(false),
+                    Profiles: []components.FfmpegProfile{},
+                    Record: livepeergo.Pointer(false),
                     RecordingSpec: &components.NewStreamPayloadRecordingSpec{
                         Profiles: []components.TranscodeProfile{
                             components.TranscodeProfile{
-                                Width: livepeergo.Int64(1280),
-                                Name: livepeergo.String("720p"),
-                                Height: livepeergo.Int64(720),
+                                Width: livepeergo.Pointer[int64](1280),
+                                Name: livepeergo.Pointer("720p"),
+                                Height: livepeergo.Pointer[int64](720),
                                 Bitrate: 3000000,
-                                Quality: livepeergo.Int64(23),
-                                Fps: livepeergo.Int64(30),
-                                FpsDen: livepeergo.Int64(1),
-                                Gop: livepeergo.String("2"),
+                                Quality: livepeergo.Pointer[int64](23),
+                                Fps: livepeergo.Pointer[int64](30),
+                                FpsDen: livepeergo.Pointer[int64](1),
+                                Gop: livepeergo.Pointer("2"),
                                 Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
                                 Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
                             },
@@ -1412,12 +1195,7 @@ actions:
                         Targets: []components.Target{
                             components.Target{
                                 Profile: "720p",
-                                VideoOnly: livepeergo.Bool(false),
-                                ID: livepeergo.String("PUSH123"),
-                                Spec: &components.TargetSpec{
-                                    Name: livepeergo.String("My target"),
-                                    URL: "rtmps://live.my-service.tv/channel/secretKey",
-                                },
+                                ID: livepeergo.Pointer("PUSH123"),
                             },
                         },
                     },
@@ -1438,17 +1216,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Stream.Delete(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -1466,17 +1245,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Stream.Get(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -1494,70 +1274,55 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Stream.Update(ctx, "<id>", components.StreamPatchPayload{
-                    Record: livepeergo.Bool(false),
+                    Record: livepeergo.Pointer(false),
                     Multistream: &components.Multistream{
                         Targets: []components.Target{
                             components.Target{
                                 Profile: "720p",
-                                VideoOnly: livepeergo.Bool(false),
-                                ID: livepeergo.String("PUSH123"),
-                                Spec: &components.TargetSpec{
-                                    Name: livepeergo.String("My target"),
-                                    URL: "rtmps://live.my-service.tv/channel/secretKey",
-                                },
+                                ID: livepeergo.Pointer("PUSH123"),
                             },
                         },
                     },
                     PlaybackPolicy: &components.PlaybackPolicy{
                         Type: components.TypeWebhook,
-                        WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+                        WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
                         WebhookContext: map[string]any{
                             "streamerId": "my-custom-id",
                         },
-                        RefreshInterval: livepeergo.Float64(600),
+                        RefreshInterval: livepeergo.Pointer[float64](600),
                     },
-                    Profiles: []components.FfmpegProfile{
-                        components.FfmpegProfile{
-                            Width: 1280,
-                            Name: "720p",
-                            Height: 720,
-                            Bitrate: 3000000,
-                            Fps: 30,
-                            FpsDen: livepeergo.Int64(1),
-                            Quality: livepeergo.Int64(23),
-                            Gop: livepeergo.String("2"),
-                            Profile: components.ProfileH264Baseline.ToPointer(),
-                        },
-                    },
+                    Profiles: nil,
                     RecordingSpec: &components.RecordingSpec{
                         Profiles: []components.TranscodeProfile{
                             components.TranscodeProfile{
-                                Width: livepeergo.Int64(1280),
-                                Name: livepeergo.String("720p"),
-                                Height: livepeergo.Int64(720),
+                                Width: livepeergo.Pointer[int64](1280),
+                                Name: livepeergo.Pointer("720p"),
+                                Height: livepeergo.Pointer[int64](720),
                                 Bitrate: 3000000,
-                                Quality: livepeergo.Int64(23),
-                                Fps: livepeergo.Int64(30),
-                                FpsDen: livepeergo.Int64(1),
-                                Gop: livepeergo.String("2"),
+                                Quality: livepeergo.Pointer[int64](23),
+                                Fps: livepeergo.Pointer[int64](30),
+                                FpsDen: livepeergo.Pointer[int64](1),
+                                Gop: livepeergo.Pointer("2"),
                                 Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
                                 Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
                             },
                         },
                     },
+                    Name: livepeergo.Pointer("test_stream"),
                 })
                 if err != nil {
                     log.Fatal(err)
@@ -1575,17 +1340,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Stream.GetClips(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -1603,24 +1369,24 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Stream.AddMultistreamTarget(ctx, "<id>", components.TargetAddPayload{
                     Profile: "720p0",
-                    VideoOnly: livepeergo.Bool(false),
-                    ID: livepeergo.String("PUSH123"),
+                    ID: livepeergo.Pointer("PUSH123"),
                     Spec: &components.TargetAddPayloadSpec{
-                        Name: livepeergo.String("My target"),
+                        Name: livepeergo.Pointer("My target"),
                         URL: "rtmps://live.my-service.tv/channel/secretKey",
                     },
                 })
@@ -1640,18 +1406,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.Stream.RemoveMultistreamTarget(ctx, "<id>", "<value>")
+                res, err := s.Stream.RemoveMultistreamTarget(ctx, "<id>", "<id>")
                 if err != nil {
                     log.Fatal(err)
                 }
@@ -1668,17 +1435,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Stream.StartPull(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -1696,17 +1464,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Stream.Terminate(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -1724,18 +1493,20 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
+            	"github.com/livepeer/livepeer-go/models/operations"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.Session.GetRecorded(ctx, "<value>", livepeergo.Pointer(operations.CreateRecordBoolean(
+                res, err := s.Session.GetRecorded(ctx, "<id>", livepeergo.Pointer(operations.CreateRecordBoolean(
                     true,
                 )))
                 if err != nil {
@@ -1754,17 +1525,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Task.GetAll(ctx)
                 if err != nil {
                     log.Fatal(err)
@@ -1782,18 +1554,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.Task.Get(ctx, "<value>")
+                res, err := s.Task.Get(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
                 }
@@ -1810,22 +1583,30 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Transcode.Create(ctx, components.TranscodePayload{
-                    Input: components.CreateInputInput1(
-                        components.Input1{
-                            URL: "https://s3.amazonaws.com/bucket/file.mp4",
+                    Input: components.CreateInputInput2(
+                        components.Input2{
+                            Type: components.InputTypeS3,
+                            Endpoint: "https://gateway.storjshare.io",
+                            Bucket: "inputbucket",
+                            Path: "/path/file.mp4",
+                            Credentials: components.Credentials{
+                                AccessKeyID: "AKIAIOSFODNN7EXAMPLE",
+                                SecretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+                            },
                         },
                     ),
                     Storage: components.CreateTranscodePayloadStorageStorage1(
@@ -1852,14 +1633,14 @@ actions:
                     },
                     Profiles: []components.TranscodeProfile{
                         components.TranscodeProfile{
-                            Width: livepeergo.Int64(1280),
-                            Name: livepeergo.String("720p"),
-                            Height: livepeergo.Int64(720),
+                            Width: livepeergo.Pointer[int64](1280),
+                            Name: livepeergo.Pointer("720p"),
+                            Height: livepeergo.Pointer[int64](720),
                             Bitrate: 3000000,
-                            Quality: livepeergo.Int64(23),
-                            Fps: livepeergo.Int64(30),
-                            FpsDen: livepeergo.Int64(1),
-                            Gop: livepeergo.String("2"),
+                            Quality: livepeergo.Pointer[int64](23),
+                            Fps: livepeergo.Pointer[int64](30),
+                            FpsDen: livepeergo.Pointer[int64](1),
+                            Gop: livepeergo.Pointer("2"),
                             Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
                             Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
                         },
@@ -1881,17 +1662,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Webhook.GetAll(ctx)
                 if err != nil {
                     log.Fatal(err)
@@ -1909,28 +1691,29 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Webhook.Create(ctx, components.WebhookInput{
                     Name: "test_webhook",
-                    ProjectID: livepeergo.String("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
+                    ProjectID: livepeergo.Pointer("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
                     Events: []components.Events{
                         components.EventsStreamStarted,
                         components.EventsStreamIdle,
                     },
                     URL: "https://my-service.com/webhook",
-                    SharedSecret: livepeergo.String("my-secret"),
-                    StreamID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
+                    SharedSecret: livepeergo.Pointer("my-secret"),
+                    StreamID: livepeergo.Pointer("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
                 })
                 if err != nil {
                     log.Fatal(err)
@@ -1948,17 +1731,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Webhook.Delete(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -1976,17 +1760,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Webhook.Get(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -2004,28 +1789,29 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"github.com/livepeer/livepeer-go/models/components"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Webhook.Update(ctx, "<id>", components.WebhookInput{
                     Name: "test_webhook",
-                    ProjectID: livepeergo.String("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
+                    ProjectID: livepeergo.Pointer("aac12556-4d65-4d34-9fb6-d1f0985eb0a9"),
                     Events: []components.Events{
                         components.EventsStreamStarted,
                         components.EventsStreamIdle,
                     },
                     URL: "https://my-service.com/webhook",
-                    SharedSecret: livepeergo.String("my-secret"),
-                    StreamID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
+                    SharedSecret: livepeergo.Pointer("my-secret"),
+                    StreamID: livepeergo.Pointer("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
                 })
                 if err != nil {
                     log.Fatal(err)
@@ -2043,17 +1829,18 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
                 res, err := s.Webhook.GetLogs(ctx, "<id>")
                 if err != nil {
                     log.Fatal(err)
@@ -2071,18 +1858,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.Webhook.GetLog(ctx, "<id>", "<value>")
+                res, err := s.Webhook.GetLog(ctx, "<id>", "<id>")
                 if err != nil {
                     log.Fatal(err)
                 }
@@ -2099,18 +1887,19 @@ actions:
             package main
 
             import(
-            	livepeergo "github.com/livepeer/livepeer-go"
             	"context"
+            	livepeergo "github.com/livepeer/livepeer-go"
             	"log"
             )
 
             func main() {
+                ctx := context.Background()
+
                 s := livepeergo.New(
                     livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
                 )
 
-                ctx := context.Background()
-                res, err := s.Webhook.ResendLog(ctx, "<id>", "<value>")
+                res, err := s.Webhook.ResendLog(ctx, "<id>", "<id>")
                 if err != nil {
                     log.Fatal(err)
                 }

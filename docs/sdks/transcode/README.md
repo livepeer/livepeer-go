@@ -136,26 +136,35 @@ This endpoint currently supports the following output types:
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="transcodeVideo" method="post" path="/transcode" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Transcode.Create(ctx, components.TranscodePayload{
-        Input: components.CreateInputInput1(
-            components.Input1{
-                URL: "https://s3.amazonaws.com/bucket/file.mp4",
+        Input: components.CreateInputInput2(
+            components.Input2{
+                Type: components.InputTypeS3,
+                Endpoint: "https://gateway.storjshare.io",
+                Bucket: "inputbucket",
+                Path: "/path/file.mp4",
+                Credentials: components.Credentials{
+                    AccessKeyID: "AKIAIOSFODNN7EXAMPLE",
+                    SecretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+                },
             },
         ),
         Storage: components.CreateTranscodePayloadStorageStorage1(
@@ -182,14 +191,14 @@ func main() {
         },
         Profiles: []components.TranscodeProfile{
             components.TranscodeProfile{
-                Width: livepeergo.Int64(1280),
-                Name: livepeergo.String("720p"),
-                Height: livepeergo.Int64(720),
+                Width: livepeergo.Pointer[int64](1280),
+                Name: livepeergo.Pointer("720p"),
+                Height: livepeergo.Pointer[int64](720),
                 Bitrate: 3000000,
-                Quality: livepeergo.Int64(23),
-                Fps: livepeergo.Int64(30),
-                FpsDen: livepeergo.Int64(1),
-                Gop: livepeergo.String("2"),
+                Quality: livepeergo.Pointer[int64](23),
+                Fps: livepeergo.Pointer[int64](30),
+                FpsDen: livepeergo.Pointer[int64](1),
+                Gop: livepeergo.Pointer("2"),
                 Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
                 Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
             },
@@ -218,6 +227,6 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |

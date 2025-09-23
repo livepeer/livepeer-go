@@ -25,72 +25,72 @@ type NewAssetFromURLPayload struct {
 	TargetSegmentSizeSecs *float64 `json:"targetSegmentSizeSecs,omitempty"`
 }
 
-func (o *NewAssetFromURLPayload) GetName() string {
-	if o == nil {
+func (n *NewAssetFromURLPayload) GetName() string {
+	if n == nil {
 		return ""
 	}
-	return o.Name
+	return n.Name
 }
 
-func (o *NewAssetFromURLPayload) GetStaticMp4() *bool {
-	if o == nil {
+func (n *NewAssetFromURLPayload) GetStaticMp4() *bool {
+	if n == nil {
 		return nil
 	}
-	return o.StaticMp4
+	return n.StaticMp4
 }
 
-func (o *NewAssetFromURLPayload) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
+func (n *NewAssetFromURLPayload) GetPlaybackPolicy() *PlaybackPolicy {
+	if n == nil {
 		return nil
 	}
-	return o.PlaybackPolicy
+	return n.PlaybackPolicy
 }
 
-func (o *NewAssetFromURLPayload) GetCreatorID() *InputCreatorID {
-	if o == nil {
+func (n *NewAssetFromURLPayload) GetCreatorID() *InputCreatorID {
+	if n == nil {
 		return nil
 	}
-	return o.CreatorID
+	return n.CreatorID
 }
 
-func (o *NewAssetFromURLPayload) GetStorage() *Storage {
-	if o == nil {
+func (n *NewAssetFromURLPayload) GetStorage() *Storage {
+	if n == nil {
 		return nil
 	}
-	return o.Storage
+	return n.Storage
 }
 
-func (o *NewAssetFromURLPayload) GetURL() string {
-	if o == nil {
+func (n *NewAssetFromURLPayload) GetURL() string {
+	if n == nil {
 		return ""
 	}
-	return o.URL
+	return n.URL
 }
 
-func (o *NewAssetFromURLPayload) GetEncryption() *Encryption {
-	if o == nil {
+func (n *NewAssetFromURLPayload) GetEncryption() *Encryption {
+	if n == nil {
 		return nil
 	}
-	return o.Encryption
+	return n.Encryption
 }
 
-func (o *NewAssetFromURLPayload) GetC2pa() *bool {
-	if o == nil {
+func (n *NewAssetFromURLPayload) GetC2pa() *bool {
+	if n == nil {
 		return nil
 	}
-	return o.C2pa
+	return n.C2pa
 }
 
-func (o *NewAssetFromURLPayload) GetProfiles() []TranscodeProfile {
-	if o == nil {
+func (n *NewAssetFromURLPayload) GetProfiles() []TranscodeProfile {
+	if n == nil {
 		return nil
 	}
-	return o.Profiles
+	return n.Profiles
 }
 
-func (o *NewAssetFromURLPayload) GetTargetSegmentSizeSecs() *float64 {
-	if o == nil {
+func (n *NewAssetFromURLPayload) GetTargetSegmentSizeSecs() *float64 {
+	if n == nil {
 		return nil
 	}
-	return o.TargetSegmentSizeSecs
+	return n.TargetSegmentSizeSecs
 }

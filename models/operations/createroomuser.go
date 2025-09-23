@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type CreateRoomUserRequest struct {
@@ -12,18 +11,18 @@ type CreateRoomUserRequest struct {
 	RoomUserPayload components.RoomUserPayload `request:"mediaType=application/json"`
 }
 
-func (o *CreateRoomUserRequest) GetID() string {
-	if o == nil {
+func (c *CreateRoomUserRequest) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return o.ID
+	return c.ID
 }
 
-func (o *CreateRoomUserRequest) GetRoomUserPayload() components.RoomUserPayload {
-	if o == nil {
+func (c *CreateRoomUserRequest) GetRoomUserPayload() components.RoomUserPayload {
+	if c == nil {
 		return components.RoomUserPayload{}
 	}
-	return o.RoomUserPayload
+	return c.RoomUserPayload
 }
 
 type CreateRoomUserResponse struct {
@@ -31,26 +30,26 @@ type CreateRoomUserResponse struct {
 	// Success
 	RoomUserResponse *components.RoomUserResponse
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *CreateRoomUserResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateRoomUserResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateRoomUserResponse) GetRoomUserResponse() *components.RoomUserResponse {
-	if o == nil {
+func (c *CreateRoomUserResponse) GetRoomUserResponse() *components.RoomUserResponse {
+	if c == nil {
 		return nil
 	}
-	return o.RoomUserResponse
+	return c.RoomUserResponse
 }
 
-func (o *CreateRoomUserResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (c *CreateRoomUserResponse) GetError() *components.Error {
+	if c == nil {
 		return nil
 	}
-	return o.Error
+	return c.Error
 }

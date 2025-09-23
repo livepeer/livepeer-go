@@ -19,8 +19,8 @@ const (
 
 // GenAudioToTextGenerateResponse500ResponseBody - Internal Server Error
 type GenAudioToTextGenerateResponse500ResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenAudioToTextGenerateResponse500ResponseBodyType
 
@@ -50,14 +50,14 @@ func CreateGenAudioToTextGenerateResponse500ResponseBodyStudioAPIError(studioAPI
 func (u *GenAudioToTextGenerateResponse500ResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenAudioToTextGenerateResponse500ResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenAudioToTextGenerateResponse500ResponseBodyTypeStudioAPIError
 		return nil
@@ -100,8 +100,8 @@ const (
 
 // GenAudioToTextGenerateResponse422ResponseBody - Validation Error
 type GenAudioToTextGenerateResponse422ResponseBody struct {
-	HTTPValidationError *components.HTTPValidationError
-	StudioAPIError      *components.StudioAPIError
+	HTTPValidationError *components.HTTPValidationError `queryParam:"inline" name:"responseBody"`
+	StudioAPIError      *components.StudioAPIError      `queryParam:"inline" name:"responseBody"`
 
 	Type GenAudioToTextGenerateResponse422ResponseBodyType
 
@@ -131,14 +131,14 @@ func CreateGenAudioToTextGenerateResponse422ResponseBodyStudioAPIError(studioAPI
 func (u *GenAudioToTextGenerateResponse422ResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpValidationError components.HTTPValidationError = components.HTTPValidationError{}
-	if err := utils.UnmarshalJSON(data, &httpValidationError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpValidationError, "", true, nil); err == nil {
 		u.HTTPValidationError = &httpValidationError
 		u.Type = GenAudioToTextGenerateResponse422ResponseBodyTypeHTTPValidationError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenAudioToTextGenerateResponse422ResponseBodyTypeStudioAPIError
 		return nil
@@ -172,6 +172,87 @@ func (u GenAudioToTextGenerateResponse422ResponseBody) Error() string {
 	}
 }
 
+type GenAudioToTextGenerateResponse415ResponseBodyType string
+
+const (
+	GenAudioToTextGenerateResponse415ResponseBodyTypeHTTPError      GenAudioToTextGenerateResponse415ResponseBodyType = "HTTPError"
+	GenAudioToTextGenerateResponse415ResponseBodyTypeStudioAPIError GenAudioToTextGenerateResponse415ResponseBodyType = "studio-api-error"
+)
+
+// GenAudioToTextGenerateResponse415ResponseBody - Unsupported Media Type
+type GenAudioToTextGenerateResponse415ResponseBody struct {
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
+
+	Type GenAudioToTextGenerateResponse415ResponseBodyType
+
+	HTTPMeta components.HTTPMetadata `json:"-"`
+}
+
+var _ error = &GenAudioToTextGenerateResponse415ResponseBody{}
+
+func CreateGenAudioToTextGenerateResponse415ResponseBodyHTTPError(httpError components.HTTPError) GenAudioToTextGenerateResponse415ResponseBody {
+	typ := GenAudioToTextGenerateResponse415ResponseBodyTypeHTTPError
+
+	return GenAudioToTextGenerateResponse415ResponseBody{
+		HTTPError: &httpError,
+		Type:      typ,
+	}
+}
+
+func CreateGenAudioToTextGenerateResponse415ResponseBodyStudioAPIError(studioAPIError components.StudioAPIError) GenAudioToTextGenerateResponse415ResponseBody {
+	typ := GenAudioToTextGenerateResponse415ResponseBodyTypeStudioAPIError
+
+	return GenAudioToTextGenerateResponse415ResponseBody{
+		StudioAPIError: &studioAPIError,
+		Type:           typ,
+	}
+}
+
+func (u *GenAudioToTextGenerateResponse415ResponseBody) UnmarshalJSON(data []byte) error {
+
+	var httpError components.HTTPError = components.HTTPError{}
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
+		u.HTTPError = &httpError
+		u.Type = GenAudioToTextGenerateResponse415ResponseBodyTypeHTTPError
+		return nil
+	}
+
+	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
+		u.StudioAPIError = &studioAPIError
+		u.Type = GenAudioToTextGenerateResponse415ResponseBodyTypeStudioAPIError
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GenAudioToTextGenerateResponse415ResponseBody", string(data))
+}
+
+func (u GenAudioToTextGenerateResponse415ResponseBody) MarshalJSON() ([]byte, error) {
+	if u.HTTPError != nil {
+		return utils.MarshalJSON(u.HTTPError, "", true)
+	}
+
+	if u.StudioAPIError != nil {
+		return utils.MarshalJSON(u.StudioAPIError, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GenAudioToTextGenerateResponse415ResponseBody: all fields are null")
+}
+
+func (u GenAudioToTextGenerateResponse415ResponseBody) Error() string {
+	switch u.Type {
+	case GenAudioToTextGenerateResponse415ResponseBodyTypeHTTPError:
+		data, _ := json.Marshal(u.HTTPError)
+		return string(data)
+	case GenAudioToTextGenerateResponse415ResponseBodyTypeStudioAPIError:
+		data, _ := json.Marshal(u.StudioAPIError)
+		return string(data)
+	default:
+		return "unknown error"
+	}
+}
+
 type GenAudioToTextGenerateResponseResponseBodyType string
 
 const (
@@ -181,8 +262,8 @@ const (
 
 // GenAudioToTextGenerateResponseResponseBody - Request Entity Too Large
 type GenAudioToTextGenerateResponseResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenAudioToTextGenerateResponseResponseBodyType
 
@@ -212,14 +293,14 @@ func CreateGenAudioToTextGenerateResponseResponseBodyStudioAPIError(studioAPIErr
 func (u *GenAudioToTextGenerateResponseResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenAudioToTextGenerateResponseResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenAudioToTextGenerateResponseResponseBodyTypeStudioAPIError
 		return nil
@@ -262,8 +343,8 @@ const (
 
 // GenAudioToTextGenerateResponseBody - Unauthorized
 type GenAudioToTextGenerateResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenAudioToTextGenerateResponseBodyType
 
@@ -293,14 +374,14 @@ func CreateGenAudioToTextGenerateResponseBodyStudioAPIError(studioAPIError compo
 func (u *GenAudioToTextGenerateResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenAudioToTextGenerateResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenAudioToTextGenerateResponseBodyTypeStudioAPIError
 		return nil
@@ -343,8 +424,8 @@ const (
 
 // GenAudioToTextResponseBody - Bad Request
 type GenAudioToTextResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenAudioToTextResponseBodyType
 
@@ -374,14 +455,14 @@ func CreateGenAudioToTextResponseBodyStudioAPIError(studioAPIError components.St
 func (u *GenAudioToTextResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenAudioToTextResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenAudioToTextResponseBodyTypeStudioAPIError
 		return nil

@@ -19,8 +19,8 @@ const (
 
 // GenSegmentAnything2GenerateResponse500ResponseBody - Internal Server Error
 type GenSegmentAnything2GenerateResponse500ResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenSegmentAnything2GenerateResponse500ResponseBodyType
 
@@ -50,14 +50,14 @@ func CreateGenSegmentAnything2GenerateResponse500ResponseBodyStudioAPIError(stud
 func (u *GenSegmentAnything2GenerateResponse500ResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenSegmentAnything2GenerateResponse500ResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenSegmentAnything2GenerateResponse500ResponseBodyTypeStudioAPIError
 		return nil
@@ -100,8 +100,8 @@ const (
 
 // GenSegmentAnything2GenerateResponseResponseBody - Validation Error
 type GenSegmentAnything2GenerateResponseResponseBody struct {
-	HTTPValidationError *components.HTTPValidationError
-	StudioAPIError      *components.StudioAPIError
+	HTTPValidationError *components.HTTPValidationError `queryParam:"inline" name:"responseBody"`
+	StudioAPIError      *components.StudioAPIError      `queryParam:"inline" name:"responseBody"`
 
 	Type GenSegmentAnything2GenerateResponseResponseBodyType
 
@@ -131,14 +131,14 @@ func CreateGenSegmentAnything2GenerateResponseResponseBodyStudioAPIError(studioA
 func (u *GenSegmentAnything2GenerateResponseResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpValidationError components.HTTPValidationError = components.HTTPValidationError{}
-	if err := utils.UnmarshalJSON(data, &httpValidationError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpValidationError, "", true, nil); err == nil {
 		u.HTTPValidationError = &httpValidationError
 		u.Type = GenSegmentAnything2GenerateResponseResponseBodyTypeHTTPValidationError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenSegmentAnything2GenerateResponseResponseBodyTypeStudioAPIError
 		return nil
@@ -181,8 +181,8 @@ const (
 
 // GenSegmentAnything2GenerateResponseBody - Unauthorized
 type GenSegmentAnything2GenerateResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenSegmentAnything2GenerateResponseBodyType
 
@@ -212,14 +212,14 @@ func CreateGenSegmentAnything2GenerateResponseBodyStudioAPIError(studioAPIError 
 func (u *GenSegmentAnything2GenerateResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenSegmentAnything2GenerateResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenSegmentAnything2GenerateResponseBodyTypeStudioAPIError
 		return nil
@@ -262,8 +262,8 @@ const (
 
 // GenSegmentAnything2ResponseBody - Bad Request
 type GenSegmentAnything2ResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline" name:"responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline" name:"responseBody"`
 
 	Type GenSegmentAnything2ResponseBodyType
 
@@ -293,14 +293,14 @@ func CreateGenSegmentAnything2ResponseBodyStudioAPIError(studioAPIError componen
 func (u *GenSegmentAnything2ResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenSegmentAnything2ResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenSegmentAnything2ResponseBodyTypeStudioAPIError
 		return nil

@@ -6,11 +6,11 @@ type NewStreamPayloadRecordingSpec struct {
 	Profiles []TranscodeProfile `json:"profiles,omitempty"`
 }
 
-func (o *NewStreamPayloadRecordingSpec) GetProfiles() []TranscodeProfile {
-	if o == nil {
+func (n *NewStreamPayloadRecordingSpec) GetProfiles() []TranscodeProfile {
+	if n == nil {
 		return nil
 	}
-	return o.Profiles
+	return n.Profiles
 }
 
 type NewStreamPayload struct {
@@ -33,65 +33,65 @@ type NewStreamPayload struct {
 	UserTags map[string]UserTags `json:"userTags,omitempty"`
 }
 
-func (o *NewStreamPayload) GetName() string {
-	if o == nil {
+func (n *NewStreamPayload) GetName() string {
+	if n == nil {
 		return ""
 	}
-	return o.Name
+	return n.Name
 }
 
-func (o *NewStreamPayload) GetPull() *Pull {
-	if o == nil {
+func (n *NewStreamPayload) GetPull() *Pull {
+	if n == nil {
 		return nil
 	}
-	return o.Pull
+	return n.Pull
 }
 
-func (o *NewStreamPayload) GetCreatorID() *InputCreatorID {
-	if o == nil {
+func (n *NewStreamPayload) GetCreatorID() *InputCreatorID {
+	if n == nil {
 		return nil
 	}
-	return o.CreatorID
+	return n.CreatorID
 }
 
-func (o *NewStreamPayload) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
+func (n *NewStreamPayload) GetPlaybackPolicy() *PlaybackPolicy {
+	if n == nil {
 		return nil
 	}
-	return o.PlaybackPolicy
+	return n.PlaybackPolicy
 }
 
-func (o *NewStreamPayload) GetProfiles() []FfmpegProfile {
-	if o == nil {
+func (n *NewStreamPayload) GetProfiles() []FfmpegProfile {
+	if n == nil {
 		return nil
 	}
-	return o.Profiles
+	return n.Profiles
 }
 
-func (o *NewStreamPayload) GetRecord() *bool {
-	if o == nil {
+func (n *NewStreamPayload) GetRecord() *bool {
+	if n == nil {
 		return nil
 	}
-	return o.Record
+	return n.Record
 }
 
-func (o *NewStreamPayload) GetRecordingSpec() *NewStreamPayloadRecordingSpec {
-	if o == nil {
+func (n *NewStreamPayload) GetRecordingSpec() *NewStreamPayloadRecordingSpec {
+	if n == nil {
 		return nil
 	}
-	return o.RecordingSpec
+	return n.RecordingSpec
 }
 
-func (o *NewStreamPayload) GetMultistream() *Multistream {
-	if o == nil {
+func (n *NewStreamPayload) GetMultistream() *Multistream {
+	if n == nil {
 		return nil
 	}
-	return o.Multistream
+	return n.Multistream
 }
 
-func (o *NewStreamPayload) GetUserTags() map[string]UserTags {
-	if o == nil {
+func (n *NewStreamPayload) GetUserTags() map[string]UserTags {
+	if n == nil {
 		return nil
 	}
-	return o.UserTags
+	return n.UserTags
 }

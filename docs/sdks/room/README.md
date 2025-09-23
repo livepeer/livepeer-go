@@ -26,21 +26,23 @@ Create a multiparticipant livestreaming room.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createRoom" method="post" path="/room" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Room.Create(ctx)
     if err != nil {
         log.Fatal(err)
@@ -64,10 +66,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## ~~Get~~
 
@@ -77,21 +78,23 @@ Retrieve a room
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getRoom" method="get" path="/room/{id}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Room.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -116,10 +119,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## ~~Delete~~
 
@@ -129,21 +131,23 @@ Delete a room
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteRoom" method="delete" path="/room/{id}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Room.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -168,10 +172,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## ~~StartEgress~~
 
@@ -183,22 +186,24 @@ This allows you to leverage livestreaming features like recording and HLS output
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="startRoomEgress" method="post" path="/room/{id}/egress" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Room.StartEgress(ctx, "<id>", components.RoomEgressPayload{
         StreamID: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
     })
@@ -226,10 +231,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## ~~StopEgress~~
 
@@ -239,21 +243,23 @@ Stop room RTMP egress
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="stopRoomEgress" method="delete" path="/room/{id}/egress" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Room.StopEgress(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -278,10 +284,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## ~~CreateUser~~
 
@@ -294,26 +299,28 @@ Alternatively the joining token can be used with a custom app.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createRoomUser" method="post" path="/room/{id}/user" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Room.CreateUser(ctx, "<id>", components.RoomUserPayload{
         Name: "name",
-        CanPublish: livepeergo.Bool(true),
-        CanPublishData: livepeergo.Bool(true),
+        CanPublish: livepeergo.Pointer(true),
+        CanPublishData: livepeergo.Pointer(true),
     })
     if err != nil {
         log.Fatal(err)
@@ -339,10 +346,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## ~~GetUser~~
 
@@ -352,22 +358,24 @@ Get user details
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getRoomUser" method="get" path="/room/{id}/user/{userId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Room.GetUser(ctx, "<id>", "<value>")
+    res, err := s.Room.GetUser(ctx, "<id>", "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -392,10 +400,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## ~~UpdateUser~~
 
@@ -405,26 +412,25 @@ Update properties for a user.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateRoomUser" method="put" path="/room/{id}/user/{userId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Room.UpdateUser(ctx, "<id>", "<value>", components.RoomUserUpdatePayload{
-        CanPublish: livepeergo.Bool(true),
-        CanPublishData: livepeergo.Bool(true),
-    })
+    res, err := s.Room.UpdateUser(ctx, "<id>", "<id>", components.RoomUserUpdatePayload{})
     if err != nil {
         log.Fatal(err)
     }
@@ -450,10 +456,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## ~~DeleteUser~~
 
@@ -463,22 +468,24 @@ Remove a user from the room
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteRoomUser" method="delete" path="/room/{id}/user/{userId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Room.DeleteUser(ctx, "<id>", "<value>")
+    res, err := s.Room.DeleteUser(ctx, "<id>", "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -503,6 +510,6 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |

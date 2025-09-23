@@ -16,37 +16,37 @@ type UsageMetric struct {
 	StorageUsageMins *float64 `json:"StorageUsageMins,omitempty"`
 }
 
-func (o *UsageMetric) GetUserID() *string {
-	if o == nil {
+func (u *UsageMetric) GetUserID() *string {
+	if u == nil {
 		return nil
 	}
-	return o.UserID
+	return u.UserID
 }
 
-func (o *UsageMetric) GetCreatorID() *string {
-	if o == nil {
+func (u *UsageMetric) GetCreatorID() *string {
+	if u == nil {
 		return nil
 	}
-	return o.CreatorID
+	return u.CreatorID
 }
 
-func (o *UsageMetric) GetDeliveryUsageMins() *float64 {
-	if o == nil {
+func (u *UsageMetric) GetDeliveryUsageMins() *float64 {
+	if u == nil {
 		return nil
 	}
-	return o.DeliveryUsageMins
+	return u.DeliveryUsageMins
 }
 
-func (o *UsageMetric) GetTotalUsageMins() *float64 {
-	if o == nil {
+func (u *UsageMetric) GetTotalUsageMins() *float64 {
+	if u == nil {
 		return nil
 	}
-	return o.TotalUsageMins
+	return u.TotalUsageMins
 }
 
-func (o *UsageMetric) GetStorageUsageMins() *float64 {
-	if o == nil {
+func (u *UsageMetric) GetStorageUsageMins() *float64 {
+	if u == nil {
 		return nil
 	}
-	return o.StorageUsageMins
+	return u.StorageUsageMins
 }

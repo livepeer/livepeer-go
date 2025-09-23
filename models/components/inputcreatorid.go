@@ -37,18 +37,29 @@ type InputCreatorID1 struct {
 	Value string             `json:"value"`
 }
 
-func (o *InputCreatorID1) GetType() InputCreatorIDType {
-	if o == nil {
-		return InputCreatorIDType("")
-	}
-	return o.Type
+func (i InputCreatorID1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (o *InputCreatorID1) GetValue() string {
-	if o == nil {
+func (i *InputCreatorID1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCreatorID1) GetType() InputCreatorIDType {
+	if i == nil {
+		return InputCreatorIDType("")
+	}
+	return i.Type
+}
+
+func (i *InputCreatorID1) GetValue() string {
+	if i == nil {
 		return ""
 	}
-	return o.Value
+	return i.Value
 }
 
 type InputCreatorIDUnionType string
@@ -59,8 +70,8 @@ const (
 )
 
 type InputCreatorID struct {
-	InputCreatorID1 *InputCreatorID1
-	Str             *string
+	InputCreatorID1 *InputCreatorID1 `queryParam:"inline" name:"input_creator_id"`
+	Str             *string          `queryParam:"inline" name:"input_creator_id"`
 
 	Type InputCreatorIDUnionType
 }
@@ -86,14 +97,14 @@ func CreateInputCreatorIDStr(str string) InputCreatorID {
 func (u *InputCreatorID) UnmarshalJSON(data []byte) error {
 
 	var inputCreatorID1 InputCreatorID1 = InputCreatorID1{}
-	if err := utils.UnmarshalJSON(data, &inputCreatorID1, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &inputCreatorID1, "", true, nil); err == nil {
 		u.InputCreatorID1 = &inputCreatorID1
 		u.Type = InputCreatorIDUnionTypeInputCreatorID1
 		return nil
 	}
 
 	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		u.Str = &str
 		u.Type = InputCreatorIDUnionTypeStr
 		return nil

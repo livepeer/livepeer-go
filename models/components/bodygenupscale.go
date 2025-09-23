@@ -7,30 +7,30 @@ import (
 )
 
 type BodyGenUpscaleImage struct {
-	FileName string `multipartForm:"name=image"`
+	FileName string `multipartForm:"name=fileName"`
 	// This field accepts []byte data or io.Reader implementations, such as *os.File.
 	Content any `multipartForm:"content"`
 }
 
-func (o *BodyGenUpscaleImage) GetFileName() string {
-	if o == nil {
+func (b *BodyGenUpscaleImage) GetFileName() string {
+	if b == nil {
 		return ""
 	}
-	return o.FileName
+	return b.FileName
 }
 
-func (o *BodyGenUpscaleImage) GetContent() any {
-	if o == nil {
+func (b *BodyGenUpscaleImage) GetContent() any {
+	if b == nil {
 		return nil
 	}
-	return o.Content
+	return b.Content
 }
 
 type BodyGenUpscale struct {
 	// Text prompt(s) to guide upscaled image generation.
 	Prompt string `multipartForm:"name=prompt"`
 	// Uploaded image to modify with the pipeline.
-	Image BodyGenUpscaleImage `multipartForm:"file"`
+	Image BodyGenUpscaleImage `multipartForm:"file,name=image"`
 	// Hugging Face model ID used for upscaled image generation.
 	ModelID *string `default:"stabilityai/stable-diffusion-x4-upscaler" multipartForm:"name=model_id"`
 	// Perform a safety check to estimate if generated images could be offensive or harmful.
@@ -46,50 +46,50 @@ func (b BodyGenUpscale) MarshalJSON() ([]byte, error) {
 }
 
 func (b *BodyGenUpscale) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &b, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &b, "", false, []string{"prompt", "image"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *BodyGenUpscale) GetPrompt() string {
-	if o == nil {
+func (b *BodyGenUpscale) GetPrompt() string {
+	if b == nil {
 		return ""
 	}
-	return o.Prompt
+	return b.Prompt
 }
 
-func (o *BodyGenUpscale) GetImage() BodyGenUpscaleImage {
-	if o == nil {
+func (b *BodyGenUpscale) GetImage() BodyGenUpscaleImage {
+	if b == nil {
 		return BodyGenUpscaleImage{}
 	}
-	return o.Image
+	return b.Image
 }
 
-func (o *BodyGenUpscale) GetModelID() *string {
-	if o == nil {
+func (b *BodyGenUpscale) GetModelID() *string {
+	if b == nil {
 		return nil
 	}
-	return o.ModelID
+	return b.ModelID
 }
 
-func (o *BodyGenUpscale) GetSafetyCheck() *bool {
-	if o == nil {
+func (b *BodyGenUpscale) GetSafetyCheck() *bool {
+	if b == nil {
 		return nil
 	}
-	return o.SafetyCheck
+	return b.SafetyCheck
 }
 
-func (o *BodyGenUpscale) GetSeed() *int64 {
-	if o == nil {
+func (b *BodyGenUpscale) GetSeed() *int64 {
+	if b == nil {
 		return nil
 	}
-	return o.Seed
+	return b.Seed
 }
 
-func (o *BodyGenUpscale) GetNumInferenceSteps() *int64 {
-	if o == nil {
+func (b *BodyGenUpscale) GetNumInferenceSteps() *int64 {
+	if b == nil {
 		return nil
 	}
-	return o.NumInferenceSteps
+	return b.NumInferenceSteps
 }

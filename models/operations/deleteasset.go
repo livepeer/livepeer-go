@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type DeleteAssetRequest struct {
@@ -12,29 +11,29 @@ type DeleteAssetRequest struct {
 	AssetID string `pathParam:"style=simple,explode=false,name=assetId"`
 }
 
-func (o *DeleteAssetRequest) GetAssetID() string {
-	if o == nil {
+func (d *DeleteAssetRequest) GetAssetID() string {
+	if d == nil {
 		return ""
 	}
-	return o.AssetID
+	return d.AssetID
 }
 
 type DeleteAssetResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *DeleteAssetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeleteAssetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeleteAssetResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (d *DeleteAssetResponse) GetError() *components.Error {
+	if d == nil {
 		return nil
 	}
-	return o.Error
+	return d.Error
 }

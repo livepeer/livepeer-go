@@ -9,9 +9,9 @@ type Multistream struct {
 	Targets []Target `json:"targets,omitempty"`
 }
 
-func (o *Multistream) GetTargets() []Target {
-	if o == nil {
+func (m *Multistream) GetTargets() []Target {
+	if m == nil {
 		return nil
 	}
-	return o.Targets
+	return m.Targets
 }

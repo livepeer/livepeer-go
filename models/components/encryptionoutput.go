@@ -2,5 +2,20 @@
 
 package components
 
+import (
+	"github.com/livepeer/livepeer-go/internal/utils"
+)
+
 type EncryptionOutput struct {
+}
+
+func (e EncryptionOutput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EncryptionOutput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }

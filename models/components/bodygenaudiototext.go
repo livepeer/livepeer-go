@@ -7,30 +7,32 @@ import (
 )
 
 type Audio struct {
-	FileName string `multipartForm:"name=audio"`
+	FileName string `multipartForm:"name=fileName"`
 	// This field accepts []byte data or io.Reader implementations, such as *os.File.
 	Content any `multipartForm:"content"`
 }
 
-func (o *Audio) GetFileName() string {
-	if o == nil {
+func (a *Audio) GetFileName() string {
+	if a == nil {
 		return ""
 	}
-	return o.FileName
+	return a.FileName
 }
 
-func (o *Audio) GetContent() any {
-	if o == nil {
+func (a *Audio) GetContent() any {
+	if a == nil {
 		return nil
 	}
-	return o.Content
+	return a.Content
 }
 
 type BodyGenAudioToText struct {
 	// Uploaded audio file to be transcribed.
-	Audio Audio `multipartForm:"file"`
+	Audio Audio `multipartForm:"file,name=audio"`
 	// Hugging Face model ID used for transcription.
 	ModelID *string `default:"openai/whisper-large-v3" multipartForm:"name=model_id"`
+	// Return timestamps for the transcribed text. Supported values: 'sentence', 'word', or a string boolean ('true' or 'false'). Default is 'true' ('sentence'). 'false' means no timestamps. 'word' means word-based timestamps.
+	ReturnTimestamps *string `default:"true" multipartForm:"name=return_timestamps"`
 }
 
 func (b BodyGenAudioToText) MarshalJSON() ([]byte, error) {
@@ -38,22 +40,29 @@ func (b BodyGenAudioToText) MarshalJSON() ([]byte, error) {
 }
 
 func (b *BodyGenAudioToText) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &b, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &b, "", false, []string{"audio"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *BodyGenAudioToText) GetAudio() Audio {
-	if o == nil {
+func (b *BodyGenAudioToText) GetAudio() Audio {
+	if b == nil {
 		return Audio{}
 	}
-	return o.Audio
+	return b.Audio
 }
 
-func (o *BodyGenAudioToText) GetModelID() *string {
-	if o == nil {
+func (b *BodyGenAudioToText) GetModelID() *string {
+	if b == nil {
 		return nil
 	}
-	return o.ModelID
+	return b.ModelID
+}
+
+func (b *BodyGenAudioToText) GetReturnTimestamps() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ReturnTimestamps
 }

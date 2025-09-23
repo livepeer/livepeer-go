@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type StartRoomEgressRequest struct {
@@ -12,36 +11,36 @@ type StartRoomEgressRequest struct {
 	RoomEgressPayload components.RoomEgressPayload `request:"mediaType=application/json"`
 }
 
-func (o *StartRoomEgressRequest) GetID() string {
-	if o == nil {
+func (s *StartRoomEgressRequest) GetID() string {
+	if s == nil {
 		return ""
 	}
-	return o.ID
+	return s.ID
 }
 
-func (o *StartRoomEgressRequest) GetRoomEgressPayload() components.RoomEgressPayload {
-	if o == nil {
+func (s *StartRoomEgressRequest) GetRoomEgressPayload() components.RoomEgressPayload {
+	if s == nil {
 		return components.RoomEgressPayload{}
 	}
-	return o.RoomEgressPayload
+	return s.RoomEgressPayload
 }
 
 type StartRoomEgressResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *StartRoomEgressResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (s *StartRoomEgressResponse) GetHTTPMeta() components.HTTPMetadata {
+	if s == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return s.HTTPMeta
 }
 
-func (o *StartRoomEgressResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (s *StartRoomEgressResponse) GetError() *components.Error {
+	if s == nil {
 		return nil
 	}
-	return o.Error
+	return s.Error
 }

@@ -11,23 +11,23 @@ type IpfsFileInfo struct {
 	GatewayURL *string `json:"gatewayUrl,omitempty"`
 }
 
-func (o *IpfsFileInfo) GetCid() string {
-	if o == nil {
+func (i *IpfsFileInfo) GetCid() string {
+	if i == nil {
 		return ""
 	}
-	return o.Cid
+	return i.Cid
 }
 
-func (o *IpfsFileInfo) GetURL() *string {
-	if o == nil {
+func (i *IpfsFileInfo) GetURL() *string {
+	if i == nil {
 		return nil
 	}
-	return o.URL
+	return i.URL
 }
 
-func (o *IpfsFileInfo) GetGatewayURL() *string {
-	if o == nil {
+func (i *IpfsFileInfo) GetGatewayURL() *string {
+	if i == nil {
 		return nil
 	}
-	return o.GatewayURL
+	return i.GatewayURL
 }

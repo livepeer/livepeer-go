@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"github.com/livepeer/livepeer-go/internal/utils"
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 	"time"
 )
 
@@ -21,8 +20,8 @@ const (
 
 // From - Start timestamp for the query range (inclusive)
 type From struct {
-	DateTime *time.Time
-	Integer  *int64
+	DateTime *time.Time `queryParam:"inline" name:"from"`
+	Integer  *int64     `queryParam:"inline" name:"from"`
 
 	Type FromType
 }
@@ -48,14 +47,14 @@ func CreateFromInteger(integer int64) From {
 func (u *From) UnmarshalJSON(data []byte) error {
 
 	var dateTime time.Time = time.Time{}
-	if err := utils.UnmarshalJSON(data, &dateTime, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &dateTime, "", true, nil); err == nil {
 		u.DateTime = &dateTime
 		u.Type = FromTypeDateTime
 		return nil
 	}
 
 	var integer int64 = int64(0)
-	if err := utils.UnmarshalJSON(data, &integer, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &integer, "", true, nil); err == nil {
 		u.Integer = &integer
 		u.Type = FromTypeInteger
 		return nil
@@ -85,8 +84,8 @@ const (
 
 // To - End timestamp for the query range (exclusive)
 type To struct {
-	DateTime *time.Time
-	Integer  *int64
+	DateTime *time.Time `queryParam:"inline" name:"to"`
+	Integer  *int64     `queryParam:"inline" name:"to"`
 
 	Type ToType
 }
@@ -112,14 +111,14 @@ func CreateToInteger(integer int64) To {
 func (u *To) UnmarshalJSON(data []byte) error {
 
 	var dateTime time.Time = time.Time{}
-	if err := utils.UnmarshalJSON(data, &dateTime, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &dateTime, "", true, nil); err == nil {
 		u.DateTime = &dateTime
 		u.Type = ToTypeDateTime
 		return nil
 	}
 
 	var integer int64 = int64(0)
-	if err := utils.UnmarshalJSON(data, &integer, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &integer, "", true, nil); err == nil {
 		u.Integer = &integer
 		u.Type = ToTypeInteger
 		return nil
@@ -262,60 +261,60 @@ type GetViewershipMetricsRequest struct {
 	BreakdownBy []QueryParamBreakdownBy `queryParam:"style=form,explode=true,name=breakdownBy[]"`
 }
 
-func (o *GetViewershipMetricsRequest) GetPlaybackID() *string {
-	if o == nil {
+func (g *GetViewershipMetricsRequest) GetPlaybackID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.PlaybackID
+	return g.PlaybackID
 }
 
-func (o *GetViewershipMetricsRequest) GetFrom() *From {
-	if o == nil {
+func (g *GetViewershipMetricsRequest) GetFrom() *From {
+	if g == nil {
 		return nil
 	}
-	return o.From
+	return g.From
 }
 
-func (o *GetViewershipMetricsRequest) GetTo() *To {
-	if o == nil {
+func (g *GetViewershipMetricsRequest) GetTo() *To {
+	if g == nil {
 		return nil
 	}
-	return o.To
+	return g.To
 }
 
-func (o *GetViewershipMetricsRequest) GetTimeStep() *TimeStep {
-	if o == nil {
+func (g *GetViewershipMetricsRequest) GetTimeStep() *TimeStep {
+	if g == nil {
 		return nil
 	}
-	return o.TimeStep
+	return g.TimeStep
 }
 
-func (o *GetViewershipMetricsRequest) GetAssetID() *string {
-	if o == nil {
+func (g *GetViewershipMetricsRequest) GetAssetID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.AssetID
+	return g.AssetID
 }
 
-func (o *GetViewershipMetricsRequest) GetStreamID() *string {
-	if o == nil {
+func (g *GetViewershipMetricsRequest) GetStreamID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.StreamID
+	return g.StreamID
 }
 
-func (o *GetViewershipMetricsRequest) GetCreatorID() *string {
-	if o == nil {
+func (g *GetViewershipMetricsRequest) GetCreatorID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.CreatorID
+	return g.CreatorID
 }
 
-func (o *GetViewershipMetricsRequest) GetBreakdownBy() []QueryParamBreakdownBy {
-	if o == nil {
+func (g *GetViewershipMetricsRequest) GetBreakdownBy() []QueryParamBreakdownBy {
+	if g == nil {
 		return nil
 	}
-	return o.BreakdownBy
+	return g.BreakdownBy
 }
 
 type GetViewershipMetricsResponse struct {
@@ -323,26 +322,26 @@ type GetViewershipMetricsResponse struct {
 	// A list of Metric objects
 	Data []components.ViewershipMetric
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetViewershipMetricsResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetViewershipMetricsResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetViewershipMetricsResponse) GetData() []components.ViewershipMetric {
-	if o == nil {
+func (g *GetViewershipMetricsResponse) GetData() []components.ViewershipMetric {
+	if g == nil {
 		return nil
 	}
-	return o.Data
+	return g.Data
 }
 
-func (o *GetViewershipMetricsResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetViewershipMetricsResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

@@ -38,22 +38,24 @@ also be added upon the creation of a new stream by adding
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createStream" method="post" path="/stream" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Stream.Create(ctx, components.NewStreamPayload{
         Name: "test_stream",
         Pull: &components.Pull{
@@ -68,37 +70,25 @@ func main() {
         },
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypeWebhook,
-            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+            WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
             WebhookContext: map[string]any{
                 "streamerId": "my-custom-id",
             },
-            RefreshInterval: livepeergo.Float64(600),
+            RefreshInterval: livepeergo.Pointer[float64](600),
         },
-        Profiles: []components.FfmpegProfile{
-            components.FfmpegProfile{
-                Width: 1280,
-                Name: "720p",
-                Height: 720,
-                Bitrate: 3000000,
-                Fps: 30,
-                FpsDen: livepeergo.Int64(1),
-                Quality: livepeergo.Int64(23),
-                Gop: livepeergo.String("2"),
-                Profile: components.ProfileH264Baseline.ToPointer(),
-            },
-        },
-        Record: livepeergo.Bool(false),
+        Profiles: []components.FfmpegProfile{},
+        Record: livepeergo.Pointer(false),
         RecordingSpec: &components.NewStreamPayloadRecordingSpec{
             Profiles: []components.TranscodeProfile{
                 components.TranscodeProfile{
-                    Width: livepeergo.Int64(1280),
-                    Name: livepeergo.String("720p"),
-                    Height: livepeergo.Int64(720),
+                    Width: livepeergo.Pointer[int64](1280),
+                    Name: livepeergo.Pointer("720p"),
+                    Height: livepeergo.Pointer[int64](720),
                     Bitrate: 3000000,
-                    Quality: livepeergo.Int64(23),
-                    Fps: livepeergo.Int64(30),
-                    FpsDen: livepeergo.Int64(1),
-                    Gop: livepeergo.String("2"),
+                    Quality: livepeergo.Pointer[int64](23),
+                    Fps: livepeergo.Pointer[int64](30),
+                    FpsDen: livepeergo.Pointer[int64](1),
+                    Gop: livepeergo.Pointer("2"),
                     Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
                     Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
                 },
@@ -108,12 +98,7 @@ func main() {
             Targets: []components.Target{
                 components.Target{
                     Profile: "720p",
-                    VideoOnly: livepeergo.Bool(false),
-                    ID: livepeergo.String("PUSH123"),
-                    Spec: &components.TargetSpec{
-                        Name: livepeergo.String("My target"),
-                        URL: "rtmps://live.my-service.tv/channel/secretKey",
-                    },
+                    ID: livepeergo.Pointer("PUSH123"),
                 },
             },
         },
@@ -141,10 +126,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## GetAll
 
@@ -152,21 +136,23 @@ Retrieve streams
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getStreams" method="get" path="/stream" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Stream.GetAll(ctx, nil)
     if err != nil {
         log.Fatal(err)
@@ -191,10 +177,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Get
 
@@ -202,21 +187,23 @@ Retrieve a stream
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getStream" method="get" path="/stream/{id}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Stream.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -241,10 +228,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Update
 
@@ -252,74 +238,60 @@ Update a stream
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateStream" method="patch" path="/stream/{id}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Stream.Update(ctx, "<id>", components.StreamPatchPayload{
-        Record: livepeergo.Bool(false),
+        Record: livepeergo.Pointer(false),
         Multistream: &components.Multistream{
             Targets: []components.Target{
                 components.Target{
                     Profile: "720p",
-                    VideoOnly: livepeergo.Bool(false),
-                    ID: livepeergo.String("PUSH123"),
-                    Spec: &components.TargetSpec{
-                        Name: livepeergo.String("My target"),
-                        URL: "rtmps://live.my-service.tv/channel/secretKey",
-                    },
+                    ID: livepeergo.Pointer("PUSH123"),
                 },
             },
         },
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypeWebhook,
-            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+            WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
             WebhookContext: map[string]any{
                 "streamerId": "my-custom-id",
             },
-            RefreshInterval: livepeergo.Float64(600),
+            RefreshInterval: livepeergo.Pointer[float64](600),
         },
-        Profiles: []components.FfmpegProfile{
-            components.FfmpegProfile{
-                Width: 1280,
-                Name: "720p",
-                Height: 720,
-                Bitrate: 3000000,
-                Fps: 30,
-                FpsDen: livepeergo.Int64(1),
-                Quality: livepeergo.Int64(23),
-                Gop: livepeergo.String("2"),
-                Profile: components.ProfileH264Baseline.ToPointer(),
-            },
-        },
+        Profiles: nil,
         RecordingSpec: &components.RecordingSpec{
             Profiles: []components.TranscodeProfile{
                 components.TranscodeProfile{
-                    Width: livepeergo.Int64(1280),
-                    Name: livepeergo.String("720p"),
-                    Height: livepeergo.Int64(720),
+                    Width: livepeergo.Pointer[int64](1280),
+                    Name: livepeergo.Pointer("720p"),
+                    Height: livepeergo.Pointer[int64](720),
                     Bitrate: 3000000,
-                    Quality: livepeergo.Int64(23),
-                    Fps: livepeergo.Int64(30),
-                    FpsDen: livepeergo.Int64(1),
-                    Gop: livepeergo.String("2"),
+                    Quality: livepeergo.Pointer[int64](23),
+                    Fps: livepeergo.Pointer[int64](30),
+                    FpsDen: livepeergo.Pointer[int64](1),
+                    Gop: livepeergo.Pointer("2"),
                     Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
                     Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
                 },
             },
         },
+        Name: livepeergo.Pointer("test_stream"),
     })
     if err != nil {
         log.Fatal(err)
@@ -345,10 +317,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Delete
 
@@ -360,21 +331,23 @@ using the PATCH stream API.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteStream" method="delete" path="/stream/{id}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Stream.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -399,10 +372,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Terminate
 
@@ -418,21 +390,23 @@ terminated.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="terminateStream" method="delete" path="/stream/{id}/terminate" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Stream.Terminate(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -457,10 +431,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## StartPull
 
@@ -475,21 +448,23 @@ started.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="startPullStream" method="post" path="/stream/{id}/start-pull" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Stream.StartPull(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -514,10 +489,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## CreateClip
 
@@ -525,28 +499,30 @@ Create a clip
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createClip" method="post" path="/clip" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Stream.CreateClip(ctx, components.ClipPayload{
         PlaybackID: "eaw4nk06ts2d0mzb",
         StartTime: 1587667174725,
-        EndTime: livepeergo.Float64(1587667174725),
-        Name: livepeergo.String("My Clip"),
-        SessionID: livepeergo.String("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
+        EndTime: livepeergo.Pointer[float64](1587667174725),
+        Name: livepeergo.Pointer("My Clip"),
+        SessionID: livepeergo.Pointer("de7818e7-610a-4057-8f6f-b785dc1e6f88"),
     })
     if err != nil {
         log.Fatal(err)
@@ -571,10 +547,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## GetClips
 
@@ -582,21 +557,23 @@ Retrieve clips of a livestream
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getClips" method="get" path="/stream/{id}/clips" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Stream.GetClips(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
@@ -621,10 +598,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## AddMultistreamTarget
 
@@ -632,28 +608,29 @@ Add a multistream target
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="addMultistreamTarget" method="post" path="/stream/{id}/create-multistream-target" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Stream.AddMultistreamTarget(ctx, "<id>", components.TargetAddPayload{
         Profile: "720p0",
-        VideoOnly: livepeergo.Bool(false),
-        ID: livepeergo.String("PUSH123"),
+        ID: livepeergo.Pointer("PUSH123"),
         Spec: &components.TargetAddPayloadSpec{
-            Name: livepeergo.String("My target"),
+            Name: livepeergo.Pointer("My target"),
             URL: "rtmps://live.my-service.tv/channel/secretKey",
         },
     })
@@ -681,10 +658,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## RemoveMultistreamTarget
 
@@ -692,22 +668,24 @@ Remove a multistream target
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="removeMultistreamTarget" method="delete" path="/stream/{id}/multistream/{targetId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Stream.RemoveMultistreamTarget(ctx, "<id>", "<value>")
+    res, err := s.Stream.RemoveMultistreamTarget(ctx, "<id>", "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -732,6 +710,6 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |

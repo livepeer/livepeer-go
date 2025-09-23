@@ -87,72 +87,72 @@ type TranscodeProfile struct {
 	Encoder *TranscodeProfileEncoder `json:"encoder,omitempty"`
 }
 
-func (o *TranscodeProfile) GetWidth() *int64 {
-	if o == nil {
+func (t *TranscodeProfile) GetWidth() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.Width
+	return t.Width
 }
 
-func (o *TranscodeProfile) GetName() *string {
-	if o == nil {
+func (t *TranscodeProfile) GetName() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Name
+	return t.Name
 }
 
-func (o *TranscodeProfile) GetHeight() *int64 {
-	if o == nil {
+func (t *TranscodeProfile) GetHeight() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.Height
+	return t.Height
 }
 
-func (o *TranscodeProfile) GetBitrate() int64 {
-	if o == nil {
+func (t *TranscodeProfile) GetBitrate() int64 {
+	if t == nil {
 		return 0
 	}
-	return o.Bitrate
+	return t.Bitrate
 }
 
-func (o *TranscodeProfile) GetQuality() *int64 {
-	if o == nil {
+func (t *TranscodeProfile) GetQuality() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.Quality
+	return t.Quality
 }
 
-func (o *TranscodeProfile) GetFps() *int64 {
-	if o == nil {
+func (t *TranscodeProfile) GetFps() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.Fps
+	return t.Fps
 }
 
-func (o *TranscodeProfile) GetFpsDen() *int64 {
-	if o == nil {
+func (t *TranscodeProfile) GetFpsDen() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.FpsDen
+	return t.FpsDen
 }
 
-func (o *TranscodeProfile) GetGop() *string {
-	if o == nil {
+func (t *TranscodeProfile) GetGop() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Gop
+	return t.Gop
 }
 
-func (o *TranscodeProfile) GetProfile() *TranscodeProfileProfile {
-	if o == nil {
+func (t *TranscodeProfile) GetProfile() *TranscodeProfileProfile {
+	if t == nil {
 		return nil
 	}
-	return o.Profile
+	return t.Profile
 }
 
-func (o *TranscodeProfile) GetEncoder() *TranscodeProfileEncoder {
-	if o == nil {
+func (t *TranscodeProfile) GetEncoder() *TranscodeProfileEncoder {
+	if t == nil {
 		return nil
 	}
-	return o.Encoder
+	return t.Encoder
 }

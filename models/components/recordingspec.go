@@ -6,9 +6,9 @@ type RecordingSpec struct {
 	Profiles []TranscodeProfile `json:"profiles,omitempty"`
 }
 
-func (o *RecordingSpec) GetProfiles() []TranscodeProfile {
-	if o == nil {
+func (r *RecordingSpec) GetProfiles() []TranscodeProfile {
+	if r == nil {
 		return nil
 	}
-	return o.Profiles
+	return r.Profiles
 }

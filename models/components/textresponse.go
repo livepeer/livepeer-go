@@ -10,16 +10,16 @@ type TextResponse struct {
 	Chunks []Chunk `json:"chunks"`
 }
 
-func (o *TextResponse) GetText() string {
-	if o == nil {
+func (t *TextResponse) GetText() string {
+	if t == nil {
 		return ""
 	}
-	return o.Text
+	return t.Text
 }
 
-func (o *TextResponse) GetChunks() []Chunk {
-	if o == nil {
+func (t *TextResponse) GetChunks() []Chunk {
+	if t == nil {
 		return []Chunk{}
 	}
-	return o.Chunks
+	return t.Chunks
 }

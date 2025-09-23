@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetStreamRequest struct {
@@ -12,11 +11,11 @@ type GetStreamRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetStreamRequest) GetID() string {
-	if o == nil {
+func (g *GetStreamRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 type GetStreamResponse struct {
@@ -24,26 +23,26 @@ type GetStreamResponse struct {
 	// Success
 	Stream *components.Stream
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetStreamResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetStreamResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetStreamResponse) GetStream() *components.Stream {
-	if o == nil {
+func (g *GetStreamResponse) GetStream() *components.Stream {
+	if g == nil {
 		return nil
 	}
-	return o.Stream
+	return g.Stream
 }
 
-func (o *GetStreamResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetStreamResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

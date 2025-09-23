@@ -6,9 +6,9 @@ type Security struct {
 	APIKey string `security:"scheme,type=http,subtype=bearer,name=Authorization"`
 }
 
-func (o *Security) GetAPIKey() string {
-	if o == nil {
+func (s *Security) GetAPIKey() string {
+	if s == nil {
 		return ""
 	}
-	return o.APIKey
+	return s.APIKey
 }

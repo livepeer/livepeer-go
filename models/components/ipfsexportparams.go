@@ -13,14 +13,36 @@ type Pinata2 struct {
 	APIKey string `json:"apiKey"`
 }
 
-func (o *Pinata2) GetAPIKey() string {
-	if o == nil {
+func (p Pinata2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *Pinata2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"apiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *Pinata2) GetAPIKey() string {
+	if p == nil {
 		return ""
 	}
-	return o.APIKey
+	return p.APIKey
 }
 
 type Pinata1 struct {
+}
+
+func (p Pinata1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *Pinata1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 type PinataType string
@@ -33,8 +55,8 @@ const (
 // Pinata - Custom credentials for the Piñata service. Must have either
 // a JWT or an API key and an API secret.
 type Pinata struct {
-	Pinata1 *Pinata1
-	Pinata2 *Pinata2
+	Pinata1 *Pinata1 `queryParam:"inline" name:"pinata"`
+	Pinata2 *Pinata2 `queryParam:"inline" name:"pinata"`
 
 	Type PinataType
 }
@@ -59,17 +81,17 @@ func CreatePinataPinata2(pinata2 Pinata2) Pinata {
 
 func (u *Pinata) UnmarshalJSON(data []byte) error {
 
-	var pinata1 Pinata1 = Pinata1{}
-	if err := utils.UnmarshalJSON(data, &pinata1, "", true, true); err == nil {
-		u.Pinata1 = &pinata1
-		u.Type = PinataTypePinata1
+	var pinata2 Pinata2 = Pinata2{}
+	if err := utils.UnmarshalJSON(data, &pinata2, "", true, nil); err == nil {
+		u.Pinata2 = &pinata2
+		u.Type = PinataTypePinata2
 		return nil
 	}
 
-	var pinata2 Pinata2 = Pinata2{}
-	if err := utils.UnmarshalJSON(data, &pinata2, "", true, true); err == nil {
-		u.Pinata2 = &pinata2
-		u.Type = PinataTypePinata2
+	var pinata1 Pinata1 = Pinata1{}
+	if err := utils.UnmarshalJSON(data, &pinata1, "", true, nil); err == nil {
+		u.Pinata1 = &pinata1
+		u.Type = PinataTypePinata1
 		return nil
 	}
 
@@ -96,16 +118,27 @@ type IpfsExportParams struct {
 	Pinata *Pinata `json:"pinata,omitempty"`
 }
 
-func (o *IpfsExportParams) GetDollarRef() any {
-	if o == nil {
-		return nil
-	}
-	return o.DollarRef
+func (i IpfsExportParams) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (o *IpfsExportParams) GetPinata() *Pinata {
-	if o == nil {
+func (i *IpfsExportParams) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *IpfsExportParams) GetDollarRef() any {
+	if i == nil {
 		return nil
 	}
-	return o.Pinata
+	return i.DollarRef
+}
+
+func (i *IpfsExportParams) GetPinata() *Pinata {
+	if i == nil {
+		return nil
+	}
+	return i.Pinata
 }

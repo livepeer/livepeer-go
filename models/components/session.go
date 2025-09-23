@@ -45,9 +45,9 @@ func (e *RecordingStatus) UnmarshalJSON(data []byte) error {
 
 type Session struct {
 	ID *string `json:"id,omitempty"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Kind *string `json:"kind,omitempty"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	UserID             *string  `json:"userId,omitempty"`
 	Name               string   `json:"name"`
 	LastSeen           *float64 `json:"lastSeen,omitempty"`
@@ -95,177 +95,177 @@ type Session struct {
 	RecordingSpec *RecordingSpec `json:"recordingSpec,omitempty"`
 }
 
-func (o *Session) GetID() *string {
-	if o == nil {
+func (s *Session) GetID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.ID
+	return s.ID
 }
 
-func (o *Session) GetKind() *string {
-	if o == nil {
+func (s *Session) GetKind() *string {
+	if s == nil {
 		return nil
 	}
-	return o.Kind
+	return s.Kind
 }
 
-func (o *Session) GetUserID() *string {
-	if o == nil {
+func (s *Session) GetUserID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.UserID
+	return s.UserID
 }
 
-func (o *Session) GetName() string {
-	if o == nil {
+func (s *Session) GetName() string {
+	if s == nil {
 		return ""
 	}
-	return o.Name
+	return s.Name
 }
 
-func (o *Session) GetLastSeen() *float64 {
-	if o == nil {
+func (s *Session) GetLastSeen() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.LastSeen
+	return s.LastSeen
 }
 
-func (o *Session) GetSourceSegments() *float64 {
-	if o == nil {
+func (s *Session) GetSourceSegments() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.SourceSegments
+	return s.SourceSegments
 }
 
-func (o *Session) GetTranscodedSegments() *float64 {
-	if o == nil {
+func (s *Session) GetTranscodedSegments() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.TranscodedSegments
+	return s.TranscodedSegments
 }
 
-func (o *Session) GetSourceSegmentsDuration() *float64 {
-	if o == nil {
+func (s *Session) GetSourceSegmentsDuration() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.SourceSegmentsDuration
+	return s.SourceSegmentsDuration
 }
 
-func (o *Session) GetTranscodedSegmentsDuration() *float64 {
-	if o == nil {
+func (s *Session) GetTranscodedSegmentsDuration() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.TranscodedSegmentsDuration
+	return s.TranscodedSegmentsDuration
 }
 
-func (o *Session) GetSourceBytes() *float64 {
-	if o == nil {
+func (s *Session) GetSourceBytes() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.SourceBytes
+	return s.SourceBytes
 }
 
-func (o *Session) GetTranscodedBytes() *float64 {
-	if o == nil {
+func (s *Session) GetTranscodedBytes() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.TranscodedBytes
+	return s.TranscodedBytes
 }
 
-func (o *Session) GetIngestRate() *float64 {
-	if o == nil {
+func (s *Session) GetIngestRate() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.IngestRate
+	return s.IngestRate
 }
 
-func (o *Session) GetOutgoingRate() *float64 {
-	if o == nil {
+func (s *Session) GetOutgoingRate() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.OutgoingRate
+	return s.OutgoingRate
 }
 
-func (o *Session) GetIsHealthy() *bool {
-	if o == nil {
+func (s *Session) GetIsHealthy() *bool {
+	if s == nil {
 		return nil
 	}
-	return o.IsHealthy
+	return s.IsHealthy
 }
 
-func (o *Session) GetIssues() []string {
-	if o == nil {
+func (s *Session) GetIssues() []string {
+	if s == nil {
 		return nil
 	}
-	return o.Issues
+	return s.Issues
 }
 
-func (o *Session) GetCreatedAt() *float64 {
-	if o == nil {
+func (s *Session) GetCreatedAt() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return s.CreatedAt
 }
 
-func (o *Session) GetParentID() *string {
-	if o == nil {
+func (s *Session) GetParentID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.ParentID
+	return s.ParentID
 }
 
-func (o *Session) GetProjectID() *string {
-	if o == nil {
+func (s *Session) GetProjectID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.ProjectID
+	return s.ProjectID
 }
 
-func (o *Session) GetRecord() *bool {
-	if o == nil {
+func (s *Session) GetRecord() *bool {
+	if s == nil {
 		return nil
 	}
-	return o.Record
+	return s.Record
 }
 
-func (o *Session) GetRecordingStatus() *RecordingStatus {
-	if o == nil {
+func (s *Session) GetRecordingStatus() *RecordingStatus {
+	if s == nil {
 		return nil
 	}
-	return o.RecordingStatus
+	return s.RecordingStatus
 }
 
-func (o *Session) GetRecordingURL() *string {
-	if o == nil {
+func (s *Session) GetRecordingURL() *string {
+	if s == nil {
 		return nil
 	}
-	return o.RecordingURL
+	return s.RecordingURL
 }
 
-func (o *Session) GetMp4URL() *string {
-	if o == nil {
+func (s *Session) GetMp4URL() *string {
+	if s == nil {
 		return nil
 	}
-	return o.Mp4URL
+	return s.Mp4URL
 }
 
-func (o *Session) GetPlaybackID() *string {
-	if o == nil {
+func (s *Session) GetPlaybackID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.PlaybackID
+	return s.PlaybackID
 }
 
-func (o *Session) GetProfiles() []FfmpegProfile {
-	if o == nil {
+func (s *Session) GetProfiles() []FfmpegProfile {
+	if s == nil {
 		return nil
 	}
-	return o.Profiles
+	return s.Profiles
 }
 
-func (o *Session) GetRecordingSpec() *RecordingSpec {
-	if o == nil {
+func (s *Session) GetRecordingSpec() *RecordingSpec {
+	if s == nil {
 		return nil
 	}
-	return o.RecordingSpec
+	return s.RecordingSpec
 }

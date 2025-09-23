@@ -17,8 +17,8 @@ const (
 )
 
 type Three struct {
-	Str    *string
-	Number *float64
+	Str    *string  `queryParam:"inline" name:"three"`
+	Number *float64 `queryParam:"inline" name:"three"`
 
 	Type ThreeType
 }
@@ -44,14 +44,14 @@ func CreateThreeNumber(number float64) Three {
 func (u *Three) UnmarshalJSON(data []byte) error {
 
 	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		u.Str = &str
 		u.Type = ThreeTypeStr
 		return nil
 	}
 
 	var number float64 = float64(0)
-	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
 		u.Number = &number
 		u.Type = ThreeTypeNumber
 		return nil
@@ -81,9 +81,9 @@ const (
 )
 
 type StreamUserTags struct {
-	Str      *string
-	Number   *float64
-	ArrayOf3 []Three
+	Str      *string  `queryParam:"inline" name:"userTags"`
+	Number   *float64 `queryParam:"inline" name:"userTags"`
+	ArrayOf3 []Three  `queryParam:"inline" name:"userTags"`
 
 	Type StreamUserTagsType
 }
@@ -118,21 +118,21 @@ func CreateStreamUserTagsArrayOf3(arrayOf3 []Three) StreamUserTags {
 func (u *StreamUserTags) UnmarshalJSON(data []byte) error {
 
 	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		u.Str = &str
 		u.Type = StreamUserTagsTypeStr
 		return nil
 	}
 
 	var number float64 = float64(0)
-	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
 		u.Number = &number
 		u.Type = StreamUserTagsTypeNumber
 		return nil
 	}
 
 	var arrayOf3 []Three = []Three{}
-	if err := utils.UnmarshalJSON(data, &arrayOf3, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &arrayOf3, "", true, nil); err == nil {
 		u.ArrayOf3 = arrayOf3
 		u.Type = StreamUserTagsTypeArrayOf3
 		return nil
@@ -196,8 +196,8 @@ const (
 
 // StreamIsMobile - Indicates whether the stream will be pulled from a mobile source.
 type StreamIsMobile struct {
-	IsMobile1 *IsMobile1
-	Boolean   *bool
+	IsMobile1 *IsMobile1 `queryParam:"inline" name:"isMobile"`
+	Boolean   *bool      `queryParam:"inline" name:"isMobile"`
 
 	Type StreamIsMobileType
 }
@@ -223,14 +223,14 @@ func CreateStreamIsMobileBoolean(boolean bool) StreamIsMobile {
 func (u *StreamIsMobile) UnmarshalJSON(data []byte) error {
 
 	var isMobile1 IsMobile1 = IsMobile1(0)
-	if err := utils.UnmarshalJSON(data, &isMobile1, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &isMobile1, "", true, nil); err == nil {
 		u.IsMobile1 = &isMobile1
 		u.Type = StreamIsMobileTypeIsMobile1
 		return nil
 	}
 
 	var boolean bool = false
-	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
 		u.Boolean = &boolean
 		u.Type = StreamIsMobileTypeBoolean
 		return nil
@@ -262,18 +262,18 @@ type StreamLocation struct {
 	Lon float64 `json:"lon"`
 }
 
-func (o *StreamLocation) GetLat() float64 {
-	if o == nil {
+func (s *StreamLocation) GetLat() float64 {
+	if s == nil {
 		return 0.0
 	}
-	return o.Lat
+	return s.Lat
 }
 
-func (o *StreamLocation) GetLon() float64 {
-	if o == nil {
+func (s *StreamLocation) GetLon() float64 {
+	if s == nil {
 		return 0.0
 	}
-	return o.Lon
+	return s.Lon
 }
 
 // StreamPull - Configuration for a stream that should be actively pulled from an
@@ -291,32 +291,32 @@ type StreamPull struct {
 	Location *StreamLocation `json:"location,omitempty"`
 }
 
-func (o *StreamPull) GetSource() string {
-	if o == nil {
+func (s *StreamPull) GetSource() string {
+	if s == nil {
 		return ""
 	}
-	return o.Source
+	return s.Source
 }
 
-func (o *StreamPull) GetHeaders() map[string]string {
-	if o == nil {
+func (s *StreamPull) GetHeaders() map[string]string {
+	if s == nil {
 		return nil
 	}
-	return o.Headers
+	return s.Headers
 }
 
-func (o *StreamPull) GetIsMobile() *StreamIsMobile {
-	if o == nil {
+func (s *StreamPull) GetIsMobile() *StreamIsMobile {
+	if s == nil {
 		return nil
 	}
-	return o.IsMobile
+	return s.IsMobile
 }
 
-func (o *StreamPull) GetLocation() *StreamLocation {
-	if o == nil {
+func (s *StreamPull) GetLocation() *StreamLocation {
+	if s == nil {
 		return nil
 	}
-	return o.Location
+	return s.Location
 }
 
 // StreamRecordingSpec - Configuration for recording the stream. This can only be set if
@@ -329,11 +329,11 @@ type StreamRecordingSpec struct {
 	Profiles []TranscodeProfile `json:"profiles,omitempty"`
 }
 
-func (o *StreamRecordingSpec) GetProfiles() []TranscodeProfile {
-	if o == nil {
+func (s *StreamRecordingSpec) GetProfiles() []TranscodeProfile {
+	if s == nil {
 		return nil
 	}
-	return o.Profiles
+	return s.Profiles
 }
 
 type StreamMultistream struct {
@@ -343,11 +343,11 @@ type StreamMultistream struct {
 	Targets []TargetOutput `json:"targets,omitempty"`
 }
 
-func (o *StreamMultistream) GetTargets() []TargetOutput {
-	if o == nil {
+func (s *StreamMultistream) GetTargets() []TargetOutput {
+	if s == nil {
 		return nil
 	}
-	return o.Targets
+	return s.Targets
 }
 
 type Renditions struct {
@@ -356,7 +356,7 @@ type Renditions struct {
 type Stream struct {
 	ID   *string `json:"id,omitempty"`
 	Name string  `json:"name"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Kind      *string    `json:"kind,omitempty"`
 	CreatorID *CreatorID `json:"creatorId,omitempty"`
 	// User input tags associated with the stream
@@ -416,238 +416,238 @@ type Stream struct {
 	Suspended *bool `json:"suspended,omitempty"`
 	// Timestamp (in milliseconds) when the stream was last terminated
 	LastTerminatedAt *float64 `json:"lastTerminatedAt,omitempty"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	UserID     *string     `json:"userId,omitempty"`
 	Renditions *Renditions `json:"renditions,omitempty"`
 }
 
-func (o *Stream) GetID() *string {
-	if o == nil {
+func (s *Stream) GetID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.ID
+	return s.ID
 }
 
-func (o *Stream) GetName() string {
-	if o == nil {
+func (s *Stream) GetName() string {
+	if s == nil {
 		return ""
 	}
-	return o.Name
+	return s.Name
 }
 
-func (o *Stream) GetKind() *string {
-	if o == nil {
+func (s *Stream) GetKind() *string {
+	if s == nil {
 		return nil
 	}
-	return o.Kind
+	return s.Kind
 }
 
-func (o *Stream) GetCreatorID() *CreatorID {
-	if o == nil {
+func (s *Stream) GetCreatorID() *CreatorID {
+	if s == nil {
 		return nil
 	}
-	return o.CreatorID
+	return s.CreatorID
 }
 
-func (o *Stream) GetUserTags() map[string]StreamUserTags {
-	if o == nil {
+func (s *Stream) GetUserTags() map[string]StreamUserTags {
+	if s == nil {
 		return nil
 	}
-	return o.UserTags
+	return s.UserTags
 }
 
-func (o *Stream) GetLastSeen() *float64 {
-	if o == nil {
+func (s *Stream) GetLastSeen() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.LastSeen
+	return s.LastSeen
 }
 
-func (o *Stream) GetSourceSegments() *float64 {
-	if o == nil {
+func (s *Stream) GetSourceSegments() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.SourceSegments
+	return s.SourceSegments
 }
 
-func (o *Stream) GetTranscodedSegments() *float64 {
-	if o == nil {
+func (s *Stream) GetTranscodedSegments() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.TranscodedSegments
+	return s.TranscodedSegments
 }
 
-func (o *Stream) GetSourceSegmentsDuration() *float64 {
-	if o == nil {
+func (s *Stream) GetSourceSegmentsDuration() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.SourceSegmentsDuration
+	return s.SourceSegmentsDuration
 }
 
-func (o *Stream) GetTranscodedSegmentsDuration() *float64 {
-	if o == nil {
+func (s *Stream) GetTranscodedSegmentsDuration() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.TranscodedSegmentsDuration
+	return s.TranscodedSegmentsDuration
 }
 
-func (o *Stream) GetSourceBytes() *float64 {
-	if o == nil {
+func (s *Stream) GetSourceBytes() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.SourceBytes
+	return s.SourceBytes
 }
 
-func (o *Stream) GetTranscodedBytes() *float64 {
-	if o == nil {
+func (s *Stream) GetTranscodedBytes() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.TranscodedBytes
+	return s.TranscodedBytes
 }
 
-func (o *Stream) GetIngestRate() *float64 {
-	if o == nil {
+func (s *Stream) GetIngestRate() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.IngestRate
+	return s.IngestRate
 }
 
-func (o *Stream) GetOutgoingRate() *float64 {
-	if o == nil {
+func (s *Stream) GetOutgoingRate() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.OutgoingRate
+	return s.OutgoingRate
 }
 
-func (o *Stream) GetIsActive() *bool {
-	if o == nil {
+func (s *Stream) GetIsActive() *bool {
+	if s == nil {
 		return nil
 	}
-	return o.IsActive
+	return s.IsActive
 }
 
-func (o *Stream) GetIsHealthy() *bool {
-	if o == nil {
+func (s *Stream) GetIsHealthy() *bool {
+	if s == nil {
 		return nil
 	}
-	return o.IsHealthy
+	return s.IsHealthy
 }
 
-func (o *Stream) GetIssues() []string {
-	if o == nil {
+func (s *Stream) GetIssues() []string {
+	if s == nil {
 		return nil
 	}
-	return o.Issues
+	return s.Issues
 }
 
-func (o *Stream) GetCreatedByTokenName() *string {
-	if o == nil {
+func (s *Stream) GetCreatedByTokenName() *string {
+	if s == nil {
 		return nil
 	}
-	return o.CreatedByTokenName
+	return s.CreatedByTokenName
 }
 
-func (o *Stream) GetCreatedAt() *float64 {
-	if o == nil {
+func (s *Stream) GetCreatedAt() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return s.CreatedAt
 }
 
-func (o *Stream) GetParentID() *string {
-	if o == nil {
+func (s *Stream) GetParentID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.ParentID
+	return s.ParentID
 }
 
-func (o *Stream) GetStreamKey() *string {
-	if o == nil {
+func (s *Stream) GetStreamKey() *string {
+	if s == nil {
 		return nil
 	}
-	return o.StreamKey
+	return s.StreamKey
 }
 
-func (o *Stream) GetPull() *StreamPull {
-	if o == nil {
+func (s *Stream) GetPull() *StreamPull {
+	if s == nil {
 		return nil
 	}
-	return o.Pull
+	return s.Pull
 }
 
-func (o *Stream) GetPlaybackID() *string {
-	if o == nil {
+func (s *Stream) GetPlaybackID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.PlaybackID
+	return s.PlaybackID
 }
 
-func (o *Stream) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
+func (s *Stream) GetPlaybackPolicy() *PlaybackPolicy {
+	if s == nil {
 		return nil
 	}
-	return o.PlaybackPolicy
+	return s.PlaybackPolicy
 }
 
-func (o *Stream) GetProfiles() []FfmpegProfile {
-	if o == nil {
+func (s *Stream) GetProfiles() []FfmpegProfile {
+	if s == nil {
 		return nil
 	}
-	return o.Profiles
+	return s.Profiles
 }
 
-func (o *Stream) GetProjectID() *string {
-	if o == nil {
+func (s *Stream) GetProjectID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.ProjectID
+	return s.ProjectID
 }
 
-func (o *Stream) GetRecord() *bool {
-	if o == nil {
+func (s *Stream) GetRecord() *bool {
+	if s == nil {
 		return nil
 	}
-	return o.Record
+	return s.Record
 }
 
-func (o *Stream) GetRecordingSpec() *StreamRecordingSpec {
-	if o == nil {
+func (s *Stream) GetRecordingSpec() *StreamRecordingSpec {
+	if s == nil {
 		return nil
 	}
-	return o.RecordingSpec
+	return s.RecordingSpec
 }
 
-func (o *Stream) GetMultistream() *StreamMultistream {
-	if o == nil {
+func (s *Stream) GetMultistream() *StreamMultistream {
+	if s == nil {
 		return nil
 	}
-	return o.Multistream
+	return s.Multistream
 }
 
-func (o *Stream) GetSuspended() *bool {
-	if o == nil {
+func (s *Stream) GetSuspended() *bool {
+	if s == nil {
 		return nil
 	}
-	return o.Suspended
+	return s.Suspended
 }
 
-func (o *Stream) GetLastTerminatedAt() *float64 {
-	if o == nil {
+func (s *Stream) GetLastTerminatedAt() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.LastTerminatedAt
+	return s.LastTerminatedAt
 }
 
-func (o *Stream) GetUserID() *string {
-	if o == nil {
+func (s *Stream) GetUserID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.UserID
+	return s.UserID
 }
 
-func (o *Stream) GetRenditions() *Renditions {
-	if o == nil {
+func (s *Stream) GetRenditions() *Renditions {
+	if s == nil {
 		return nil
 	}
-	return o.Renditions
+	return s.Renditions
 }

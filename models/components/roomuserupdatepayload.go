@@ -20,29 +20,29 @@ func (r RoomUserUpdatePayload) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RoomUserUpdatePayload) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *RoomUserUpdatePayload) GetCanPublish() *bool {
-	if o == nil {
+func (r *RoomUserUpdatePayload) GetCanPublish() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.CanPublish
+	return r.CanPublish
 }
 
-func (o *RoomUserUpdatePayload) GetCanPublishData() *bool {
-	if o == nil {
+func (r *RoomUserUpdatePayload) GetCanPublishData() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.CanPublishData
+	return r.CanPublishData
 }
 
-func (o *RoomUserUpdatePayload) GetMetadata() *string {
-	if o == nil {
+func (r *RoomUserUpdatePayload) GetMetadata() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Metadata
+	return r.Metadata
 }

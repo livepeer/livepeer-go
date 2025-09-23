@@ -15,18 +15,18 @@ type TargetSpec struct {
 	URL string `json:"url"`
 }
 
-func (o *TargetSpec) GetName() *string {
-	if o == nil {
+func (t *TargetSpec) GetName() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Name
+	return t.Name
 }
 
-func (o *TargetSpec) GetURL() string {
-	if o == nil {
+func (t *TargetSpec) GetURL() string {
+	if t == nil {
 		return ""
 	}
-	return o.URL
+	return t.URL
 }
 
 type Target struct {
@@ -52,36 +52,36 @@ func (t Target) MarshalJSON() ([]byte, error) {
 }
 
 func (t *Target) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"profile"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *Target) GetProfile() string {
-	if o == nil {
+func (t *Target) GetProfile() string {
+	if t == nil {
 		return ""
 	}
-	return o.Profile
+	return t.Profile
 }
 
-func (o *Target) GetVideoOnly() *bool {
-	if o == nil {
+func (t *Target) GetVideoOnly() *bool {
+	if t == nil {
 		return nil
 	}
-	return o.VideoOnly
+	return t.VideoOnly
 }
 
-func (o *Target) GetID() *string {
-	if o == nil {
+func (t *Target) GetID() *string {
+	if t == nil {
 		return nil
 	}
-	return o.ID
+	return t.ID
 }
 
-func (o *Target) GetSpec() *TargetSpec {
-	if o == nil {
+func (t *Target) GetSpec() *TargetSpec {
+	if t == nil {
 		return nil
 	}
-	return o.Spec
+	return t.Spec
 }

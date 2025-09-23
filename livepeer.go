@@ -2,9 +2,12 @@
 
 package livepeergo
 
+// Generated from OpenAPI doc version 1.0.0 and generator version 2.709.0
+
 import (
 	"context"
 	"fmt"
+	"github.com/livepeer/livepeer-go/internal/config"
 	"github.com/livepeer/livepeer-go/internal/hooks"
 	"github.com/livepeer/livepeer-go/internal/utils"
 	"github.com/livepeer/livepeer-go/models/components"
@@ -18,7 +21,7 @@ var ServerList = []string{
 	"https://livepeer.studio/api",
 }
 
-// HTTPClient provides an interface for suplying the SDK with a custom HTTP client
+// HTTPClient provides an interface for supplying the SDK with a custom HTTP client
 type HTTPClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
@@ -44,33 +47,11 @@ func Float64(f float64) *float64 { return &f }
 // Pointer provides a helper function to return a pointer to a type
 func Pointer[T any](v T) *T { return &v }
 
-type sdkConfiguration struct {
-	Client            HTTPClient
-	Security          func(context.Context) (interface{}, error)
-	ServerURL         string
-	ServerIndex       int
-	Language          string
-	OpenAPIDocVersion string
-	SDKVersion        string
-	GenVersion        string
-	UserAgent         string
-	RetryConfig       *retry.Config
-	Hooks             *hooks.Hooks
-	Timeout           *time.Duration
-}
-
-func (c *sdkConfiguration) GetServerDetails() (string, map[string]string) {
-	if c.ServerURL != "" {
-		return c.ServerURL, nil
-	}
-
-	return ServerList[c.ServerIndex], nil
-}
-
 // Livepeer API Reference: Welcome to the Livepeer API reference docs. Here you will find all the
 // endpoints exposed on the standard Livepeer API, learn how to use them and
 // what they return.
 type Livepeer struct {
+	SDKVersion string
 	// Operations related to livestream api
 	Stream *Stream
 	// Operations related to multistream api
@@ -96,7 +77,8 @@ type Livepeer struct {
 	// Operations related to AI generate api
 	Generate *Generate
 
-	sdkConfiguration sdkConfiguration
+	sdkConfiguration config.SDKConfiguration
+	hooks            *hooks.Hooks
 }
 
 type SDKOption func(*Livepeer)
@@ -170,14 +152,12 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *Livepeer {
 	sdk := &Livepeer{
-		sdkConfiguration: sdkConfiguration{
-			Language:          "go",
-			OpenAPIDocVersion: "1.0.0",
-			SDKVersion:        "0.4.0",
-			GenVersion:        "2.415.8",
-			UserAgent:         "speakeasy-sdk/go 0.4.0 2.415.8 1.0.0 github.com/livepeer/livepeer-go",
-			Hooks:             hooks.New(),
+		SDKVersion: "0.5.0",
+		sdkConfiguration: config.SDKConfiguration{
+			UserAgent:  "speakeasy-sdk/go 0.5.0 2.709.0 1.0.0 github.com/livepeer/livepeer-go",
+			ServerList: ServerList,
 		},
+		hooks: hooks.New(),
 	}
 	for _, opt := range opts {
 		opt(sdk)
@@ -190,34 +170,23 @@ func New(opts ...SDKOption) *Livepeer {
 
 	currentServerURL, _ := sdk.sdkConfiguration.GetServerDetails()
 	serverURL := currentServerURL
-	serverURL, sdk.sdkConfiguration.Client = sdk.sdkConfiguration.Hooks.SDKInit(currentServerURL, sdk.sdkConfiguration.Client)
-	if serverURL != currentServerURL {
+	serverURL, sdk.sdkConfiguration.Client = sdk.hooks.SDKInit(currentServerURL, sdk.sdkConfiguration.Client)
+	if currentServerURL != serverURL {
 		sdk.sdkConfiguration.ServerURL = serverURL
 	}
 
-	sdk.Stream = newStream(sdk.sdkConfiguration)
-
-	sdk.Multistream = newMultistream(sdk.sdkConfiguration)
-
-	sdk.Webhook = newWebhook(sdk.sdkConfiguration)
-
-	sdk.Asset = newAsset(sdk.sdkConfiguration)
-
-	sdk.Session = newSession(sdk.sdkConfiguration)
-
-	sdk.Room = newRoom(sdk.sdkConfiguration)
-
-	sdk.Metrics = newMetrics(sdk.sdkConfiguration)
-
-	sdk.AccessControl = newAccessControl(sdk.sdkConfiguration)
-
-	sdk.Task = newTask(sdk.sdkConfiguration)
-
-	sdk.Transcode = newTranscode(sdk.sdkConfiguration)
-
-	sdk.Playback = newPlayback(sdk.sdkConfiguration)
-
-	sdk.Generate = newGenerate(sdk.sdkConfiguration)
+	sdk.Stream = newStream(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Multistream = newMultistream(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Webhook = newWebhook(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Asset = newAsset(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Session = newSession(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Room = newRoom(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Metrics = newMetrics(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.AccessControl = newAccessControl(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Task = newTask(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Transcode = newTranscode(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Playback = newPlayback(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Generate = newGenerate(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

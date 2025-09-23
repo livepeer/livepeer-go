@@ -24,43 +24,43 @@ func (g GetRoomUserResponse) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GetRoomUserResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *GetRoomUserResponse) GetID() *string {
-	if o == nil {
+func (g *GetRoomUserResponse) GetID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.ID
+	return g.ID
 }
 
-func (o *GetRoomUserResponse) GetJoinedAt() *int64 {
-	if o == nil {
+func (g *GetRoomUserResponse) GetJoinedAt() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.JoinedAt
+	return g.JoinedAt
 }
 
-func (o *GetRoomUserResponse) GetName() *string {
-	if o == nil {
+func (g *GetRoomUserResponse) GetName() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Name
+	return g.Name
 }
 
-func (o *GetRoomUserResponse) GetIsPublisher() *bool {
-	if o == nil {
+func (g *GetRoomUserResponse) GetIsPublisher() *bool {
+	if g == nil {
 		return nil
 	}
-	return o.IsPublisher
+	return g.IsPublisher
 }
 
-func (o *GetRoomUserResponse) GetMetadata() *string {
-	if o == nil {
+func (g *GetRoomUserResponse) GetMetadata() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Metadata
+	return g.Metadata
 }

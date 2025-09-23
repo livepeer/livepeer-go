@@ -1,37 +1,37 @@
 lockVersion: 2.0.0
 id: 17bba98d-ccbf-4675-8dd5-54aa47cbeeb4
 management:
-  docChecksum: b110a3e16ac8c9cb846f38dff07c5874
+  docChecksum: 61af080eec2ebd33f126aba1a0e7a45d
   docVersion: 1.0.0
-  speakeasyVersion: 1.399.0
-  generationVersion: 2.415.8
-  releaseVersion: 0.4.0
-  configChecksum: 045305673b918fe7ce55aa6c4e22d669
+  speakeasyVersion: 1.622.1
+  generationVersion: 2.709.0
+  releaseVersion: 0.5.0
+  configChecksum: 3de6272d914a52a222785d05a4a95132
   repoURL: https://github.com/livepeer/livepeer-go.git
   installationURL: https://github.com/livepeer/livepeer-go
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
-    constsAndDefaults: 0.1.6
-    core: 3.5.8
+    constsAndDefaults: 0.1.12
+    core: 3.11.0
     defaultEnabledRetries: 0.2.0
-    deprecations: 2.81.1
-    envVarSecurityUsage: 0.3.1
+    deprecations: 2.81.3
+    envVarSecurityUsage: 0.3.2
     errorUnions: 0.1.0
     flattening: 2.81.1
-    globalSecurity: 2.82.10
+    globalSecurity: 2.82.12
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
-    globalServerURLs: 2.82.2
+    globalServerURLs: 2.82.3
     inputOutputModels: 2.83.0
     intellisenseMarkdownSupport: 0.1.0
     nameOverrides: 2.81.2
-    nullables: 0.1.0
+    nullables: 0.2.0
     responseFormat: 0.1.2
-    retries: 2.83.0
-    sdkHooks: 0.1.0
-    unions: 2.85.9
+    retries: 2.84.2
+    sdkHooks: 0.2.0
+    unions: 2.85.14
     uploadStreams: 0.1.0
 generatedFiles:
   - .gitattributes
@@ -42,6 +42,7 @@ generatedFiles:
   - /models/components/bodygenaudiototext.go
   - /models/components/bodygenimagetoimage.go
   - /models/components/bodygenimagetovideo.go
+  - /models/components/bodygenllm.go
   - /models/components/bodygensegmentanything2.go
   - /models/components/bodygenupscale.go
   - /models/components/chunk.go
@@ -50,6 +51,7 @@ generatedFiles:
   - /models/components/creatorid.go
   - /models/components/encryption.go
   - /models/components/encryptionoutput.go
+  - /models/components/error.go
   - /models/components/exporttaskparams.go
   - /models/components/ffmpegprofile.go
   - /models/components/getroomuserresponse.go
@@ -60,12 +62,12 @@ generatedFiles:
   - /models/components/inputcreatorid.go
   - /models/components/ipfsexportparams.go
   - /models/components/ipfsfileinfo.go
+  - /models/components/llmresponse.go
   - /models/components/masksresponse.go
   - /models/components/media.go
   - /models/components/multistream.go
   - /models/components/multistreamtarget.go
   - /models/components/multistreamtargetinput.go
-  - /models/components/multistreamtargetpatchpayload.go
   - /models/components/newassetfromurlpayload.go
   - /models/components/newassetpayload.go
   - /models/components/newstreampayload.go
@@ -121,6 +123,7 @@ generatedFiles:
   - /models/operations/genaudiototext.go
   - /models/operations/genimagetoimage.go
   - /models/operations/genimagetovideo.go
+  - /models/operations/genllm.go
   - /models/operations/gensegmentanything2.go
   - /models/operations/gentexttoimage.go
   - /models/operations/genupscale.go
@@ -170,10 +173,10 @@ generatedFiles:
   - /models/sdkerrors/genaudiototext.go
   - /models/sdkerrors/genimagetoimage.go
   - /models/sdkerrors/genimagetovideo.go
+  - /models/sdkerrors/genllm.go
   - /models/sdkerrors/gensegmentanything2.go
   - /models/sdkerrors/gentexttoimage.go
   - /models/sdkerrors/genupscale.go
-  - CONTRIBUTING.md
   - USAGE.md
   - accesscontrol.go
   - asset.go
@@ -200,6 +203,7 @@ generatedFiles:
   - docs/models/components/bodygenimagetoimage.md
   - docs/models/components/bodygenimagetovideo.md
   - docs/models/components/bodygenimagetovideoimage.md
+  - docs/models/components/bodygenllm.md
   - docs/models/components/bodygensegmentanything2.md
   - docs/models/components/bodygensegmentanything2image.md
   - docs/models/components/bodygenupscale.md
@@ -219,7 +223,9 @@ generatedFiles:
   - docs/models/components/domain.md
   - docs/models/components/dvrplayback.md
   - docs/models/components/encoder.md
+  - docs/models/components/encryption.md
   - docs/models/components/encryptionoutput.md
+  - docs/models/components/error.md
   - docs/models/components/events.md
   - docs/models/components/export.md
   - docs/models/components/exportdata.md
@@ -252,6 +258,7 @@ generatedFiles:
   - docs/models/components/ismobile1.md
   - docs/models/components/lastfailure.md
   - docs/models/components/live.md
+  - docs/models/components/llmresponse.md
   - docs/models/components/loc.md
   - docs/models/components/location.md
   - docs/models/components/masksresponse.md
@@ -261,7 +268,7 @@ generatedFiles:
   - docs/models/components/mp4.md
   - docs/models/components/multistream.md
   - docs/models/components/multistreamtarget.md
-  - docs/models/components/multistreamtargetpatchpayload.md
+  - docs/models/components/multistreamtargetinput.md
   - docs/models/components/name.md
   - docs/models/components/newassetfromurlpayload.md
   - docs/models/components/newassetpayload.md
@@ -328,6 +335,7 @@ generatedFiles:
   - docs/models/components/streamrecordingspec.md
   - docs/models/components/streamusertags.md
   - docs/models/components/studioapierror.md
+  - docs/models/components/target.md
   - docs/models/components/targetaddpayload.md
   - docs/models/components/targetaddpayloadspec.md
   - docs/models/components/targetoutput.md
@@ -370,6 +378,7 @@ generatedFiles:
   - docs/models/components/videospec.md
   - docs/models/components/viewershipmetric.md
   - docs/models/components/webhook.md
+  - docs/models/components/webhookinput.md
   - docs/models/components/webhooklog.md
   - docs/models/operations/addmultistreamtargetrequest.md
   - docs/models/operations/addmultistreamtargetresponse.md
@@ -402,6 +411,7 @@ generatedFiles:
   - docs/models/operations/genaudiototextresponse.md
   - docs/models/operations/genimagetoimageresponse.md
   - docs/models/operations/genimagetovideoresponse.md
+  - docs/models/operations/genllmresponse.md
   - docs/models/operations/gensegmentanything2response.md
   - docs/models/operations/gentexttoimageresponse.md
   - docs/models/operations/genupscaleresponse.md
@@ -500,6 +510,7 @@ generatedFiles:
   - docs/models/operations/uploadassetresponse.md
   - docs/models/operations/uploadassettask.md
   - docs/models/sdkerrors/error.md
+  - docs/models/sdkerrors/genaudiototextgenerateresponse415responsebody.md
   - docs/models/sdkerrors/genaudiototextgenerateresponse422responsebody.md
   - docs/models/sdkerrors/genaudiototextgenerateresponse500responsebody.md
   - docs/models/sdkerrors/genaudiototextgenerateresponsebody.md
@@ -513,6 +524,10 @@ generatedFiles:
   - docs/models/sdkerrors/genimagetovideogenerateresponsebody.md
   - docs/models/sdkerrors/genimagetovideogenerateresponseresponsebody.md
   - docs/models/sdkerrors/genimagetovideoresponsebody.md
+  - docs/models/sdkerrors/genllmgenerateresponse500responsebody.md
+  - docs/models/sdkerrors/genllmgenerateresponsebody.md
+  - docs/models/sdkerrors/genllmgenerateresponseresponsebody.md
+  - docs/models/sdkerrors/genllmresponsebody.md
   - docs/models/sdkerrors/gensegmentanything2generateresponse500responsebody.md
   - docs/models/sdkerrors/gensegmentanything2generateresponsebody.md
   - docs/models/sdkerrors/gensegmentanything2generateresponseresponsebody.md
@@ -540,8 +555,10 @@ generatedFiles:
   - docs/sdks/webhook/README.md
   - generate.go
   - go.mod
+  - internal/config/sdkconfiguration.go
   - internal/hooks/hooks.go
   - internal/utils/contenttype.go
+  - internal/utils/env.go
   - internal/utils/form.go
   - internal/utils/headers.go
   - internal/utils/json.go
@@ -556,6 +573,8 @@ generatedFiles:
   - models/operations/options.go
   - models/sdkerrors/sdkerror.go
   - multistream.go
+  - optionalnullable/optionalnullable.go
+  - optionalnullable/optionalnullable_test.go
   - playback.go
   - retry/config.go
   - room.go
@@ -573,17 +592,17 @@ examples:
   createStream:
     speakeasy-default-create-stream:
       requestBody:
-        application/json: {"name": "test_stream", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123", "spec": {"name": "My target", "url": "rtmps://live.my-service.tv/channel/secretKey"}}]}}
+        application/json: {"name": "test_stream", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "record": false, "recordingSpec": {"profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}}
       responses:
         "201":
-          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "fps": 30, "fpsDen": 1, "quality": 23, "gop": "2", "profile": "H264Baseline"}], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getStreams:
     speakeasy-default-get-streams:
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "fps": 30, "fpsDen": 1, "quality": 23, "gop": "2", "profile": "H264Baseline"}], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getStream:
@@ -593,7 +612,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "fps": 30, "fpsDen": 1, "quality": 23, "gop": "2", "profile": "H264Baseline"}], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   updateStream:
@@ -602,7 +621,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"record": false, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123", "spec": {"name": "My target", "url": "rtmps://live.my-service.tv/channel/secretKey"}}]}, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "recordingSpec": {"profiles": []}}
+        application/json: {"record": false, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": null, "recordingSpec": {"profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}, "name": "test_stream"}
       responses:
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
@@ -636,7 +655,7 @@ examples:
         application/json: {"playbackId": "eaw4nk06ts2d0mzb", "startTime": 1587667174725, "endTime": 1587667174725, "name": "My Clip", "sessionId": "de7818e7-610a-4057-8f6f-b785dc1e6f88"}
       responses:
         "200":
-          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "failed", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "https://hateful-wriggler.org/"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [{"hash": "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57", "algorithm": "sha256"}], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getClips:
@@ -646,7 +665,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "https://greedy-fraudster.com/"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "waiting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": null, "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   addMultistreamTarget:
@@ -664,7 +683,7 @@ examples:
       parameters:
         path:
           id: "<id>"
-          targetId: "<value>"
+          targetId: "<id>"
       responses:
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
@@ -672,7 +691,7 @@ examples:
     speakeasy-default-get-multistream-targets:
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "createdAt": 1587667174725}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   createMultistreamTarget:
@@ -716,7 +735,7 @@ examples:
     speakeasy-default-get-webhooks:
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_webhook", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "events": ["stream.started", "stream.idle"], "url": "https://my-service.com/webhook", "streamId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "status": {"lastFailure": {"timestamp": 1587667174725, "error": "Error message", "response": "Response body", "statusCode": 500}, "lastTriggeredAt": 1587667174725}}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   createWebhook:
@@ -767,7 +786,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "webhookId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "event": "stream.started", "createdAt": 1587667174725, "duration": 0.5, "success": true, "request": {"url": "https://my-service.com/webhook", "method": "POST", "headers": {"User-Agent": "livepeer.studio"}, "body": "{\"event\": \"stream.started\"}"}}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getWebhookLog:
@@ -775,7 +794,7 @@ examples:
       parameters:
         path:
           id: "<id>"
-          logId: "<value>"
+          logId: "<id>"
       responses:
         "200":
           application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "webhookId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "event": "stream.started", "createdAt": 1587667174725, "duration": 0.5, "success": true, "request": {"url": "https://my-service.com/webhook", "method": "POST", "headers": {"User-Agent": "livepeer.studio"}, "body": "{\"event\": \"stream.started\"}"}}
@@ -786,7 +805,7 @@ examples:
       parameters:
         path:
           id: "<id>"
-          logId: "<value>"
+          logId: "<id>"
       responses:
         "200":
           application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "webhookId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "event": "stream.started", "createdAt": 1587667174725, "duration": 0.5, "success": true, "request": {"url": "https://my-service.com/webhook", "method": "POST", "headers": {"User-Agent": "livepeer.studio"}, "body": "{\"event\": \"stream.started\"}"}}
@@ -796,56 +815,56 @@ examples:
     speakeasy-default-get-assets:
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [{"hash": "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57", "algorithm": "sha256"}], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   requestUpload:
     speakeasy-default-request-upload:
       requestBody:
-        application/json: {"name": "filename.mp4", "staticMp4": true, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": []}
+        application/json: {"name": "filename.mp4", "staticMp4": true, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}
       responses:
         "200":
-          application/json: {"url": "https://origin.livepeer.com/api/asset/upload/direct?token=eyJhbGciOiJIUzI1NiJ9.eyJtc2ciOiJoZWxsbyBoYWNrZXIsIHRoZXJlJ3Mgbm90aGluZyBmb3IgeW91IGhlcmUg8J-YhiJ9.1YDjmXsqLcgNyMSzT4kXl_kIni46_EuGX_xfqmC7e0Q", "tusEndpoint": "https://origin.livepeer.com/api/asset/upload/tus?token=eyJhbGciOiJIUzI1NiJ9.eyJtc2ciOiJoZWxsbyBoYWNrZXIsIHRoZXJlJ3Mgbm90aGluZyBmb3IgeW91IGhlcmUg8J-YhiJ9.1YDjmXsqLcgNyMSzT4kXl_kIni46_EuGX_xfqmC7e0Q", "asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "recording", "sessionId": "<value>"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+          application/json: {"url": "https://origin.livepeer.com/api/asset/upload/direct?token=eyJhbGciOiJIUzI1NiJ9.eyJtc2ciOiJoZWxsbyBoYWNrZXIsIHRoZXJlJ3Mgbm90aGluZyBmb3IgeW91IGhlcmUg8J-YhiJ9.1YDjmXsqLcgNyMSzT4kXl_kIni46_EuGX_xfqmC7e0Q", "tusEndpoint": "https://origin.livepeer.com/api/asset/upload/tus?token=eyJhbGciOiJIUzI1NiJ9.eyJtc2ciOiJoZWxsbyBoYWNrZXIsIHRoZXJlJ3Mgbm90aGluZyBmb3IgeW91IGhlcmUg8J-YhiJ9.1YDjmXsqLcgNyMSzT4kXl_kIni46_EuGX_xfqmC7e0Q", "asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "https://prudent-lotion.name/"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [{"hash": "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57", "algorithm": "sha256"}], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   uploadAsset:
     speakeasy-default-upload-asset:
       requestBody:
-        application/json: {"name": "filename.mp4", "staticMp4": true, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "url": "https://s3.amazonaws.com/my-bucket/path/filename.mp4", "profiles": []}
+        application/json: {"name": "filename.mp4", "staticMp4": true, "playbackPolicy": null, "url": "https://s3.amazonaws.com/my-bucket/path/filename.mp4", "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}
       responses:
         "200":
-          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "recording", "sessionId": "<value>"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "waiting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "https://uncommon-casket.name"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [{"hash": "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57", "algorithm": "sha256"}], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
         "201":
-          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "http://dutiful-colorlessness.com"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "uploading", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "https://uncommon-casket.name"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [{"hash": "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57", "algorithm": "sha256"}], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getAsset:
     speakeasy-default-get-asset:
       parameters:
         path:
-          assetId: "<value>"
+          assetId: "<id>"
       responses:
         "200":
-          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "https://any-puppet.com"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [{"hash": "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57", "algorithm": "sha256"}], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   updateAsset:
     speakeasy-default-update-asset:
       parameters:
         path:
-          assetId: "<value>"
+          assetId: "<id>"
       requestBody:
         application/json: {"name": "filename.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}}
       responses:
         "200":
-          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "failed", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "https://second-maintainer.info/"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [{"hash": "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57", "algorithm": "sha256"}], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   deleteAsset:
     speakeasy-default-delete-asset:
       parameters:
         path:
-          assetId: "<value>"
+          assetId: "<id>"
       responses:
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
@@ -856,14 +875,14 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "https://dim-publication.name"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": null, "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getSessions:
     speakeasy-default-get-sessions:
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_session", "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "playbackId": "eaw4nk06ts2d0mzb", "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "fps": 30, "fpsDen": 1, "quality": 23, "gop": "2", "profile": "H264Baseline"}], "recordingSpec": {"profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getSession:
@@ -873,19 +892,19 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_session", "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "playbackId": "eaw4nk06ts2d0mzb", "profiles": [], "recordingSpec": {"profiles": []}}
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_session", "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "playbackId": "eaw4nk06ts2d0mzb", "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "fps": 30, "fpsDen": 1, "quality": 23, "gop": "2", "profile": "H264Baseline"}], "recordingSpec": {"profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getRecordedSessions:
     speakeasy-default-get-recorded-sessions:
       parameters:
         path:
-          parentId: "<value>"
+          parentId: "<id>"
         query:
           record: true
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_session", "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "playbackId": "eaw4nk06ts2d0mzb", "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "fps": 30, "fpsDen": 1, "quality": 23, "gop": "2", "profile": "H264Baseline"}], "recordingSpec": {"profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   createRoom:
@@ -902,7 +921,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"id": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "createdAt": 1587667174725, "updatedAt": 1587667174725}
+          application/json: {"id": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "createdAt": 1587667174725, "updatedAt": 1587667174725, "participants": {}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   deleteRoom:
@@ -948,7 +967,7 @@ examples:
       parameters:
         path:
           id: "<id>"
-          userId: "<value>"
+          userId: "<id>"
       responses:
         "200":
           application/json: {"id": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "joinedAt": 1687517025261, "name": "name", "isPublisher": true}
@@ -959,7 +978,7 @@ examples:
       parameters:
         path:
           id: "<id>"
-          userId: "<value>"
+          userId: "<id>"
       requestBody:
         application/json: {"canPublish": true, "canPublishData": true}
       responses:
@@ -970,7 +989,7 @@ examples:
       parameters:
         path:
           id: "<id>"
-          userId: "<value>"
+          userId: "<id>"
       responses:
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
@@ -978,28 +997,28 @@ examples:
     speakeasy-default-get-realtime-viewership-now:
       responses:
         "200":
-          application/json: []
+          application/json: [{"playbackId": "1bde4o2i6xycudoy", "device": "iPhone", "browser": "Safari", "country": "United States", "viewCount": 100, "errorRate": 0.1}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getViewershipMetrics:
     speakeasy-default-get-viewership-metrics:
       responses:
         "200":
-          application/json: []
+          application/json: [{"playbackId": "1bde4o2i6xycudoy", "creatorId": "john@doe.com", "viewerId": "1bde4o2i6xycudoy", "dStorageUrl": "ipfs://QmZ4", "timestamp": 1587667174725, "device": "iPhone", "deviceType": "mobile", "cpu": "ARM", "os": "iOS", "browser": "Safari", "browserEngine": "WebKit", "continent": "North America", "country": "United States", "subdivision": "California", "timezone": "America/Los_Angeles", "geohash": "123", "viewCount": 100, "playtimeMins": 10, "ttffMs": 100, "rebufferRatio": 0.1, "errorRate": 0.1, "exitsBeforeStart": 0.5}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getCreatorViewershipMetrics:
     speakeasy-default-get-creator-viewership-metrics:
       responses:
         "200":
-          application/json: []
+          application/json: [{"playbackId": "1bde4o2i6xycudoy", "creatorId": "john@doe.com", "viewerId": "1bde4o2i6xycudoy", "dStorageUrl": "ipfs://QmZ4", "timestamp": 1587667174725, "device": "iPhone", "deviceType": "mobile", "cpu": "ARM", "os": "iOS", "browser": "Safari", "browserEngine": "WebKit", "continent": "North America", "country": "United States", "subdivision": "California", "timezone": "America/Los_Angeles", "geohash": "123", "viewCount": 100, "playtimeMins": 10, "ttffMs": 100, "rebufferRatio": 0.1, "errorRate": 0.1, "exitsBeforeStart": 0.5}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getPublicViewershipMetrics:
     speakeasy-default-get-public-viewership-metrics:
       parameters:
         path:
-          playbackId: "<value>"
+          playbackId: "<id>"
       responses:
         "200":
           application/json: {"playbackId": "1bde4o2i6xycudoy", "dStorageUrl": "ipfs://QmZ4", "viewCount": 100, "playtimeMins": 10}
@@ -1023,14 +1042,14 @@ examples:
     speakeasy-default-get-signing-keys:
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "78df0075-b5f3-4683-a618-1086faca35dc", "name": "key1", "createdAt": 1587667174725, "lastSeen": 1587667174725, "publicKey": "<value>", "disabled": false, "projectId": "aac12556-4d65-4d34-9fb"}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   deleteSigningKey:
     speakeasy-default-delete-signing-key:
       parameters:
         path:
-          keyId: "<value>"
+          keyId: "<id>"
       responses:
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
@@ -1038,7 +1057,7 @@ examples:
     speakeasy-default-get-signing-key:
       parameters:
         path:
-          keyId: "<value>"
+          keyId: "<id>"
       responses:
         "200":
           application/json: {"id": "78df0075-b5f3-4683-a618-1086faca35dc", "name": "key1", "createdAt": 1587667174725, "lastSeen": 1587667174725, "publicKey": "<value>", "disabled": false, "projectId": "aac12556-4d65-4d34-9fb"}
@@ -1048,7 +1067,9 @@ examples:
     speakeasy-default-update-signing-key:
       parameters:
         path:
-          keyId: "<value>"
+          keyId: "<id>"
+      requestBody:
+        application/json: {}
       responses:
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
@@ -1056,24 +1077,24 @@ examples:
     speakeasy-default-get-tasks:
       responses:
         "200":
-          application/json: []
+          application/json: [{"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {"pinata": {"apiKey": "1234567890"}}}, "exportData": {"content": {}, "ipfs": {"pinata": {"apiKey": "1234567890"}}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "https://other-electronics.com"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "processing", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [{"hash": "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57", "algorithm": "sha256"}], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}]
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getTask:
     speakeasy-default-get-task:
       parameters:
         path:
-          taskId: "<value>"
+          taskId: "<id>"
       responses:
         "200":
-          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {}}, "exportData": {"ipfs": {"pinata": {"apiKey": "1234567890"}}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "clip"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "key": "<value>", "key1": "<value>"}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {"pinata": {"apiKey": "1234567890"}}}, "exportData": {"content": {}, "ipfs": {"pinata": {"apiKey": "1234567890"}}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "waiting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [{"hash": "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57", "algorithm": "sha256"}], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}
   transcodeVideo:
     speakeasy-default-transcode-video:
       requestBody:
-        application/json: {"input": {"url": "https://s3.amazonaws.com/bucket/file.mp4"}, "storage": {"type": "s3", "endpoint": "https://gateway.storjshare.io", "bucket": "outputbucket", "credentials": {"accessKeyId": "AKIAIOSFODNN7EXAMPLE", "secretAccessKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"}}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}, "fmp4": {"path": "/samplevideo/fmp4"}}, "profiles": []}
+        application/json: {"input": {"type": "s3", "endpoint": "https://gateway.storjshare.io", "bucket": "inputbucket", "path": "/path/file.mp4", "credentials": {"accessKeyId": "AKIAIOSFODNN7EXAMPLE", "secretAccessKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"}}, "storage": {"type": "s3", "endpoint": "https://gateway.storjshare.io", "bucket": "outputbucket", "credentials": {"accessKeyId": "AKIAIOSFODNN7EXAMPLE", "secretAccessKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"}}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}, "fmp4": {"path": "/samplevideo/fmp4"}}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}]}
       responses:
         "200":
-          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {"pinata": {"apiKey": "1234567890"}}}, "exportData": {"ipfs": {}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "http://speedy-basil.org"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "key": "<value>"}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {"pinata": {}}}, "exportData": {"content": {}, "ipfs": {"pinata": {}}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [{"width": 1280, "name": "720p", "height": 720, "bitrate": 3000000, "quality": 23, "fps": 30, "fpsDen": 1, "gop": "2", "profile": "H264Baseline", "encoder": "H.264"}], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [{"hash": "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57", "algorithm": "sha256"}], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": [{"type": "video", "codec": "aac", "startTime": 23.8238, "duration": 23.8238, "bitrate": 1000000, "width": 1920, "height": 1080, "pixelFormat": "yuv420p", "fps": 30, "channels": 2, "sampleRate": 44100, "bitDepth": 16}]}}}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getPlaybackInfo:
@@ -1083,7 +1104,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"type": "vod", "meta": {"live": 0, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": [], "dvrPlayback": [], "attestation": {"id": "5b9e63bb-6fd0-4bea-aff2-cc5d4eb9cad0", "primaryType": "VideoAttestation", "domain": {"name": "Verifiable Video", "version": "1"}, "message": {"video": "5b9e63bb-6fd0-4bea-aff2-cc5d4eb9cad0", "attestations": [], "signer": "1311768467294899700", "timestamp": 1587667174725}, "signature": "1311768467294899700", "createdAt": 1587667174725, "signatureType": "eip712", "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}}}}
+          application/json: {"type": "vod", "meta": {"live": 0, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": [{"hrn": "MP4", "type": "html5/video/mp4", "url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "size": 494778, "width": 204, "height": 360, "bitrate": 449890}], "dvrPlayback": [{"hrn": "HLS (TS)", "type": "html5/application/vnd.apple.mpegurl", "url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4"}], "attestation": {"id": "5b9e63bb-6fd0-4bea-aff2-cc5d4eb9cad0", "primaryType": "VideoAttestation", "domain": {"name": "Verifiable Video", "version": "1"}, "message": {"video": "5b9e63bb-6fd0-4bea-aff2-cc5d4eb9cad0", "attestations": [{"role": "creator", "address": "1311768467294899700"}], "signer": "1311768467294899700", "timestamp": 1587667174725}, "signature": "1311768467294899700", "createdAt": 1587667174725, "signatureType": "eip712", "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}}}}
         "404":
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
         default:
@@ -1091,35 +1112,41 @@ examples:
   genTextToImage:
     speakeasy-default-gen-text-to-image:
       requestBody:
-        application/json: {"prompt": "<value>"}
+        application/json: {"model_id": "SG161222/RealVisXL_V4.0_Lightning", "loras": "", "prompt": "<value>", "height": 576, "width": 1024, "guidance_scale": 7.5, "negative_prompt": "", "safety_check": true, "num_inference_steps": 50, "num_images_per_prompt": 1}
       responses:
         "200":
           application/json: {"images": []}
         "400":
+          application/json: {}
+        "401":
           application/json: {"detail": {"msg": "<value>"}}
-        "401": {}
-        "422": {}
-        "500": {}
-        default: {}
+        "422":
+          application/json: {}
+        "500":
+          application/json: {}
+        default:
+          application/json: {}
   genImageToImage:
     speakeasy-default-gen-image-to-image:
       requestBody:
-        multipart/form-data: {"prompt": "<value>", "image": {}}
+        multipart/form-data: {"prompt": "<value>", "image": "x-file: example.file", "model_id": "timbrooks/instruct-pix2pix", "loras": "", "strength": 0.8, "guidance_scale": 7.5, "image_guidance_scale": 1.5, "negative_prompt": "", "safety_check": true, "num_inference_steps": 100, "num_images_per_prompt": 1}
       responses:
         "200":
           application/json: {"images": []}
         "400":
           application/json: {"detail": {"msg": "<value>"}}
         "401":
-          application/json: {"detail": {"msg": "<value>"}}
-        "422": {}
+          application/json: {}
+        "422":
+          application/json: {}
         "500":
-          application/json: {"detail": {"msg": "<value>"}}
-        default: {}
+          application/json: {}
+        default:
+          application/json: {}
   genImageToVideo:
     speakeasy-default-gen-image-to-video:
       requestBody:
-        multipart/form-data: {"image": {}}
+        multipart/form-data: {"image": "x-file: example.file", "model_id": "stabilityai/stable-video-diffusion-img2vid-xt-1-1", "height": 576, "width": 1024, "fps": 6, "motion_bucket_id": 127, "noise_aug_strength": 0.02, "safety_check": true, "num_inference_steps": 25}
       responses:
         "200":
           application/json: {"images": []}
@@ -1127,49 +1154,84 @@ examples:
           application/json: {"detail": {"msg": "<value>"}}
         "401":
           application/json: {"detail": {"msg": "<value>"}}
-        "422": {}
-        "500": {}
-        default: {}
+        "422":
+          application/json: {}
+        "500":
+          application/json: {"detail": {"msg": "<value>"}}
+        default:
+          application/json: {}
   genUpscale:
     speakeasy-default-gen-upscale:
       requestBody:
-        multipart/form-data: {"prompt": "<value>", "image": {}}
+        multipart/form-data: {"prompt": "<value>", "image": "x-file: example.file", "model_id": "stabilityai/stable-diffusion-x4-upscaler", "safety_check": true, "num_inference_steps": 75}
       responses:
         "200":
           application/json: {"images": []}
         "400":
           application/json: {"detail": {"msg": "<value>"}}
-        "401": {}
-        "422": {}
+        "401":
+          application/json: {}
+        "422":
+          application/json: {}
         "500":
-          application/json: {"detail": {"msg": "<value>"}}
-        default: {}
+          application/json: {}
+        default:
+          application/json: {}
   genAudioToText:
     speakeasy-default-gen-audio-to-text:
       requestBody:
-        multipart/form-data: {"audio": {}}
+        multipart/form-data: {"audio": "x-file: example.file", "model_id": "openai/whisper-large-v3", "return_timestamps": "true"}
       responses:
         "200":
           application/json: {"text": "<value>", "chunks": []}
-        "400": {}
+        "400":
+          application/json: {"detail": {"msg": "<value>"}}
         "401":
+          application/json: {}
+        "413":
+          application/json: {}
+        "415":
           application/json: {"detail": {"msg": "<value>"}}
-        "413": {}
-        "422": {}
+        "422":
+          application/json: {}
         "500":
-          application/json: {"detail": {"msg": "<value>"}}
-        default: {}
+          application/json: {}
+        default:
+          application/json: {}
   genSegmentAnything2:
     speakeasy-default-gen-segment-anything2:
       requestBody:
-        multipart/form-data: {"image": {}}
+        multipart/form-data: {"image": "x-file: example.file", "model_id": "facebook/sam2-hiera-large", "multimask_output": true, "return_logits": true, "normalize_coords": true}
       responses:
         "200":
           application/json: {"masks": "<value>", "scores": "<value>", "logits": "<value>"}
-        "400": {}
+        "400":
+          application/json: {"detail": {"msg": "<value>"}}
+        "401":
+          application/json: {}
+        "422":
+          application/json: {}
+        "500":
+          application/json: {}
+        default:
+          application/json: {}
+  genLLM:
+    speakeasy-default-gen-LLM:
+      requestBody:
+        application/x-www-form-urlencoded: {"prompt": "<value>", "model_id": "meta-llama/Meta-Llama-3.1-8B-Instruct", "system_msg": "", "temperature": 0.7, "max_tokens": 256, "history": "[]", "stream": false}
+      responses:
+        "200":
+          application/json: {"response": "<value>", "tokens_used": 535387}
+        "400":
+          application/json: {"detail": {"msg": "<value>"}}
         "401":
           application/json: {"detail": {"msg": "<value>"}}
-        "422": {}
+        "422":
+          application/json: {}
         "500":
           application/json: {"detail": {"msg": "<value>"}}
-        default: {}
+        default:
+          application/json: {}
+examplesVersion: 1.0.2
+generatedTests: {}
+releaseNotes: "## Go SDK Changes Detected:\n* `Livepeer.Generate.Llm()`: **Added**\n* `Livepeer.Stream.Update()`: \n  *  `request.Stream-Patch-Payload.Name` **Added**\n* `Livepeer.Generate.TextToImage()`: \n  *  `request.Request.Loras` **Added**\n* `Livepeer.Generate.ImageToImage()`: \n  *  `request.Request.Loras` **Added**\n* `Livepeer.Generate.AudioToText()`: \n  *  `request.Request.ReturnTimestamps` **Added**\n  *  `error.status[415]` **Added**\n"

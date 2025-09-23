@@ -15,37 +15,37 @@ type ClipPayload struct {
 	SessionID *string `json:"sessionId,omitempty"`
 }
 
-func (o *ClipPayload) GetPlaybackID() string {
-	if o == nil {
+func (c *ClipPayload) GetPlaybackID() string {
+	if c == nil {
 		return ""
 	}
-	return o.PlaybackID
+	return c.PlaybackID
 }
 
-func (o *ClipPayload) GetStartTime() float64 {
-	if o == nil {
+func (c *ClipPayload) GetStartTime() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return o.StartTime
+	return c.StartTime
 }
 
-func (o *ClipPayload) GetEndTime() *float64 {
-	if o == nil {
+func (c *ClipPayload) GetEndTime() *float64 {
+	if c == nil {
 		return nil
 	}
-	return o.EndTime
+	return c.EndTime
 }
 
-func (o *ClipPayload) GetName() *string {
-	if o == nil {
+func (c *ClipPayload) GetName() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Name
+	return c.Name
 }
 
-func (o *ClipPayload) GetSessionID() *string {
-	if o == nil {
+func (c *ClipPayload) GetSessionID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.SessionID
+	return c.SessionID
 }

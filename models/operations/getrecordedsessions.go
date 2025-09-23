@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/livepeer/livepeer-go/internal/utils"
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type RecordType string
@@ -20,8 +19,8 @@ const (
 // Record - Flag indicating if the response should only include recorded
 // sessions
 type Record struct {
-	Boolean *bool
-	Integer *int64
+	Boolean *bool  `queryParam:"inline" name:"record"`
+	Integer *int64 `queryParam:"inline" name:"record"`
 
 	Type RecordType
 }
@@ -47,14 +46,14 @@ func CreateRecordInteger(integer int64) Record {
 func (u *Record) UnmarshalJSON(data []byte) error {
 
 	var boolean bool = false
-	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
 		u.Boolean = &boolean
 		u.Type = RecordTypeBoolean
 		return nil
 	}
 
 	var integer int64 = int64(0)
-	if err := utils.UnmarshalJSON(data, &integer, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &integer, "", true, nil); err == nil {
 		u.Integer = &integer
 		u.Type = RecordTypeInteger
 		return nil
@@ -84,18 +83,18 @@ type GetRecordedSessionsRequest struct {
 	Record *Record `queryParam:"style=form,explode=true,name=record"`
 }
 
-func (o *GetRecordedSessionsRequest) GetParentID() string {
-	if o == nil {
+func (g *GetRecordedSessionsRequest) GetParentID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ParentID
+	return g.ParentID
 }
 
-func (o *GetRecordedSessionsRequest) GetRecord() *Record {
-	if o == nil {
+func (g *GetRecordedSessionsRequest) GetRecord() *Record {
+	if g == nil {
 		return nil
 	}
-	return o.Record
+	return g.Record
 }
 
 type GetRecordedSessionsResponse struct {
@@ -103,26 +102,26 @@ type GetRecordedSessionsResponse struct {
 	// Success
 	Data []components.Session
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetRecordedSessionsResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetRecordedSessionsResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetRecordedSessionsResponse) GetData() []components.Session {
-	if o == nil {
+func (g *GetRecordedSessionsResponse) GetData() []components.Session {
+	if g == nil {
 		return nil
 	}
-	return o.Data
+	return g.Data
 }
 
-func (o *GetRecordedSessionsResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetRecordedSessionsResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

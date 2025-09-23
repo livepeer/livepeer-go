@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type UpdateWebhookRequest struct {
@@ -12,18 +11,18 @@ type UpdateWebhookRequest struct {
 	Webhook components.WebhookInput `request:"mediaType=application/json"`
 }
 
-func (o *UpdateWebhookRequest) GetID() string {
-	if o == nil {
+func (u *UpdateWebhookRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateWebhookRequest) GetWebhook() components.WebhookInput {
-	if o == nil {
+func (u *UpdateWebhookRequest) GetWebhook() components.WebhookInput {
+	if u == nil {
 		return components.WebhookInput{}
 	}
-	return o.Webhook
+	return u.Webhook
 }
 
 type UpdateWebhookResponse struct {
@@ -31,26 +30,26 @@ type UpdateWebhookResponse struct {
 	// Success
 	Webhook *components.Webhook
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *UpdateWebhookResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateWebhookResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateWebhookResponse) GetWebhook() *components.Webhook {
-	if o == nil {
+func (u *UpdateWebhookResponse) GetWebhook() *components.Webhook {
+	if u == nil {
 		return nil
 	}
-	return o.Webhook
+	return u.Webhook
 }
 
-func (o *UpdateWebhookResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (u *UpdateWebhookResponse) GetError() *components.Error {
+	if u == nil {
 		return nil
 	}
-	return o.Error
+	return u.Error
 }

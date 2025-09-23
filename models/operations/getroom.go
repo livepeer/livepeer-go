@@ -4,18 +4,17 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetRoomRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetRoomRequest) GetID() string {
-	if o == nil {
+func (g *GetRoomRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 type GetRoomResponse struct {
@@ -23,26 +22,26 @@ type GetRoomResponse struct {
 	// Success
 	Room *components.Room
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetRoomResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetRoomResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetRoomResponse) GetRoom() *components.Room {
-	if o == nil {
+func (g *GetRoomResponse) GetRoom() *components.Room {
+	if g == nil {
 		return nil
 	}
-	return o.Room
+	return g.Room
 }
 
-func (o *GetRoomResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetRoomResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

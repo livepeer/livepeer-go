@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type UpdateRoomUserRequest struct {
@@ -13,43 +12,43 @@ type UpdateRoomUserRequest struct {
 	RoomUserUpdatePayload components.RoomUserUpdatePayload `request:"mediaType=application/json"`
 }
 
-func (o *UpdateRoomUserRequest) GetID() string {
-	if o == nil {
+func (u *UpdateRoomUserRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateRoomUserRequest) GetUserID() string {
-	if o == nil {
+func (u *UpdateRoomUserRequest) GetUserID() string {
+	if u == nil {
 		return ""
 	}
-	return o.UserID
+	return u.UserID
 }
 
-func (o *UpdateRoomUserRequest) GetRoomUserUpdatePayload() components.RoomUserUpdatePayload {
-	if o == nil {
+func (u *UpdateRoomUserRequest) GetRoomUserUpdatePayload() components.RoomUserUpdatePayload {
+	if u == nil {
 		return components.RoomUserUpdatePayload{}
 	}
-	return o.RoomUserUpdatePayload
+	return u.RoomUserUpdatePayload
 }
 
 type UpdateRoomUserResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *UpdateRoomUserResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateRoomUserResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateRoomUserResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (u *UpdateRoomUserResponse) GetError() *components.Error {
+	if u == nil {
 		return nil
 	}
-	return o.Error
+	return u.Error
 }

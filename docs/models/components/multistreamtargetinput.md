@@ -1,4 +1,4 @@
-# MultistreamTargetPatchPayload
+# MultistreamTargetInput
 
 
 ## Fields

@@ -6,7 +6,7 @@ type SigningKey struct {
 	ID *string `json:"id,omitempty"`
 	// Name of the signing key
 	Name *string `json:"name,omitempty"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	UserID *string `json:"userId,omitempty"`
 	// Timestamp (in milliseconds) at which the signing-key was created
 	CreatedAt *float64 `json:"createdAt,omitempty"`
@@ -19,58 +19,58 @@ type SigningKey struct {
 	ProjectID *string `json:"projectId,omitempty"`
 }
 
-func (o *SigningKey) GetID() *string {
-	if o == nil {
+func (s *SigningKey) GetID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.ID
+	return s.ID
 }
 
-func (o *SigningKey) GetName() *string {
-	if o == nil {
+func (s *SigningKey) GetName() *string {
+	if s == nil {
 		return nil
 	}
-	return o.Name
+	return s.Name
 }
 
-func (o *SigningKey) GetUserID() *string {
-	if o == nil {
+func (s *SigningKey) GetUserID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.UserID
+	return s.UserID
 }
 
-func (o *SigningKey) GetCreatedAt() *float64 {
-	if o == nil {
+func (s *SigningKey) GetCreatedAt() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return s.CreatedAt
 }
 
-func (o *SigningKey) GetLastSeen() *float64 {
-	if o == nil {
+func (s *SigningKey) GetLastSeen() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.LastSeen
+	return s.LastSeen
 }
 
-func (o *SigningKey) GetPublicKey() string {
-	if o == nil {
+func (s *SigningKey) GetPublicKey() string {
+	if s == nil {
 		return ""
 	}
-	return o.PublicKey
+	return s.PublicKey
 }
 
-func (o *SigningKey) GetDisabled() *bool {
-	if o == nil {
+func (s *SigningKey) GetDisabled() *bool {
+	if s == nil {
 		return nil
 	}
-	return o.Disabled
+	return s.Disabled
 }
 
-func (o *SigningKey) GetProjectID() *string {
-	if o == nil {
+func (s *SigningKey) GetProjectID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.ProjectID
+	return s.ProjectID
 }
