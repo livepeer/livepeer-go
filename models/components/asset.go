@@ -77,53 +77,64 @@ type Source3 struct {
 	AssetID *string `json:"assetId,omitempty"`
 }
 
-func (o *Source3) GetType() AssetSource3Type {
-	if o == nil {
+func (s Source3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Source3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Source3) GetType() AssetSource3Type {
+	if s == nil {
 		return AssetSource3Type("")
 	}
-	return o.Type
+	return s.Type
 }
 
-func (o *Source3) GetEncryption() *EncryptionOutput {
-	if o == nil {
+func (s *Source3) GetEncryption() *EncryptionOutput {
+	if s == nil {
 		return nil
 	}
-	return o.Encryption
+	return s.Encryption
 }
 
-func (o *Source3) GetSourceID() *string {
-	if o == nil {
+func (s *Source3) GetSourceID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.SourceID
+	return s.SourceID
 }
 
-func (o *Source3) GetSessionID() *string {
-	if o == nil {
+func (s *Source3) GetSessionID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.SessionID
+	return s.SessionID
 }
 
-func (o *Source3) GetPlaybackID() *string {
-	if o == nil {
+func (s *Source3) GetPlaybackID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.PlaybackID
+	return s.PlaybackID
 }
 
-func (o *Source3) GetRequesterID() *string {
-	if o == nil {
+func (s *Source3) GetRequesterID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.RequesterID
+	return s.RequesterID
 }
 
-func (o *Source3) GetAssetID() *string {
-	if o == nil {
+func (s *Source3) GetAssetID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.AssetID
+	return s.AssetID
 }
 
 type AssetSourceType string
@@ -155,18 +166,29 @@ type Two struct {
 	SessionID string `json:"sessionId"`
 }
 
-func (o *Two) GetType() AssetSourceType {
-	if o == nil {
-		return AssetSourceType("")
-	}
-	return o.Type
+func (t Two) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
 }
 
-func (o *Two) GetSessionID() string {
-	if o == nil {
+func (t *Two) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"type", "sessionId"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t *Two) GetType() AssetSourceType {
+	if t == nil {
+		return AssetSourceType("")
+	}
+	return t.Type
+}
+
+func (t *Two) GetSessionID() string {
+	if t == nil {
 		return ""
 	}
-	return o.SessionID
+	return t.SessionID
 }
 
 type SourceType string
@@ -201,32 +223,43 @@ type Source1 struct {
 	Encryption *EncryptionOutput `json:"encryption,omitempty"`
 }
 
-func (o *Source1) GetType() SourceType {
-	if o == nil {
+func (s Source1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Source1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Source1) GetType() SourceType {
+	if s == nil {
 		return SourceType("")
 	}
-	return o.Type
+	return s.Type
 }
 
-func (o *Source1) GetURL() string {
-	if o == nil {
+func (s *Source1) GetURL() string {
+	if s == nil {
 		return ""
 	}
-	return o.URL
+	return s.URL
 }
 
-func (o *Source1) GetGatewayURL() *string {
-	if o == nil {
+func (s *Source1) GetGatewayURL() *string {
+	if s == nil {
 		return nil
 	}
-	return o.GatewayURL
+	return s.GatewayURL
 }
 
-func (o *Source1) GetEncryption() *EncryptionOutput {
-	if o == nil {
+func (s *Source1) GetEncryption() *EncryptionOutput {
+	if s == nil {
 		return nil
 	}
-	return o.Encryption
+	return s.Encryption
 }
 
 type SourceUnionType string
@@ -238,9 +271,9 @@ const (
 )
 
 type Source struct {
-	Source1 *Source1
-	Two     *Two
-	Source3 *Source3
+	Source1 *Source1 `queryParam:"inline,name=source"`
+	Two     *Two     `queryParam:"inline,name=source"`
+	Source3 *Source3 `queryParam:"inline,name=source"`
 
 	Type SourceUnionType
 }
@@ -274,22 +307,22 @@ func CreateSourceSource3(source3 Source3) Source {
 
 func (u *Source) UnmarshalJSON(data []byte) error {
 
-	var two Two = Two{}
-	if err := utils.UnmarshalJSON(data, &two, "", true, true); err == nil {
-		u.Two = &two
-		u.Type = SourceUnionTypeTwo
-		return nil
-	}
-
 	var source1 Source1 = Source1{}
-	if err := utils.UnmarshalJSON(data, &source1, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &source1, "", true, nil); err == nil {
 		u.Source1 = &source1
 		u.Type = SourceUnionTypeSource1
 		return nil
 	}
 
+	var two Two = Two{}
+	if err := utils.UnmarshalJSON(data, &two, "", true, nil); err == nil {
+		u.Two = &two
+		u.Type = SourceUnionTypeTwo
+		return nil
+	}
+
 	var source3 Source3 = Source3{}
-	if err := utils.UnmarshalJSON(data, &source3, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &source3, "", true, nil); err == nil {
 		u.Source3 = &source3
 		u.Type = SourceUnionTypeSource3
 		return nil
@@ -367,24 +400,24 @@ func (a AssetSpec) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AssetSpec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *AssetSpec) GetNftMetadataTemplate() *AssetNftMetadataTemplate {
-	if o == nil {
+func (a *AssetSpec) GetNftMetadataTemplate() *AssetNftMetadataTemplate {
+	if a == nil {
 		return nil
 	}
-	return o.NftMetadataTemplate
+	return a.NftMetadataTemplate
 }
 
-func (o *AssetSpec) GetNftMetadata() *AssetNftMetadata {
-	if o == nil {
+func (a *AssetSpec) GetNftMetadata() *AssetNftMetadata {
+	if a == nil {
 		return nil
 	}
-	return o.NftMetadata
+	return a.NftMetadata
 }
 
 type AssetIpfs struct {
@@ -397,32 +430,32 @@ type AssetIpfs struct {
 	UpdatedAt *float64 `json:"updatedAt,omitempty"`
 }
 
-func (o *AssetIpfs) GetSpec() *AssetSpec {
-	if o == nil {
+func (a *AssetIpfs) GetSpec() *AssetSpec {
+	if a == nil {
 		return nil
 	}
-	return o.Spec
+	return a.Spec
 }
 
-func (o *AssetIpfs) GetDollarRef() any {
-	if o == nil {
+func (a *AssetIpfs) GetDollarRef() any {
+	if a == nil {
 		return nil
 	}
-	return o.DollarRef
+	return a.DollarRef
 }
 
-func (o *AssetIpfs) GetNftMetadata() *IpfsFileInfo {
-	if o == nil {
+func (a *AssetIpfs) GetNftMetadata() *IpfsFileInfo {
+	if a == nil {
 		return nil
 	}
-	return o.NftMetadata
+	return a.NftMetadata
 }
 
-func (o *AssetIpfs) GetUpdatedAt() *float64 {
-	if o == nil {
+func (a *AssetIpfs) GetUpdatedAt() *float64 {
+	if a == nil {
 		return nil
 	}
-	return o.UpdatedAt
+	return a.UpdatedAt
 }
 
 type AssetStorage struct {
@@ -430,18 +463,18 @@ type AssetStorage struct {
 	Status *StorageStatus `json:"status,omitempty"`
 }
 
-func (o *AssetStorage) GetIpfs() *AssetIpfs {
-	if o == nil {
+func (a *AssetStorage) GetIpfs() *AssetIpfs {
+	if a == nil {
 		return nil
 	}
-	return o.Ipfs
+	return a.Ipfs
 }
 
-func (o *AssetStorage) GetStatus() *StorageStatus {
-	if o == nil {
+func (a *AssetStorage) GetStatus() *StorageStatus {
+	if a == nil {
 		return nil
 	}
-	return o.Status
+	return a.Status
 }
 
 // AssetPhase - Phase of the asset
@@ -498,32 +531,32 @@ type AssetStatus struct {
 	ErrorMessage *string `json:"errorMessage,omitempty"`
 }
 
-func (o *AssetStatus) GetPhase() AssetPhase {
-	if o == nil {
+func (a *AssetStatus) GetPhase() AssetPhase {
+	if a == nil {
 		return AssetPhase("")
 	}
-	return o.Phase
+	return a.Phase
 }
 
-func (o *AssetStatus) GetUpdatedAt() float64 {
-	if o == nil {
+func (a *AssetStatus) GetUpdatedAt() float64 {
+	if a == nil {
 		return 0.0
 	}
-	return o.UpdatedAt
+	return a.UpdatedAt
 }
 
-func (o *AssetStatus) GetProgress() *float64 {
-	if o == nil {
+func (a *AssetStatus) GetProgress() *float64 {
+	if a == nil {
 		return nil
 	}
-	return o.Progress
+	return a.Progress
 }
 
-func (o *AssetStatus) GetErrorMessage() *string {
-	if o == nil {
+func (a *AssetStatus) GetErrorMessage() *string {
+	if a == nil {
 		return nil
 	}
-	return o.ErrorMessage
+	return a.ErrorMessage
 }
 
 type Hash struct {
@@ -533,18 +566,18 @@ type Hash struct {
 	Algorithm *string `json:"algorithm,omitempty"`
 }
 
-func (o *Hash) GetHash() *string {
-	if o == nil {
+func (h *Hash) GetHash() *string {
+	if h == nil {
 		return nil
 	}
-	return o.Hash
+	return h.Hash
 }
 
-func (o *Hash) GetAlgorithm() *string {
-	if o == nil {
+func (h *Hash) GetAlgorithm() *string {
+	if h == nil {
 		return nil
 	}
-	return o.Algorithm
+	return h.Algorithm
 }
 
 // AssetVideoSpecType - type of track
@@ -603,88 +636,88 @@ type Tracks struct {
 	BitDepth *float64 `json:"bitDepth,omitempty"`
 }
 
-func (o *Tracks) GetType() AssetVideoSpecType {
-	if o == nil {
+func (t *Tracks) GetType() AssetVideoSpecType {
+	if t == nil {
 		return AssetVideoSpecType("")
 	}
-	return o.Type
+	return t.Type
 }
 
-func (o *Tracks) GetCodec() string {
-	if o == nil {
+func (t *Tracks) GetCodec() string {
+	if t == nil {
 		return ""
 	}
-	return o.Codec
+	return t.Codec
 }
 
-func (o *Tracks) GetStartTime() *float64 {
-	if o == nil {
+func (t *Tracks) GetStartTime() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.StartTime
+	return t.StartTime
 }
 
-func (o *Tracks) GetDuration() *float64 {
-	if o == nil {
+func (t *Tracks) GetDuration() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.Duration
+	return t.Duration
 }
 
-func (o *Tracks) GetBitrate() *float64 {
-	if o == nil {
+func (t *Tracks) GetBitrate() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.Bitrate
+	return t.Bitrate
 }
 
-func (o *Tracks) GetWidth() *float64 {
-	if o == nil {
+func (t *Tracks) GetWidth() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.Width
+	return t.Width
 }
 
-func (o *Tracks) GetHeight() *float64 {
-	if o == nil {
+func (t *Tracks) GetHeight() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.Height
+	return t.Height
 }
 
-func (o *Tracks) GetPixelFormat() *string {
-	if o == nil {
+func (t *Tracks) GetPixelFormat() *string {
+	if t == nil {
 		return nil
 	}
-	return o.PixelFormat
+	return t.PixelFormat
 }
 
-func (o *Tracks) GetFps() *float64 {
-	if o == nil {
+func (t *Tracks) GetFps() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.Fps
+	return t.Fps
 }
 
-func (o *Tracks) GetChannels() *float64 {
-	if o == nil {
+func (t *Tracks) GetChannels() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.Channels
+	return t.Channels
 }
 
-func (o *Tracks) GetSampleRate() *float64 {
-	if o == nil {
+func (t *Tracks) GetSampleRate() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.SampleRate
+	return t.SampleRate
 }
 
-func (o *Tracks) GetBitDepth() *float64 {
-	if o == nil {
+func (t *Tracks) GetBitDepth() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.BitDepth
+	return t.BitDepth
 }
 
 // VideoSpec - Video metadata
@@ -701,32 +734,32 @@ type VideoSpec struct {
 	Tracks []Tracks `json:"tracks,omitempty"`
 }
 
-func (o *VideoSpec) GetFormat() *string {
-	if o == nil {
+func (v *VideoSpec) GetFormat() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Format
+	return v.Format
 }
 
-func (o *VideoSpec) GetDuration() *float64 {
-	if o == nil {
+func (v *VideoSpec) GetDuration() *float64 {
+	if v == nil {
 		return nil
 	}
-	return o.Duration
+	return v.Duration
 }
 
-func (o *VideoSpec) GetBitrate() *float64 {
-	if o == nil {
+func (v *VideoSpec) GetBitrate() *float64 {
+	if v == nil {
 		return nil
 	}
-	return o.Bitrate
+	return v.Bitrate
 }
 
-func (o *VideoSpec) GetTracks() []Tracks {
-	if o == nil {
+func (v *VideoSpec) GetTracks() []Tracks {
+	if v == nil {
 		return nil
 	}
-	return o.Tracks
+	return v.Tracks
 }
 
 type Asset struct {
@@ -735,7 +768,7 @@ type Asset struct {
 	Type *AssetType `json:"type,omitempty"`
 	// The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
 	PlaybackID *string `json:"playbackId,omitempty"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	UserID *string `json:"userId,omitempty"`
 	// URL for HLS playback. **It is recommended to not use this URL**, and instead use playback IDs with the Playback Info endpoint to retrieve the playback URLs - this URL format is subject to change (e.g. https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8).
 	PlaybackURL *string `json:"playbackUrl,omitempty"`
@@ -772,135 +805,135 @@ type Asset struct {
 	VideoSpec *VideoSpec `json:"videoSpec,omitempty"`
 }
 
-func (o *Asset) GetID() string {
-	if o == nil {
+func (a *Asset) GetID() string {
+	if a == nil {
 		return ""
 	}
-	return o.ID
+	return a.ID
 }
 
-func (o *Asset) GetType() *AssetType {
-	if o == nil {
+func (a *Asset) GetType() *AssetType {
+	if a == nil {
 		return nil
 	}
-	return o.Type
+	return a.Type
 }
 
-func (o *Asset) GetPlaybackID() *string {
-	if o == nil {
+func (a *Asset) GetPlaybackID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.PlaybackID
+	return a.PlaybackID
 }
 
-func (o *Asset) GetUserID() *string {
-	if o == nil {
+func (a *Asset) GetUserID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.UserID
+	return a.UserID
 }
 
-func (o *Asset) GetPlaybackURL() *string {
-	if o == nil {
+func (a *Asset) GetPlaybackURL() *string {
+	if a == nil {
 		return nil
 	}
-	return o.PlaybackURL
+	return a.PlaybackURL
 }
 
-func (o *Asset) GetDownloadURL() *string {
-	if o == nil {
+func (a *Asset) GetDownloadURL() *string {
+	if a == nil {
 		return nil
 	}
-	return o.DownloadURL
+	return a.DownloadURL
 }
 
-func (o *Asset) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
+func (a *Asset) GetPlaybackPolicy() *PlaybackPolicy {
+	if a == nil {
 		return nil
 	}
-	return o.PlaybackPolicy
+	return a.PlaybackPolicy
 }
 
-func (o *Asset) GetSource() Source {
-	if o == nil {
+func (a *Asset) GetSource() Source {
+	if a == nil {
 		return Source{}
 	}
-	return o.Source
+	return a.Source
 }
 
-func (o *Asset) GetCreatorID() *CreatorID {
-	if o == nil {
+func (a *Asset) GetCreatorID() *CreatorID {
+	if a == nil {
 		return nil
 	}
-	return o.CreatorID
+	return a.CreatorID
 }
 
-func (o *Asset) GetProfiles() []TranscodeProfile {
-	if o == nil {
+func (a *Asset) GetProfiles() []TranscodeProfile {
+	if a == nil {
 		return nil
 	}
-	return o.Profiles
+	return a.Profiles
 }
 
-func (o *Asset) GetStorage() *AssetStorage {
-	if o == nil {
+func (a *Asset) GetStorage() *AssetStorage {
+	if a == nil {
 		return nil
 	}
-	return o.Storage
+	return a.Storage
 }
 
-func (o *Asset) GetStatus() *AssetStatus {
-	if o == nil {
+func (a *Asset) GetStatus() *AssetStatus {
+	if a == nil {
 		return nil
 	}
-	return o.Status
+	return a.Status
 }
 
-func (o *Asset) GetName() string {
-	if o == nil {
+func (a *Asset) GetName() string {
+	if a == nil {
 		return ""
 	}
-	return o.Name
+	return a.Name
 }
 
-func (o *Asset) GetProjectID() *string {
-	if o == nil {
+func (a *Asset) GetProjectID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.ProjectID
+	return a.ProjectID
 }
 
-func (o *Asset) GetCreatedAt() *float64 {
-	if o == nil {
+func (a *Asset) GetCreatedAt() *float64 {
+	if a == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return a.CreatedAt
 }
 
-func (o *Asset) GetCreatedByTokenName() *string {
-	if o == nil {
+func (a *Asset) GetCreatedByTokenName() *string {
+	if a == nil {
 		return nil
 	}
-	return o.CreatedByTokenName
+	return a.CreatedByTokenName
 }
 
-func (o *Asset) GetSize() *float64 {
-	if o == nil {
+func (a *Asset) GetSize() *float64 {
+	if a == nil {
 		return nil
 	}
-	return o.Size
+	return a.Size
 }
 
-func (o *Asset) GetHash() []Hash {
-	if o == nil {
+func (a *Asset) GetHash() []Hash {
+	if a == nil {
 		return nil
 	}
-	return o.Hash
+	return a.Hash
 }
 
-func (o *Asset) GetVideoSpec() *VideoSpec {
-	if o == nil {
+func (a *Asset) GetVideoSpec() *VideoSpec {
+	if a == nil {
 		return nil
 	}
-	return o.VideoSpec
+	return a.VideoSpec
 }

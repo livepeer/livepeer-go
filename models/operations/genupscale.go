@@ -14,23 +14,23 @@ type GenUpscaleResponse struct {
 	StudioAPIError *components.StudioAPIError
 }
 
-func (o *GenUpscaleResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GenUpscaleResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GenUpscaleResponse) GetImageResponse() *components.ImageResponse {
-	if o == nil {
+func (g *GenUpscaleResponse) GetImageResponse() *components.ImageResponse {
+	if g == nil {
 		return nil
 	}
-	return o.ImageResponse
+	return g.ImageResponse
 }
 
-func (o *GenUpscaleResponse) GetStudioAPIError() *components.StudioAPIError {
-	if o == nil {
+func (g *GenUpscaleResponse) GetStudioAPIError() *components.StudioAPIError {
+	if g == nil {
 		return nil
 	}
-	return o.StudioAPIError
+	return g.StudioAPIError
 }

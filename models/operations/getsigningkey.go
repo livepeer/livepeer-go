@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetSigningKeyRequest struct {
@@ -12,11 +11,11 @@ type GetSigningKeyRequest struct {
 	KeyID string `pathParam:"style=simple,explode=false,name=keyId"`
 }
 
-func (o *GetSigningKeyRequest) GetKeyID() string {
-	if o == nil {
+func (g *GetSigningKeyRequest) GetKeyID() string {
+	if g == nil {
 		return ""
 	}
-	return o.KeyID
+	return g.KeyID
 }
 
 type GetSigningKeyResponse struct {
@@ -24,26 +23,26 @@ type GetSigningKeyResponse struct {
 	// Success
 	SigningKey *components.SigningKey
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetSigningKeyResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetSigningKeyResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetSigningKeyResponse) GetSigningKey() *components.SigningKey {
-	if o == nil {
+func (g *GetSigningKeyResponse) GetSigningKey() *components.SigningKey {
+	if g == nil {
 		return nil
 	}
-	return o.SigningKey
+	return g.SigningKey
 }
 
-func (o *GetSigningKeyResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetSigningKeyResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

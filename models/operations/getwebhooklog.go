@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetWebhookLogRequest struct {
@@ -12,18 +11,18 @@ type GetWebhookLogRequest struct {
 	LogID string `pathParam:"style=simple,explode=false,name=logId"`
 }
 
-func (o *GetWebhookLogRequest) GetID() string {
-	if o == nil {
+func (g *GetWebhookLogRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
-func (o *GetWebhookLogRequest) GetLogID() string {
-	if o == nil {
+func (g *GetWebhookLogRequest) GetLogID() string {
+	if g == nil {
 		return ""
 	}
-	return o.LogID
+	return g.LogID
 }
 
 type GetWebhookLogResponse struct {
@@ -31,26 +30,26 @@ type GetWebhookLogResponse struct {
 	// Success
 	WebhookLog *components.WebhookLog
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetWebhookLogResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetWebhookLogResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetWebhookLogResponse) GetWebhookLog() *components.WebhookLog {
-	if o == nil {
+func (g *GetWebhookLogResponse) GetWebhookLog() *components.WebhookLog {
+	if g == nil {
 		return nil
 	}
-	return o.WebhookLog
+	return g.WebhookLog
 }
 
-func (o *GetWebhookLogResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetWebhookLogResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

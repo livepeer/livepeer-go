@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetClipsRequest struct {
@@ -12,11 +11,11 @@ type GetClipsRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetClipsRequest) GetID() string {
-	if o == nil {
+func (g *GetClipsRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 type GetClipsResponse struct {
@@ -24,26 +23,26 @@ type GetClipsResponse struct {
 	// Success
 	Data []components.Asset
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetClipsResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetClipsResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetClipsResponse) GetData() []components.Asset {
-	if o == nil {
+func (g *GetClipsResponse) GetData() []components.Asset {
+	if g == nil {
 		return nil
 	}
-	return o.Data
+	return g.Data
 }
 
-func (o *GetClipsResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetClipsResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

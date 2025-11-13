@@ -4,18 +4,17 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetWebhookRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetWebhookRequest) GetID() string {
-	if o == nil {
+func (g *GetWebhookRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 type GetWebhookResponse struct {
@@ -23,26 +22,26 @@ type GetWebhookResponse struct {
 	// Success
 	Webhook *components.Webhook
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetWebhookResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetWebhookResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetWebhookResponse) GetWebhook() *components.Webhook {
-	if o == nil {
+func (g *GetWebhookResponse) GetWebhook() *components.Webhook {
+	if g == nil {
 		return nil
 	}
-	return o.Webhook
+	return g.Webhook
 }
 
-func (o *GetWebhookResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetWebhookResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

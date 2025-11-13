@@ -4,45 +4,44 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type UpdateMultistreamTargetRequest struct {
 	// ID of the multistream target
-	ID                            string                                   `pathParam:"style=simple,explode=false,name=id"`
-	MultistreamTargetPatchPayload components.MultistreamTargetPatchPayload `request:"mediaType=application/json"`
+	ID                string                            `pathParam:"style=simple,explode=false,name=id"`
+	MultistreamTarget components.MultistreamTargetInput `request:"mediaType=application/json"`
 }
 
-func (o *UpdateMultistreamTargetRequest) GetID() string {
-	if o == nil {
+func (u *UpdateMultistreamTargetRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateMultistreamTargetRequest) GetMultistreamTargetPatchPayload() components.MultistreamTargetPatchPayload {
-	if o == nil {
-		return components.MultistreamTargetPatchPayload{}
+func (u *UpdateMultistreamTargetRequest) GetMultistreamTarget() components.MultistreamTargetInput {
+	if u == nil {
+		return components.MultistreamTargetInput{}
 	}
-	return o.MultistreamTargetPatchPayload
+	return u.MultistreamTarget
 }
 
 type UpdateMultistreamTargetResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *UpdateMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateMultistreamTargetResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (u *UpdateMultistreamTargetResponse) GetError() *components.Error {
+	if u == nil {
 		return nil
 	}
-	return o.Error
+	return u.Error
 }

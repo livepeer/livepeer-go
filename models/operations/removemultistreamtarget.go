@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type RemoveMultistreamTargetRequest struct {
@@ -14,36 +13,36 @@ type RemoveMultistreamTargetRequest struct {
 	TargetID string `pathParam:"style=simple,explode=false,name=targetId"`
 }
 
-func (o *RemoveMultistreamTargetRequest) GetID() string {
-	if o == nil {
+func (r *RemoveMultistreamTargetRequest) GetID() string {
+	if r == nil {
 		return ""
 	}
-	return o.ID
+	return r.ID
 }
 
-func (o *RemoveMultistreamTargetRequest) GetTargetID() string {
-	if o == nil {
+func (r *RemoveMultistreamTargetRequest) GetTargetID() string {
+	if r == nil {
 		return ""
 	}
-	return o.TargetID
+	return r.TargetID
 }
 
 type RemoveMultistreamTargetResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *RemoveMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (r *RemoveMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if r == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return r.HTTPMeta
 }
 
-func (o *RemoveMultistreamTargetResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (r *RemoveMultistreamTargetResponse) GetError() *components.Error {
+	if r == nil {
 		return nil
 	}
-	return o.Error
+	return r.Error
 }

@@ -12,8 +12,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/ericlagergren/decimal"
-
+	"github.com/livepeer/livepeer-go/optionalnullable"
 	"github.com/livepeer/livepeer-go/types"
 )
 
@@ -43,10 +42,13 @@ func PopulateQueryParams(_ context.Context, req *http.Request, queryParams inter
 }
 
 func populateQueryParams(queryParams interface{}, globals interface{}, values url.Values, skipFields []string) ([]string, error) {
-	queryParamsStructType, queryParamsValType := dereferencePointers(reflect.TypeOf(queryParams), reflect.ValueOf(queryParams))
+	queryParamsVal := reflect.ValueOf(queryParams)
+	if queryParamsVal.Kind() == reflect.Pointer && queryParamsVal.IsNil() {
+		return nil, nil
+	}
+	queryParamsStructType, queryParamsValType := dereferencePointers(reflect.TypeOf(queryParams), queryParamsVal)
 
 	globalsAlreadyPopulated := []string{}
-
 	for i := 0; i < queryParamsStructType.NumField(); i++ {
 		fieldType := queryParamsStructType.Field(i)
 		valType := queryParamsValType.Field(i)
@@ -64,6 +66,14 @@ func populateQueryParams(queryParams interface{}, globals interface{}, values ur
 		if qpTag == nil {
 			continue
 		}
+
+		constValue := parseConstTag(fieldType)
+		if constValue != nil {
+			values.Add(qpTag.ParamName, *constValue)
+			continue
+		}
+
+		defaultValue := parseDefaultTag(fieldType)
 
 		if globals != nil {
 			var globalFound bool
@@ -91,14 +101,14 @@ func populateQueryParams(queryParams interface{}, globals interface{}, values ur
 					}
 				}
 			case "form":
-				vals := populateFormParams(qpTag, fieldType.Type, valType, ",")
+				vals := populateFormParams(qpTag, fieldType.Type, valType, ",", defaultValue)
 				for k, v := range vals {
 					for _, vv := range v {
 						values.Add(k, vv)
 					}
 				}
 			case "pipeDelimited":
-				vals := populateFormParams(qpTag, fieldType.Type, valType, "|")
+				vals := populateFormParams(qpTag, fieldType.Type, valType, "|", defaultValue)
 				for k, v := range vals {
 					for _, vv := range v {
 						values.Add(k, vv)
@@ -149,6 +159,16 @@ func populateDeepObjectParams(tag *paramTag, objType reflect.Type, objValue refl
 
 	switch objValue.Kind() {
 	case reflect.Map:
+		// check if optionalnullable.OptionalNullable[T]
+		if nullableValue, ok := optionalnullable.AsOptionalNullable(objValue); ok {
+			// Handle optionalnullable.OptionalNullable[T] using GetUntyped method
+			if value, isSet := nullableValue.GetUntyped(); isSet && value != nil {
+				values.Add(tag.ParamName, valToString(value))
+			}
+			// If not set or explicitly null, skip adding to values
+			return values
+		}
+
 		populateDeepObjectParamsMap(values, tag.ParamName, objValue)
 	case reflect.Struct:
 		populateDeepObjectParamsStruct(values, tag.ParamName, objValue)
@@ -214,7 +234,11 @@ func populateDeepObjectParamsStruct(qsValues url.Values, priorScope string, stru
 			continue
 		}
 
-		scope := priorScope + "[" + qpTag.ParamName + "]"
+		scope := priorScope
+
+		if !qpTag.Inline {
+			scope = priorScope + "[" + qpTag.ParamName + "]"
+		}
 
 		switch fieldValue.Kind() {
 		case reflect.Array, reflect.Slice:
@@ -223,7 +247,7 @@ func populateDeepObjectParamsStruct(qsValues url.Values, priorScope string, stru
 			populateDeepObjectParamsMap(qsValues, scope, fieldValue)
 		case reflect.Struct:
 			switch fieldValue.Type() {
-			case reflect.TypeOf(big.Int{}), reflect.TypeOf(decimal.Big{}), reflect.TypeOf(time.Time{}), reflect.TypeOf(types.Date{}):
+			case reflect.TypeOf(big.Int{}), reflect.TypeOf(time.Time{}), reflect.TypeOf(types.Date{}):
 				qsValues.Add(scope, valToString(fieldValue.Interface()))
 
 				continue
@@ -236,8 +260,8 @@ func populateDeepObjectParamsStruct(qsValues url.Values, priorScope string, stru
 	}
 }
 
-func populateFormParams(tag *paramTag, objType reflect.Type, objValue reflect.Value, delimiter string) url.Values {
-	return populateForm(tag.ParamName, tag.Explode, objType, objValue, delimiter, func(fieldType reflect.StructField) string {
+func populateFormParams(tag *paramTag, objType reflect.Type, objValue reflect.Value, delimiter string, defaultValue *string) url.Values {
+	return populateForm(tag.ParamName, tag.Explode, objType, objValue, delimiter, defaultValue, func(fieldType reflect.StructField) string {
 		qpTag := parseQueryParamTag(fieldType)
 		if qpTag == nil {
 			return ""
@@ -252,6 +276,13 @@ type paramTag struct {
 	Explode       bool
 	ParamName     string
 	Serialization string
+
+	// Inline is a special case for union/oneOf. When a wrapper struct type is
+	// used, each union/oneOf value field should be inlined (e.g. not appended
+	// in deepObject style with the name) as if the value was directly on the
+	// parent struct field. Without this annotation, the value would not be
+	// encoded by downstream logic that requires the struct field tag.
+	Inline bool
 }
 
 func parseQueryParamTag(field reflect.StructField) *paramTag {

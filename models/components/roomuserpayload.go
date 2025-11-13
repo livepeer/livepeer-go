@@ -13,30 +13,30 @@ type RoomUserPayload struct {
 	Metadata *string `json:"metadata,omitempty"`
 }
 
-func (o *RoomUserPayload) GetName() string {
-	if o == nil {
+func (r *RoomUserPayload) GetName() string {
+	if r == nil {
 		return ""
 	}
-	return o.Name
+	return r.Name
 }
 
-func (o *RoomUserPayload) GetCanPublish() *bool {
-	if o == nil {
+func (r *RoomUserPayload) GetCanPublish() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.CanPublish
+	return r.CanPublish
 }
 
-func (o *RoomUserPayload) GetCanPublishData() *bool {
-	if o == nil {
+func (r *RoomUserPayload) GetCanPublishData() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.CanPublishData
+	return r.CanPublishData
 }
 
-func (o *RoomUserPayload) GetMetadata() *string {
-	if o == nil {
+func (r *RoomUserPayload) GetMetadata() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Metadata
+	return r.Metadata
 }

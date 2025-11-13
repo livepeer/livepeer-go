@@ -12,11 +12,22 @@ type ExportTaskParams2 struct {
 	Ipfs IpfsExportParams `json:"ipfs"`
 }
 
-func (o *ExportTaskParams2) GetIpfs() IpfsExportParams {
-	if o == nil {
+func (e ExportTaskParams2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExportTaskParams2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"ipfs"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExportTaskParams2) GetIpfs() IpfsExportParams {
+	if e == nil {
 		return IpfsExportParams{}
 	}
-	return o.Ipfs
+	return e.Ipfs
 }
 
 // Custom - custom URL parameters for the export task
@@ -34,31 +45,31 @@ func (c Custom) MarshalJSON() ([]byte, error) {
 }
 
 func (c *Custom) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"url"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *Custom) GetURL() string {
-	if o == nil {
+func (c *Custom) GetURL() string {
+	if c == nil {
 		return ""
 	}
-	return o.URL
+	return c.URL
 }
 
-func (o *Custom) GetMethod() *string {
-	if o == nil {
+func (c *Custom) GetMethod() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Method
+	return c.Method
 }
 
-func (o *Custom) GetHeaders() map[string]string {
-	if o == nil {
+func (c *Custom) GetHeaders() map[string]string {
+	if c == nil {
 		return nil
 	}
-	return o.Headers
+	return c.Headers
 }
 
 type ExportTaskParams1 struct {
@@ -66,11 +77,22 @@ type ExportTaskParams1 struct {
 	Custom Custom `json:"custom"`
 }
 
-func (o *ExportTaskParams1) GetCustom() Custom {
-	if o == nil {
+func (e ExportTaskParams1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExportTaskParams1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"custom"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExportTaskParams1) GetCustom() Custom {
+	if e == nil {
 		return Custom{}
 	}
-	return o.Custom
+	return e.Custom
 }
 
 type ExportTaskParamsType string
@@ -82,8 +104,8 @@ const (
 
 // ExportTaskParams - Parameters for the export task
 type ExportTaskParams struct {
-	ExportTaskParams1 *ExportTaskParams1
-	ExportTaskParams2 *ExportTaskParams2
+	ExportTaskParams1 *ExportTaskParams1 `queryParam:"inline,name=export_task_params"`
+	ExportTaskParams2 *ExportTaskParams2 `queryParam:"inline,name=export_task_params"`
 
 	Type ExportTaskParamsType
 }
@@ -109,14 +131,14 @@ func CreateExportTaskParamsExportTaskParams2(exportTaskParams2 ExportTaskParams2
 func (u *ExportTaskParams) UnmarshalJSON(data []byte) error {
 
 	var exportTaskParams1 ExportTaskParams1 = ExportTaskParams1{}
-	if err := utils.UnmarshalJSON(data, &exportTaskParams1, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &exportTaskParams1, "", true, nil); err == nil {
 		u.ExportTaskParams1 = &exportTaskParams1
 		u.Type = ExportTaskParamsTypeExportTaskParams1
 		return nil
 	}
 
 	var exportTaskParams2 ExportTaskParams2 = ExportTaskParams2{}
-	if err := utils.UnmarshalJSON(data, &exportTaskParams2, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &exportTaskParams2, "", true, nil); err == nil {
 		u.ExportTaskParams2 = &exportTaskParams2
 		u.Type = ExportTaskParamsTypeExportTaskParams2
 		return nil

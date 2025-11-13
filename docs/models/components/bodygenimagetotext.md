@@ -1,0 +1,10 @@
+# BodyGenImageToText
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `Image`                                                                                  | [components.BodyGenImageToTextImage](../../models/components/bodygenimagetotextimage.md) | :heavy_check_mark:                                                                       | Uploaded image to transform with the pipeline.                                           |
+| `Prompt`                                                                                 | **string*                                                                                | :heavy_minus_sign:                                                                       | Text prompt(s) to guide transformation.                                                  |
+| `ModelID`                                                                                | **string*                                                                                | :heavy_minus_sign:                                                                       | Hugging Face model ID used for transformation.                                           |

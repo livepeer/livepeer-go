@@ -17,60 +17,68 @@ type StreamPatchPayload struct {
 	RecordingSpec  *RecordingSpec  `json:"recordingSpec,omitempty"`
 	// User input tags associated with the stream
 	UserTags map[string]UserTags `json:"userTags,omitempty"`
+	Name     *string             `json:"name,omitempty"`
 }
 
-func (o *StreamPatchPayload) GetCreatorID() *InputCreatorID {
-	if o == nil {
+func (s *StreamPatchPayload) GetCreatorID() *InputCreatorID {
+	if s == nil {
 		return nil
 	}
-	return o.CreatorID
+	return s.CreatorID
 }
 
-func (o *StreamPatchPayload) GetRecord() *bool {
-	if o == nil {
+func (s *StreamPatchPayload) GetRecord() *bool {
+	if s == nil {
 		return nil
 	}
-	return o.Record
+	return s.Record
 }
 
-func (o *StreamPatchPayload) GetSuspended() *bool {
-	if o == nil {
+func (s *StreamPatchPayload) GetSuspended() *bool {
+	if s == nil {
 		return nil
 	}
-	return o.Suspended
+	return s.Suspended
 }
 
-func (o *StreamPatchPayload) GetMultistream() *Multistream {
-	if o == nil {
+func (s *StreamPatchPayload) GetMultistream() *Multistream {
+	if s == nil {
 		return nil
 	}
-	return o.Multistream
+	return s.Multistream
 }
 
-func (o *StreamPatchPayload) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
+func (s *StreamPatchPayload) GetPlaybackPolicy() *PlaybackPolicy {
+	if s == nil {
 		return nil
 	}
-	return o.PlaybackPolicy
+	return s.PlaybackPolicy
 }
 
-func (o *StreamPatchPayload) GetProfiles() []FfmpegProfile {
-	if o == nil {
+func (s *StreamPatchPayload) GetProfiles() []FfmpegProfile {
+	if s == nil {
 		return nil
 	}
-	return o.Profiles
+	return s.Profiles
 }
 
-func (o *StreamPatchPayload) GetRecordingSpec() *RecordingSpec {
-	if o == nil {
+func (s *StreamPatchPayload) GetRecordingSpec() *RecordingSpec {
+	if s == nil {
 		return nil
 	}
-	return o.RecordingSpec
+	return s.RecordingSpec
 }
 
-func (o *StreamPatchPayload) GetUserTags() map[string]UserTags {
-	if o == nil {
+func (s *StreamPatchPayload) GetUserTags() map[string]UserTags {
+	if s == nil {
 		return nil
 	}
-	return o.UserTags
+	return s.UserTags
+}
+
+func (s *StreamPatchPayload) GetName() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Name
 }

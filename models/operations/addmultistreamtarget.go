@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type AddMultistreamTargetRequest struct {
@@ -13,36 +12,36 @@ type AddMultistreamTargetRequest struct {
 	TargetAddPayload components.TargetAddPayload `request:"mediaType=application/json"`
 }
 
-func (o *AddMultistreamTargetRequest) GetID() string {
-	if o == nil {
+func (a *AddMultistreamTargetRequest) GetID() string {
+	if a == nil {
 		return ""
 	}
-	return o.ID
+	return a.ID
 }
 
-func (o *AddMultistreamTargetRequest) GetTargetAddPayload() components.TargetAddPayload {
-	if o == nil {
+func (a *AddMultistreamTargetRequest) GetTargetAddPayload() components.TargetAddPayload {
+	if a == nil {
 		return components.TargetAddPayload{}
 	}
-	return o.TargetAddPayload
+	return a.TargetAddPayload
 }
 
 type AddMultistreamTargetResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *AddMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (a *AddMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if a == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return a.HTTPMeta
 }
 
-func (o *AddMultistreamTargetResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (a *AddMultistreamTargetResponse) GetError() *components.Error {
+	if a == nil {
 		return nil
 	}
-	return o.Error
+	return a.Error
 }

@@ -2,15 +2,30 @@
 
 package components
 
+import (
+	"github.com/livepeer/livepeer-go/internal/utils"
+)
+
 // APIError - API error response model.
 type APIError struct {
 	// The error message.
 	Msg string `json:"msg"`
 }
 
-func (o *APIError) GetMsg() string {
-	if o == nil {
+func (a APIError) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *APIError) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"msg"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *APIError) GetMsg() string {
+	if a == nil {
 		return ""
 	}
-	return o.Msg
+	return a.Msg
 }

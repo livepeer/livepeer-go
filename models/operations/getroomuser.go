@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetRoomUserRequest struct {
@@ -12,18 +11,18 @@ type GetRoomUserRequest struct {
 	UserID string `pathParam:"style=simple,explode=false,name=userId"`
 }
 
-func (o *GetRoomUserRequest) GetID() string {
-	if o == nil {
+func (g *GetRoomUserRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
-func (o *GetRoomUserRequest) GetUserID() string {
-	if o == nil {
+func (g *GetRoomUserRequest) GetUserID() string {
+	if g == nil {
 		return ""
 	}
-	return o.UserID
+	return g.UserID
 }
 
 type GetRoomUserResponse struct {
@@ -31,26 +30,26 @@ type GetRoomUserResponse struct {
 	// Success
 	GetRoomUserResponse *components.GetRoomUserResponse
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetRoomUserResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetRoomUserResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetRoomUserResponse) GetGetRoomUserResponse() *components.GetRoomUserResponse {
-	if o == nil {
+func (g *GetRoomUserResponse) GetGetRoomUserResponse() *components.GetRoomUserResponse {
+	if g == nil {
 		return nil
 	}
-	return o.GetRoomUserResponse
+	return g.GetRoomUserResponse
 }
 
-func (o *GetRoomUserResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetRoomUserResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

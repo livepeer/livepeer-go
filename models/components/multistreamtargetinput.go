@@ -12,23 +12,23 @@ type MultistreamTargetInput struct {
 	Disabled *bool `json:"disabled,omitempty"`
 }
 
-func (o *MultistreamTargetInput) GetName() *string {
-	if o == nil {
+func (m *MultistreamTargetInput) GetName() *string {
+	if m == nil {
 		return nil
 	}
-	return o.Name
+	return m.Name
 }
 
-func (o *MultistreamTargetInput) GetURL() string {
-	if o == nil {
+func (m *MultistreamTargetInput) GetURL() string {
+	if m == nil {
 		return ""
 	}
-	return o.URL
+	return m.URL
 }
 
-func (o *MultistreamTargetInput) GetDisabled() *bool {
-	if o == nil {
+func (m *MultistreamTargetInput) GetDisabled() *bool {
+	if m == nil {
 		return nil
 	}
-	return o.Disabled
+	return m.Disabled
 }

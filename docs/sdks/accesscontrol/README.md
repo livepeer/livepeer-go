@@ -21,21 +21,23 @@ Up to 10 signing keys can be generated, after that you must delete at least one 
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createSigningKey" method="post" path="/access-control/signing-key" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.AccessControl.Create(ctx)
     if err != nil {
         log.Fatal(err)
@@ -59,10 +61,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## GetAll
 
@@ -70,21 +71,23 @@ Retrieves signing keys
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getSigningKeys" method="get" path="/access-control/signing-key" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.AccessControl.GetAll(ctx)
     if err != nil {
         log.Fatal(err)
@@ -108,10 +111,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Delete
 
@@ -119,26 +121,28 @@ Delete Signing Key
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteSigningKey" method="delete" path="/access-control/signing-key/{keyId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.AccessControl.Delete(ctx, "<value>")
+    res, err := s.AccessControl.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
-    if res != nil {
+    if res.Error != nil {
         // handle response
     }
 }
@@ -158,10 +162,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Get
 
@@ -169,22 +172,24 @@ Retrieves a signing key
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getSigningKey" method="get" path="/access-control/signing-key/{keyId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.AccessControl.Get(ctx, "<value>")
+    res, err := s.AccessControl.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -208,10 +213,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Update
 
@@ -219,27 +223,29 @@ Update a signing key
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateSigningKey" method="patch" path="/access-control/signing-key/{keyId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/operations"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.AccessControl.Update(ctx, "<value>", operations.UpdateSigningKeyRequestBody{})
+    res, err := s.AccessControl.Update(ctx, "<id>", operations.UpdateSigningKeyRequestBody{})
     if err != nil {
         log.Fatal(err)
     }
-    if res != nil {
+    if res.Error != nil {
         // handle response
     }
 }
@@ -260,6 +266,6 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |

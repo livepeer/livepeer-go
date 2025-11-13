@@ -7,9 +7,9 @@ type CreateRoomResponse struct {
 	ID *string `json:"id,omitempty"`
 }
 
-func (o *CreateRoomResponse) GetID() *string {
-	if o == nil {
+func (c *CreateRoomResponse) GetID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.ID
+	return c.ID
 }

@@ -2,13 +2,28 @@
 
 package components
 
+import (
+	"github.com/livepeer/livepeer-go/internal/utils"
+)
+
 type HTTPValidationError struct {
 	Detail []ValidationError `json:"detail,omitempty"`
 }
 
-func (o *HTTPValidationError) GetDetail() []ValidationError {
-	if o == nil {
+func (h HTTPValidationError) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HTTPValidationError) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *HTTPValidationError) GetDetail() []ValidationError {
+	if h == nil {
 		return nil
 	}
-	return o.Detail
+	return h.Detail
 }

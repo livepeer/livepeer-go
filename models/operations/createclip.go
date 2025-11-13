@@ -4,18 +4,17 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type CreateClipTask struct {
 	ID *string `json:"id,omitempty"`
 }
 
-func (o *CreateClipTask) GetID() *string {
-	if o == nil {
+func (c *CreateClipTask) GetID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.ID
+	return c.ID
 }
 
 // CreateClipData - Success
@@ -24,18 +23,18 @@ type CreateClipData struct {
 	Task  CreateClipTask   `json:"task"`
 }
 
-func (o *CreateClipData) GetAsset() components.Asset {
-	if o == nil {
+func (c *CreateClipData) GetAsset() components.Asset {
+	if c == nil {
 		return components.Asset{}
 	}
-	return o.Asset
+	return c.Asset
 }
 
-func (o *CreateClipData) GetTask() CreateClipTask {
-	if o == nil {
+func (c *CreateClipData) GetTask() CreateClipTask {
+	if c == nil {
 		return CreateClipTask{}
 	}
-	return o.Task
+	return c.Task
 }
 
 type CreateClipResponse struct {
@@ -43,26 +42,26 @@ type CreateClipResponse struct {
 	// Success
 	Data *CreateClipData
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *CreateClipResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateClipResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateClipResponse) GetData() *CreateClipData {
-	if o == nil {
+func (c *CreateClipResponse) GetData() *CreateClipData {
+	if c == nil {
 		return nil
 	}
-	return o.Data
+	return c.Data
 }
 
-func (o *CreateClipResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (c *CreateClipResponse) GetError() *components.Error {
+	if c == nil {
 		return nil
 	}
-	return o.Error
+	return c.Error
 }

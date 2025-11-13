@@ -8,9 +8,9 @@ type ImageResponse struct {
 	Images []Media `json:"images"`
 }
 
-func (o *ImageResponse) GetImages() []Media {
-	if o == nil {
+func (i *ImageResponse) GetImages() []Media {
+	if i == nil {
 		return []Media{}
 	}
-	return o.Images
+	return i.Images
 }

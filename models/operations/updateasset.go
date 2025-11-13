@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type UpdateAssetRequest struct {
@@ -13,18 +12,18 @@ type UpdateAssetRequest struct {
 	AssetPatchPayload components.AssetPatchPayload `request:"mediaType=application/json"`
 }
 
-func (o *UpdateAssetRequest) GetAssetID() string {
-	if o == nil {
+func (u *UpdateAssetRequest) GetAssetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.AssetID
+	return u.AssetID
 }
 
-func (o *UpdateAssetRequest) GetAssetPatchPayload() components.AssetPatchPayload {
-	if o == nil {
+func (u *UpdateAssetRequest) GetAssetPatchPayload() components.AssetPatchPayload {
+	if u == nil {
 		return components.AssetPatchPayload{}
 	}
-	return o.AssetPatchPayload
+	return u.AssetPatchPayload
 }
 
 type UpdateAssetResponse struct {
@@ -32,26 +31,26 @@ type UpdateAssetResponse struct {
 	// Success
 	Asset *components.Asset
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *UpdateAssetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateAssetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateAssetResponse) GetAsset() *components.Asset {
-	if o == nil {
+func (u *UpdateAssetResponse) GetAsset() *components.Asset {
+	if u == nil {
 		return nil
 	}
-	return o.Asset
+	return u.Asset
 }
 
-func (o *UpdateAssetResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (u *UpdateAssetResponse) GetError() *components.Error {
+	if u == nil {
 		return nil
 	}
-	return o.Error
+	return u.Error
 }

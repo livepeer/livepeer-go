@@ -18,44 +18,44 @@ type RealtimeViewershipMetric struct {
 	ErrorRate float64 `json:"errorRate"`
 }
 
-func (o *RealtimeViewershipMetric) GetPlaybackID() *string {
-	if o == nil {
+func (r *RealtimeViewershipMetric) GetPlaybackID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.PlaybackID
+	return r.PlaybackID
 }
 
-func (o *RealtimeViewershipMetric) GetDevice() *string {
-	if o == nil {
+func (r *RealtimeViewershipMetric) GetDevice() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Device
+	return r.Device
 }
 
-func (o *RealtimeViewershipMetric) GetBrowser() *string {
-	if o == nil {
+func (r *RealtimeViewershipMetric) GetBrowser() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Browser
+	return r.Browser
 }
 
-func (o *RealtimeViewershipMetric) GetCountry() *string {
-	if o == nil {
+func (r *RealtimeViewershipMetric) GetCountry() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Country
+	return r.Country
 }
 
-func (o *RealtimeViewershipMetric) GetViewCount() int64 {
-	if o == nil {
+func (r *RealtimeViewershipMetric) GetViewCount() int64 {
+	if r == nil {
 		return 0
 	}
-	return o.ViewCount
+	return r.ViewCount
 }
 
-func (o *RealtimeViewershipMetric) GetErrorRate() float64 {
-	if o == nil {
+func (r *RealtimeViewershipMetric) GetErrorRate() float64 {
+	if r == nil {
 		return 0.0
 	}
-	return o.ErrorRate
+	return r.ErrorRate
 }

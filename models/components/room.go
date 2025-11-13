@@ -13,32 +13,32 @@ type Participants struct {
 	LeftAt *int64 `json:"leftAt,omitempty"`
 }
 
-func (o *Participants) GetIdentity() *string {
-	if o == nil {
+func (p *Participants) GetIdentity() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Identity
+	return p.Identity
 }
 
-func (o *Participants) GetName() *string {
-	if o == nil {
+func (p *Participants) GetName() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Name
+	return p.Name
 }
 
-func (o *Participants) GetJoinedAt() *int64 {
-	if o == nil {
+func (p *Participants) GetJoinedAt() *int64 {
+	if p == nil {
 		return nil
 	}
-	return o.JoinedAt
+	return p.JoinedAt
 }
 
-func (o *Participants) GetLeftAt() *int64 {
-	if o == nil {
+func (p *Participants) GetLeftAt() *int64 {
+	if p == nil {
 		return nil
 	}
-	return o.LeftAt
+	return p.LeftAt
 }
 
 type Room struct {
@@ -53,37 +53,37 @@ type Room struct {
 	Participants map[string]Participants `json:"participants"`
 }
 
-func (o *Room) GetID() string {
-	if o == nil {
+func (r *Room) GetID() string {
+	if r == nil {
 		return ""
 	}
-	return o.ID
+	return r.ID
 }
 
-func (o *Room) GetCreatedAt() *float64 {
-	if o == nil {
+func (r *Room) GetCreatedAt() *float64 {
+	if r == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return r.CreatedAt
 }
 
-func (o *Room) GetUpdatedAt() *float64 {
-	if o == nil {
+func (r *Room) GetUpdatedAt() *float64 {
+	if r == nil {
 		return nil
 	}
-	return o.UpdatedAt
+	return r.UpdatedAt
 }
 
-func (o *Room) GetEgressID() *string {
-	if o == nil {
+func (r *Room) GetEgressID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.EgressID
+	return r.EgressID
 }
 
-func (o *Room) GetParticipants() map[string]Participants {
-	if o == nil {
+func (r *Room) GetParticipants() map[string]Participants {
+	if r == nil {
 		return map[string]Participants{}
 	}
-	return o.Participants
+	return r.Participants
 }

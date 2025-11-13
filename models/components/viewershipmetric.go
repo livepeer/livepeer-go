@@ -58,156 +58,156 @@ type ViewershipMetric struct {
 	ExitsBeforeStart *float64 `json:"exitsBeforeStart,omitempty"`
 }
 
-func (o *ViewershipMetric) GetPlaybackID() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetPlaybackID() *string {
+	if v == nil {
 		return nil
 	}
-	return o.PlaybackID
+	return v.PlaybackID
 }
 
-func (o *ViewershipMetric) GetCreatorID() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetCreatorID() *string {
+	if v == nil {
 		return nil
 	}
-	return o.CreatorID
+	return v.CreatorID
 }
 
-func (o *ViewershipMetric) GetViewerID() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetViewerID() *string {
+	if v == nil {
 		return nil
 	}
-	return o.ViewerID
+	return v.ViewerID
 }
 
-func (o *ViewershipMetric) GetDStorageURL() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetDStorageURL() *string {
+	if v == nil {
 		return nil
 	}
-	return o.DStorageURL
+	return v.DStorageURL
 }
 
-func (o *ViewershipMetric) GetTimestamp() *float64 {
-	if o == nil {
+func (v *ViewershipMetric) GetTimestamp() *float64 {
+	if v == nil {
 		return nil
 	}
-	return o.Timestamp
+	return v.Timestamp
 }
 
-func (o *ViewershipMetric) GetDevice() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetDevice() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Device
+	return v.Device
 }
 
-func (o *ViewershipMetric) GetDeviceType() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetDeviceType() *string {
+	if v == nil {
 		return nil
 	}
-	return o.DeviceType
+	return v.DeviceType
 }
 
-func (o *ViewershipMetric) GetCPU() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetCPU() *string {
+	if v == nil {
 		return nil
 	}
-	return o.CPU
+	return v.CPU
 }
 
-func (o *ViewershipMetric) GetOs() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetOs() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Os
+	return v.Os
 }
 
-func (o *ViewershipMetric) GetBrowser() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetBrowser() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Browser
+	return v.Browser
 }
 
-func (o *ViewershipMetric) GetBrowserEngine() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetBrowserEngine() *string {
+	if v == nil {
 		return nil
 	}
-	return o.BrowserEngine
+	return v.BrowserEngine
 }
 
-func (o *ViewershipMetric) GetContinent() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetContinent() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Continent
+	return v.Continent
 }
 
-func (o *ViewershipMetric) GetCountry() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetCountry() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Country
+	return v.Country
 }
 
-func (o *ViewershipMetric) GetSubdivision() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetSubdivision() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Subdivision
+	return v.Subdivision
 }
 
-func (o *ViewershipMetric) GetTimezone() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetTimezone() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Timezone
+	return v.Timezone
 }
 
-func (o *ViewershipMetric) GetGeohash() *string {
-	if o == nil {
+func (v *ViewershipMetric) GetGeohash() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Geohash
+	return v.Geohash
 }
 
-func (o *ViewershipMetric) GetViewCount() int64 {
-	if o == nil {
+func (v *ViewershipMetric) GetViewCount() int64 {
+	if v == nil {
 		return 0
 	}
-	return o.ViewCount
+	return v.ViewCount
 }
 
-func (o *ViewershipMetric) GetPlaytimeMins() float64 {
-	if o == nil {
+func (v *ViewershipMetric) GetPlaytimeMins() float64 {
+	if v == nil {
 		return 0.0
 	}
-	return o.PlaytimeMins
+	return v.PlaytimeMins
 }
 
-func (o *ViewershipMetric) GetTtffMs() *float64 {
-	if o == nil {
+func (v *ViewershipMetric) GetTtffMs() *float64 {
+	if v == nil {
 		return nil
 	}
-	return o.TtffMs
+	return v.TtffMs
 }
 
-func (o *ViewershipMetric) GetRebufferRatio() *float64 {
-	if o == nil {
+func (v *ViewershipMetric) GetRebufferRatio() *float64 {
+	if v == nil {
 		return nil
 	}
-	return o.RebufferRatio
+	return v.RebufferRatio
 }
 
-func (o *ViewershipMetric) GetErrorRate() *float64 {
-	if o == nil {
+func (v *ViewershipMetric) GetErrorRate() *float64 {
+	if v == nil {
 		return nil
 	}
-	return o.ErrorRate
+	return v.ErrorRate
 }
 
-func (o *ViewershipMetric) GetExitsBeforeStart() *float64 {
-	if o == nil {
+func (v *ViewershipMetric) GetExitsBeforeStart() *float64 {
+	if v == nil {
 		return nil
 	}
-	return o.ExitsBeforeStart
+	return v.ExitsBeforeStart
 }

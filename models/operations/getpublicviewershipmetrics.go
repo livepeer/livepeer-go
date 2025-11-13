@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetPublicViewershipMetricsRequest struct {
@@ -15,11 +14,11 @@ type GetPublicViewershipMetricsRequest struct {
 	PlaybackID string `pathParam:"style=simple,explode=false,name=playbackId"`
 }
 
-func (o *GetPublicViewershipMetricsRequest) GetPlaybackID() string {
-	if o == nil {
+func (g *GetPublicViewershipMetricsRequest) GetPlaybackID() string {
+	if g == nil {
 		return ""
 	}
-	return o.PlaybackID
+	return g.PlaybackID
 }
 
 // GetPublicViewershipMetricsData - A simplified metric object about aggregate viewership of an
@@ -35,32 +34,32 @@ type GetPublicViewershipMetricsData struct {
 	PlaytimeMins *float64 `json:"playtimeMins,omitempty"`
 }
 
-func (o *GetPublicViewershipMetricsData) GetPlaybackID() *string {
-	if o == nil {
+func (g *GetPublicViewershipMetricsData) GetPlaybackID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.PlaybackID
+	return g.PlaybackID
 }
 
-func (o *GetPublicViewershipMetricsData) GetDStorageURL() *string {
-	if o == nil {
+func (g *GetPublicViewershipMetricsData) GetDStorageURL() *string {
+	if g == nil {
 		return nil
 	}
-	return o.DStorageURL
+	return g.DStorageURL
 }
 
-func (o *GetPublicViewershipMetricsData) GetViewCount() *int64 {
-	if o == nil {
+func (g *GetPublicViewershipMetricsData) GetViewCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.ViewCount
+	return g.ViewCount
 }
 
-func (o *GetPublicViewershipMetricsData) GetPlaytimeMins() *float64 {
-	if o == nil {
+func (g *GetPublicViewershipMetricsData) GetPlaytimeMins() *float64 {
+	if g == nil {
 		return nil
 	}
-	return o.PlaytimeMins
+	return g.PlaytimeMins
 }
 
 type GetPublicViewershipMetricsResponse struct {
@@ -68,26 +67,26 @@ type GetPublicViewershipMetricsResponse struct {
 	// A single Metric object with the viewCount and playtimeMins metrics.
 	Data *GetPublicViewershipMetricsData
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetPublicViewershipMetricsResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetPublicViewershipMetricsResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetPublicViewershipMetricsResponse) GetData() *GetPublicViewershipMetricsData {
-	if o == nil {
+func (g *GetPublicViewershipMetricsResponse) GetData() *GetPublicViewershipMetricsData {
+	if g == nil {
 		return nil
 	}
-	return o.Data
+	return g.Data
 }
 
-func (o *GetPublicViewershipMetricsResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetPublicViewershipMetricsResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

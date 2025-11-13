@@ -12,23 +12,23 @@ type MasksResponse struct {
 	Logits string `json:"logits"`
 }
 
-func (o *MasksResponse) GetMasks() string {
-	if o == nil {
+func (m *MasksResponse) GetMasks() string {
+	if m == nil {
 		return ""
 	}
-	return o.Masks
+	return m.Masks
 }
 
-func (o *MasksResponse) GetScores() string {
-	if o == nil {
+func (m *MasksResponse) GetScores() string {
+	if m == nil {
 		return ""
 	}
-	return o.Scores
+	return m.Scores
 }
 
-func (o *MasksResponse) GetLogits() string {
-	if o == nil {
+func (m *MasksResponse) GetLogits() string {
+	if m == nil {
 		return ""
 	}
-	return o.Logits
+	return m.Logits
 }

@@ -48,8 +48,8 @@ const (
 
 // IsMobile - Indicates whether the stream will be pulled from a mobile source.
 type IsMobile struct {
-	One     *One
-	Boolean *bool
+	One     *One  `queryParam:"inline,name=isMobile"`
+	Boolean *bool `queryParam:"inline,name=isMobile"`
 
 	Type IsMobileType
 }
@@ -75,14 +75,14 @@ func CreateIsMobileBoolean(boolean bool) IsMobile {
 func (u *IsMobile) UnmarshalJSON(data []byte) error {
 
 	var one One = One(0)
-	if err := utils.UnmarshalJSON(data, &one, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &one, "", true, nil); err == nil {
 		u.One = &one
 		u.Type = IsMobileTypeOne
 		return nil
 	}
 
 	var boolean bool = false
-	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
 		u.Boolean = &boolean
 		u.Type = IsMobileTypeBoolean
 		return nil
@@ -114,18 +114,18 @@ type Location struct {
 	Lon float64 `json:"lon"`
 }
 
-func (o *Location) GetLat() float64 {
-	if o == nil {
+func (l *Location) GetLat() float64 {
+	if l == nil {
 		return 0.0
 	}
-	return o.Lat
+	return l.Lat
 }
 
-func (o *Location) GetLon() float64 {
-	if o == nil {
+func (l *Location) GetLon() float64 {
+	if l == nil {
 		return 0.0
 	}
-	return o.Lon
+	return l.Lon
 }
 
 // Pull - Configuration for a stream that should be actively pulled from an
@@ -143,30 +143,30 @@ type Pull struct {
 	Location *Location `json:"location,omitempty"`
 }
 
-func (o *Pull) GetSource() string {
-	if o == nil {
+func (p *Pull) GetSource() string {
+	if p == nil {
 		return ""
 	}
-	return o.Source
+	return p.Source
 }
 
-func (o *Pull) GetHeaders() map[string]string {
-	if o == nil {
+func (p *Pull) GetHeaders() map[string]string {
+	if p == nil {
 		return nil
 	}
-	return o.Headers
+	return p.Headers
 }
 
-func (o *Pull) GetIsMobile() *IsMobile {
-	if o == nil {
+func (p *Pull) GetIsMobile() *IsMobile {
+	if p == nil {
 		return nil
 	}
-	return o.IsMobile
+	return p.IsMobile
 }
 
-func (o *Pull) GetLocation() *Location {
-	if o == nil {
+func (p *Pull) GetLocation() *Location {
+	if p == nil {
 		return nil
 	}
-	return o.Location
+	return p.Location
 }

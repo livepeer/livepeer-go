@@ -20,21 +20,23 @@ Retrieve assets
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getAssets" method="get" path="/asset" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Asset.GetAll(ctx)
     if err != nil {
         log.Fatal(err)
@@ -58,10 +60,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Create
 
@@ -140,43 +141,45 @@ definition above.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="requestUpload" method="post" path="/asset/request-upload" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Asset.Create(ctx, components.NewAssetPayload{
         Name: "filename.mp4",
-        StaticMp4: livepeergo.Bool(true),
+        StaticMp4: livepeergo.Pointer(true),
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypeWebhook,
-            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+            WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
             WebhookContext: map[string]any{
                 "streamerId": "my-custom-id",
             },
-            RefreshInterval: livepeergo.Float64(600),
+            RefreshInterval: livepeergo.Pointer[float64](600),
         },
         Profiles: []components.TranscodeProfile{
             components.TranscodeProfile{
-                Width: livepeergo.Int64(1280),
-                Name: livepeergo.String("720p"),
-                Height: livepeergo.Int64(720),
+                Width: livepeergo.Pointer[int64](1280),
+                Name: livepeergo.Pointer("720p"),
+                Height: livepeergo.Pointer[int64](720),
                 Bitrate: 3000000,
-                Quality: livepeergo.Int64(23),
-                Fps: livepeergo.Int64(30),
-                FpsDen: livepeergo.Int64(1),
-                Gop: livepeergo.String("2"),
+                Quality: livepeergo.Pointer[int64](23),
+                Fps: livepeergo.Pointer[int64](30),
+                FpsDen: livepeergo.Pointer[int64](1),
+                Gop: livepeergo.Pointer("2"),
                 Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
                 Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
             },
@@ -205,10 +208,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## CreateViaURL
 
@@ -216,44 +218,39 @@ Upload asset via URL
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="uploadAsset" method="post" path="/asset/upload/url" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Asset.CreateViaURL(ctx, components.NewAssetFromURLPayload{
         Name: "filename.mp4",
-        StaticMp4: livepeergo.Bool(true),
-        PlaybackPolicy: &components.PlaybackPolicy{
-            Type: components.TypeWebhook,
-            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
-            WebhookContext: map[string]any{
-                "streamerId": "my-custom-id",
-            },
-            RefreshInterval: livepeergo.Float64(600),
-        },
+        StaticMp4: livepeergo.Pointer(true),
+        PlaybackPolicy: nil,
         URL: "https://s3.amazonaws.com/my-bucket/path/filename.mp4",
         Profiles: []components.TranscodeProfile{
             components.TranscodeProfile{
-                Width: livepeergo.Int64(1280),
-                Name: livepeergo.String("720p"),
-                Height: livepeergo.Int64(720),
+                Width: livepeergo.Pointer[int64](1280),
+                Name: livepeergo.Pointer("720p"),
+                Height: livepeergo.Pointer[int64](720),
                 Bitrate: 3000000,
-                Quality: livepeergo.Int64(23),
-                Fps: livepeergo.Int64(30),
-                FpsDen: livepeergo.Int64(1),
-                Gop: livepeergo.String("2"),
+                Quality: livepeergo.Pointer[int64](23),
+                Fps: livepeergo.Pointer[int64](30),
+                FpsDen: livepeergo.Pointer[int64](1),
+                Gop: livepeergo.Pointer("2"),
                 Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
                 Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
             },
@@ -282,10 +279,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Get
 
@@ -293,22 +289,24 @@ Retrieves an asset
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getAsset" method="get" path="/asset/{assetId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Asset.Get(ctx, "<value>")
+    res, err := s.Asset.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -332,10 +330,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Update
 
@@ -343,31 +340,33 @@ Patch an asset
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateAsset" method="patch" path="/asset/{assetId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/components"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Asset.Update(ctx, "<value>", components.AssetPatchPayload{
-        Name: livepeergo.String("filename.mp4"),
+    res, err := s.Asset.Update(ctx, "<id>", components.AssetPatchPayload{
+        Name: livepeergo.Pointer("filename.mp4"),
         PlaybackPolicy: &components.PlaybackPolicy{
             Type: components.TypeWebhook,
-            WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+            WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
             WebhookContext: map[string]any{
                 "streamerId": "my-custom-id",
             },
-            RefreshInterval: livepeergo.Float64(600),
+            RefreshInterval: livepeergo.Pointer[float64](600),
         },
     })
     if err != nil {
@@ -394,10 +393,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## Delete
 
@@ -405,26 +403,28 @@ Delete an asset
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteAsset" method="delete" path="/asset/{assetId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Asset.Delete(ctx, "<value>")
+    res, err := s.Asset.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
-    if res != nil {
+    if res.Error != nil {
         // handle response
     }
 }
@@ -444,6 +444,6 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |

@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetPlaybackInfoRequest struct {
@@ -12,11 +11,11 @@ type GetPlaybackInfoRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetPlaybackInfoRequest) GetID() string {
-	if o == nil {
+func (g *GetPlaybackInfoRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 type GetPlaybackInfoResponse struct {
@@ -24,26 +23,26 @@ type GetPlaybackInfoResponse struct {
 	// Successful response
 	PlaybackInfo *components.PlaybackInfo
 	// Playback not found
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetPlaybackInfoResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetPlaybackInfoResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetPlaybackInfoResponse) GetPlaybackInfo() *components.PlaybackInfo {
-	if o == nil {
+func (g *GetPlaybackInfoResponse) GetPlaybackInfo() *components.PlaybackInfo {
+	if g == nil {
 		return nil
 	}
-	return o.PlaybackInfo
+	return g.PlaybackInfo
 }
 
-func (o *GetPlaybackInfoResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetPlaybackInfoResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

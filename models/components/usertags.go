@@ -16,8 +16,8 @@ const (
 )
 
 type UserTags3 struct {
-	Str    *string
-	Number *float64
+	Str    *string  `queryParam:"inline,name=three"`
+	Number *float64 `queryParam:"inline,name=three"`
 
 	Type UserTags3Type
 }
@@ -43,14 +43,14 @@ func CreateUserTags3Number(number float64) UserTags3 {
 func (u *UserTags3) UnmarshalJSON(data []byte) error {
 
 	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		u.Str = &str
 		u.Type = UserTags3TypeStr
 		return nil
 	}
 
 	var number float64 = float64(0)
-	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
 		u.Number = &number
 		u.Type = UserTags3TypeNumber
 		return nil
@@ -80,9 +80,9 @@ const (
 )
 
 type UserTags struct {
-	Str              *string
-	Number           *float64
-	ArrayOfUserTags3 []UserTags3
+	Str              *string     `queryParam:"inline,name=userTags"`
+	Number           *float64    `queryParam:"inline,name=userTags"`
+	ArrayOfUserTags3 []UserTags3 `queryParam:"inline,name=userTags"`
 
 	Type UserTagsType
 }
@@ -117,21 +117,21 @@ func CreateUserTagsArrayOfUserTags3(arrayOfUserTags3 []UserTags3) UserTags {
 func (u *UserTags) UnmarshalJSON(data []byte) error {
 
 	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		u.Str = &str
 		u.Type = UserTagsTypeStr
 		return nil
 	}
 
 	var number float64 = float64(0)
-	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
 		u.Number = &number
 		u.Type = UserTagsTypeNumber
 		return nil
 	}
 
 	var arrayOfUserTags3 []UserTags3 = []UserTags3{}
-	if err := utils.UnmarshalJSON(data, &arrayOfUserTags3, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &arrayOfUserTags3, "", true, nil); err == nil {
 		u.ArrayOfUserTags3 = arrayOfUserTags3
 		u.Type = UserTagsTypeArrayOfUserTags3
 		return nil

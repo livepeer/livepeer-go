@@ -12,11 +12,22 @@ type Ipfs1 struct {
 	Spec *Spec `json:"spec,omitempty"`
 }
 
-func (o *Ipfs1) GetSpec() *Spec {
-	if o == nil {
+func (i Ipfs1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *Ipfs1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *Ipfs1) GetSpec() *Spec {
+	if i == nil {
 		return nil
 	}
-	return o.Spec
+	return i.Spec
 }
 
 type IpfsType string
@@ -30,8 +41,8 @@ const (
 // pinned files, specify an object with a spec field. False or null
 // means to unpin from IPFS, but it's unsupported right now.
 type Ipfs struct {
-	Ipfs1   *Ipfs1
-	Boolean *bool
+	Ipfs1   *Ipfs1 `queryParam:"inline,name=ipfs"`
+	Boolean *bool  `queryParam:"inline,name=ipfs"`
 
 	Type IpfsType
 }
@@ -57,14 +68,14 @@ func CreateIpfsBoolean(boolean bool) Ipfs {
 func (u *Ipfs) UnmarshalJSON(data []byte) error {
 
 	var ipfs1 Ipfs1 = Ipfs1{}
-	if err := utils.UnmarshalJSON(data, &ipfs1, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &ipfs1, "", true, nil); err == nil {
 		u.Ipfs1 = &ipfs1
 		u.Type = IpfsTypeIpfs1
 		return nil
 	}
 
 	var boolean bool = false
-	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
 		u.Boolean = &boolean
 		u.Type = IpfsTypeBoolean
 		return nil
@@ -93,9 +104,9 @@ type Storage struct {
 	Ipfs *Ipfs `json:"ipfs,omitempty"`
 }
 
-func (o *Storage) GetIpfs() *Ipfs {
-	if o == nil {
+func (s *Storage) GetIpfs() *Ipfs {
+	if s == nil {
 		return nil
 	}
-	return o.Ipfs
+	return s.Ipfs
 }

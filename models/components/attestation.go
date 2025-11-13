@@ -83,18 +83,18 @@ type Domain struct {
 	Version Version `json:"version"`
 }
 
-func (o *Domain) GetName() Name {
-	if o == nil {
+func (d *Domain) GetName() Name {
+	if d == nil {
 		return Name("")
 	}
-	return o.Name
+	return d.Name
 }
 
-func (o *Domain) GetVersion() Version {
-	if o == nil {
+func (d *Domain) GetVersion() Version {
+	if d == nil {
 		return Version("")
 	}
-	return o.Version
+	return d.Version
 }
 
 type Attestations struct {
@@ -102,18 +102,18 @@ type Attestations struct {
 	Address string `json:"address"`
 }
 
-func (o *Attestations) GetRole() string {
-	if o == nil {
+func (a *Attestations) GetRole() string {
+	if a == nil {
 		return ""
 	}
-	return o.Role
+	return a.Role
 }
 
-func (o *Attestations) GetAddress() string {
-	if o == nil {
+func (a *Attestations) GetAddress() string {
+	if a == nil {
 		return ""
 	}
-	return o.Address
+	return a.Address
 }
 
 // Message - Video Metadata EIP-712 message content
@@ -124,32 +124,32 @@ type Message struct {
 	Timestamp    float64        `json:"timestamp"`
 }
 
-func (o *Message) GetVideo() string {
-	if o == nil {
+func (m *Message) GetVideo() string {
+	if m == nil {
 		return ""
 	}
-	return o.Video
+	return m.Video
 }
 
-func (o *Message) GetAttestations() []Attestations {
-	if o == nil {
+func (m *Message) GetAttestations() []Attestations {
+	if m == nil {
 		return []Attestations{}
 	}
-	return o.Attestations
+	return m.Attestations
 }
 
-func (o *Message) GetSigner() string {
-	if o == nil {
+func (m *Message) GetSigner() string {
+	if m == nil {
 		return ""
 	}
-	return o.Signer
+	return m.Signer
 }
 
-func (o *Message) GetTimestamp() float64 {
-	if o == nil {
+func (m *Message) GetTimestamp() float64 {
+	if m == nil {
 		return 0.0
 	}
-	return o.Timestamp
+	return m.Timestamp
 }
 
 type SignatureType string
@@ -185,18 +185,18 @@ type AttestationIpfs struct {
 	UpdatedAt *float64 `json:"updatedAt,omitempty"`
 }
 
-func (o *AttestationIpfs) GetDollarRef() any {
-	if o == nil {
+func (a *AttestationIpfs) GetDollarRef() any {
+	if a == nil {
 		return nil
 	}
-	return o.DollarRef
+	return a.DollarRef
 }
 
-func (o *AttestationIpfs) GetUpdatedAt() *float64 {
-	if o == nil {
+func (a *AttestationIpfs) GetUpdatedAt() *float64 {
+	if a == nil {
 		return nil
 	}
-	return o.UpdatedAt
+	return a.UpdatedAt
 }
 
 type AttestationStorage struct {
@@ -204,18 +204,18 @@ type AttestationStorage struct {
 	Status *StorageStatus   `json:"status,omitempty"`
 }
 
-func (o *AttestationStorage) GetIpfs() *AttestationIpfs {
-	if o == nil {
+func (a *AttestationStorage) GetIpfs() *AttestationIpfs {
+	if a == nil {
 		return nil
 	}
-	return o.Ipfs
+	return a.Ipfs
 }
 
-func (o *AttestationStorage) GetStatus() *StorageStatus {
-	if o == nil {
+func (a *AttestationStorage) GetStatus() *StorageStatus {
+	if a == nil {
 		return nil
 	}
-	return o.Status
+	return a.Status
 }
 
 type Attestation struct {
@@ -234,58 +234,58 @@ type Attestation struct {
 	Storage       *AttestationStorage `json:"storage,omitempty"`
 }
 
-func (o *Attestation) GetID() *string {
-	if o == nil {
+func (a *Attestation) GetID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.ID
+	return a.ID
 }
 
-func (o *Attestation) GetPrimaryType() PrimaryType {
-	if o == nil {
+func (a *Attestation) GetPrimaryType() PrimaryType {
+	if a == nil {
 		return PrimaryType("")
 	}
-	return o.PrimaryType
+	return a.PrimaryType
 }
 
-func (o *Attestation) GetDomain() Domain {
-	if o == nil {
+func (a *Attestation) GetDomain() Domain {
+	if a == nil {
 		return Domain{}
 	}
-	return o.Domain
+	return a.Domain
 }
 
-func (o *Attestation) GetMessage() Message {
-	if o == nil {
+func (a *Attestation) GetMessage() Message {
+	if a == nil {
 		return Message{}
 	}
-	return o.Message
+	return a.Message
 }
 
-func (o *Attestation) GetSignature() string {
-	if o == nil {
+func (a *Attestation) GetSignature() string {
+	if a == nil {
 		return ""
 	}
-	return o.Signature
+	return a.Signature
 }
 
-func (o *Attestation) GetCreatedAt() *float64 {
-	if o == nil {
+func (a *Attestation) GetCreatedAt() *float64 {
+	if a == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return a.CreatedAt
 }
 
-func (o *Attestation) GetSignatureType() *SignatureType {
-	if o == nil {
+func (a *Attestation) GetSignatureType() *SignatureType {
+	if a == nil {
 		return nil
 	}
-	return o.SignatureType
+	return a.SignatureType
 }
 
-func (o *Attestation) GetStorage() *AttestationStorage {
-	if o == nil {
+func (a *Attestation) GetStorage() *AttestationStorage {
+	if a == nil {
 		return nil
 	}
-	return o.Storage
+	return a.Storage
 }

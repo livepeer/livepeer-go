@@ -20,21 +20,23 @@ Requires a private (non-CORS) API key to be used.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getRealtimeViewershipNow" method="get" path="/data/views/now" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Metrics.GetRealtimeViewership(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
@@ -61,10 +63,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## GetViewership
 
@@ -73,22 +74,24 @@ Requires a private (non-CORS) API key to be used.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getViewershipMetrics" method="get" path="/data/views/query" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/operations"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Metrics.GetViewership(ctx, operations.GetViewershipMetricsRequest{})
     if err != nil {
         log.Fatal(err)
@@ -113,10 +116,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## GetCreatorViewership
 
@@ -125,22 +127,24 @@ Requires a proof of ownership to be sent in the request, which for now is just t
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getCreatorViewershipMetrics" method="get" path="/data/views/query/creator" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/operations"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Metrics.GetCreatorViewership(ctx, operations.GetCreatorViewershipMetricsRequest{})
     if err != nil {
         log.Fatal(err)
@@ -165,10 +169,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## GetPublicViewership
 
@@ -179,22 +182,24 @@ unauthenticated.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getPublicViewershipMetrics" method="get" path="/data/views/query/total/{playbackId}" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
-    res, err := s.Metrics.GetPublicViewership(ctx, "<value>")
+    res, err := s.Metrics.GetPublicViewership(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -218,10 +223,9 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
-
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |
 
 ## GetUsage
 
@@ -229,22 +233,24 @@ Query usage metrics
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getUsageMetrics" method="get" path="/data/usage/query" -->
 ```go
 package main
 
 import(
-	livepeergo "github.com/livepeer/livepeer-go"
 	"context"
+	livepeergo "github.com/livepeer/livepeer-go"
 	"github.com/livepeer/livepeer-go/models/operations"
 	"log"
 )
 
 func main() {
+    ctx := context.Background()
+
     s := livepeergo.New(
         livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
     )
 
-    ctx := context.Background()
     res, err := s.Metrics.GetUsage(ctx, operations.GetUsageMetricsRequest{})
     if err != nil {
         log.Fatal(err)
@@ -269,6 +275,6 @@ func main() {
 
 ### Errors
 
-| Error Object       | Status Code        | Content Type       |
+| Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+| sdkerrors.SDKError | 4XX, 5XX           | \*/\*              |

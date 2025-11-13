@@ -99,32 +99,32 @@ type LastFailure struct {
 	StatusCode *float64 `json:"statusCode,omitempty"`
 }
 
-func (o *LastFailure) GetTimestamp() *float64 {
-	if o == nil {
+func (l *LastFailure) GetTimestamp() *float64 {
+	if l == nil {
 		return nil
 	}
-	return o.Timestamp
+	return l.Timestamp
 }
 
-func (o *LastFailure) GetError() *string {
-	if o == nil {
+func (l *LastFailure) GetError() *string {
+	if l == nil {
 		return nil
 	}
-	return o.Error
+	return l.Error
 }
 
-func (o *LastFailure) GetResponse() *string {
-	if o == nil {
+func (l *LastFailure) GetResponse() *string {
+	if l == nil {
 		return nil
 	}
-	return o.Response
+	return l.Response
 }
 
-func (o *LastFailure) GetStatusCode() *float64 {
-	if o == nil {
+func (l *LastFailure) GetStatusCode() *float64 {
+	if l == nil {
 		return nil
 	}
-	return o.StatusCode
+	return l.StatusCode
 }
 
 // Status - status of webhook
@@ -137,26 +137,26 @@ type Status struct {
 	LastTriggeredAt *float64 `json:"lastTriggeredAt,omitempty"`
 }
 
-func (o *Status) GetLastFailure() *LastFailure {
-	if o == nil {
+func (s *Status) GetLastFailure() *LastFailure {
+	if s == nil {
 		return nil
 	}
-	return o.LastFailure
+	return s.LastFailure
 }
 
-func (o *Status) GetLastTriggeredAt() *float64 {
-	if o == nil {
+func (s *Status) GetLastTriggeredAt() *float64 {
+	if s == nil {
 		return nil
 	}
-	return o.LastTriggeredAt
+	return s.LastTriggeredAt
 }
 
 type Webhook struct {
 	ID   *string `json:"id,omitempty"`
 	Name string  `json:"name"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Kind *string `json:"kind,omitempty"`
-	// Deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	UserID *string `json:"userId,omitempty"`
 	// The ID of the project
 	ProjectID *string `json:"projectId,omitempty"`
@@ -170,74 +170,74 @@ type Webhook struct {
 	Status *Status `json:"status,omitempty"`
 }
 
-func (o *Webhook) GetID() *string {
-	if o == nil {
+func (w *Webhook) GetID() *string {
+	if w == nil {
 		return nil
 	}
-	return o.ID
+	return w.ID
 }
 
-func (o *Webhook) GetName() string {
-	if o == nil {
+func (w *Webhook) GetName() string {
+	if w == nil {
 		return ""
 	}
-	return o.Name
+	return w.Name
 }
 
-func (o *Webhook) GetKind() *string {
-	if o == nil {
+func (w *Webhook) GetKind() *string {
+	if w == nil {
 		return nil
 	}
-	return o.Kind
+	return w.Kind
 }
 
-func (o *Webhook) GetUserID() *string {
-	if o == nil {
+func (w *Webhook) GetUserID() *string {
+	if w == nil {
 		return nil
 	}
-	return o.UserID
+	return w.UserID
 }
 
-func (o *Webhook) GetProjectID() *string {
-	if o == nil {
+func (w *Webhook) GetProjectID() *string {
+	if w == nil {
 		return nil
 	}
-	return o.ProjectID
+	return w.ProjectID
 }
 
-func (o *Webhook) GetCreatedAt() *float64 {
-	if o == nil {
+func (w *Webhook) GetCreatedAt() *float64 {
+	if w == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return w.CreatedAt
 }
 
-func (o *Webhook) GetEvents() []Events {
-	if o == nil {
+func (w *Webhook) GetEvents() []Events {
+	if w == nil {
 		return nil
 	}
-	return o.Events
+	return w.Events
 }
 
-func (o *Webhook) GetURL() string {
-	if o == nil {
+func (w *Webhook) GetURL() string {
+	if w == nil {
 		return ""
 	}
-	return o.URL
+	return w.URL
 }
 
-func (o *Webhook) GetStreamID() *string {
-	if o == nil {
+func (w *Webhook) GetStreamID() *string {
+	if w == nil {
 		return nil
 	}
-	return o.StreamID
+	return w.StreamID
 }
 
-func (o *Webhook) GetStatus() *Status {
-	if o == nil {
+func (w *Webhook) GetStatus() *Status {
+	if w == nil {
 		return nil
 	}
-	return o.Status
+	return w.Status
 }
 
 type WebhookInput struct {
@@ -252,44 +252,44 @@ type WebhookInput struct {
 	StreamID *string `json:"streamId,omitempty"`
 }
 
-func (o *WebhookInput) GetName() string {
-	if o == nil {
+func (w *WebhookInput) GetName() string {
+	if w == nil {
 		return ""
 	}
-	return o.Name
+	return w.Name
 }
 
-func (o *WebhookInput) GetProjectID() *string {
-	if o == nil {
+func (w *WebhookInput) GetProjectID() *string {
+	if w == nil {
 		return nil
 	}
-	return o.ProjectID
+	return w.ProjectID
 }
 
-func (o *WebhookInput) GetEvents() []Events {
-	if o == nil {
+func (w *WebhookInput) GetEvents() []Events {
+	if w == nil {
 		return nil
 	}
-	return o.Events
+	return w.Events
 }
 
-func (o *WebhookInput) GetURL() string {
-	if o == nil {
+func (w *WebhookInput) GetURL() string {
+	if w == nil {
 		return ""
 	}
-	return o.URL
+	return w.URL
 }
 
-func (o *WebhookInput) GetSharedSecret() *string {
-	if o == nil {
+func (w *WebhookInput) GetSharedSecret() *string {
+	if w == nil {
 		return nil
 	}
-	return o.SharedSecret
+	return w.SharedSecret
 }
 
-func (o *WebhookInput) GetStreamID() *string {
-	if o == nil {
+func (w *WebhookInput) GetStreamID() *string {
+	if w == nil {
 		return nil
 	}
-	return o.StreamID
+	return w.StreamID
 }

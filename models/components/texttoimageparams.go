@@ -9,6 +9,8 @@ import (
 type TextToImageParams struct {
 	// Hugging Face model ID used for image generation.
 	ModelID *string `default:"SG161222/RealVisXL_V4.0_Lightning" json:"model_id"`
+	// A LoRA (Low-Rank Adaptation) model and its corresponding weight for image generation. Example: { "latent-consistency/lcm-lora-sdxl": 1.0, "nerijs/pixel-art-xl": 1.2}.
+	Loras *string `default:"" json:"loras"`
 	// Text prompt(s) to guide image generation. Separate multiple prompts with '|' if supported by the model.
 	Prompt string `json:"prompt"`
 	// The height in pixels of the generated image.
@@ -34,78 +36,85 @@ func (t TextToImageParams) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TextToImageParams) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"prompt"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *TextToImageParams) GetModelID() *string {
-	if o == nil {
+func (t *TextToImageParams) GetModelID() *string {
+	if t == nil {
 		return nil
 	}
-	return o.ModelID
+	return t.ModelID
 }
 
-func (o *TextToImageParams) GetPrompt() string {
-	if o == nil {
+func (t *TextToImageParams) GetLoras() *string {
+	if t == nil {
+		return nil
+	}
+	return t.Loras
+}
+
+func (t *TextToImageParams) GetPrompt() string {
+	if t == nil {
 		return ""
 	}
-	return o.Prompt
+	return t.Prompt
 }
 
-func (o *TextToImageParams) GetHeight() *int64 {
-	if o == nil {
+func (t *TextToImageParams) GetHeight() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.Height
+	return t.Height
 }
 
-func (o *TextToImageParams) GetWidth() *int64 {
-	if o == nil {
+func (t *TextToImageParams) GetWidth() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.Width
+	return t.Width
 }
 
-func (o *TextToImageParams) GetGuidanceScale() *float64 {
-	if o == nil {
+func (t *TextToImageParams) GetGuidanceScale() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.GuidanceScale
+	return t.GuidanceScale
 }
 
-func (o *TextToImageParams) GetNegativePrompt() *string {
-	if o == nil {
+func (t *TextToImageParams) GetNegativePrompt() *string {
+	if t == nil {
 		return nil
 	}
-	return o.NegativePrompt
+	return t.NegativePrompt
 }
 
-func (o *TextToImageParams) GetSafetyCheck() *bool {
-	if o == nil {
+func (t *TextToImageParams) GetSafetyCheck() *bool {
+	if t == nil {
 		return nil
 	}
-	return o.SafetyCheck
+	return t.SafetyCheck
 }
 
-func (o *TextToImageParams) GetSeed() *int64 {
-	if o == nil {
+func (t *TextToImageParams) GetSeed() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.Seed
+	return t.Seed
 }
 
-func (o *TextToImageParams) GetNumInferenceSteps() *int64 {
-	if o == nil {
+func (t *TextToImageParams) GetNumInferenceSteps() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.NumInferenceSteps
+	return t.NumInferenceSteps
 }
 
-func (o *TextToImageParams) GetNumImagesPerPrompt() *int64 {
-	if o == nil {
+func (t *TextToImageParams) GetNumImagesPerPrompt() *int64 {
+	if t == nil {
 		return nil
 	}
-	return o.NumImagesPerPrompt
+	return t.NumImagesPerPrompt
 }

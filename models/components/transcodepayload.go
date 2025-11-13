@@ -42,18 +42,29 @@ type Credentials struct {
 	SecretAccessKey string `json:"secretAccessKey"`
 }
 
-func (o *Credentials) GetAccessKeyID() string {
-	if o == nil {
-		return ""
-	}
-	return o.AccessKeyID
+func (c Credentials) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (o *Credentials) GetSecretAccessKey() string {
-	if o == nil {
+func (c *Credentials) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"accessKeyId", "secretAccessKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Credentials) GetAccessKeyID() string {
+	if c == nil {
 		return ""
 	}
-	return o.SecretAccessKey
+	return c.AccessKeyID
+}
+
+func (c *Credentials) GetSecretAccessKey() string {
+	if c == nil {
+		return ""
+	}
+	return c.SecretAccessKey
 }
 
 // Input2 - S3-like storage input video
@@ -72,39 +83,50 @@ type Input2 struct {
 	Credentials Credentials `json:"credentials"`
 }
 
-func (o *Input2) GetType() InputType {
-	if o == nil {
+func (i Input2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *Input2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "endpoint", "bucket", "path", "credentials"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *Input2) GetType() InputType {
+	if i == nil {
 		return InputType("")
 	}
-	return o.Type
+	return i.Type
 }
 
-func (o *Input2) GetEndpoint() string {
-	if o == nil {
+func (i *Input2) GetEndpoint() string {
+	if i == nil {
 		return ""
 	}
-	return o.Endpoint
+	return i.Endpoint
 }
 
-func (o *Input2) GetBucket() string {
-	if o == nil {
+func (i *Input2) GetBucket() string {
+	if i == nil {
 		return ""
 	}
-	return o.Bucket
+	return i.Bucket
 }
 
-func (o *Input2) GetPath() string {
-	if o == nil {
+func (i *Input2) GetPath() string {
+	if i == nil {
 		return ""
 	}
-	return o.Path
+	return i.Path
 }
 
-func (o *Input2) GetCredentials() Credentials {
-	if o == nil {
+func (i *Input2) GetCredentials() Credentials {
+	if i == nil {
 		return Credentials{}
 	}
-	return o.Credentials
+	return i.Credentials
 }
 
 // Input1 - URL input video
@@ -113,11 +135,22 @@ type Input1 struct {
 	URL string `json:"url"`
 }
 
-func (o *Input1) GetURL() string {
-	if o == nil {
+func (i Input1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *Input1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *Input1) GetURL() string {
+	if i == nil {
 		return ""
 	}
-	return o.URL
+	return i.URL
 }
 
 type InputUnionType string
@@ -128,8 +161,8 @@ const (
 )
 
 type Input struct {
-	Input1 *Input1
-	Input2 *Input2
+	Input1 *Input1 `queryParam:"inline,name=input"`
+	Input2 *Input2 `queryParam:"inline,name=input"`
 
 	Type InputUnionType
 }
@@ -154,17 +187,17 @@ func CreateInputInput2(input2 Input2) Input {
 
 func (u *Input) UnmarshalJSON(data []byte) error {
 
-	var input1 Input1 = Input1{}
-	if err := utils.UnmarshalJSON(data, &input1, "", true, true); err == nil {
-		u.Input1 = &input1
-		u.Type = InputUnionTypeInput1
+	var input2 Input2 = Input2{}
+	if err := utils.UnmarshalJSON(data, &input2, "", true, nil); err == nil {
+		u.Input2 = &input2
+		u.Type = InputUnionTypeInput2
 		return nil
 	}
 
-	var input2 Input2 = Input2{}
-	if err := utils.UnmarshalJSON(data, &input2, "", true, true); err == nil {
-		u.Input2 = &input2
-		u.Type = InputUnionTypeInput2
+	var input1 Input1 = Input1{}
+	if err := utils.UnmarshalJSON(data, &input1, "", true, nil); err == nil {
+		u.Input1 = &input1
+		u.Type = InputUnionTypeInput1
 		return nil
 	}
 
@@ -214,11 +247,22 @@ type TranscodePayloadStorageCredentials struct {
 	Proof string `json:"proof"`
 }
 
-func (o *TranscodePayloadStorageCredentials) GetProof() string {
-	if o == nil {
+func (t TranscodePayloadStorageCredentials) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *TranscodePayloadStorageCredentials) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"proof"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t *TranscodePayloadStorageCredentials) GetProof() string {
+	if t == nil {
 		return ""
 	}
-	return o.Proof
+	return t.Proof
 }
 
 // Storage2 - Storage for the output files
@@ -231,18 +275,29 @@ type Storage2 struct {
 	Credentials TranscodePayloadStorageCredentials `json:"credentials"`
 }
 
-func (o *Storage2) GetType() TranscodePayloadStorageType {
-	if o == nil {
-		return TranscodePayloadStorageType("")
-	}
-	return o.Type
+func (s Storage2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (o *Storage2) GetCredentials() TranscodePayloadStorageCredentials {
-	if o == nil {
+func (s *Storage2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "credentials"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Storage2) GetType() TranscodePayloadStorageType {
+	if s == nil {
+		return TranscodePayloadStorageType("")
+	}
+	return s.Type
+}
+
+func (s *Storage2) GetCredentials() TranscodePayloadStorageCredentials {
+	if s == nil {
 		return TranscodePayloadStorageCredentials{}
 	}
-	return o.Credentials
+	return s.Credentials
 }
 
 // StorageType - Type of service used for output files
@@ -277,18 +332,29 @@ type StorageCredentials struct {
 	SecretAccessKey string `json:"secretAccessKey"`
 }
 
-func (o *StorageCredentials) GetAccessKeyID() string {
-	if o == nil {
-		return ""
-	}
-	return o.AccessKeyID
+func (s StorageCredentials) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-func (o *StorageCredentials) GetSecretAccessKey() string {
-	if o == nil {
+func (s *StorageCredentials) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"accessKeyId", "secretAccessKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StorageCredentials) GetAccessKeyID() string {
+	if s == nil {
 		return ""
 	}
-	return o.SecretAccessKey
+	return s.AccessKeyID
+}
+
+func (s *StorageCredentials) GetSecretAccessKey() string {
+	if s == nil {
+		return ""
+	}
+	return s.SecretAccessKey
 }
 
 // Storage1 - Storage for the output files
@@ -303,32 +369,43 @@ type Storage1 struct {
 	Credentials StorageCredentials `json:"credentials"`
 }
 
-func (o *Storage1) GetType() StorageType {
-	if o == nil {
+func (s Storage1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Storage1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "endpoint", "bucket", "credentials"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Storage1) GetType() StorageType {
+	if s == nil {
 		return StorageType("")
 	}
-	return o.Type
+	return s.Type
 }
 
-func (o *Storage1) GetEndpoint() string {
-	if o == nil {
+func (s *Storage1) GetEndpoint() string {
+	if s == nil {
 		return ""
 	}
-	return o.Endpoint
+	return s.Endpoint
 }
 
-func (o *Storage1) GetBucket() string {
-	if o == nil {
+func (s *Storage1) GetBucket() string {
+	if s == nil {
 		return ""
 	}
-	return o.Bucket
+	return s.Bucket
 }
 
-func (o *Storage1) GetCredentials() StorageCredentials {
-	if o == nil {
+func (s *Storage1) GetCredentials() StorageCredentials {
+	if s == nil {
 		return StorageCredentials{}
 	}
-	return o.Credentials
+	return s.Credentials
 }
 
 type TranscodePayloadStorageUnionType string
@@ -339,8 +416,8 @@ const (
 )
 
 type TranscodePayloadStorage struct {
-	Storage1 *Storage1
-	Storage2 *Storage2
+	Storage1 *Storage1 `queryParam:"inline,name=storage"`
+	Storage2 *Storage2 `queryParam:"inline,name=storage"`
 
 	Type TranscodePayloadStorageUnionType
 }
@@ -365,17 +442,17 @@ func CreateTranscodePayloadStorageStorage2(storage2 Storage2) TranscodePayloadSt
 
 func (u *TranscodePayloadStorage) UnmarshalJSON(data []byte) error {
 
-	var storage2 Storage2 = Storage2{}
-	if err := utils.UnmarshalJSON(data, &storage2, "", true, true); err == nil {
-		u.Storage2 = &storage2
-		u.Type = TranscodePayloadStorageUnionTypeStorage2
+	var storage1 Storage1 = Storage1{}
+	if err := utils.UnmarshalJSON(data, &storage1, "", true, nil); err == nil {
+		u.Storage1 = &storage1
+		u.Type = TranscodePayloadStorageUnionTypeStorage1
 		return nil
 	}
 
-	var storage1 Storage1 = Storage1{}
-	if err := utils.UnmarshalJSON(data, &storage1, "", true, true); err == nil {
-		u.Storage1 = &storage1
-		u.Type = TranscodePayloadStorageUnionTypeStorage1
+	var storage2 Storage2 = Storage2{}
+	if err := utils.UnmarshalJSON(data, &storage2, "", true, nil); err == nil {
+		u.Storage2 = &storage2
+		u.Type = TranscodePayloadStorageUnionTypeStorage2
 		return nil
 	}
 
@@ -400,11 +477,11 @@ type Hls struct {
 	Path string `json:"path"`
 }
 
-func (o *Hls) GetPath() string {
-	if o == nil {
+func (h *Hls) GetPath() string {
+	if h == nil {
 		return ""
 	}
-	return o.Path
+	return h.Path
 }
 
 // Mp4 - MP4 output format
@@ -413,11 +490,11 @@ type Mp4 struct {
 	Path string `json:"path"`
 }
 
-func (o *Mp4) GetPath() string {
-	if o == nil {
+func (m *Mp4) GetPath() string {
+	if m == nil {
 		return ""
 	}
-	return o.Path
+	return m.Path
 }
 
 // Fmp4 - FMP4 output format
@@ -426,11 +503,11 @@ type Fmp4 struct {
 	Path string `json:"path"`
 }
 
-func (o *Fmp4) GetPath() string {
-	if o == nil {
+func (f *Fmp4) GetPath() string {
+	if f == nil {
 		return ""
 	}
-	return o.Path
+	return f.Path
 }
 
 // Outputs - Output formats
@@ -477,51 +554,51 @@ type TranscodePayload struct {
 	C2pa *bool `json:"c2pa,omitempty"`
 }
 
-func (o *TranscodePayload) GetInput() Input {
-	if o == nil {
+func (t *TranscodePayload) GetInput() Input {
+	if t == nil {
 		return Input{}
 	}
-	return o.Input
+	return t.Input
 }
 
-func (o *TranscodePayload) GetStorage() TranscodePayloadStorage {
-	if o == nil {
+func (t *TranscodePayload) GetStorage() TranscodePayloadStorage {
+	if t == nil {
 		return TranscodePayloadStorage{}
 	}
-	return o.Storage
+	return t.Storage
 }
 
-func (o *TranscodePayload) GetOutputs() Outputs {
-	if o == nil {
+func (t *TranscodePayload) GetOutputs() Outputs {
+	if t == nil {
 		return Outputs{}
 	}
-	return o.Outputs
+	return t.Outputs
 }
 
-func (o *TranscodePayload) GetProfiles() []TranscodeProfile {
-	if o == nil {
+func (t *TranscodePayload) GetProfiles() []TranscodeProfile {
+	if t == nil {
 		return nil
 	}
-	return o.Profiles
+	return t.Profiles
 }
 
-func (o *TranscodePayload) GetTargetSegmentSizeSecs() *float64 {
-	if o == nil {
+func (t *TranscodePayload) GetTargetSegmentSizeSecs() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.TargetSegmentSizeSecs
+	return t.TargetSegmentSizeSecs
 }
 
-func (o *TranscodePayload) GetCreatorID() *InputCreatorID {
-	if o == nil {
+func (t *TranscodePayload) GetCreatorID() *InputCreatorID {
+	if t == nil {
 		return nil
 	}
-	return o.CreatorID
+	return t.CreatorID
 }
 
-func (o *TranscodePayload) GetC2pa() *bool {
-	if o == nil {
+func (t *TranscodePayload) GetC2pa() *bool {
+	if t == nil {
 		return nil
 	}
-	return o.C2pa
+	return t.C2pa
 }

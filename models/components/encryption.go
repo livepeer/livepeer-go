@@ -7,9 +7,9 @@ type Encryption struct {
 	EncryptedKey string `json:"encryptedKey"`
 }
 
-func (o *Encryption) GetEncryptedKey() string {
-	if o == nil {
+func (e *Encryption) GetEncryptedKey() string {
+	if e == nil {
 		return ""
 	}
-	return o.EncryptedKey
+	return e.EncryptedKey
 }

@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type DeleteMultistreamTargetRequest struct {
@@ -12,29 +11,29 @@ type DeleteMultistreamTargetRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *DeleteMultistreamTargetRequest) GetID() string {
-	if o == nil {
+func (d *DeleteMultistreamTargetRequest) GetID() string {
+	if d == nil {
 		return ""
 	}
-	return o.ID
+	return d.ID
 }
 
 type DeleteMultistreamTargetResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *DeleteMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeleteMultistreamTargetResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeleteMultistreamTargetResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (d *DeleteMultistreamTargetResponse) GetError() *components.Error {
+	if d == nil {
 		return nil
 	}
-	return o.Error
+	return d.Error
 }

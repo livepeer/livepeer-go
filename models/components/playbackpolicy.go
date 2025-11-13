@@ -51,37 +51,37 @@ type PlaybackPolicy struct {
 	AllowedOrigins []string `json:"allowedOrigins,omitempty"`
 }
 
-func (o *PlaybackPolicy) GetType() Type {
-	if o == nil {
+func (p *PlaybackPolicy) GetType() Type {
+	if p == nil {
 		return Type("")
 	}
-	return o.Type
+	return p.Type
 }
 
-func (o *PlaybackPolicy) GetWebhookID() *string {
-	if o == nil {
+func (p *PlaybackPolicy) GetWebhookID() *string {
+	if p == nil {
 		return nil
 	}
-	return o.WebhookID
+	return p.WebhookID
 }
 
-func (o *PlaybackPolicy) GetWebhookContext() map[string]any {
-	if o == nil {
+func (p *PlaybackPolicy) GetWebhookContext() map[string]any {
+	if p == nil {
 		return nil
 	}
-	return o.WebhookContext
+	return p.WebhookContext
 }
 
-func (o *PlaybackPolicy) GetRefreshInterval() *float64 {
-	if o == nil {
+func (p *PlaybackPolicy) GetRefreshInterval() *float64 {
+	if p == nil {
 		return nil
 	}
-	return o.RefreshInterval
+	return p.RefreshInterval
 }
 
-func (o *PlaybackPolicy) GetAllowedOrigins() []string {
-	if o == nil {
+func (p *PlaybackPolicy) GetAllowedOrigins() []string {
+	if p == nil {
 		return nil
 	}
-	return o.AllowedOrigins
+	return p.AllowedOrigins
 }

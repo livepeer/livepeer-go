@@ -16,16 +16,17 @@ what they return.
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
+<!-- $toc-max-depth=2 -->
+* [Livepeer Go SDK](#livepeer-go-sdk)
+  * [Documentation](#documentation)
+  * [SDK Installation](#sdk-installation)
+  * [SDK Example Usage](#sdk-example-usage)
+  * [Available Resources and Operations](#available-resources-and-operations)
+  * [Error Handling](#error-handling)
+  * [Custom HTTP Client](#custom-http-client)
+  * [Authentication](#authentication)
+  * [Retries](#retries)
 
-* [SDK Installation](#sdk-installation)
-* [SDK Example Usage](#sdk-example-usage)
-* [Available Resources and Operations](#available-resources-and-operations)
-* [Retries](#retries)
-* [Error Handling](#error-handling)
-* [Server Selection](#server-selection)
-* [Custom HTTP Client](#custom-http-client)
-* [Authentication](#authentication)
-* [Special Types](#special-types)
 <!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
@@ -103,7 +104,10 @@ func main() {
 * [Upscale](docs/sdks/generate/README.md#upscale) - Upscale
 * [AudioToText](docs/sdks/generate/README.md#audiototext) - Audio To Text
 * [SegmentAnything2](docs/sdks/generate/README.md#segmentanything2) - Segment Anything 2
-
+* [Llm](docs/sdks/generate/README.md#llm) - LLM
+* [ImageToText](docs/sdks/generate/README.md#imagetotext) - Image To Text
+* [LiveVideoToVideo](docs/sdks/generate/README.md#livevideotovideo) - Live Video To Video
+* [TextToSpeech](docs/sdks/generate/README.md#texttospeech) - Text To Speech
 
 ### [Metrics](docs/sdks/metrics/README.md)
 
@@ -184,12 +188,16 @@ func main() {
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations.  All operations return a response object or an error, they will never return both.  When specified by the OpenAPI spec document, the SDK will return the appropriate subclass.
+Handling errors in this SDK should largely match your expectations. All operations return a response object or an error, they will never return both.
 
-| Error Object       | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| sdkerrors.Error    | 404                | application/json   |
-| sdkerrors.SDKError | 4xx-5xx            | */*                |
+By Default, an API error will return `sdkerrors.SDKError`. When custom error responses are specified for an operation, the SDK may also return their associated error. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation.
+
+For example, the `Get` function may return the following errors:
+
+| Error Type         | Status Code | Content Type     |
+| ------------------ | ----------- | ---------------- |
+| sdkerrors.Error    | 404         | application/json |
+| sdkerrors.SDKError | 4XX, 5XX    | \*/\*            |
 
 ### Example
 
@@ -205,11 +213,12 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := livepeergo.New(
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Playback.Get(ctx, "<id>")
 	if err != nil {
 
@@ -249,12 +258,13 @@ The built-in `net/http` client satisfies this interface and a default client bas
 import (
 	"net/http"
 	"time"
-	"github.com/myorg/your-go-sdk"
+
+	"github.com/livepeer/livepeer-go"
 )
 
 var (
 	httpClient = &http.Client{Timeout: 30 * time.Second}
-	sdkClient  = sdk.New(sdk.WithClient(httpClient))
+	sdkClient  = livepeergo.New(livepeergo.WithClient(httpClient))
 )
 ```
 
@@ -268,9 +278,9 @@ This can be a convenient way to configure timeouts, cookies, proxies, custom hea
 
 This SDK supports the following security scheme globally:
 
-| Name        | Type        | Scheme      |
-| ----------- | ----------- | ----------- |
-| `APIKey`    | http        | HTTP Bearer |
+| Name     | Type | Scheme      |
+| -------- | ---- | ----------- |
+| `APIKey` | http | HTTP Bearer |
 
 You can configure it using the `WithSecurity` option when initializing the SDK client instance. For example:
 ```go
@@ -284,11 +294,12 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := livepeergo.New(
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Stream.Create(ctx, components.NewStreamPayload{
 		Name: "test_stream",
 		Pull: &components.Pull{
@@ -303,37 +314,25 @@ func main() {
 		},
 		PlaybackPolicy: &components.PlaybackPolicy{
 			Type:      components.TypeWebhook,
-			WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+			WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
 			WebhookContext: map[string]any{
 				"streamerId": "my-custom-id",
 			},
-			RefreshInterval: livepeergo.Float64(600),
+			RefreshInterval: livepeergo.Pointer[float64](600),
 		},
-		Profiles: []components.FfmpegProfile{
-			components.FfmpegProfile{
-				Width:   1280,
-				Name:    "720p",
-				Height:  720,
-				Bitrate: 3000000,
-				Fps:     30,
-				FpsDen:  livepeergo.Int64(1),
-				Quality: livepeergo.Int64(23),
-				Gop:     livepeergo.String("2"),
-				Profile: components.ProfileH264Baseline.ToPointer(),
-			},
-		},
-		Record: livepeergo.Bool(false),
+		Profiles: []components.FfmpegProfile{},
+		Record:   livepeergo.Pointer(false),
 		RecordingSpec: &components.NewStreamPayloadRecordingSpec{
 			Profiles: []components.TranscodeProfile{
 				components.TranscodeProfile{
-					Width:   livepeergo.Int64(1280),
-					Name:    livepeergo.String("720p"),
-					Height:  livepeergo.Int64(720),
+					Width:   livepeergo.Pointer[int64](1280),
+					Name:    livepeergo.Pointer("720p"),
+					Height:  livepeergo.Pointer[int64](720),
 					Bitrate: 3000000,
-					Quality: livepeergo.Int64(23),
-					Fps:     livepeergo.Int64(30),
-					FpsDen:  livepeergo.Int64(1),
-					Gop:     livepeergo.String("2"),
+					Quality: livepeergo.Pointer[int64](23),
+					Fps:     livepeergo.Pointer[int64](30),
+					FpsDen:  livepeergo.Pointer[int64](1),
+					Gop:     livepeergo.Pointer("2"),
 					Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
 					Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
 				},
@@ -342,13 +341,8 @@ func main() {
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
-					Profile:   "720p",
-					VideoOnly: livepeergo.Bool(false),
-					ID:        livepeergo.String("PUSH123"),
-					Spec: &components.TargetSpec{
-						Name: livepeergo.String("My target"),
-						URL:  "rtmps://live.my-service.tv/channel/secretKey",
-					},
+					Profile: "720p",
+					ID:      livepeergo.Pointer("PUSH123"),
 				},
 			},
 		},
@@ -363,12 +357,6 @@ func main() {
 
 ```
 <!-- End Authentication [security] -->
-
-<!-- Start Special Types [types] -->
-## Special Types
-
-
-<!-- End Special Types [types] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
@@ -389,11 +377,12 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := livepeergo.New(
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Stream.Create(ctx, components.NewStreamPayload{
 		Name: "test_stream",
 		Pull: &components.Pull{
@@ -408,37 +397,25 @@ func main() {
 		},
 		PlaybackPolicy: &components.PlaybackPolicy{
 			Type:      components.TypeWebhook,
-			WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+			WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
 			WebhookContext: map[string]any{
 				"streamerId": "my-custom-id",
 			},
-			RefreshInterval: livepeergo.Float64(600),
+			RefreshInterval: livepeergo.Pointer[float64](600),
 		},
-		Profiles: []components.FfmpegProfile{
-			components.FfmpegProfile{
-				Width:   1280,
-				Name:    "720p",
-				Height:  720,
-				Bitrate: 3000000,
-				Fps:     30,
-				FpsDen:  livepeergo.Int64(1),
-				Quality: livepeergo.Int64(23),
-				Gop:     livepeergo.String("2"),
-				Profile: components.ProfileH264Baseline.ToPointer(),
-			},
-		},
-		Record: livepeergo.Bool(false),
+		Profiles: []components.FfmpegProfile{},
+		Record:   livepeergo.Pointer(false),
 		RecordingSpec: &components.NewStreamPayloadRecordingSpec{
 			Profiles: []components.TranscodeProfile{
 				components.TranscodeProfile{
-					Width:   livepeergo.Int64(1280),
-					Name:    livepeergo.String("720p"),
-					Height:  livepeergo.Int64(720),
+					Width:   livepeergo.Pointer[int64](1280),
+					Name:    livepeergo.Pointer("720p"),
+					Height:  livepeergo.Pointer[int64](720),
 					Bitrate: 3000000,
-					Quality: livepeergo.Int64(23),
-					Fps:     livepeergo.Int64(30),
-					FpsDen:  livepeergo.Int64(1),
-					Gop:     livepeergo.String("2"),
+					Quality: livepeergo.Pointer[int64](23),
+					Fps:     livepeergo.Pointer[int64](30),
+					FpsDen:  livepeergo.Pointer[int64](1),
+					Gop:     livepeergo.Pointer("2"),
 					Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
 					Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
 				},
@@ -447,13 +424,8 @@ func main() {
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
-					Profile:   "720p",
-					VideoOnly: livepeergo.Bool(false),
-					ID:        livepeergo.String("PUSH123"),
-					Spec: &components.TargetSpec{
-						Name: livepeergo.String("My target"),
-						URL:  "rtmps://live.my-service.tv/channel/secretKey",
-					},
+					Profile: "720p",
+					ID:      livepeergo.Pointer("PUSH123"),
 				},
 			},
 		},
@@ -491,6 +463,8 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	s := livepeergo.New(
 		livepeergo.WithRetryConfig(
 			retry.Config{
@@ -506,7 +480,6 @@ func main() {
 		livepeergo.WithSecurity("<YOUR_BEARER_TOKEN_HERE>"),
 	)
 
-	ctx := context.Background()
 	res, err := s.Stream.Create(ctx, components.NewStreamPayload{
 		Name: "test_stream",
 		Pull: &components.Pull{
@@ -521,37 +494,25 @@ func main() {
 		},
 		PlaybackPolicy: &components.PlaybackPolicy{
 			Type:      components.TypeWebhook,
-			WebhookID: livepeergo.String("1bde4o2i6xycudoy"),
+			WebhookID: livepeergo.Pointer("1bde4o2i6xycudoy"),
 			WebhookContext: map[string]any{
 				"streamerId": "my-custom-id",
 			},
-			RefreshInterval: livepeergo.Float64(600),
+			RefreshInterval: livepeergo.Pointer[float64](600),
 		},
-		Profiles: []components.FfmpegProfile{
-			components.FfmpegProfile{
-				Width:   1280,
-				Name:    "720p",
-				Height:  720,
-				Bitrate: 3000000,
-				Fps:     30,
-				FpsDen:  livepeergo.Int64(1),
-				Quality: livepeergo.Int64(23),
-				Gop:     livepeergo.String("2"),
-				Profile: components.ProfileH264Baseline.ToPointer(),
-			},
-		},
-		Record: livepeergo.Bool(false),
+		Profiles: []components.FfmpegProfile{},
+		Record:   livepeergo.Pointer(false),
 		RecordingSpec: &components.NewStreamPayloadRecordingSpec{
 			Profiles: []components.TranscodeProfile{
 				components.TranscodeProfile{
-					Width:   livepeergo.Int64(1280),
-					Name:    livepeergo.String("720p"),
-					Height:  livepeergo.Int64(720),
+					Width:   livepeergo.Pointer[int64](1280),
+					Name:    livepeergo.Pointer("720p"),
+					Height:  livepeergo.Pointer[int64](720),
 					Bitrate: 3000000,
-					Quality: livepeergo.Int64(23),
-					Fps:     livepeergo.Int64(30),
-					FpsDen:  livepeergo.Int64(1),
-					Gop:     livepeergo.String("2"),
+					Quality: livepeergo.Pointer[int64](23),
+					Fps:     livepeergo.Pointer[int64](30),
+					FpsDen:  livepeergo.Pointer[int64](1),
+					Gop:     livepeergo.Pointer("2"),
 					Profile: components.TranscodeProfileProfileH264Baseline.ToPointer(),
 					Encoder: components.TranscodeProfileEncoderH264.ToPointer(),
 				},
@@ -560,13 +521,8 @@ func main() {
 		Multistream: &components.Multistream{
 			Targets: []components.Target{
 				components.Target{
-					Profile:   "720p",
-					VideoOnly: livepeergo.Bool(false),
-					ID:        livepeergo.String("PUSH123"),
-					Spec: &components.TargetSpec{
-						Name: livepeergo.String("My target"),
-						URL:  "rtmps://live.my-service.tv/channel/secretKey",
-					},
+					Profile: "720p",
+					ID:      livepeergo.Pointer("PUSH123"),
 				},
 			},
 		},

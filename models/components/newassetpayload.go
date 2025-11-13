@@ -12,11 +12,22 @@ type NewAssetPayloadIpfs1 struct {
 	Spec *Spec `json:"spec,omitempty"`
 }
 
-func (o *NewAssetPayloadIpfs1) GetSpec() *Spec {
-	if o == nil {
+func (n NewAssetPayloadIpfs1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(n, "", false)
+}
+
+func (n *NewAssetPayloadIpfs1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (n *NewAssetPayloadIpfs1) GetSpec() *Spec {
+	if n == nil {
 		return nil
 	}
-	return o.Spec
+	return n.Spec
 }
 
 type NewAssetPayloadIpfsType string
@@ -30,8 +41,8 @@ const (
 // pinned files, specify an object with a spec field. False or null
 // means to unpin from IPFS, but it's unsupported right now.
 type NewAssetPayloadIpfs struct {
-	NewAssetPayloadIpfs1 *NewAssetPayloadIpfs1
-	Boolean              *bool
+	NewAssetPayloadIpfs1 *NewAssetPayloadIpfs1 `queryParam:"inline,name=ipfs"`
+	Boolean              *bool                 `queryParam:"inline,name=ipfs"`
 
 	Type NewAssetPayloadIpfsType
 }
@@ -57,14 +68,14 @@ func CreateNewAssetPayloadIpfsBoolean(boolean bool) NewAssetPayloadIpfs {
 func (u *NewAssetPayloadIpfs) UnmarshalJSON(data []byte) error {
 
 	var newAssetPayloadIpfs1 NewAssetPayloadIpfs1 = NewAssetPayloadIpfs1{}
-	if err := utils.UnmarshalJSON(data, &newAssetPayloadIpfs1, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &newAssetPayloadIpfs1, "", true, nil); err == nil {
 		u.NewAssetPayloadIpfs1 = &newAssetPayloadIpfs1
 		u.Type = NewAssetPayloadIpfsTypeNewAssetPayloadIpfs1
 		return nil
 	}
 
 	var boolean bool = false
-	if err := utils.UnmarshalJSON(data, &boolean, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
 		u.Boolean = &boolean
 		u.Type = NewAssetPayloadIpfsTypeBoolean
 		return nil
@@ -93,11 +104,11 @@ type NewAssetPayloadStorage struct {
 	Ipfs *NewAssetPayloadIpfs `json:"ipfs,omitempty"`
 }
 
-func (o *NewAssetPayloadStorage) GetIpfs() *NewAssetPayloadIpfs {
-	if o == nil {
+func (n *NewAssetPayloadStorage) GetIpfs() *NewAssetPayloadIpfs {
+	if n == nil {
 		return nil
 	}
-	return o.Ipfs
+	return n.Ipfs
 }
 
 type NewAssetPayloadEncryption struct {
@@ -105,11 +116,11 @@ type NewAssetPayloadEncryption struct {
 	EncryptedKey string `json:"encryptedKey"`
 }
 
-func (o *NewAssetPayloadEncryption) GetEncryptedKey() string {
-	if o == nil {
+func (n *NewAssetPayloadEncryption) GetEncryptedKey() string {
+	if n == nil {
 		return ""
 	}
-	return o.EncryptedKey
+	return n.EncryptedKey
 }
 
 type NewAssetPayload struct {
@@ -130,65 +141,65 @@ type NewAssetPayload struct {
 	TargetSegmentSizeSecs *float64 `json:"targetSegmentSizeSecs,omitempty"`
 }
 
-func (o *NewAssetPayload) GetName() string {
-	if o == nil {
+func (n *NewAssetPayload) GetName() string {
+	if n == nil {
 		return ""
 	}
-	return o.Name
+	return n.Name
 }
 
-func (o *NewAssetPayload) GetStaticMp4() *bool {
-	if o == nil {
+func (n *NewAssetPayload) GetStaticMp4() *bool {
+	if n == nil {
 		return nil
 	}
-	return o.StaticMp4
+	return n.StaticMp4
 }
 
-func (o *NewAssetPayload) GetPlaybackPolicy() *PlaybackPolicy {
-	if o == nil {
+func (n *NewAssetPayload) GetPlaybackPolicy() *PlaybackPolicy {
+	if n == nil {
 		return nil
 	}
-	return o.PlaybackPolicy
+	return n.PlaybackPolicy
 }
 
-func (o *NewAssetPayload) GetCreatorID() *InputCreatorID {
-	if o == nil {
+func (n *NewAssetPayload) GetCreatorID() *InputCreatorID {
+	if n == nil {
 		return nil
 	}
-	return o.CreatorID
+	return n.CreatorID
 }
 
-func (o *NewAssetPayload) GetStorage() *NewAssetPayloadStorage {
-	if o == nil {
+func (n *NewAssetPayload) GetStorage() *NewAssetPayloadStorage {
+	if n == nil {
 		return nil
 	}
-	return o.Storage
+	return n.Storage
 }
 
-func (o *NewAssetPayload) GetEncryption() *NewAssetPayloadEncryption {
-	if o == nil {
+func (n *NewAssetPayload) GetEncryption() *NewAssetPayloadEncryption {
+	if n == nil {
 		return nil
 	}
-	return o.Encryption
+	return n.Encryption
 }
 
-func (o *NewAssetPayload) GetC2pa() *bool {
-	if o == nil {
+func (n *NewAssetPayload) GetC2pa() *bool {
+	if n == nil {
 		return nil
 	}
-	return o.C2pa
+	return n.C2pa
 }
 
-func (o *NewAssetPayload) GetProfiles() []TranscodeProfile {
-	if o == nil {
+func (n *NewAssetPayload) GetProfiles() []TranscodeProfile {
+	if n == nil {
 		return nil
 	}
-	return o.Profiles
+	return n.Profiles
 }
 
-func (o *NewAssetPayload) GetTargetSegmentSizeSecs() *float64 {
-	if o == nil {
+func (n *NewAssetPayload) GetTargetSegmentSizeSecs() *float64 {
+	if n == nil {
 		return nil
 	}
-	return o.TargetSegmentSizeSecs
+	return n.TargetSegmentSizeSecs
 }

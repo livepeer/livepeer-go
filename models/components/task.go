@@ -56,39 +56,39 @@ type Upload struct {
 	TargetSegmentSizeSecs *float64 `json:"targetSegmentSizeSecs,omitempty"`
 }
 
-func (o *Upload) GetURL() *string {
-	if o == nil {
+func (u *Upload) GetURL() *string {
+	if u == nil {
 		return nil
 	}
-	return o.URL
+	return u.URL
 }
 
-func (o *Upload) GetEncryption() *EncryptionOutput {
-	if o == nil {
+func (u *Upload) GetEncryption() *EncryptionOutput {
+	if u == nil {
 		return nil
 	}
-	return o.Encryption
+	return u.Encryption
 }
 
-func (o *Upload) GetC2pa() *bool {
-	if o == nil {
+func (u *Upload) GetC2pa() *bool {
+	if u == nil {
 		return nil
 	}
-	return o.C2pa
+	return u.C2pa
 }
 
-func (o *Upload) GetProfiles() []TranscodeProfile {
-	if o == nil {
+func (u *Upload) GetProfiles() []TranscodeProfile {
+	if u == nil {
 		return nil
 	}
-	return o.Profiles
+	return u.Profiles
 }
 
-func (o *Upload) GetTargetSegmentSizeSecs() *float64 {
-	if o == nil {
+func (u *Upload) GetTargetSegmentSizeSecs() *float64 {
+	if u == nil {
 		return nil
 	}
-	return o.TargetSegmentSizeSecs
+	return u.TargetSegmentSizeSecs
 }
 
 // Content - File content to store into IPFS
@@ -106,32 +106,32 @@ type TaskExportData struct {
 	ID *string `json:"id,omitempty"`
 }
 
-func (o *TaskExportData) GetContent() Content {
-	if o == nil {
+func (t *TaskExportData) GetContent() Content {
+	if t == nil {
 		return Content{}
 	}
-	return o.Content
+	return t.Content
 }
 
-func (o *TaskExportData) GetIpfs() *IpfsExportParams {
-	if o == nil {
+func (t *TaskExportData) GetIpfs() *IpfsExportParams {
+	if t == nil {
 		return nil
 	}
-	return o.Ipfs
+	return t.Ipfs
 }
 
-func (o *TaskExportData) GetType() *string {
-	if o == nil {
+func (t *TaskExportData) GetType() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Type
+	return t.Type
 }
 
-func (o *TaskExportData) GetID() *string {
-	if o == nil {
+func (t *TaskExportData) GetID() *string {
+	if t == nil {
 		return nil
 	}
-	return o.ID
+	return t.ID
 }
 
 // TaskInput - Input video file to transcode
@@ -142,11 +142,11 @@ type TaskInput struct {
 	URL *string `json:"url,omitempty"`
 }
 
-func (o *TaskInput) GetURL() *string {
-	if o == nil {
+func (t *TaskInput) GetURL() *string {
+	if t == nil {
 		return nil
 	}
-	return o.URL
+	return t.URL
 }
 
 // TaskStorage - Storage for the output files
@@ -157,11 +157,11 @@ type TaskStorage struct {
 	URL *string `json:"url,omitempty"`
 }
 
-func (o *TaskStorage) GetURL() *string {
-	if o == nil {
+func (t *TaskStorage) GetURL() *string {
+	if t == nil {
 		return nil
 	}
-	return o.URL
+	return t.URL
 }
 
 // TaskHls - HLS output format
@@ -170,11 +170,11 @@ type TaskHls struct {
 	Path *string `json:"path,omitempty"`
 }
 
-func (o *TaskHls) GetPath() *string {
-	if o == nil {
+func (t *TaskHls) GetPath() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Path
+	return t.Path
 }
 
 // TaskMp4 - MP4 output format
@@ -183,11 +183,11 @@ type TaskMp4 struct {
 	Path *string `json:"path,omitempty"`
 }
 
-func (o *TaskMp4) GetPath() *string {
-	if o == nil {
+func (t *TaskMp4) GetPath() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Path
+	return t.Path
 }
 
 // TaskOutputs - Output formats
@@ -198,18 +198,18 @@ type TaskOutputs struct {
 	Mp4 *TaskMp4 `json:"mp4,omitempty"`
 }
 
-func (o *TaskOutputs) GetHls() *TaskHls {
-	if o == nil {
+func (t *TaskOutputs) GetHls() *TaskHls {
+	if t == nil {
 		return nil
 	}
-	return o.Hls
+	return t.Hls
 }
 
-func (o *TaskOutputs) GetMp4() *TaskMp4 {
-	if o == nil {
+func (t *TaskOutputs) GetMp4() *TaskMp4 {
+	if t == nil {
 		return nil
 	}
-	return o.Mp4
+	return t.Mp4
 }
 
 // TranscodeFile - Parameters for the transcode-file task
@@ -230,53 +230,53 @@ type TranscodeFile struct {
 	C2pa *bool `json:"c2pa,omitempty"`
 }
 
-func (o *TranscodeFile) GetInput() *TaskInput {
-	if o == nil {
+func (t *TranscodeFile) GetInput() *TaskInput {
+	if t == nil {
 		return nil
 	}
-	return o.Input
+	return t.Input
 }
 
-func (o *TranscodeFile) GetStorage() *TaskStorage {
-	if o == nil {
+func (t *TranscodeFile) GetStorage() *TaskStorage {
+	if t == nil {
 		return nil
 	}
-	return o.Storage
+	return t.Storage
 }
 
-func (o *TranscodeFile) GetOutputs() *TaskOutputs {
-	if o == nil {
+func (t *TranscodeFile) GetOutputs() *TaskOutputs {
+	if t == nil {
 		return nil
 	}
-	return o.Outputs
+	return t.Outputs
 }
 
-func (o *TranscodeFile) GetProfiles() []TranscodeProfile {
-	if o == nil {
+func (t *TranscodeFile) GetProfiles() []TranscodeProfile {
+	if t == nil {
 		return nil
 	}
-	return o.Profiles
+	return t.Profiles
 }
 
-func (o *TranscodeFile) GetTargetSegmentSizeSecs() *float64 {
-	if o == nil {
+func (t *TranscodeFile) GetTargetSegmentSizeSecs() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.TargetSegmentSizeSecs
+	return t.TargetSegmentSizeSecs
 }
 
-func (o *TranscodeFile) GetCreatorID() *InputCreatorID {
-	if o == nil {
+func (t *TranscodeFile) GetCreatorID() *InputCreatorID {
+	if t == nil {
 		return nil
 	}
-	return o.CreatorID
+	return t.CreatorID
 }
 
-func (o *TranscodeFile) GetC2pa() *bool {
-	if o == nil {
+func (t *TranscodeFile) GetC2pa() *bool {
+	if t == nil {
 		return nil
 	}
-	return o.C2pa
+	return t.C2pa
 }
 
 // ClipStrategy - Strategy to use for clipping the asset. If not specified, the default strategy that Catalyst is configured for will be used. This field only available for admin users, and is only used for E2E testing.
@@ -289,25 +289,25 @@ type ClipStrategy struct {
 	PlaybackID *string `json:"playbackId,omitempty"`
 }
 
-func (o *ClipStrategy) GetStartTime() *float64 {
-	if o == nil {
+func (c *ClipStrategy) GetStartTime() *float64 {
+	if c == nil {
 		return nil
 	}
-	return o.StartTime
+	return c.StartTime
 }
 
-func (o *ClipStrategy) GetEndTime() *float64 {
-	if o == nil {
+func (c *ClipStrategy) GetEndTime() *float64 {
+	if c == nil {
 		return nil
 	}
-	return o.EndTime
+	return c.EndTime
 }
 
-func (o *ClipStrategy) GetPlaybackID() *string {
-	if o == nil {
+func (c *ClipStrategy) GetPlaybackID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.PlaybackID
+	return c.PlaybackID
 }
 
 // CatalystPipelineStrategy - Force to use a specific strategy in the Catalyst pipeline. If not specified, the default strategy that Catalyst is configured for will be used. This field only available for admin users, and is only used for E2E testing.
@@ -362,39 +362,39 @@ type Clip struct {
 	InputID *string `json:"inputId,omitempty"`
 }
 
-func (o *Clip) GetURL() *string {
-	if o == nil {
+func (c *Clip) GetURL() *string {
+	if c == nil {
 		return nil
 	}
-	return o.URL
+	return c.URL
 }
 
-func (o *Clip) GetClipStrategy() *ClipStrategy {
-	if o == nil {
+func (c *Clip) GetClipStrategy() *ClipStrategy {
+	if c == nil {
 		return nil
 	}
-	return o.ClipStrategy
+	return c.ClipStrategy
 }
 
-func (o *Clip) GetCatalystPipelineStrategy() *CatalystPipelineStrategy {
-	if o == nil {
+func (c *Clip) GetCatalystPipelineStrategy() *CatalystPipelineStrategy {
+	if c == nil {
 		return nil
 	}
-	return o.CatalystPipelineStrategy
+	return c.CatalystPipelineStrategy
 }
 
-func (o *Clip) GetSessionID() *string {
-	if o == nil {
+func (c *Clip) GetSessionID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.SessionID
+	return c.SessionID
 }
 
-func (o *Clip) GetInputID() *string {
-	if o == nil {
+func (c *Clip) GetInputID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.InputID
+	return c.InputID
 }
 
 // Params - Parameters of the task
@@ -410,39 +410,39 @@ type Params struct {
 	Clip          *Clip          `json:"clip,omitempty"`
 }
 
-func (o *Params) GetUpload() *Upload {
-	if o == nil {
+func (p *Params) GetUpload() *Upload {
+	if p == nil {
 		return nil
 	}
-	return o.Upload
+	return p.Upload
 }
 
-func (o *Params) GetExport() *ExportTaskParams {
-	if o == nil {
+func (p *Params) GetExport() *ExportTaskParams {
+	if p == nil {
 		return nil
 	}
-	return o.Export
+	return p.Export
 }
 
-func (o *Params) GetExportData() *TaskExportData {
-	if o == nil {
+func (p *Params) GetExportData() *TaskExportData {
+	if p == nil {
 		return nil
 	}
-	return o.ExportData
+	return p.ExportData
 }
 
-func (o *Params) GetTranscodeFile() *TranscodeFile {
-	if o == nil {
+func (p *Params) GetTranscodeFile() *TranscodeFile {
+	if p == nil {
 		return nil
 	}
-	return o.TranscodeFile
+	return p.TranscodeFile
 }
 
-func (o *Params) GetClip() *Clip {
-	if o == nil {
+func (p *Params) GetClip() *Clip {
+	if p == nil {
 		return nil
 	}
-	return o.Clip
+	return p.Clip
 }
 
 // TaskPhase - Phase of the task
@@ -498,39 +498,39 @@ type TaskStatus struct {
 	Retries *float64 `json:"retries,omitempty"`
 }
 
-func (o *TaskStatus) GetPhase() TaskPhase {
-	if o == nil {
+func (t *TaskStatus) GetPhase() TaskPhase {
+	if t == nil {
 		return TaskPhase("")
 	}
-	return o.Phase
+	return t.Phase
 }
 
-func (o *TaskStatus) GetUpdatedAt() float64 {
-	if o == nil {
+func (t *TaskStatus) GetUpdatedAt() float64 {
+	if t == nil {
 		return 0.0
 	}
-	return o.UpdatedAt
+	return t.UpdatedAt
 }
 
-func (o *TaskStatus) GetProgress() *float64 {
-	if o == nil {
+func (t *TaskStatus) GetProgress() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.Progress
+	return t.Progress
 }
 
-func (o *TaskStatus) GetErrorMessage() *string {
-	if o == nil {
+func (t *TaskStatus) GetErrorMessage() *string {
+	if t == nil {
 		return nil
 	}
-	return o.ErrorMessage
+	return t.ErrorMessage
 }
 
-func (o *TaskStatus) GetRetries() *float64 {
-	if o == nil {
+func (t *TaskStatus) GetRetries() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.Retries
+	return t.Retries
 }
 
 // TaskUpload - Output of the upload task
@@ -544,24 +544,24 @@ func (t TaskUpload) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TaskUpload) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *TaskUpload) GetAssetSpec() *Asset {
-	if o == nil {
+func (t *TaskUpload) GetAssetSpec() *Asset {
+	if t == nil {
 		return nil
 	}
-	return o.AssetSpec
+	return t.AssetSpec
 }
 
-func (o *TaskUpload) GetAdditionalProperties() map[string]any {
-	if o == nil {
+func (t *TaskUpload) GetAdditionalProperties() map[string]any {
+	if t == nil {
 		return nil
 	}
-	return o.AdditionalProperties
+	return t.AdditionalProperties
 }
 
 type TaskIpfs struct {
@@ -581,46 +581,46 @@ type TaskIpfs struct {
 	NftMetadataGatewayURL *string `json:"nftMetadataGatewayUrl,omitempty"`
 }
 
-func (o *TaskIpfs) GetVideoFileCid() string {
-	if o == nil {
+func (t *TaskIpfs) GetVideoFileCid() string {
+	if t == nil {
 		return ""
 	}
-	return o.VideoFileCid
+	return t.VideoFileCid
 }
 
-func (o *TaskIpfs) GetVideoFileURL() *string {
-	if o == nil {
+func (t *TaskIpfs) GetVideoFileURL() *string {
+	if t == nil {
 		return nil
 	}
-	return o.VideoFileURL
+	return t.VideoFileURL
 }
 
-func (o *TaskIpfs) GetVideoFileGatewayURL() *string {
-	if o == nil {
+func (t *TaskIpfs) GetVideoFileGatewayURL() *string {
+	if t == nil {
 		return nil
 	}
-	return o.VideoFileGatewayURL
+	return t.VideoFileGatewayURL
 }
 
-func (o *TaskIpfs) GetNftMetadataCid() *string {
-	if o == nil {
+func (t *TaskIpfs) GetNftMetadataCid() *string {
+	if t == nil {
 		return nil
 	}
-	return o.NftMetadataCid
+	return t.NftMetadataCid
 }
 
-func (o *TaskIpfs) GetNftMetadataURL() *string {
-	if o == nil {
+func (t *TaskIpfs) GetNftMetadataURL() *string {
+	if t == nil {
 		return nil
 	}
-	return o.NftMetadataURL
+	return t.NftMetadataURL
 }
 
-func (o *TaskIpfs) GetNftMetadataGatewayURL() *string {
-	if o == nil {
+func (t *TaskIpfs) GetNftMetadataGatewayURL() *string {
+	if t == nil {
 		return nil
 	}
-	return o.NftMetadataGatewayURL
+	return t.NftMetadataGatewayURL
 }
 
 // Export - Output of the export task
@@ -628,11 +628,11 @@ type Export struct {
 	Ipfs *TaskIpfs `json:"ipfs,omitempty"`
 }
 
-func (o *Export) GetIpfs() *TaskIpfs {
-	if o == nil {
+func (e *Export) GetIpfs() *TaskIpfs {
+	if e == nil {
 		return nil
 	}
-	return o.Ipfs
+	return e.Ipfs
 }
 
 type TaskOutputIpfs struct {
@@ -640,11 +640,11 @@ type TaskOutputIpfs struct {
 	Cid string `json:"cid"`
 }
 
-func (o *TaskOutputIpfs) GetCid() string {
-	if o == nil {
+func (t *TaskOutputIpfs) GetCid() string {
+	if t == nil {
 		return ""
 	}
-	return o.Cid
+	return t.Cid
 }
 
 // ExportData - Output of the export data task
@@ -652,11 +652,11 @@ type ExportData struct {
 	Ipfs *TaskOutputIpfs `json:"ipfs,omitempty"`
 }
 
-func (o *ExportData) GetIpfs() *TaskOutputIpfs {
-	if o == nil {
+func (e *ExportData) GetIpfs() *TaskOutputIpfs {
+	if e == nil {
 		return nil
 	}
-	return o.Ipfs
+	return e.Ipfs
 }
 
 // Output of the task
@@ -717,79 +717,79 @@ type Task struct {
 	Output *Output `json:"output,omitempty"`
 }
 
-func (o *Task) GetID() *string {
-	if o == nil {
+func (t *Task) GetID() *string {
+	if t == nil {
 		return nil
 	}
-	return o.ID
+	return t.ID
 }
 
-func (o *Task) GetType() *TaskType {
-	if o == nil {
+func (t *Task) GetType() *TaskType {
+	if t == nil {
 		return nil
 	}
-	return o.Type
+	return t.Type
 }
 
-func (o *Task) GetCreatedAt() *float64 {
-	if o == nil {
+func (t *Task) GetCreatedAt() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return t.CreatedAt
 }
 
-func (o *Task) GetScheduledAt() *float64 {
-	if o == nil {
+func (t *Task) GetScheduledAt() *float64 {
+	if t == nil {
 		return nil
 	}
-	return o.ScheduledAt
+	return t.ScheduledAt
 }
 
-func (o *Task) GetInputAssetID() *string {
-	if o == nil {
+func (t *Task) GetInputAssetID() *string {
+	if t == nil {
 		return nil
 	}
-	return o.InputAssetID
+	return t.InputAssetID
 }
 
-func (o *Task) GetOutputAssetID() *string {
-	if o == nil {
+func (t *Task) GetOutputAssetID() *string {
+	if t == nil {
 		return nil
 	}
-	return o.OutputAssetID
+	return t.OutputAssetID
 }
 
-func (o *Task) GetProjectID() *string {
-	if o == nil {
+func (t *Task) GetProjectID() *string {
+	if t == nil {
 		return nil
 	}
-	return o.ProjectID
+	return t.ProjectID
 }
 
-func (o *Task) GetRequesterID() *string {
-	if o == nil {
+func (t *Task) GetRequesterID() *string {
+	if t == nil {
 		return nil
 	}
-	return o.RequesterID
+	return t.RequesterID
 }
 
-func (o *Task) GetParams() *Params {
-	if o == nil {
+func (t *Task) GetParams() *Params {
+	if t == nil {
 		return nil
 	}
-	return o.Params
+	return t.Params
 }
 
-func (o *Task) GetStatus() *TaskStatus {
-	if o == nil {
+func (t *Task) GetStatus() *TaskStatus {
+	if t == nil {
 		return nil
 	}
-	return o.Status
+	return t.Status
 }
 
-func (o *Task) GetOutput() *Output {
-	if o == nil {
+func (t *Task) GetOutput() *Output {
+	if t == nil {
 		return nil
 	}
-	return o.Output
+	return t.Output
 }

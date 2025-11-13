@@ -19,8 +19,8 @@ const (
 
 // GenImageToVideoGenerateResponse500ResponseBody - Internal Server Error
 type GenImageToVideoGenerateResponse500ResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline,name=responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline,name=responseBody"`
 
 	Type GenImageToVideoGenerateResponse500ResponseBodyType
 
@@ -50,14 +50,14 @@ func CreateGenImageToVideoGenerateResponse500ResponseBodyStudioAPIError(studioAP
 func (u *GenImageToVideoGenerateResponse500ResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenImageToVideoGenerateResponse500ResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenImageToVideoGenerateResponse500ResponseBodyTypeStudioAPIError
 		return nil
@@ -100,8 +100,8 @@ const (
 
 // GenImageToVideoGenerateResponseResponseBody - Validation Error
 type GenImageToVideoGenerateResponseResponseBody struct {
-	HTTPValidationError *components.HTTPValidationError
-	StudioAPIError      *components.StudioAPIError
+	HTTPValidationError *components.HTTPValidationError `queryParam:"inline,name=responseBody"`
+	StudioAPIError      *components.StudioAPIError      `queryParam:"inline,name=responseBody"`
 
 	Type GenImageToVideoGenerateResponseResponseBodyType
 
@@ -131,14 +131,14 @@ func CreateGenImageToVideoGenerateResponseResponseBodyStudioAPIError(studioAPIEr
 func (u *GenImageToVideoGenerateResponseResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpValidationError components.HTTPValidationError = components.HTTPValidationError{}
-	if err := utils.UnmarshalJSON(data, &httpValidationError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpValidationError, "", true, nil); err == nil {
 		u.HTTPValidationError = &httpValidationError
 		u.Type = GenImageToVideoGenerateResponseResponseBodyTypeHTTPValidationError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenImageToVideoGenerateResponseResponseBodyTypeStudioAPIError
 		return nil
@@ -181,8 +181,8 @@ const (
 
 // GenImageToVideoGenerateResponseBody - Unauthorized
 type GenImageToVideoGenerateResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline,name=responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline,name=responseBody"`
 
 	Type GenImageToVideoGenerateResponseBodyType
 
@@ -212,14 +212,14 @@ func CreateGenImageToVideoGenerateResponseBodyStudioAPIError(studioAPIError comp
 func (u *GenImageToVideoGenerateResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenImageToVideoGenerateResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenImageToVideoGenerateResponseBodyTypeStudioAPIError
 		return nil
@@ -262,8 +262,8 @@ const (
 
 // GenImageToVideoResponseBody - Bad Request
 type GenImageToVideoResponseBody struct {
-	HTTPError      *components.HTTPError
-	StudioAPIError *components.StudioAPIError
+	HTTPError      *components.HTTPError      `queryParam:"inline,name=responseBody"`
+	StudioAPIError *components.StudioAPIError `queryParam:"inline,name=responseBody"`
 
 	Type GenImageToVideoResponseBodyType
 
@@ -293,14 +293,14 @@ func CreateGenImageToVideoResponseBodyStudioAPIError(studioAPIError components.S
 func (u *GenImageToVideoResponseBody) UnmarshalJSON(data []byte) error {
 
 	var httpError components.HTTPError = components.HTTPError{}
-	if err := utils.UnmarshalJSON(data, &httpError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &httpError, "", true, nil); err == nil {
 		u.HTTPError = &httpError
 		u.Type = GenImageToVideoResponseBodyTypeHTTPError
 		return nil
 	}
 
 	var studioAPIError components.StudioAPIError = components.StudioAPIError{}
-	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &studioAPIError, "", true, nil); err == nil {
 		u.StudioAPIError = &studioAPIError
 		u.Type = GenImageToVideoResponseBodyTypeStudioAPIError
 		return nil

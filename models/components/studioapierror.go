@@ -2,13 +2,28 @@
 
 package components
 
+import (
+	"github.com/livepeer/livepeer-go/internal/utils"
+)
+
 type StudioAPIError struct {
 	Errors []string `json:"errors,omitempty"`
 }
 
-func (o *StudioAPIError) GetErrors() []string {
-	if o == nil {
+func (s StudioAPIError) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StudioAPIError) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StudioAPIError) GetErrors() []string {
+	if s == nil {
 		return nil
 	}
-	return o.Errors
+	return s.Errors
 }

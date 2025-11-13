@@ -15,18 +15,18 @@ type TargetAddPayloadSpec struct {
 	URL string `json:"url"`
 }
 
-func (o *TargetAddPayloadSpec) GetName() *string {
-	if o == nil {
+func (t *TargetAddPayloadSpec) GetName() *string {
+	if t == nil {
 		return nil
 	}
-	return o.Name
+	return t.Name
 }
 
-func (o *TargetAddPayloadSpec) GetURL() string {
-	if o == nil {
+func (t *TargetAddPayloadSpec) GetURL() string {
+	if t == nil {
 		return ""
 	}
-	return o.URL
+	return t.URL
 }
 
 type TargetAddPayload struct {
@@ -52,36 +52,36 @@ func (t TargetAddPayload) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TargetAddPayload) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"profile"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *TargetAddPayload) GetProfile() string {
-	if o == nil {
+func (t *TargetAddPayload) GetProfile() string {
+	if t == nil {
 		return ""
 	}
-	return o.Profile
+	return t.Profile
 }
 
-func (o *TargetAddPayload) GetVideoOnly() *bool {
-	if o == nil {
+func (t *TargetAddPayload) GetVideoOnly() *bool {
+	if t == nil {
 		return nil
 	}
-	return o.VideoOnly
+	return t.VideoOnly
 }
 
-func (o *TargetAddPayload) GetID() *string {
-	if o == nil {
+func (t *TargetAddPayload) GetID() *string {
+	if t == nil {
 		return nil
 	}
-	return o.ID
+	return t.ID
 }
 
-func (o *TargetAddPayload) GetSpec() *TargetAddPayloadSpec {
-	if o == nil {
+func (t *TargetAddPayload) GetSpec() *TargetAddPayloadSpec {
+	if t == nil {
 		return nil
 	}
-	return o.Spec
+	return t.Spec
 }

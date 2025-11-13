@@ -4,7 +4,6 @@ package operations
 
 import (
 	"github.com/livepeer/livepeer-go/models/components"
-	"github.com/livepeer/livepeer-go/models/sdkerrors"
 )
 
 type GetSessionRequest struct {
@@ -12,11 +11,11 @@ type GetSessionRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetSessionRequest) GetID() string {
-	if o == nil {
+func (g *GetSessionRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 type GetSessionResponse struct {
@@ -24,26 +23,26 @@ type GetSessionResponse struct {
 	// Success
 	Session *components.Session
 	// Error
-	Error *sdkerrors.Error
+	Error *components.Error
 }
 
-func (o *GetSessionResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetSessionResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetSessionResponse) GetSession() *components.Session {
-	if o == nil {
+func (g *GetSessionResponse) GetSession() *components.Session {
+	if g == nil {
 		return nil
 	}
-	return o.Session
+	return g.Session
 }
 
-func (o *GetSessionResponse) GetError() *sdkerrors.Error {
-	if o == nil {
+func (g *GetSessionResponse) GetError() *components.Error {
+	if g == nil {
 		return nil
 	}
-	return o.Error
+	return g.Error
 }

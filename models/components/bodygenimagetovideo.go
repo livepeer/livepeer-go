@@ -7,28 +7,28 @@ import (
 )
 
 type BodyGenImageToVideoImage struct {
-	FileName string `multipartForm:"name=image"`
+	FileName string `multipartForm:"name=fileName"`
 	// This field accepts []byte data or io.Reader implementations, such as *os.File.
 	Content any `multipartForm:"content"`
 }
 
-func (o *BodyGenImageToVideoImage) GetFileName() string {
-	if o == nil {
+func (b *BodyGenImageToVideoImage) GetFileName() string {
+	if b == nil {
 		return ""
 	}
-	return o.FileName
+	return b.FileName
 }
 
-func (o *BodyGenImageToVideoImage) GetContent() any {
-	if o == nil {
+func (b *BodyGenImageToVideoImage) GetContent() any {
+	if b == nil {
 		return nil
 	}
-	return o.Content
+	return b.Content
 }
 
 type BodyGenImageToVideo struct {
 	// Uploaded image to generate a video from.
-	Image BodyGenImageToVideoImage `multipartForm:"file"`
+	Image BodyGenImageToVideoImage `multipartForm:"file,name=image"`
 	// Hugging Face model ID used for video generation.
 	ModelID *string `default:"stabilityai/stable-video-diffusion-img2vid-xt-1-1" multipartForm:"name=model_id"`
 	// The height in pixels of the generated video.
@@ -54,78 +54,78 @@ func (b BodyGenImageToVideo) MarshalJSON() ([]byte, error) {
 }
 
 func (b *BodyGenImageToVideo) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &b, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &b, "", false, []string{"image"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *BodyGenImageToVideo) GetImage() BodyGenImageToVideoImage {
-	if o == nil {
+func (b *BodyGenImageToVideo) GetImage() BodyGenImageToVideoImage {
+	if b == nil {
 		return BodyGenImageToVideoImage{}
 	}
-	return o.Image
+	return b.Image
 }
 
-func (o *BodyGenImageToVideo) GetModelID() *string {
-	if o == nil {
+func (b *BodyGenImageToVideo) GetModelID() *string {
+	if b == nil {
 		return nil
 	}
-	return o.ModelID
+	return b.ModelID
 }
 
-func (o *BodyGenImageToVideo) GetHeight() *int64 {
-	if o == nil {
+func (b *BodyGenImageToVideo) GetHeight() *int64 {
+	if b == nil {
 		return nil
 	}
-	return o.Height
+	return b.Height
 }
 
-func (o *BodyGenImageToVideo) GetWidth() *int64 {
-	if o == nil {
+func (b *BodyGenImageToVideo) GetWidth() *int64 {
+	if b == nil {
 		return nil
 	}
-	return o.Width
+	return b.Width
 }
 
-func (o *BodyGenImageToVideo) GetFps() *int64 {
-	if o == nil {
+func (b *BodyGenImageToVideo) GetFps() *int64 {
+	if b == nil {
 		return nil
 	}
-	return o.Fps
+	return b.Fps
 }
 
-func (o *BodyGenImageToVideo) GetMotionBucketID() *int64 {
-	if o == nil {
+func (b *BodyGenImageToVideo) GetMotionBucketID() *int64 {
+	if b == nil {
 		return nil
 	}
-	return o.MotionBucketID
+	return b.MotionBucketID
 }
 
-func (o *BodyGenImageToVideo) GetNoiseAugStrength() *float64 {
-	if o == nil {
+func (b *BodyGenImageToVideo) GetNoiseAugStrength() *float64 {
+	if b == nil {
 		return nil
 	}
-	return o.NoiseAugStrength
+	return b.NoiseAugStrength
 }
 
-func (o *BodyGenImageToVideo) GetSafetyCheck() *bool {
-	if o == nil {
+func (b *BodyGenImageToVideo) GetSafetyCheck() *bool {
+	if b == nil {
 		return nil
 	}
-	return o.SafetyCheck
+	return b.SafetyCheck
 }
 
-func (o *BodyGenImageToVideo) GetSeed() *int64 {
-	if o == nil {
+func (b *BodyGenImageToVideo) GetSeed() *int64 {
+	if b == nil {
 		return nil
 	}
-	return o.Seed
+	return b.Seed
 }
 
-func (o *BodyGenImageToVideo) GetNumInferenceSteps() *int64 {
-	if o == nil {
+func (b *BodyGenImageToVideo) GetNumInferenceSteps() *int64 {
+	if b == nil {
 		return nil
 	}
-	return o.NumInferenceSteps
+	return b.NumInferenceSteps
 }

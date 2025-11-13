@@ -14,23 +14,23 @@ type GenImageToVideoResponse struct {
 	StudioAPIError *components.StudioAPIError
 }
 
-func (o *GenImageToVideoResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GenImageToVideoResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GenImageToVideoResponse) GetVideoResponse() *components.VideoResponse {
-	if o == nil {
+func (g *GenImageToVideoResponse) GetVideoResponse() *components.VideoResponse {
+	if g == nil {
 		return nil
 	}
-	return o.VideoResponse
+	return g.VideoResponse
 }
 
-func (o *GenImageToVideoResponse) GetStudioAPIError() *components.StudioAPIError {
-	if o == nil {
+func (g *GenImageToVideoResponse) GetStudioAPIError() *components.StudioAPIError {
+	if g == nil {
 		return nil
 	}
-	return o.StudioAPIError
+	return g.StudioAPIError
 }

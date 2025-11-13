@@ -43,6 +43,17 @@ func (e *NftMetadataTemplate) UnmarshalJSON(data []byte) error {
 type NftMetadata struct {
 }
 
+func (n NftMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(n, "", false)
+}
+
+func (n *NftMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type Spec struct {
 	// Name of the NFT metadata template to export. 'player'
 	// will embed the Livepeer Player on the NFT while 'file'
@@ -61,22 +72,22 @@ func (s Spec) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Spec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *Spec) GetNftMetadataTemplate() *NftMetadataTemplate {
-	if o == nil {
+func (s *Spec) GetNftMetadataTemplate() *NftMetadataTemplate {
+	if s == nil {
 		return nil
 	}
-	return o.NftMetadataTemplate
+	return s.NftMetadataTemplate
 }
 
-func (o *Spec) GetNftMetadata() *NftMetadata {
-	if o == nil {
+func (s *Spec) GetNftMetadata() *NftMetadata {
+	if s == nil {
 		return nil
 	}
-	return o.NftMetadata
+	return s.NftMetadata
 }

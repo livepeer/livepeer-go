@@ -11,11 +11,11 @@ type GetTaskRequest struct {
 	TaskID string `pathParam:"style=simple,explode=false,name=taskId"`
 }
 
-func (o *GetTaskRequest) GetTaskID() string {
-	if o == nil {
+func (g *GetTaskRequest) GetTaskID() string {
+	if g == nil {
 		return ""
 	}
-	return o.TaskID
+	return g.TaskID
 }
 
 type GetTaskResponse struct {
@@ -24,16 +24,16 @@ type GetTaskResponse struct {
 	Task *components.Task
 }
 
-func (o *GetTaskResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetTaskResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetTaskResponse) GetTask() *components.Task {
-	if o == nil {
+func (g *GetTaskResponse) GetTask() *components.Task {
+	if g == nil {
 		return nil
 	}
-	return o.Task
+	return g.Task
 }
